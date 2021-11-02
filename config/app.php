@@ -166,6 +166,8 @@ return [
          * Package Service Providers...
          */
 
+        LaravelFrontendPresets\LightBootstrapPreset\LightBootstrapPresetServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
