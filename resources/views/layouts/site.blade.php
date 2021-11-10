@@ -18,6 +18,10 @@
     <!-- BOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
+    <!-- SLICK -->
+    <link rel="stylesheet" type="text/css" href="css/slick.css">
+    <link rel="stylesheet" type="text/css" href="css/slick-theme.css">
+
     <!-- FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,17 +38,22 @@
 
 </head>
 
-<body>
+<body id="home">
+
+<!-- alerta -->
+<div class="alerta *ativo"><i class="uil uil-heart"></i> Salvo na sa lista de favoritos!</div>
+
+<!-- MENUS -->
 
 <!-- MENU SUPERIOR -->
-<nav class="menu-sup hidden">
+<nav class="menu-sup show-t hidden">
     <div class="container">
         <div class="row">
-            <div class="col">
-                <ul>
-                    <li><a href="index.html"><img src="img/icone-yogha-branco.svg"></a></li>
-                    <li><a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="switch"><i class="uil uil-bars"></i></a></li>
-                </ul>
+            <div class="col justify-content-center">
+                <a href="index.html"><img src="{{asset('img/icone-yogha-branco.svg')}}"></a>
+            </div>
+            <div class="col align-items-end justify-content-center">
+                <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="switch"><i class="icone-g texto-branco uil uil-bars"></i></a>
             </div>
         </div>
     </div>
@@ -53,15 +62,21 @@
 <!-- MENU INFERIOR -->
 <nav class="menu-inf">
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <ul>
-                    <li><a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-busca"><i class="uil uil-search"></i></a></li>
-                    <li><a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-loja"><i class="uil uil-shopping-bag"></i></a></li>
-                    <li><a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-favoritos"><i class="uil uil-heart"></i></a></li>
-                    <li><a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-mensagens"><i class="uil uil-comment-alt"></i></a></li>
-                    <li><a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-usuario"><i class="uil uil-user"></i></a></li>
-                </ul>
+        <div class="row mx-0 text-center">
+            <div class="col px-0">
+                <a href="#!" class="btn btn-ico mb-0 switch" data-bs-toggle="collapse" data-bs-target="#aba-busca"><i class="icone-g uil uil-search"></i></a>
+            </div>
+            <div class="col px-0">
+                <a href="#!" class="btn btn-ico mb-0 switch" data-bs-toggle="collapse" data-bs-target="#aba-loja"><i class="icone-g uil uil-shopping-bag"></i></a>
+            </div>
+            <div class="col px-0">
+                <a href="#!" class="btn btn-ico mb-0 switch" data-bs-toggle="collapse" data-bs-target="#aba-favoritos"><i class="icone-g uil uil-heart"></i></a>
+            </div>
+            <div class="col px-0">
+                <a href="#!" class="btn btn-ico mb-0 switch" data-bs-toggle="collapse" data-bs-target="#aba-mensagens"><i class="icone-g uil uil-comment-alt"></i></a>
+            </div>
+            <div class="col px-0">
+                <a href="#!" class="btn btn-ico mb-0 switch" data-bs-toggle="collapse" data-bs-target="#aba-usuario"><i class="icone-g uil uil-user"></i></a>
             </div>
         </div>
     </div>
@@ -73,7 +88,7 @@
         <div class="row">
             <div class="col">
                 <ul>
-                    <li><a href="index.html"><img src="img/logo-yogha.svg"></a></li>
+                    <li><a href="index.html"><img src="{{asset('img/logo-yogha.svg"')}}"></a></li>
                     <li><a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="switch"><i class="uil uil-times"></i></a></li>
                 </ul>
                 <ul>
@@ -85,51 +100,105 @@
                     <li><a href="#!">Ajuda</a>
                 </ul>
                 <ul class="social">
-                    <li><a href=""><i class="uil uil-facebook-f"></i></a></li>
-                    <li><a href=""><i class="uil uil-instagram"></i></a></li>
+                    <li><a href="#!"><i class="uil uil-facebook-f"></i></a></li>
+                    <li><a href="#!"><i class="uil uil-instagram"></i></a></li>
                 </ul>
             </div>
         </div>
     </div>
 </nav>
 
-@yield('content')
+<!-- ABAS -->
 
-<!-- FOOTER -->
-<footer>
+<!-- ABA DATAS -->
+<!--#include virtual="aba-datas.html"-->
+
+<!-- ABA HOSPEDES -->
+<!--#include virtual="aba-hospedes.html"-->
+
+<!-- ABA BUSCA -->
+<!--#include virtual="aba-busca.html"-->
+
+<!-- ABA LOJA -->
+<!--#include virtual="aba-loja.html"-->
+
+<!-- ABA LOJA SINGLE -->
+<!--#include virtual="aba-loja-single.html"-->
+
+<!-- ABA FAVORITOS -->
+<!--#include virtual="aba-favoritos.html"-->
+
+<!-- ABA MENSAGENS -->
+<!--#include virtual="aba-mensagens.html"-->
+
+<!-- ABA MENSAGENS CONVERSA -->
+<!--#include virtual="aba-mensagens-conversa.html"-->
+
+<!-- ABA MENSAGENS NOVA -->
+<!--#include virtual="aba-mensagens-nova.html"-->
+
+<!-- ABA USUARIO USUARIO -->
+<!--#include virtual="aba-usuario.html"-->
+
+<!-- CONTEUDO -->
+
+<!-- HEADER -->
+<header class="mb-30 pt-15">
     <div class="container">
         <div class="row">
             <div class="col">
-                <ul>
-                    <li><a href="">Como funciona</a></li>
-                    <li><a href="">Perguntas frequentes</a></li>
+                <img class="img-m" src="{{asset('img/logo-yogha-branco.svg')}}">
+            </div>
+            <div class="col align-items-end justify-content-center">
+                <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center texto-branco mb-15"><strong>Sinta-se em casa onde estiver</strong></h1>
+                <a href="#!" class="btn d-flex btn-2 mb-15 switch" data-bs-toggle="collapse" data-bs-target="#aba-busca"><i class="uil uil-search"></i> Onde você quer morar hoje?</a>
+                <a href="pagina-resultado-busca.shtml" class="btn d-flex">Me surpreenda!</a>
                 </ul>
-                <ul>
-                    <li><a href="">Quem somos</a></li>
-                    <li><a href="">Trabalhe conocsco</a></li>
-                    <li><a href="">Blog</a></li>
+            </div>
+        </div>
+    </div>
+</header>
+
+@yield('content')
+
+<!-- FOOTER -->
+<footer class="pt-30 fundo-marrom-claro text-center texto-marrom">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <ul class="gap-5 mb-20">
+                    <li><a href="#!">Como funciona</a></li>
+                    <li><a href="#!">Perguntas frequentes</a></li>
                 </ul>
-                <ul>
-                    <li><a href="">Política de confidencialidade</a></li>
-                    <li><a href="">Política de cookies</a></li>
-                    <li><a href="">Condições gerais</a></li>
+                <ul class="gap-5 mb-20">
+                    <li><a href="#!">Quem somos</a></li>
+                    <li><a href="#!">Trabalhe conocsco</a></li>
+                    <li><a href="#!">Blog</a></li>
                 </ul>
-                <ul>
-                    <li><img src="img/logo-yogha.svg"></li>
+                <ul class="gap-5 mb-20">
+                    <li><a href="#!">Política de confidencialidade</a></li>
+                    <li><a href="#!">Política de cookies</a></li>
+                    <li><a href="#!">Condições gerais</a></li>
                 </ul>
-                <ul>
-                    <li><a href="">41. 99694-1949</a></li>
-                    <li><a href="">reservas@yogha.com.br</a></li>
+                <img class="img-m mx-auto mb-20" src="img/logo-yogha.svg">
+                <ul class="gap-5 mb-20">
+                    <li><a href="#!">41. 99694-1949</a></li>
+                    <li><a href="#!">reservas@yogha.com.br</a></li>
                 </ul>
-                <ul>
+                <ul class="gap-5 mb-20">
                     <li>Rua Riachuelo, 110</li>
                     <li>Centro, Curitiba - PR</li>
                 </ul>
-                <ul class="social">
-                    <li><a href=""><i class="uil uil-facebook-f"></i></a></li>
-                    <li><a href=""><i class="uil uil-instagram"></i></a></li>
+                <ul class="gap-10 mb-20 row justify-content-center">
+                    <li class="col grow-0 px-0"><a href="#!"><i class="icone-g uil uil-facebook-f"></i></a></li>
+                    <li class="col grow-0 px-0"><a href="#!"><i class="icone-g uil uil-instagram"></i></a></li>
                 </ul>
-                <ul class="texto-p">
+                <ul class="gap-5 mb-30 texto-m">
                     <li>Yogha gestão patrimonial</li>
                     <li>CNPJ: 30.032.993/0001-44</li>
                 </ul>
@@ -139,34 +208,21 @@
 </footer>
 
 <!-- OVERLAY -->
-<div class="fundo-escuro"></div>
+<a href="#!" class="fundo-escuro"></a>
+
+<!-- SCRIPTS -->
 
 <!-- BOOTSTRAP -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
 <!-- JQUERY -->
-<script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-<script type="text/javascript">
-    $('.switch').on('click', function(e) {
-        $('body').toggleClass('overlay');
-    });
-</script>
+<!-- SLICK -->
+<script type="text/javascript" src="js/slick.min.js"></script>
 
-<script type="text/javascript">
-    var prev = 0;
-    var $window = $(window);
-    var nav = $('.menu-sup');
-
-    $window.on('scroll', function(){
-        var scrollTop = $window.scrollTop();
-        nav.toggleClass('hidden', scrollTop > prev);
-        prev = scrollTop;
-        if (scrollTop < 100) {
-            nav.addClass('hidden');
-        };
-    });
-</script>
+<!-- FUNCOES -->
+<script type="text/javascript" src="js/funcoes.js"></script>
 
 </body>
 
