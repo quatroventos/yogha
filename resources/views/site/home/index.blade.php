@@ -1,5 +1,6 @@
 @extends('layouts.site')
 @section('content')
+
 <!-- ABA BUSCA -->
 <section class="aba collapse" id="aba-busca">
     <div class="container">
@@ -44,108 +45,14 @@
             <div class="col">
                 <div>
                     <ul>
+                        <?php foreach($accommodations as $accommodation){ ?>
                         <li>
                             <a href="" class="anuncio">
                                 <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
+                                <strong><?php echo $accommodation->AccommodationName ?></strong>
                             </a>
                         </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="anuncio">
-                                <picture style="background-image: url(img/imagem.jpg);"></picture>
-                                <strong>Florianópolis</strong>
-                            </a>
-                        </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -780,36 +687,20 @@
         </div>
         <div class="slider slide-3col">
             <div>
-                <div>
-                    <a href="#!"><picture style="background-image: url(img/imagem.jpg);"></picture></a>
-                    <h3>Florianópolis</h3>
-                    <h4><i class="uil uil-clock"></i>15 minutos de carro</h4>
-                </div>
-                <div>
-                    <a href="#!"><picture style="background-image: url(img/imagem.jpg);"></picture></a>
-                    <h3>Florianópolis</h3>
-                    <h4><i class="uil uil-clock"></i>15 minutos de carro</h4>
-                </div>
-                <div>
-                    <a href="#!"><picture style="background-image: url(img/imagem.jpg);"></picture></a>
-                    <h3>Florianópolis</h3>
-                    <h4><i class="uil uil-clock"></i>15 minutos de carro</h4>
-                </div>
-                <div>
-                    <a href="#!"><picture style="background-image: url(img/imagem.jpg);"></picture></a>
-                    <h3>Florianópolis</h3>
-                    <h4><i class="uil uil-clock"></i>15 minutos de carro</h4>
-                </div>
-                <div>
-                    <a href="#!"><picture style="background-image: url(img/imagem.jpg);"></picture></a>
-                    <h3>Florianópolis</h3>
-                    <h4><i class="uil uil-clock"></i>15 minutos de carro</h4>
-                </div>
-                <div>
-                    <a href="#!"><picture style="background-image: url(img/imagem.jpg);"></picture></a>
-                    <h3>Florianópolis</h3>
-                    <h4><i class="uil uil-clock"></i>15 minutos de carro</h4>
-                </div>
+
+                <?php foreach($accommodations as $accommodation)
+                    <?php $pictures = json_decode($accommodation->Pictures, true); ?>
+                    @if(isset($pictures['Picture'][0]['PreparedURI'])){
+                        $thumbnail = $pictures['Picture'][0]['ThumbnailURI'];
+                    @endif
+                ?>
+                    <div>
+                        <a href="#!"><picture style="background-image: url(<?php echo $thumbnail; ?>);"></picture></a>
+                        <h3><?php echo $accommodation->AccommodationName ?></h3>
+                        <h4><i class="uil uil-clock"></i>15 minutos de carro</h4>
+                    </div>
+                @endforeach
+
             </div>
         </div>
     </div>

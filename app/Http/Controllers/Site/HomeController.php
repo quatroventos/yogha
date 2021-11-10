@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use RicorocksDigitalAgency\Soap\Facades\Soap;
 
 class HomeController extends Controller
 {
@@ -15,6 +16,11 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('site.home.index');
+        $accommodations = \DB::table('accommodations')
+            ->select('accommodations.*','descriptions.*')
+            ->join('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
+            ->get();
+
+        return view('site.home.index', compact('accommodations'));
     }
 }
