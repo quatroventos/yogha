@@ -19,8 +19,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
     <!-- SLICK -->
-    <link rel="stylesheet" type="text/css" href="css/slick.css">
-    <link rel="stylesheet" type="text/css" href="css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/slick.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/slick-theme.css')}}">
 
     <!-- FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col">
                 <ul>
-                    <li><a href="index.html"><img src="{{asset('img/logo-yogha.svg"')}}"></a></li>
+                    <li><a href="index.html"><img src="{{asset('img/logo-yogha.svg')}}"></a></li>
                     <li><a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="switch"><i class="uil uil-times"></i></a></li>
                 </ul>
                 <ul>
@@ -219,10 +219,10 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <!-- SLICK -->
-<script type="text/javascript" src="js/slick.min.js"></script>
+<script type="text/javascript" src="{{asset('js/slick.min.js')}}"></script>
 
 <!-- FUNCOES -->
-<script type="text/javascript" src="js/funcoes.js"></script>
+<script type="text/javascript" src="{{asset('js/funcoes.js')}}"></script>
 
 </body>
 
