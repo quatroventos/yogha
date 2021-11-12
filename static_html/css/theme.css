@@ -1060,7 +1060,7 @@ footer {}
 body.resultado {
 }
 body.resultado #aba-resultado {
-  top: calc(100% - 80px);
+  top: calc(100vh - 80px);
 }
   body.resultado .anuncio-flutuante {
     display: flex;
