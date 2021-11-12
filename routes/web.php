@@ -21,8 +21,8 @@ Route::get('/importxml', [App\Http\Controllers\ReadXMLController::class, 'index'
 Auth::routes();
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('home');
-
 Route::get('/admin', 'App\Http\Controllers\AdminController@index')->name('dashboard');
+Route::get('/admin/shelves', 'App\Http\Controllers\Backend\ShelvesController@index')->name('prateleiras');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);

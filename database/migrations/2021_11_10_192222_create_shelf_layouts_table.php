@@ -16,6 +16,7 @@ class CreateShelfLayoutsTable extends Migration
         Schema::create('shelf_layouts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->text("title");
             $table->text("layoutfile");
         });
     }

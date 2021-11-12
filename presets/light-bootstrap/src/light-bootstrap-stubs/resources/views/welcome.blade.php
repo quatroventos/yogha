@@ -1,5 +1,5 @@
 @extends('layouts/app', ['activePage' => 'welcome', 'title' => 'Light Bootstrap Dashboard Laravel by Creative Tim & UPDIVISION'])
-
+<!--
 @section('content')
     <div class="full-page section-image" data-color="black" data-image="{{asset('light-bootstrap/img/full-screen-image-2.jpg')}}">
         <div class="content">
@@ -26,3 +26,4 @@
         });
     </script>
 @endpush
+-->

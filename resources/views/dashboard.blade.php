@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'dashboard', 'title' => 'Light Bootstrap Dashboard Laravel by Creative Tim & UPDIVISION', 'navName' => 'dashboard', 'activeButton' => 'laravel'])
+@extends('layouts.app', ['activePage' => 'dashboard', 'title' => 'Yogha - Admin v1.0.0 - Dashboard', 'navName' => 'Dashboard', 'activeButton' => 'dashboard'])
 
 @section('content')
     <div class="content">
@@ -217,7 +217,7 @@
             // Javascript method's body can be found in assets/js/demos.js
             demo.initDashboardPageCharts();
 
-            demo.showNotification();
+            //demo.showNotification();
 
         });
     </script>

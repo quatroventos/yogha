@@ -16,6 +16,7 @@ class CreateShelfFiltersTable extends Migration
         Schema::create('shelf_filters', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->text("title");
             $table->longText("query");
         });
     }

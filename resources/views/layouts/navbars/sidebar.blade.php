@@ -1,14 +1,12 @@
-<div class="sidebar" data-image="{{ asset('light-bootstrap/img/sidebar-5.jpg') }}">
+<div class="sidebar" data-image="{{ asset('light-bootstrap/img/sidebar-5.jpg') }}" data-color="orange">
     <!--
 Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
 Tip 2: you can also add an image using data-image tag
 -->
     <div class="sidebar-wrapper">
-        <div class="logo">
-            <a href="http://www.creative-tim.com" class="simple-text">
-                {{ __("Creative Tim") }}
-            </a>
+        <div class="logo text-center">
+            <h2>Yogha <small>v 1.0</small></h2>
         </div>
         <ul class="nav">
             <li class="nav-item @if($activePage == 'dashboard') active @endif">
@@ -17,42 +15,14 @@ Tip 2: you can also add an image using data-image tag
                     <p>{{ __("Dashboard") }}</p>
                 </a>
             </li>
-           
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#laravelExamples" @if($activeButton =='laravel') aria-expanded="true" @endif>
-                    <i>
-                        <img src="{{ asset('light-bootstrap/img/laravel.svg') }}" style="width:25px">
-                    </i>
-                    <p>
-                        {{ __('Laravel example') }}
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse @if($activeButton =='laravel') show @endif" id="laravelExamples">
-                    <ul class="nav">
-                        <li class="nav-item @if($activePage == 'user') active @endif">
-                            <a class="nav-link" href="{{route('profile.edit')}}">
-                                <i class="nc-icon nc-single-02"></i>
-                                <p>{{ __("User Profile") }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item @if($activePage == 'user-management') active @endif">
-                            <a class="nav-link" href="{{route('user.index')}}">
-                                <i class="nc-icon nc-circle-09"></i>
-                                <p>{{ __("User Management") }}</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
 
-            <li class="nav-item @if($activePage == 'table') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'table')}}">
-                    <i class="nc-icon nc-notes"></i>
-                    <p>{{ __("Table List") }}</p>
+            <li class="nav-item @if($activePage == 'shelves') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'admin/shelves')}}">
+                    <i class="nc-icon nc-layers-3"></i>
+                    <p>Prateleiras</p>
                 </a>
             </li>
-            <li class="nav-item @if($activePage == 'typography') active @endif">
+            <!--<li class="nav-item @if($activePage == 'typography') active @endif">
                 <a class="nav-link" href="{{route('page.index', 'typography')}}">
                     <i class="nc-icon nc-paper-2"></i>
                     <p>{{ __("Typography") }}</p>
@@ -81,7 +51,7 @@ Tip 2: you can also add an image using data-image tag
                     <i class="nc-icon nc-alien-33"></i>
                     <p>{{ __("Upgrade to PRO") }}</p>
                 </a>
-            </li>
+            </li>-->
         </ul>
     </div>
 </div>
