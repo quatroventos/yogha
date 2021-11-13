@@ -90,8 +90,10 @@
           <div class="col">
             <p>Bem-vindo à Yogha!</p>
             <p>Ao integrar lazer, segurança e tranquilidade, o Helbor Stay Batel by Yogha agrega conforto e ótima estrutura para que você se sinta em casa.</p>
-            <div class="conteudo-extra collapse">
-              <p>Conteúdo extra</p>
+            <div>
+              <div class="conteudo-extra collapse">
+                <p>Conteúdo extra</p>
+              </div>
             </div>
             <a href="#!" data-bs-toggle="collapse" data-bs-target=".conteudo-extra" aria-expanded="false" class="btn-link texto-m px-0 d-flex">
               <p class="align-items-center mb-0 mostrar-mais"><strong> Mostrar mais</strong> <i class="icone-m uil uil-angle-down"></i></p>
@@ -106,7 +108,7 @@
         </div>
         <div class="row mb-15">
           <div class="col">
-            <ul class="gap-10 mb-15">
+            <ul class="gap-10">
               <li class="d-flex align-items-center gap-10">
                 <i class="icone-gg uil uil-wifi"></i> Wifi
               </li>
@@ -122,8 +124,8 @@
               <li class="d-flex align-items-center gap-10">
                 <i class="icone-gg uil uil-bag"></i> Área de escritório
               </li>
-              <li class="lista-extra collapse">
-                <ul class="gap-10">
+              <li>
+                <ul class="lista-extra collapse gap-10">
                   <li class="d-flex align-items-center gap-10">
                     <i class="icone-gg uil uil-basketball"></i> Área de esportes
                   </li>

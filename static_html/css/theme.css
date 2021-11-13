@@ -19,9 +19,11 @@
   box-shadow: none !important;
 }
 
-html,
+html {
+  height:100%
+} 
 body {
-  min-height: 100vh;
+  min-height:100%
 }
 body {
   color: var(--marrom-escuro);
@@ -315,6 +317,10 @@ ul.icones li {
 }
 ul.icones li i {
   font-size: 16px;
+}
+ul.lista-extra:after {
+  content: "";
+  display: flex;
 }
 
 
@@ -644,13 +650,8 @@ div.alerta.ativo {
 
 /* menu inferior */
 .menu-inf {
-  background: var(--laranja);
-  bottom: 0;
-  display: flex;
-  left: 0;
-  position: fixed;
-  right: 0;
-  z-index: 1000;
+  background: var(--laranja) !important;
+  border: none !important;
 }
   .menu-inf ul {
     flex-direction: row;
@@ -919,9 +920,7 @@ body.overlay .fundo-escuro {
 /* HOME
 ----------------------------------------------------------------- */
 
-#home {
-  margin-bottom: 42px;
-}
+#home {}
 
 /* header */
 #home header {
@@ -1060,7 +1059,7 @@ footer {}
 body.resultado {
 }
 body.resultado #aba-resultado {
-  top: calc(100vh - 80px);
+  top: calc(100% - 80px);
 }
   body.resultado .anuncio-flutuante {
     display: flex;
