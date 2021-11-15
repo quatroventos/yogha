@@ -474,10 +474,21 @@ input[type=checkbox]:checked {
   font-size: 24px;
 }
 
+.btn:hover,
+.btn:active {
+  background: var(--marrom-escuro);
+  color: var(--branco);
+}
+
 .btn-2,
 .btn-2:visited {
   background: var(--branco);
   color: var(--laranja);
+}
+.btn-2:hover,
+.btn-2:active {
+  background: var(--marrom-escuro);
+  color: var(--branco);
 }
 .btn-3,
 .btn-3:visited {
@@ -495,6 +506,12 @@ input[type=checkbox]:checked {
   background: transparent;
   border: 2px solid var(--branco);
   color: var(--branco);
+}
+.btn-5:hover,
+.btn-5:active {
+  background: transparent;
+  border: 2px solid var(--laranja);
+  color: var(--laranja);
 }
 .btn-link,
 .btn-link:visited {
