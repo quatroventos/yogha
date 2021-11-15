@@ -88,21 +88,21 @@
           <ul>
             <li>
               <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                <picture class="mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <h3 class="mb-5">Título do anúncio</h3>
                 <h4 class="texto-m d-flex gap-5"><i class="texto-laranja icone-p uil uil-clock"></i>15 min. de carro</h4>
               </a>
             </li>
             <li>
               <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                <picture class="mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <h3 class="mb-5">Título do anúncio</h3>
                 <h4 class="texto-m d-flex gap-5"><i class="texto-laranja icone-p uil uil-clock"></i>15 min. de carro</h4>
               </a>
             </li>
             <li>
               <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                <picture class="mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <h3 class="mb-5">Título do anúncio</h3>
                 <h4 class="texto-m d-flex gap-5"><i class="texto-laranja icone-p uil uil-clock"></i>15 min. de carro</h4>
               </a>
@@ -148,21 +148,21 @@
           <ul>
             <li>
               <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                <picture class="mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <h3 class="mb-5">Título do anúncio</h3>
                 <h4 class="texto-m d-flex gap-5"><i class="texto-laranja icone-m uil uil-star"></i> <strong class="texto-laranja" strong>9,5</strong> (200)</h4>
               </a>
             </li>
             <li>
               <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                <picture class="mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <h3 class="mb-5">Título do anúncio</h3>
                 <h4 class="texto-m d-flex gap-5"><i class="texto-laranja icone-m uil uil-star"></i> <strong class="texto-laranja" strong>9,5</strong> (200)</h4>
               </a>
             </li>
             <li>
               <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                <picture class="mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <h3 class="mb-5">Título do anúncio</h3>
                 <h4 class="texto-m d-flex gap-5"><i class="texto-laranja icone-m uil uil-star"></i> <strong class="texto-laranja" strong>9,5</strong> (200)</h4>
               </a>
@@ -184,21 +184,21 @@
           <ul>
             <li>
               <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                <picture class="mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <h3 class="mb-5">Título do anúncio</h3>
                 <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$45</strong> /noite</h4>
               </a>              
             </li>
             <li>
               <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                <picture class="mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <h3 class="mb-5">Título do anúncio</h3>
                 <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$45</strong> /noite</h4>
               </a>
             </li>
             <li>
               <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                <picture class="mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <h3 class="mb-5">Título do anúncio</h3>
                 <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$45</strong> /noite</h4>
               </a>
@@ -233,7 +233,7 @@
           <ul>
             <li>
               <a href="pagina-resultado-busca.shtml">
-                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <div>
                   <h3><strong>Título da categoria</strong></h3>
                 </div>
@@ -241,7 +241,7 @@
             </li>
             <li>
               <a href="pagina-resultado-busca.shtml">
-                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <div>
                   <h3><strong>Título da categoria</strong></h3>
                 </div>
@@ -249,7 +249,7 @@
             </li>
             <li>
               <a href="pagina-resultado-busca.shtml">
-                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <div>
                   <h3><strong>Título da categoria</strong></h3>
                 </div>
@@ -257,7 +257,7 @@
             </li>
             <li>
               <a href="pagina-resultado-busca.shtml">
-                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <div>
                   <h3><strong>Título da categoria</strong></h3>
                 </div>
@@ -280,7 +280,7 @@
           <ul>
             <li>
               <a href="pagina-resultado-busca.shtml">
-                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <div>
                   <h3><strong>Sol e praia</strong></h3>
                   <h4>20 destinos</h4>
@@ -289,7 +289,7 @@
             </li>
             <li>
               <a href="pagina-resultado-busca.shtml">
-                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <div>
                   <h3><strong>Sol e praia</strong></h3>
                   <h4>20 destinos</h4>
@@ -298,7 +298,7 @@
             </li>
             <li>
               <a href="pagina-resultado-busca.shtml">
-                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <div>
                   <h3><strong>Sol e praia</strong></h3>
                   <h4>20 destinos</h4>
@@ -307,7 +307,7 @@
             </li>
             <li>
               <a href="pagina-resultado-busca.shtml">
-                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <picture class="d-flex" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <div>
                   <h3><strong>Sol e praia</strong></h3>
                   <h4>20 destinos</h4>
