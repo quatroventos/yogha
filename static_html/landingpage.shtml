@@ -6,18 +6,498 @@
 
   <body>
 
+
 <!-- CONTEUDO -->
 
-    <!-- OOO --->
-    <section>
-      <div class="row">
-        <div class="col">
-          
-        </div>        
+    <!-- BLOCO 1 --->
+    <section id="bloco-1" class="bloco fundo-img text-center pt-20" style="background-image: url(img/landingpage/foto-1.jpg);">
+      <div class="container">
+        <div class="row mb-50 align-items-center justify-content-evenly">
+          <div class="col-12 col-sm-12 col-lg-5 pt-30">
+            <img class="img-m mx-auto mb-15" src="img/logo-yogha-branco.svg">
+            <h2 class="mb-10 texto-branco"><strong>SOBRE TÍTULO</strong></h2>
+            <h3 class="texto-g mb-15 texto-branco">Substitua esse conteúdo pelo texto real desta área</h3>
+            <a href="" class="btn btn-2 mx-auto">Botão de ação</a>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-4 pt-30">
+            <form>
+              <p class="mb-15">Substitua esse conteúdo pelo texto real desta área desta área!</p>
+              <div class="form-group">
+                <input type="text" name="Nome" placeholder="Nome" class="d-flex">
+              </div>
+              <div class="form-group">
+                <input type="E-mail" name="Nome" placeholder="E-mail" class="d-flex">
+              </div>
+              <div class="form-group">
+                <input type="tel" name="Telefone" placeholder="Telefone" class="d-flex">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn d-flex">Enviar</button>
+              </div>
+            </form>
+          </div>      
+        </div>
       </div>
     </section>
 
+    <!-- BLOCO 2 --->
+    <section id="bloco-2" class="bloco text-center pt-30">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h2 class="mb-10"><strong>SOBRE TÍTULO</strong></h2>
+            <h3 class="texto-g mb-15">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>     
+        </div>
+        <div class="row">
+          <div class="col-6 col-sm-3">
+            <img class="img-p mx-auto mb-15" src="img/landingpage/ico-1.png">
+            <h2 class="mb-5"><strong>Título do item</strong></h2>
+            <h3 class="texto-m mb-30">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>
+          <div class="col-6 col-sm-3">
+            <img class="img-p mx-auto mb-15" src="img/landingpage/ico-2.png">
+            <h2 class="mb-5"><strong>Título do item</strong></h2>
+            <h3 class="texto-m mb-30">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>
+          <div class="col-6 col-sm-3">
+            <img class="img-p mx-auto mb-15" src="img/landingpage/ico-3.png">
+            <h2 class="mb-5"><strong>Título do item</strong></h2>
+            <h3 class="texto-m mb-30">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>
+          <div class="col-6 col-sm-3">
+            <img class="img-p mx-auto mb-15" src="img/landingpage/ico-4.png">
+            <h2 class="mb-5"><strong>Título do item</strong></h2>
+            <h3 class="texto-m mb-30">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>      
+        </div>
+      </div>
+    </section>
 
+    <!-- BLOCO 3 --->
+    <section id="bloco-3" class="bloco pt-30 fundo-marrom-claro">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col">
+            <img class="img-p mx-auto mb-15" src="img/landingpage/ico-9.png">
+            <h2 class="mb-10"><strong>SOBRE TÍTULO</strong></h2>
+            <h3 class="texto-g mb-15">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>     
+        </div>
+        <div class="row mb-15">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="row mb-15">
+              <div class="col grow-0 pe-0">
+                <img class="img-p" src="img/landingpage/ico-5.png">
+              </div>
+              <div class="col">
+                <h2 class="mb-5"><strong>Título do item</strong></h2>
+                <h3 class="texto-m">Substitua esse conteúdo pelo texto real desta área</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="row mb-15">
+              <div class="col grow-0 pe-0">
+                <img class="img-p" src="img/landingpage/ico-6.png">
+              </div>
+              <div class="col">
+                <h2 class="mb-5"><strong>Título do item</strong></h2>
+                <h3 class="texto-m">Substitua esse conteúdo pelo texto real desta área</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="row mb-15">
+              <div class="col grow-0 pe-0">
+                <img class="img-p" src="img/landingpage/ico-7.png">
+              </div>
+              <div class="col">
+                <h2 class="mb-5"><strong>Título do item</strong></h2>
+                <h3 class="texto-m">Substitua esse conteúdo pelo texto real desta área</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="row mb-15">
+              <div class="col grow-0 pe-0">
+                <img class="img-p" src="img/landingpage/ico-8.png">
+              </div>
+              <div class="col">
+                <h2 class="mb-5"><strong>Título do item</strong></h2>
+                <h3 class="texto-m">Substitua esse conteúdo pelo texto real desta área</h3>
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 4 --->
+    <section id="bloco-4" class="bloco pt-30">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col">
+            <img class="img-p mx-auto mb-15" src="img/landingpage/ico-10.png">
+            <h2 class="mb-10"><strong>SOBRE TÍTULO</strong></h2>
+            <h3 class="texto-g mb-15">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>     
+        </div>
+        <div class="row mb-15">
+          <div class="col-12 col-sm-6">
+            <div class="row mb-15 align-items-center">
+              <div class="col col-sm-6 grow-0 pe-0">
+                <picture class="pic-m" style="background-image: url(img/landingpage/foto-2.jpg);"></picture>
+              </div>
+              <div class="col col-sm-6">
+                <h2 class="mb-5"><strong>Título do item</strong></h2>
+                <h3 class="texto-m">Neste sentido, a percepção das dificuldades facilita a criação das formas de ação.</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="row mb-15 align-items-center">
+              <div class="col col-sm-6 grow-0 pe-0">
+                <picture class="pic-m" style="background-image: url(img/landingpage/foto-3.jpg);"></picture>
+              </div>
+              <div class="col col-sm-6">
+                <h2 class="mb-5"><strong>Título do item</strong></h2>
+                <h3 class="texto-m">Neste sentido, a percepção das dificuldades facilita a criação das formas de ação.</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="row mb-15 align-items-center">
+              <div class="col col-sm-6 grow-0 pe-0">
+                <picture class="pic-m" style="background-image: url(img/landingpage/foto-4.jpg);"></picture>
+              </div>
+              <div class="col col-sm-6">
+                <h2 class="mb-5"><strong>Título do item</strong></h2>
+                <h3 class="texto-m">Neste sentido, a percepção das dificuldades facilita a criação das formas de ação.</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="row mb-15 align-items-center">
+              <div class="col col-sm-6 grow-0 pe-0">
+                <picture class="pic-m" style="background-image: url(img/landingpage/foto-5.jpg);"></picture>
+              </div>
+              <div class="col col-sm-6">
+                <h2 class="mb-5"><strong>Título do item</strong></h2>
+                <h3 class="texto-m">Neste sentido, a percepção das dificuldades facilita a criação das formas de ação.</h3>
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 5 --->
+    <section id="bloco-5" class="bloco fundo-img text-center" style="background-image: url(img/landingpage/foto-6.jpg);">
+      <div class="container pt-50">
+        <div class="row mb-50">
+          <div class="col">
+            <i class="d-inline-flex mx-auto texto-branco mb-15 uil uil-bag"></i>
+            <h2 class="mb-10 texto-branco"><strong>SOBRE TÍTULO</strong></h2>
+            <h3 class="texto-g mb-15 texto-branco">Substitua esse conteúdo pelo texto real desta área</h3>
+            <a href="" class="btn mx-auto"><i class="uil uil-award"></i> Botão de ação</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 6 --->
+    <section id="bloco-6" class="bloco text-center pt-30">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h2 class="mb-10"><strong>SOBRE TÍTULO</strong></h2>
+            <h3 class="texto-g mb-15">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>     
+        </div>
+        <div class="row">
+          <div class="col-6 col-sm-3">
+            <span class="d-inline-flex mb-15 mx-auto fundo-laranja texto-branco numero">1</span>
+            <h2 class="mb-5"><strong>Título do item</strong></h2>
+            <h3 class="texto-m mb-30">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>
+          <div class="col-6 col-sm-3">
+            <span class="d-inline-flex mb-15 mx-auto fundo-laranja texto-branco numero">2</span>
+            <h2 class="mb-5"><strong>Título do item</strong></h2>
+            <h3 class="texto-m mb-30">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>
+          <div class="col-6 col-sm-3">
+            <span class="d-inline-flex mb-15 mx-auto fundo-laranja texto-branco numero">3</span>
+            <h2 class="mb-5"><strong>Título do item</strong></h2>
+            <h3 class="texto-m mb-30">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>
+          <div class="col-6 col-sm-3">
+            <span class="d-inline-flex mb-15 mx-auto fundo-laranja texto-branco numero">4</span>
+            <h2 class="mb-5"><strong>Título do item</strong></h2>
+            <h3 class="texto-m mb-30">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>      
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 7 --->
+    <section id="bloco-7" class="bloco fundo-marrom-claro text-center pt-30">
+      <div class="container">
+        <div class="row">
+          <div class="col-6 col-sm-3">
+            <i class="d-inline-flex mx-auto texto-laranja uil uil-bag"></i>
+            <h2 class="mb-5 numero"><strong>157</strong></h2>
+            <h3 class="mb-30"><strong>Título do item</strong></h3>
+          </div>
+          <div class="col-6 col-sm-3">
+            <i class="d-inline-flex mx-auto texto-laranja uil uil-clipboard-alt"></i>
+            <h2 class="mb-5 numero"><strong>21</strong></h2>
+            <h3 class="mb-30"><strong>Título do item</strong></h3>
+          </div>
+          <div class="col-6 col-sm-3">
+            <i class="d-inline-flex mx-auto texto-laranja uil uil-moneybag"></i>
+            <h2 class="mb-5 numero"><strong>57</strong></h2>
+            <h3 class="mb-30"><strong>Título do item</strong></h3>
+          </div>
+          <div class="col-6 col-sm-3">
+            <i class="d-inline-flex mx-auto texto-laranja uil uil-bill"></i>
+            <h2 class="mb-5 numero"><strong>124</strong></h2>
+            <h3 class="mb-30"><strong>Título do item</strong></h3>
+          </div>      
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 8 --->
+    <section id="bloco-8" class="bloco text-center pt-30">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h2 class="mb-10"><strong>SOBRE TÍTULO</strong></h2>
+            <h3 class="texto-g mb-15">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>     
+        </div>
+        <div class="row mb-15">
+          <div class="col col-md-6 mb-15">
+            <h4 class="comentario">“Todas estas questões, devidamente ponderadas, levantam dúvidas sobre.”</h4>
+            <picture class="mb-5 d-inline-flex mx-auto" style="background-image: url(img/foto-usuario.png);"></picture>
+            <p class="mb-5"><strong>Wagner</strong></p>
+            <p class="avaliacao nota-5 mb-0">
+              <i class="icone-m uil uil-star"></i>
+              <i class="icone-m uil uil-star"></i>
+              <i class="icone-m uil uil-star"></i>
+              <i class="icone-m uil uil-star"></i>
+              <i class="icone-m uil uil-star"></i>
+            </p>
+          </div>
+          <div class="col col-md-6 mb-15">
+            <h4 class="comentario">“Todas estas questões, devidamente ponderadas, levantam dúvidas sobre.”</h4>
+            <picture class="mb-5 d-inline-flex mx-auto" style="background-image: url(img/foto-usuario.png);"></picture>
+            <p class="mb-5"><strong>Wagner</strong></p>
+            <p class="avaliacao nota-4 mb-0">
+              <i class="icone-m uil uil-star"></i>
+              <i class="icone-m uil uil-star"></i>
+              <i class="icone-m uil uil-star"></i>
+              <i class="icone-m uil uil-star"></i>
+              <i class="icone-m uil uil-star"></i>
+            </p>
+          </div>     
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 9 --->
+    <section id="bloco-9" class="bloco fundo-img text-center" style="background-image: url(img/landingpage/foto-3.jpg);">
+      <div class="container pt-50">
+        <div class="row mb-30">
+          <div class="col col-md-5">
+            <h2 class="mb-10 texto-g texto-branco"><strong>Substitua esse conteúdo pelo texto real desta área</strong></h2>
+            <h3 class="texto-m mb-15 texto-branco">A nível organizacional, a consolidação das estruturas nos obriga à análise das condições financeiras e administrativas exigidas.</h3>
+            <a href="" class="btn mx-auto mb-15">Botão de ação</a>
+            <a href="" class="btn btn-5 mx-auto">Botão de ação</a>
+          </div>    
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 10 --->
+    <section id="bloco-10" class="bloco text-center">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-6 px-0">
+            <picture class="pic-full" style="background-image: url(img/landingpage/foto-2.jpg);"></picture>
+          </div>
+          <div class="col-12 col-md-6 mb-30 pt-30">
+            <div class="row justify-content-center">
+              <div class="col-md-8">
+                <h2 class="mb-10"><strong>SOBRE TÍTULO</strong></h2>
+                <h3 class="texto-g mb-15">Substitua esse conteúdo pelo texto real desta área</h3>
+                <a href="" class="btn mx-auto">Botão de ação</a>
+              </div>
+            </div>
+          </div>     
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 11 --->
+    <section id="bloco-11" class="bloco text-center fundo-marrom-claro pt-30">
+      <div class="container">
+        <div class="row mb-30">
+          <div class="col">
+            <h2 class="mb-10 d-flex align-items-center justify-content-center gap-10"><i class="icone-gg texto-laranja uil uil-cloud-upload"></i> <strong>SOBRE TÍTULO</strong></h2>
+            <a href="" class="btn d-flex mx-auto">Botão de ação</a>
+          </div>     
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 12 --->
+    <section id="bloco-12" class="bloco fundo-img" style="background-image: url(img/landingpage/foto-7.jpg);">
+      <div class="container">
+        <div class="row">
+          <div class="col-8 col-md-5">
+            <h2 class="mb-10 texto-p texto-branco">SOBRE TÍTULO</h2>
+            <h3 class="mb-15 texto-branco"><strong>Substitua esse conteúdo pelo texto real desta área</strong></h3>
+            <a href="" class="btn btn-2 me-auto">Botão de ação</a>
+          </div>     
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 13 --->
+    <section id="bloco-13" class="bloco pt-30">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col">
+            <img class="img-p mx-auto mb-15" src="img/landingpage/ico-10.png">
+            <h2 class="mb-10"><strong>SOBRE TÍTULO</strong></h2>
+            <h3 class="texto-g mb-15">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>     
+        </div>
+        <div class="row mb-20">
+          <div class="col">
+            <ul class="gap-10">
+              <li class="mb-10 d-flex align-items-center texto-m gap-10"><i class="icone-gg texto-laranja uil uil-cloud-upload"></i> Texto para o ítem</li>
+              <li class="mb-10 d-flex align-items-center texto-m gap-10"><i class="icone-gg texto-laranja uil uil-coffee"></i>
+               Texto para o ítem</li>
+              <li class="mb-10 d-flex align-items-center texto-m gap-10"><i class="icone-gg texto-laranja uil uil-constructor"></i> Texto para o ítem</li>
+              <li class="mb-10 d-flex align-items-center texto-m gap-10"><i class="icone-gg texto-laranja uil uil-comment-dots"></i> Texto para o ítem</li>
+              <li class="mb-10 d-flex align-items-center texto-m gap-10"><i class="icone-gg texto-laranja uil uil-desert"></i> Texto para o ítem</li>
+              <li class="mb-10 d-flex align-items-center texto-m gap-10"><i class="icone-gg texto-laranja uil uil-dribbble"></i> Texto para o ítem</li>
+              <li class="mb-10 d-flex align-items-center texto-m gap-10"><i class="icone-gg texto-laranja uil uil-file-blank"></i> Texto para o ítem</li>
+              <li class="mb-10 d-flex align-items-center texto-m gap-10"><i class="icone-gg texto-laranja uil uil-flower"></i> Texto para o ítem</li>
+              <li class="mb-10 d-flex align-items-center texto-m gap-10"><i class="icone-gg texto-laranja uil uil-golf-ball"></i> Texto para o ítem</li>
+              <li class="mb-10 d-flex align-items-center texto-m gap-10"><i class="icone-gg texto-laranja uil uil-lightbulb-alt"></i> Texto para o ítem</li>
+            </ul>
+          </div>          
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 14 --->
+    <section id="bloco-14" class="bloco fundo-marrom-claro text-center pt-30">
+      <div class="container">
+        <div class="row mb-15">
+          <div class="col-12">
+            <h2 class="mb-10"><strong>SOBRE TÍTULO</strong></h2>
+            <h3 class="texto-g mb-15">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>
+          <div class="col-12">
+            <form>
+              <div class="form-group">
+                <input type="text" name="Nome" placeholder="Nome" class="d-flex">
+              </div>
+              <div class="form-group">
+                <input type="E-mail" name="Nome" placeholder="E-mail" class="d-flex">
+              </div>
+              <div class="form-group">
+                <input type="tel" name="Telefone" placeholder="Telefone" class="d-flex">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn d-flex">Enviar</button>
+              </div>
+            </form>
+          </div>      
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 15 --->
+    <section id="bloco-15" class="bloco pt-30">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col">
+            <h2 class="mb-10"><strong>SOBRE TÍTULO</strong></h2>
+            <h3 class="texto-g mb-15">Substitua esse conteúdo pelo texto real desta área</h3>
+          </div>     
+        </div>
+        <div class="row mb-15">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="row mb-15 align-items-center">
+              <div class="col pe-0 grow-0">
+                <span class="d-inline-flex fundo-marrom-claro texto-laranja numero">1</span>
+              </div>
+              <div class="col col-md-8">
+                <h3><strong>Substitua esse conteúdo pelo texto real desta área</strong></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="row mb-15 align-items-center">
+              <div class="col pe-0 grow-0">
+                <span class="d-inline-flex fundo-marrom-claro texto-laranja numero">2</span>
+              </div>
+              <div class="col col-md-8">
+                <h3><strong>Substitua esse conteúdo pelo texto real desta área</strong></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="row mb-15 align-items-center">
+              <div class="col pe-0 grow-0">
+                <span class="d-inline-flex fundo-marrom-claro texto-laranja numero">3</span>
+              </div>
+              <div class="col col-md-8">
+                <h3><strong>Substitua esse conteúdo pelo texto real desta área</strong></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="row mb-15 align-items-center">
+              <div class="col pe-0 grow-0">
+                <span class="d-inline-flex fundo-marrom-claro texto-laranja numero">4</span>
+              </div>
+              <div class="col col-md-8">
+                <h3><strong>Substitua esse conteúdo pelo texto real desta área</strong></h3>
+              </div>
+            </div>
+          </div>    
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 16 --->
+    <section id="bloco-16" class="bloco fundo-marrom-claro text-center pt-30">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col col-md-8">
+            <h2 class="mb-10"><strong>SOBRE TÍTULO</strong></h2>
+            <h3 class="texto-g mb-15">Substitua esse conteúdo pelo texto real desta área</h3>
+            <a href="" class="btn btn mb-15 mx-auto">Botão de ação</a>
+          </div>
+        </div>
+        <div class="row justify-content-center mb-30">
+          <div class="col col-md-6">
+            <p class="texto-m">Por conseguinte, a consolidação das estruturas oferece uma interessante oportunidade para verificação do orçamento setorial.</p>
+            <div>
+              <a href="" class="btn btn-2 btn-ico"><i class="uil uil-facebook-f"></i></a>
+              <a href="" class="btn btn-2 btn-ico"><i class="uil uil-instagram"></i></a>
+            </div>
+          </div>      
+        </div>
+      </div>
+    </section>
 
 <!-- SCRIPTS -->
 
