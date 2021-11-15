@@ -1,16 +1,22 @@
 @extends('layouts.site')
 @section('content')
     <!-- PROXIMIDADE -->
+
+    <?php foreach($shelves as $shelf){ ?>
         <section class="mb-15">
             <div class="container">
                 <div class="row mb-10">
                     <div class="col">
-                        <h2><strong>Hospedagens perto de você</strong></h2>
+                        <h2><strong><?php echo $shelf->title; ?></strong></h2>
                     </div>
                 </div>
-                @include('site.home.default_carousel', ['accommodations' => $accommodations])
+                @php
+                    $layout = $shelf->layoutfile;
+                @endphp
+                @include($layout, ['accommodations' => $accommodations])
             </div>
         </section>
+    <?php } ?>
 
         <!-- MAPA -->
         <section class="mapa-chamada mb-30">
@@ -75,13 +81,7 @@
                 </div>
                 <div class="slider slide-3col">
                     <ul>
-                        <li>
-                            <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                                <picture class="mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                <h3 class="mb-5">Título do anúncio</h3>
-                                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$45</strong> /noite</h4>
-                            </a>
-                        </li>
+
                         <li>
                             <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
                                 <picture class="mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
