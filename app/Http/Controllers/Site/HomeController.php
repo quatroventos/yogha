@@ -32,9 +32,8 @@ class HomeController extends Controller
         echo $ip;
         //TODO: mudar para ip do usuário, usando estático para testes
         $position = Location::get('178.132.95.179');
-        dd($position);
 
 
-        return view('site.home.index', compact('accommodations', 'shelves'));
+        return view('site.home.index', compact('accommodations', 'shelves', 'position'));
     }
 }

@@ -16,6 +16,8 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/', HomeController::class);
 });
 
+Route::get('/accommodation/{accommodationid}', 'App\Http\Controllers\Site\AccommodationController@index');
+
 Route::get('/importxml', [App\Http\Controllers\ReadXMLController::class, 'index']);
 
 Auth::routes();
