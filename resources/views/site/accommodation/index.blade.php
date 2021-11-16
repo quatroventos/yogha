@@ -1,8 +1,99 @@
 <?php
+    //TODO passar esse código para o Controller
     $description = json_decode($accommodation[0]->InternationalizedItem, true);
     $pictures = json_decode($accommodation[0]->Pictures, true);
-    $local = $description[1]['Region']['Name'];
-    //dd($pictures);
+    $features = json_decode($accommodation[0]->Features, true);
+
+    //calcula o numero total de camas disponíveis
+    $totalcamas = 0;
+    if(empty($features['Distribution']['DoubleBeds']) === false){
+        $totalcamas +=  $features['Distribution']['DoubleBeds'];
+    }
+    if(empty($features['Distribution']['IndividualBeds']) === false){
+        $totalcamas += $features['Distribution']['IndividualBeds'];
+    }
+    if(empty($features['Distribution']['QueenBeds']) === false){
+        $totalcamas += $features['Distribution']['QueenBeds'];
+    }
+    if(empty($features['Distribution']['KingBeds']) === false){
+        $totalcamas += $features['Distribution']['KingBeds'];
+    }
+
+    if(isset($_GET['dd'])){
+        dd($accommodation);
+        dd($description);
+
+        dd($features);
+    }
+    //Distribution
+    /*
+
+    $capacidadetotal = $features['Distribution']['PeopleCapacity'];
+    $capacidadeadultos = $features['Distribution']['AdultsCapacity'];
+    $ocupacaominima = $features['Distribution']['MinimumOccupation'];
+    $criancas = $features['Distribution']['AcceptYoungsters'];
+    $quartos =  $features['Distribution']['Bedrooms'];
+    $camascasal =  $features['Distribution']['DoubleBeds'];
+    $camassolteiro =  $features['Distribution']['IndividualBeds'];
+    $sofacama =  $features['Distribution']['IndividualSofaBed'];
+    $sofacamacasal =  $features['Distribution']['DoubleSofaBed'];
+    $camasqueen = $features['Distribution']['QueenBeds'];
+    $camasking = $features['Distribution']['KingBeds'];
+    $banheiros = $features['Distribution']['Toilets'];
+    $banheiras = $features['Distribution']['BathroomWithBathtub'];
+    $chuveiros = $features['Distribution']['BathroomWithShower'];
+
+    //Housecarachteristics
+    $tv = $features['HouseCharacteristics']['TV'];
+    $tvnum = $features['HouseCharacteristics']['NumOfTelevisions'];
+    $tvacabo = $features['HouseCharacteristics']['TVSatellite']['Value'];
+    $jardim = $features['HouseCharacteristics']['Garden'];
+    $moveisjardim = $features['HouseCharacteristics']['GardenFurniture'];
+    $ferrodepassar = $features['HouseCharacteristics']['Iron'];
+    $lareira = $features['HouseCharacteristics']['FirePlace'];
+    $churrasqueira = $features['HouseCharacteristics']['Barbecue'];
+    $radio = $features['HouseCharacteristics']['Radio'];
+    $minibar = $features['HouseCharacteristics']['MiniBar'];
+    $terraco = $features['HouseCharacteristics']['Terrace'];
+    $cercado = $features['HouseCharacteristics']['FencedPlot'];
+    $elevador = $features['HouseCharacteristics']['Elevator'];
+    $dvd = $features['HouseCharacteristics']['DVD'];
+    $sacada = $features['HouseCharacteristics']['Balcony'];
+    $espremedordesuco = $features['HouseCharacteristics']['JuiceSqueazer'];
+    $chaleiraeletrica = $features['HouseCharacteristics']['ElectricKettle'];
+    $secadordecabelo = $features['HouseCharacteristics']['HairDryer'];
+    $espacokids = $features['HouseCharacteristics']['ChildrenArea'];
+    $academia = $features['HouseCharacteristics']['Gym'];
+    $alarme = $features['HouseCharacteristics']['Alarm'];
+    $quadradetenis = $features['HouseCharacteristics']['Tennis'];
+    $quadradesquash = $features['HouseCharacteristics']['Squash'];
+    $remo = $features['HouseCharacteristics']['Paddel'];
+    $sauna = $features['HouseCharacteristics']['Sauna'];
+    $numerodeventiladores = $features['HouseCharacteristics']['NumOfFans'];
+    $numeroderepelentes = $features['HouseCharacteristics']['NumOfElectronicMosquitoRepeller'];
+    $telaantimosquito = $features['HouseCharacteristics']['WindowScreens'];
+    $adaptadoparadeficientes = $features['HouseCharacteristics']['HandicappedFacilities'];
+    $jacuzzi = $features['HouseCharacteristics']['Jacuzzi'];
+    $permitidofumar = $features['HouseCharacteristics']['SmokingAllowed'];
+
+    //Kitchen
+    $classedecozinha = $features['HouseCharacteristics']['KitchenClass'];
+    $tipodecozinha = $features['HouseCharacteristics']['KitchenType'];
+    $numerodecozinhas = $features['HouseCharacteristics']['NumberOfKitchens'];
+    $geladeira = $features['HouseCharacteristics']['Fridge'];
+    $freezer = $features['HouseCharacteristics']['Freezer'];
+    $lavaroupas = $features['HouseCharacteristics']['WashingMachine'];
+    $lavaloucas = $features['HouseCharacteristics']['Dishwasher'];
+    $secadora = $features['HouseCharacteristics']['Dryer'];
+    $cafeteira = $features['HouseCharacteristics']['CoffeeMachine'];
+    $fritadeira = $features['HouseCharacteristics']['Fryer'];
+    $talheres = $features['HouseCharacteristics']['TableWare'];
+    $utensiliosdecozinha = $features['HouseCharacteristics']['KitchenUtensils'];
+    $microondas = $features['HouseCharacteristics']['Microwave'];
+    $forno = $features['HouseCharacteristics']['Oven'];
+    */
+
+
 ?>
 
 <!doctype html>
@@ -74,8 +165,21 @@
         <div class="row">
             <div class="col">
                 <h2 class="texto-g mb-5">{{$accommodation[0]->AccommodationName}}</h2>
-                <h3 class="texto-m mb-5">{{$local}}</h3>
-                <p class="texto-m">6 hóspedes • 2 quartos • 3 camas • 2 banheiros</p>
+                <h3 class="texto-m mb-5">{{$description[1]['Region']['Name']}}</h3>
+                <p class="texto-m">
+                    @if(empty($accommodation[0]->Capacity) === false)
+                        {{$accommodation[0]->Capacity}} hóspedes •
+                    @endif
+                    @if(empty($features['Distribution']['Bedrooms']) === false)
+                        {{$features['Distribution']['Bedrooms']}} quartos •
+                    @endif
+                    @if($totalcamas > 0)
+                        {{$totalcamas}} camas •
+                    @endif
+                    @if(empty($features['Distribution']['Toilets']) === false)
+                        {{$features['Distribution']['Toilets']}} Banheiros
+                    @endif
+                </p>
                 <h4 class="texto-m d-flex gap-5"><i class="icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>
             </div>
         </div>

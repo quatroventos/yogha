@@ -16,8 +16,9 @@ class AccommodationController extends Controller
     public function index($accommodationid)
     {
         $accommodation = \DB::table('accommodations')
-            ->select('accommodations.*','descriptions.*')
+            ->select('accommodations.*','descriptions.*','rates.*')
             ->join('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
+            ->join('rates','rates.AccommodationId','=','accommodations.AccommodationId')
             ->where('accommodations.AccommodationId','=', $accommodationid)
             ->get();
 
