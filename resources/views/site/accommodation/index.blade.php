@@ -20,10 +20,10 @@
     }
 
     if(isset($_GET['dd'])){
-        dd($accommodation);
-        dd($description);
+        //dd($accommodation);
+        //dd($description);
 
-        dd($features);
+        //dd($features);
     }
     //Distribution
     /*
