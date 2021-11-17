@@ -1,5 +1,29 @@
 @extends('layouts.site')
 @section('content')
+
+    <!-- HEADER -->
+    <header class="mb-30 pt-15">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <img class="img-m" src="{{asset('img/logo-yogha-branco.svg')}}">
+                </div>
+                <div class="col align-items-end justify-content-center">
+                    <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h1 class="text-center texto-branco mb-15"><strong>Sinta-se em casa onde estiver</strong></h1>
+                    <a href="#!" class="btn d-flex btn-2 mb-15 switch" data-bs-toggle="collapse" data-bs-target="#aba-busca"><i class="uil uil-search"></i> Onde você quer morar hoje?</a>
+                    <a href="accommodation/{{$surpriseme[0]->AccommodationId}}" class="btn d-flex">Me surpreenda!</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
     <!-- PROXIMIDADE -->
 
     <?php foreach($shelves as $shelf){ ?>

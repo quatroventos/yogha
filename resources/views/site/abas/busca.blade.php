@@ -8,28 +8,33 @@
                 <input type="text" class="typeahead" placeholder="Digite sua busca">
             </div>
         </div>
-        <div class="row mb-30">
+        <div class="row mb-30 surpriseme">
             <div class="col">
-                <a href="#!" class="btn btn-primary d-flex">Me surpreenda!</a>
+                <a href="accommodation/{{$surpriseme[0]->AccommodationId}}" class="btn d-flex">Me surpreenda!</a>
             </div>
         </div>
+        @if($recently_viewed)
         <div class="row mb-10">
             <div class="col">
-                <h2><strong>Suas buscas recentes</strong></h2>
+                <h2><strong>Acessados recentemente</strong></h2>
             </div>
         </div>
         <div class="row mb-15">
             <div class="col">
                 <div class="slider">
                     <ul>
-                        <li><a href="pagina-resultado-busca.shtml" class="btn btn-3 btn-p">Título da categoria</a></li>
-                        <li><a href="pagina-resultado-busca.shtml" class="btn btn-3 btn-p">Título da categoria</a></li>
-                        <li><a href="pagina-resultado-busca.shtml" class="btn btn-3 btn-p">Título da categoria</a></li>
-                        <li><a href="pagina-resultado-busca.shtml" class="btn btn-3 btn-p">Título da categoria</a></li>
+                        @foreach($recently_viewed as $recent)
+                            <li>
+                                <a href="accommodation/{{$recent->AccommodationId}}" class="btn btn-3 btn-p">
+                                    {{$recent->AccommodationName}}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
         </div>
+        @endif
         <div class="row mb-10">
             <div class="col">
                 <h2><strong>Resultados</strong></h2>

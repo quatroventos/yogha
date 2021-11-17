@@ -15,6 +15,8 @@ class AccommodationController extends Controller
      */
     public function index($accommodationid)
     {
+        session()->push('accommodations.recent', $accommodationid);
+
         $accommodation = \DB::table('accommodations')
             ->select('accommodations.*','descriptions.*','rates.*')
             ->join('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')

@@ -144,7 +144,7 @@
     <div class="container">
         <div class="row pt-15">
             <div class="col">
-                <a href="pagina-resultado-busca.shtml" class="btn btn-2 btn-ico me-auto"><i class="uil uil-angle-left"></i></a>
+                <a href="javascript:history.back();" class="btn btn-2 btn-ico me-auto"><i class="uil uil-angle-left"></i></a>
             </div>
             <div class="col">
                 <div class="form-group form-inline justify-content-end gap-10">

@@ -117,7 +117,7 @@
 <!--#include virtual="aba-hospedes.html"-->
 
 <!-- ABA BUSCA -->
-@include('site.abas.busca')
+@include('site.abas.busca', compact('recently_viewed','surpriseme'))
 
 <!-- ABA LOJA -->
 <!--#include virtual="aba-loja.html"-->
@@ -141,28 +141,6 @@
 <!--#include virtual="aba-usuario.html"-->
 
 <!-- CONTEUDO -->
-
-<!-- HEADER -->
-<header class="mb-30 pt-15">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <img class="img-m" src="{{asset('img/logo-yogha-branco.svg')}}">
-            </div>
-            <div class="col align-items-end justify-content-center">
-                <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center texto-branco mb-15"><strong>Sinta-se em casa onde estiver</strong></h1>
-                <a href="#!" class="btn d-flex btn-2 mb-15 switch" data-bs-toggle="collapse" data-bs-target="#aba-busca"><i class="uil uil-search"></i> Onde você quer morar hoje?</a>
-                <a href="pagina-resultado-busca.shtml" class="btn d-flex">Me surpreenda!</a>
-                </ul>
-            </div>
-        </div>
-    </div>
-</header>
 
 @yield('content')
 
@@ -228,6 +206,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" ></script>
 <script type="text/javascript">
 
+    $('input.typeahead').keyup(function(){
+       $('.surpriseme').hide();
+    });
     var path = "{{ url('autocomplete-search-query') }}";
     $('input.typeahead').typeahead({
         source:  function (query, process) {
