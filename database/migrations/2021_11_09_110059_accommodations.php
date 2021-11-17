@@ -25,12 +25,12 @@ class Accommodations extends Migration
             $table -> integer("PriceModifierId")->nullable();
             $table -> string("Purpose")->nullable();
             $table -> string("UserKind")->nullable();
-            $table -> longText("LocalizationData")->nullable();
+            $table -> json("LocalizationData")->nullable();
             $table -> integer("AccommodationUnits")->nullable();
             $table -> string("Currency")->nullable();
             $table -> text("Vat")->nullable();
-            $table -> longText("Features")->nullable();
-            $table -> longText("CheckInCheckOutInfo")->nullable();
+            $table -> json("Features")->nullable();
+            $table -> json("CheckInCheckOutInfo")->nullable();
         });
     }
 

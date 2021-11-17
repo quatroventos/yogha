@@ -117,7 +117,7 @@
 <!--#include virtual="aba-hospedes.html"-->
 
 <!-- ABA BUSCA -->
-<!--#include virtual="aba-busca.html"-->
+@include('site.abas.busca')
 
 <!-- ABA LOJA -->
 <!--#include virtual="aba-loja.html"-->
@@ -223,6 +223,30 @@
 
 <!-- FUNCOES -->
 <script type="text/javascript" src="{{asset('js/funcoes.js')}}"></script>
+
+<!-- TYPEAHEAD -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" ></script>
+<script type="text/javascript">
+
+    var path = "{{ url('autocomplete-search-query') }}";
+    $('input.typeahead').typeahead({
+        source:  function (query, process) {
+            return $.get(path, { query: query }, function (data) {
+
+                //$('#searchResults').append(data);
+
+                $('#searchResults').empty();
+                $.each(data, function( index, value ) {
+                    $('#searchResults').append('<li><a href="accommodation/'+data[index]["AccommodationId"]+'">'+data[index]["AccommodationName"]+'</a></li>')
+                });
+
+            });
+        },
+        hint: false,
+        minLength: 1
+    });
+</script>
+
 
 </body>
 

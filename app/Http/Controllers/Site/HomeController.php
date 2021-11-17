@@ -28,9 +28,8 @@ class HomeController extends Controller
             ->join('shelf_filters','shelf_filters.id','=','shelves.shelfFilterId')
             ->get();
 
-        $ip = $request->ip();
-        echo $ip;
         //TODO: mudar para ip do usuário, usando estático para testes
+        $ip = $request->ip();
         $position = Location::get('178.132.95.179');
 
 
