@@ -18,7 +18,7 @@ class CreateRatesTable extends Migration
             $table->timestamps();
             $table->foreignId('AccommodationId')->nullable();
             $table->integer('Capacity')->nullable();
-            $table->longText('Rates')->nullable();
+            $table->jsonb('Rates')->nullable();
             $table->text('VAT')->nullable();
         });
     }

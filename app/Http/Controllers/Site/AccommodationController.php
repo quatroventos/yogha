@@ -19,8 +19,8 @@ class AccommodationController extends Controller
 
         $accommodation = \DB::table('accommodations')
             ->select('accommodations.*','descriptions.*','rates.*')
-            ->join('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
-            ->join('rates','rates.AccommodationId','=','accommodations.AccommodationId')
+            ->leftJoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
+            ->leftJoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
             ->where('accommodations.AccommodationId','=', $accommodationid)
             ->get();
 

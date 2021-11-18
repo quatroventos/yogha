@@ -17,8 +17,8 @@ class Descriptions extends Migration
             $table->id();
             $table->timestamps();
             $table -> foreignId("AccommodationId")->nullable();
-            $table -> json("Pictures")->nullable();
-            $table -> json("InternationalizedItem")->nullable();
+            $table -> jsonb("Pictures")->nullable();
+            $table -> jsonb("InternationalizedItem")->nullable();
         });
     }
 
