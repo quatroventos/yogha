@@ -557,7 +557,33 @@
         </div>
         <div class="row mb-30">
             <div class="col">
-                <iframe class="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14145.8843541857!2d-48.441258572734185!3d-27.578920855907995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95273e5b0a4530f1%3A0x84687ff8c0db3768!2sBarra%20da%20Lagoa%2C%20Florian%C3%B3polis%20-%20SC!5e0!3m2!1spt-BR!2sbr!4v1636255329072!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe
+                    class="mapa"
+                    width="600"
+                    height="450"
+                    frameborder="0" style="border:0"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBmkujyYai1vhF5NXfXDyIDbeWyaVEU3xk&q='{{$description[1]['Region']['Name']}}'&zoom={{$zoom}}&center={{$latitude}},{{$longitude}}"
+                    allowfullscreen=""
+                    loading="lazy">
+                </iframe>
+
+{{--                <div id="map"></div>--}}
+{{--                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmkujyYai1vhF5NXfXDyIDbeWyaVEU3xk&callback=initMap&v=weekly&channel=2" async ></script>--}}
+{{--                <script>--}}
+{{--                    function initMap() {--}}
+{{--                        const myLatLng = { lat: {{$latitude}}, lng: {{$longiture}} };--}}
+{{--                        const map = new google.maps.Map(document.getElementById("map"), {--}}
+{{--                            zoom: {{$zoom}},--}}
+{{--                            center: myLatLng,--}}
+{{--                        });--}}
+{{--                        new google.maps.Marker({--}}
+{{--                            position: myLatLng,--}}
+{{--                            map,--}}
+{{--                            title: "{{$accommodation[0]->AccommodationName}}",--}}
+{{--                        });--}}
+{{--                    }--}}
+{{--                </script>--}}
+
             </div>
         </div>
         <div class="row mb-15">
@@ -604,40 +630,40 @@
 
 <hr class="mb-30">
 
-<section class="mb-15">
-    <div class="container">
-        <div class="row mb-15">
-            <div class="col">
-                <h4 class="texto-m d-flex gap-5"><i class="icone-m uil uil-star"></i> <strong>9,5</strong> • 2 avaliações</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="slider slide-2col depoimentos">
-                    <ul>
-                        <li>
-                            <h3 class="mb-5"><strong>Wagner</strong></h3>
-                            <p class="texto-m mb-10">2 horas atrás</p>
-                            <p class="mb-0 texto-m">local ótimo e o atendimento impecável, retornarei em breve.</p>
-                        </li>
-                        <li>
-                            <h3 class="mb-5"><strong>Larissa</strong></h3>
-                            <p class="texto-m mb-10">Set 2021</p>
-                            <p class="mb-0 texto-m">Uma ótima experiência estadia :D</p>
-                        </li>
-                        <li>
-                            <h3 class="mb-5"><strong>Wagner</strong></h3>
-                            <p class="texto-m mb-10">2 horas atrás</p>
-                            <p class="mb-0 texto-m">local ótimo e o atendimento impecável, retornarei em breve.</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+{{--<section class="mb-15">--}}
+{{--    <div class="container">--}}
+{{--        <div class="row mb-15">--}}
+{{--            <div class="col">--}}
+{{--                <h4 class="texto-m d-flex gap-5"><i class="icone-m uil uil-star"></i> <strong>9,5</strong> • 2 avaliações</h4>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="row">--}}
+{{--            <div class="col">--}}
+{{--                <div class="slider slide-2col depoimentos">--}}
+{{--                    <ul>--}}
+{{--                        <li>--}}
+{{--                            <h3 class="mb-5"><strong>Wagner</strong></h3>--}}
+{{--                            <p class="texto-m mb-10">2 horas atrás</p>--}}
+{{--                            <p class="mb-0 texto-m">local ótimo e o atendimento impecável, retornarei em breve.</p>--}}
+{{--                        </li>--}}
+{{--                        <li>--}}
+{{--                            <h3 class="mb-5"><strong>Larissa</strong></h3>--}}
+{{--                            <p class="texto-m mb-10">Set 2021</p>--}}
+{{--                            <p class="mb-0 texto-m">Uma ótima experiência estadia :D</p>--}}
+{{--                        </li>--}}
+{{--                        <li>--}}
+{{--                            <h3 class="mb-5"><strong>Wagner</strong></h3>--}}
+{{--                            <p class="texto-m mb-10">2 horas atrás</p>--}}
+{{--                            <p class="mb-0 texto-m">local ótimo e o atendimento impecável, retornarei em breve.</p>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</section>--}}
 
-<hr class="mb-30">
+{{--<hr class="mb-30">--}}
 
 <section class="mb-15">
     <div class="container">
