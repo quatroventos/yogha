@@ -71,6 +71,8 @@ class SearchController extends Controller
         //pega aleatoriamente uma acomodação para o botão me surpreenda
         $surpriseme = \DB::table('accommodations')
             ->select('AccommodationId')
+            ->Leftjoin('rates', 'rates.AccommodationId', '=', 'accommodations.AccommodationId')
+            ->where('rates.Rates->RatePeriod->EndDate', '>', "{$today}")
             ->take(1)
             ->inRandomOrder()
             ->get();
