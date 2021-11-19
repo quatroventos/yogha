@@ -5,7 +5,7 @@
                 <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-busca" class="btn btn-2 btn-ico mb-0 switch"><i class="uil uil-angle-left"></i></a>
             </div>
             <div class="col ps-0">
-                <input type="text" class="typeahead" placeholder="Digite sua busca">
+                <input type="text" value="@if(isset($district) != ''){{$district}}@endif" class="typeahead" placeholder="Digite sua busca">
             </div>
         </div>
         <div class="row mb-30 surpriseme">
@@ -48,3 +48,30 @@
         </div>
     </div>
 </section>
+
+
+<!-- TYPEAHEAD -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" ></script>
+<script type="text/javascript">
+
+    $('input.typeahead').keyup(function(){
+        $('.surpriseme').hide();
+    });
+    var path = "{{ url('autocomplete-search-query') }}";
+    $('input.typeahead').typeahead({
+        source:  function (query, process) {
+            return $.get(path, { query: query }, function (data) {
+
+                //$('#searchResults').append(data);
+
+                $('#searchResults').empty();
+                $.each(data, function( index, value ) {
+                    $('#searchResults').append('<li><a href="/searchbydistrict/'+data[index]["District"]+'">'+data[index]["District"]+' - '+data[index]["District"]+'</a></li>')
+                });
+
+            });
+        },
+        hint: false,
+        minLength: 1
+    });
+</script>

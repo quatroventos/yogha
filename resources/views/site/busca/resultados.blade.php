@@ -13,7 +13,7 @@
     <link rel="canonical" href="http://www.yogha.com.br/">
 
     <!--TITLE -->
-    <title>Acomodações em {{ucfirst(trans($district))}} - Yogha - Sinta-se em casa</title>
+    <title>Yogha - Sinta-se em casa</title>
 
     <!-- BOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
@@ -36,7 +36,20 @@
     <!-- RESPONSIVE -->
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
 
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <!-- DATE RANGE -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
 </head>
+
+<!-- ABA BUSCA -->
+@include('site.abas.busca', compact('recently_viewed','surpriseme'))
+
 
 <body id="resultado-busca">
 
@@ -57,7 +70,7 @@
     <div class="container pt-15 mb-15">
         <div class="row busca-resumo collapse show">
             <div class="col btn-flutuante">
-                <a href="index.shtml" class="btn btn-2 btn-p btn-ico"><i class="icone-m uil uil-angle-left"></i></a>
+                <a href="javascript:history.back();" class="btn btn-2 btn-p btn-ico"><i class="icone-m uil uil-angle-left"></i></a>
                 <a href="#!" class="btn btn-3 btn-p d-flex texto-ret" data-bs-toggle="collapse" data-bs-target=".busca-resumo, .busca-detalhes"><span>{{$district}}</span><span class="text-right texto-p">8/10 → 9/10 - 2 hospedes</span></a>
                 <a href="#!" class="btn btn-2 btn-p btn-ico" data-bs-toggle="collapse" data-bs-target=".busca-filtro"><i class="uil uil-sliders-v-alt"></i></a>
             </div>
@@ -72,12 +85,13 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <a href="#!"  data-bs-toggle="collapse" data-bs-target="#aba-busca" class="btn btn-4 texto-m d-flex mb-0 justify-content-start switch"><i class="icone-m uil uil-search"></i> <span>Resultado busca</span></a>
+                        <a href="#!"  data-bs-toggle="collapse" data-bs-target="#aba-busca" class="btn btn-4 texto-m d-flex mb-0 justify-content-start switch"><i class="icone-m uil uil-search"></i> <span>{{$district}}</span></a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col pe-0">
-                        <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-datas" class="btn btn-4 texto-m d-flex mb-0 justify-content-start switch"><i class="icone-m uil uil-calender"></i> <span>08/10 → 12/10</span></a>
+                        <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+                        <!--<a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-datas" class="btn btn-4 texto-m d-flex mb-0 justify-content-start switch"><i class="icone-m uil uil-calender"></i> <span>08/10 → 12/10</span></a>-->
                     </div>
                     <div class="col ps-0">
                         <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-hospedes" class="btn btn-4 texto-m d-flex mb-0 justify-content-start switch"><i class="icone-m uil uil-users-alt"></i> <span>2 hóspedes</span></a>
@@ -118,7 +132,7 @@
                 <a href="pagina-single-anuncio.shtml">
                     <h2 class="mb-5 texto-ret"><strong>Título do anúncio</strong></h2>
                     <p class="texto-m texto-ret mb-5"><span>O estúdio em Curitiba tem 1 quarto e capacidade para 4 pessoas</span></p>
-                    <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$73</strong> /noite <span class="texto-marrom texto-p">preço estimado</span></h4>
+                    <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$price}}</strong> /noite <span class="texto-marrom texto-p">preço estimado</span></h4>
                 </a>
             </div>
         </div>
@@ -140,7 +154,9 @@
                         @if(isset($pictures))
                             <div class="slick mb-15">
                                 @foreach ($pictures['Picture'] as $picture)
-                                    <picture style="background-image: url({{$picture['OriginalURI']}});"></picture>
+                                    @if(isset($picture['OriginalURI']) && $picture['OriginalURI'] != '')
+                                        <picture style="background-image: url({{$picture['OriginalURI']}});"></picture>
+                                    @endif
                                 @endforeach
                             </div>
                         @endif
@@ -161,7 +177,7 @@
                 <a href="/accommodation/{{$result->AccommodationId}}" class="texto-marrom-escuro">
                     <h2 class="mb-5"><strong>{{$result->AccommodationName}}</strong></h2>
                     <p class="texto-m texto-ret mb-5"><span></span></p>
-                    <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$73</strong> /noite • <span class="texto-marrom">preço estimado</span></h4>
+                    <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$price}}</strong> /noite • <span class="texto-marrom">preço estimado</span></h4>
                 </a>
             </div>
         </div>
@@ -181,15 +197,22 @@
 <!-- BOOTSTRAP -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
-<!-- JQUERY -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
 <!-- SLICK -->
 <script type="text/javascript" src="{{asset('js/slick.min.js')}}"></script>
 
 <!-- FUNCOES -->
 <script type="text/javascript" src="{{asset('js/funcoes.js')}}"></script>
-
+<script>
+    $(function() {
+        $('input[name="daterange"]').daterangepicker({
+            startDate: moment().startOf('day'),
+            endDate: moment().startOf('day').add(2, 'day'),
+            locale: {
+                format: 'DD/M/Y'
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

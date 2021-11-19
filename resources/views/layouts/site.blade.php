@@ -36,6 +36,10 @@
     <!-- RESPONSIVE -->
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
 
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+
 </head>
 
 <body id="home">
@@ -193,41 +197,12 @@
 <!-- BOOTSTRAP -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
-<!-- JQUERY -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <!-- SLICK -->
 <script type="text/javascript" src="{{asset('js/slick.min.js')}}"></script>
 
 <!-- FUNCOES -->
 <script type="text/javascript" src="{{asset('js/funcoes.js')}}"></script>
-
-<!-- TYPEAHEAD -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" ></script>
-<script type="text/javascript">
-
-    $('input.typeahead').keyup(function(){
-       $('.surpriseme').hide();
-    });
-    var path = "{{ url('autocomplete-search-query') }}";
-    $('input.typeahead').typeahead({
-        source:  function (query, process) {
-            return $.get(path, { query: query }, function (data) {
-
-                //$('#searchResults').append(data);
-
-                $('#searchResults').empty();
-                $.each(data, function( index, value ) {
-                    $('#searchResults').append('<li><a href="searchbydistrict/'+data[index]["District"]+'">'+data[index]["District"]+' - '+data[index]["District"]+'</a></li>')
-                });
-
-            });
-        },
-        hint: false,
-        minLength: 1
-    });
-</script>
-
 
 </body>
 

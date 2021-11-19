@@ -148,6 +148,9 @@
     <!-- RESPONSIVE -->
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
 
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
 </head>
 
 <body id="single-anuncio">
@@ -172,7 +175,9 @@
                 <div class="col px-0">
                 <div class="slick">
                     @foreach ($pictures['Picture'] as $picture)
-                        <picture style="background-image: url({{$picture['OriginalURI']}});"></picture>
+                        @if(isset($picture['OriginalURI']) && $picture['OriginalURI'] != '')
+                            <picture style="background-image: url({{$picture['OriginalURI']}});"></picture>
+                        @endif
                     @endforeach
                 </div>
             </div>
@@ -775,14 +780,14 @@
 <!-- BOOTSTRAP -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
-<!-- JQUERY -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
 <!-- SLICK -->
 <script type="text/javascript" src="{{asset('js/slick.min.js')}}"></script>
 
 <!-- FUNCOES -->
 <script type="text/javascript" src="{{asset('js/funcoes.js')}}"></script>
+
+
+
 
 </body>
 
