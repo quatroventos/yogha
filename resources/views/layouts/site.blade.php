@@ -218,7 +218,7 @@
 
                 $('#searchResults').empty();
                 $.each(data, function( index, value ) {
-                    $('#searchResults').append('<li><a href="accommodation/'+data[index]["AccommodationId"]+'">'+data[index]["AccommodationName"]+'</a></li>')
+                    $('#searchResults').append('<li><a href="searchbydistrict/'+data[index]["District"]+'">'+data[index]["District"]+' - '+data[index]["District"]+'</a></li>')
                 });
 
             });

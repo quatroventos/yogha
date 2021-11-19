@@ -18,7 +18,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
 Route::get('/accommodation/{accommodationid}', 'App\Http\Controllers\Site\AccommodationController@index');
 Route::get('/autocomplete-search-query', [\App\Http\Controllers\Site\SearchController::class, 'query'])->name('autocomplete.search.query');
-
+Route::get('/searchbydistrict/{district}', [\App\Http\Controllers\Site\SearchController::class, 'searchbydistrict']);
 
 Route::get('/importxml', [App\Http\Controllers\ReadXMLController::class, 'index']);
 
