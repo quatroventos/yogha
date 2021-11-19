@@ -34,7 +34,7 @@ class SearchController extends Controller
     //busca por distrito / bairro
     public function searchbydistrict($district)
     {
-
+        $today = date("Y-m-d");
         //TODO: buscar propriedades aonde o bairro for a busca e estiver dentro
         //do range de datas válidas para a acomodação
         $results = \DB::table('accommodations')
@@ -42,10 +42,12 @@ class SearchController extends Controller
             ->Leftjoin('localizations','localizations.AccommodationId','=','accommodations.AccommodationId')
             ->Leftjoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
             ->where('District', 'like', "%{$district}%")
+            ->where('rates.Rates->RatePeriod->EndDate', '>', "{$today}")
             ->get();
 
-        $rates = json_decode($results[0]->Rates, true);
-        $price = $rates['RatePeriod']['RoomOnly']['Price'];
+        //$rates = json_decode($results[0]->Rates, true);
+        //$price = $rates['RatePeriod']['RoomOnly']['Price'];
+        $price = 1;
 
         session()->forget('accommodations.recent');
         //TODO: colocar em um helper ou trait
