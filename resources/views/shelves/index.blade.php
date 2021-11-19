@@ -1,11 +1,11 @@
 @extends('layouts.app', ['activePage' => 'shelves', 'title' => 'Yogha - Admin v1.0.0 - Prateleiras', 'navName' => 'Prateleiras', 'activeButton' => 'prateleiras'])
 
-@section('content');
+@section('content')
 
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-10">
                     <div class="card strpied-tabled-with-hover">
                         <div class="card-header ">
                             <h4 class="card-title">Prateleiras</h4>
@@ -36,6 +36,19 @@
                             </table>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="card strpied-tabled-with-hover">
+                            <div class="card-header ">
+                                <h4 class="card-title">Opções</h4>
+                                <p class="card-category"></p>
+                            </div>
+                            <div class="card-body">
+                                <a href="{{ route('shelf.edit') }}" class="btn btn-warning">Adicionar <i class="nc-icon nc-simple-add"></i></a>
+                            </div>
+                        </div><!-- card -->
+                    </div><!-- row -->
                 </div>
             </div>
         </div>

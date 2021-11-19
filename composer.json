@@ -12,7 +12,8 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
-        "ricorocks-digital-agency/soap": "^1.5"
+        "ricorocks-digital-agency/soap": "^1.5",
+        "stevebauman/location": "^6.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

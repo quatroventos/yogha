@@ -1,35 +1,46 @@
 @extends('layouts.site')
 @section('content')
+
+    <!-- HEADER -->
+    <header class="mb-30 pt-15">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <img class="img-m" src="{{asset('img/logo-yogha-branco.svg')}}">
+                </div>
+                <div class="col align-items-end justify-content-center">
+                    <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h1 class="text-center texto-branco mb-15"><strong>Sinta-se em casa onde estiver</strong></h1>
+                    <a href="#!" class="btn d-flex btn-2 mb-15 switch" data-bs-toggle="collapse" data-bs-target="#aba-busca"><i class="uil uil-search"></i> Onde você quer morar hoje?</a>
+                    <a href="accommodation/{{$surpriseme[0]->AccommodationId}}" class="btn d-flex">Me surpreenda!</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
     <!-- PROXIMIDADE -->
+
+    <?php foreach($shelves as $shelf){ ?>
         <section class="mb-15">
             <div class="container">
                 <div class="row mb-10">
                     <div class="col">
-                        <h2><strong>Hospedagens perto de você</strong></h2>
+                        <h2><strong><?php echo $shelf->title; ?></strong></h2>
                     </div>
                 </div>
-                <div class="slider slide-3col">
-                    <ul>
-                        <?php foreach($accommodations as $accommodation){
-                        $pictures = json_decode($accommodation->Pictures, true);
-                        if(isset($pictures['Picture'][0]['PreparedURI'])){
-                            $thumbnail = $pictures['Picture'][0]['ThumbnailURI'];
-                        }
-                        ?>
-                        <li>
-                            <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>" class="texto-marrom-escuro">
-                                <?php if(isset($pictures['Picture'][0]['OriginalURI'])){ ?>
-                                    <picture class="mb-10" style="background-image: url(<?php echo $pictures['Picture'][0]['OriginalURI']; ?>);"></picture>
-                                <?php } ?>
-                                <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
-                                <h4 class="texto-m d-flex gap-5"><i class="texto-laranja icone-p uil uil-clock"></i>15 min. de carro</h4>
-                            </a>
-                        </li>
-                    <?php } ?>
-                    </ul>
-                </div>
+                @php
+                    $layout = $shelf->layoutfile;
+                @endphp
+                @include($layout, ['accommodations' => $accommodations])
             </div>
         </section>
+    <?php } ?>
 
         <!-- MAPA -->
         <section class="mapa-chamada mb-30">
@@ -94,13 +105,7 @@
                 </div>
                 <div class="slider slide-3col">
                     <ul>
-                        <li>
-                            <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                                <picture class="mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                <h3 class="mb-5">Título do anúncio</h3>
-                                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$45</strong> /noite</h4>
-                            </a>
-                        </li>
+
                         <li>
                             <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
                                 <picture class="mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
