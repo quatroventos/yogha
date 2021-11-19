@@ -413,7 +413,7 @@
 
                     @if(empty($features['HouseCharacteristics']['Kitchen']['TableWare']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg fas fa-utensils"</i> Talheres
+                            <i class="icone-gg fas fa-utensils"></i> Talheres
                         </li>
                     @endif
 
