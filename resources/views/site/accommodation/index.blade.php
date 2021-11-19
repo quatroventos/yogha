@@ -1,44 +1,4 @@
 <?php
-    //TODO passar esse código para o Controller
-
-    $description = json_decode($accommodation[0]->InternationalizedItem, true);
-    $pictures = json_decode($accommodation[0]->Pictures, true);
-    $features = json_decode($accommodation[0]->Features, true);
-    $localization = json_decode($accommodation[0]->LocalizationData, true);
-
-    $latitude = $localization['GoogleMaps']['Latitude'];
-    $longitude = $localization['GoogleMaps']['Longitude'];
-    $zoom = $localization['GoogleMaps']['Zoom'];
-
-    //calcula o numero total de camas disponíveis
-    $totalcamas = 0;
-    if(empty($features['Distribution']['DoubleBeds']) === false){
-        $totalcamas +=  $features['Distribution']['DoubleBeds'];
-    }
-    if(empty($features['Distribution']['IndividualBeds']) === false){
-        $totalcamas += $features['Distribution']['IndividualBeds'];
-    }
-    if(empty($features['Distribution']['QueenBeds']) === false){
-        $totalcamas += $features['Distribution']['QueenBeds'];
-    }
-    if(empty($features['Distribution']['KingBeds']) === false){
-        $totalcamas += $features['Distribution']['KingBeds'];
-    }
-
-    if(isset($_GET['dd'])){
-        switch ($_GET['dd']) {
-            case 'description':
-                dd($description);
-            case 'accommodation':
-                dd($accommodation);
-            case 'pictures':
-                dd($pictures);
-            case 'features':
-                dd($features);
-            case 'localization':
-                dd($localization);
-        }
-    }
     //Distribution
     /*
 
@@ -141,6 +101,7 @@
 
     <!-- ICONES -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- STYLE -->
     <link rel="stylesheet" href="{{asset('css/theme.css')}}">
@@ -254,37 +215,37 @@
 
                     @if(empty($features['HouseCharacteristics']['TVSatellite']) === false)
                     <li class="d-flex align-items-center gap-10">
-                        <i class="icone-gg uil uil-desktop"></i> Televisão a Cabo
+                        <i class="icone-gg fas fa-satellite-dish"></i> Televisão a Cabo
                     </li>
                     @endif
 
                     @if(empty($features['HouseCharacteristics']['DVD']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-desktop"></i> DVD
+                            <i class="icone-gg uil uil-compact-disc"></i> DVD
                         </li>
                     @endif
 
                     @if(empty($features['HouseCharacteristics']['Garden']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Jardim
+                            <i class="icone-gg uil uil-flower"></i> Jardim
                         </li>
                     @endif
 
                     @if(empty($features['HouseCharacteristics']['GardenFurniture']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Móveis de jardim
+                            <i class="icone-gg fas fa-chair"></i> Móveis de jardim
                         </li>
                     @endif
 
                     @if(empty($features['HouseCharacteristics']['Iron']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Ferro de passar roupa
+                            <i class="icone-gg fas fa-tshirt"></i> Ferro de passar roupa
                         </li>
                     @endif
 
                     @if(empty($features['HouseCharacteristics']['FirePlace']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Lareira
+                            <i class="icone-gg fas fa-fire-alt"></i> Lareira
                         </li>
                     @endif
 
@@ -296,19 +257,19 @@
 
                     @if(empty($features['HouseCharacteristics']['Radio']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Radio
+                            <i class="icone-gg uil fas fa-volume-up"></i> Radio
                         </li>
                     @endif
 
                     @if(empty($features['HouseCharacteristics']['MiniBar']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Mini Bar
+                            <i class="icone-gg fas fa-cocktail"></i> Mini Bar
                         </li>
                     @endif
 
                     @if(empty($features['HouseCharacteristics']['Terrace']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Terraço
+                            <i class="icone-gg far fa-building"></i> Terraço
                         </li>
                     @endif
 
@@ -326,13 +287,13 @@
 
                     @if(empty($features['HouseCharacteristics']['JuiceSqueazer']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Espremedor de suco
+                            <i class="icone-gg far far-lemon"></i> Espremedor de suco
                         </li>
                     @endif
 
                     @if(empty($features['HouseCharacteristics']['ElectricKettle']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Chaleira elétrica
+                            <i class="icone-gg fas fa-blender"></i> Chaleira elétrica
                         </li>
                     @endif
 
@@ -344,31 +305,31 @@
 
                     @if(empty($features['HouseCharacteristics']['ChildrenArea']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Espaço kids
+                            <i class="icone-gg fas fa-child"></i> Espaço kids
                         </li>
                     @endif
 
                     @if(empty($features['HouseCharacteristics']['Gym']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Academia
+                            <i class="icone-gg fa-dumbbell"></i> Academia
                         </li>
                     @endif
 
                     @if(empty($features['HouseCharacteristics']['Alarm']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Alarme
+                            <i class="icone-gg uil uil-bell-school"></i> Alarme
                         </li>
                     @endif
 
                     @if(empty($features['HouseCharacteristics']['Tennis']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Quadra de tênis
+                            <i class="icone-gg uil uil-tennis-ball"></i> Quadra de tênis
                         </li>
                     @endif
 
                     @if(empty($features['HouseCharacteristics']['Squash']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Quadra de squash
+                            <i class="icone-gg uil uil-tennis-ball"></i> Quadra de squash
                         </li>
                     @endif
 
@@ -380,7 +341,7 @@
 
                     @if(empty($features['HouseCharacteristics']['NumOfFans']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Ventilador
+                            <i class="icone-gg fas fa-fan"></i> Ventilador
                         </li>
                     @endif
 
@@ -404,7 +365,7 @@
 
                     @if(empty($features['HouseCharacteristics']['Jacuzzi']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Jacuzzi
+                            <i class="icone-gg fas fa-hot-tub"></i> Jacuzzi
                         </li>
                     @endif
 
@@ -440,7 +401,7 @@
 
                     @if(empty($features['HouseCharacteristics']['Kitchen']['CoffeeMachine']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Cafeteira
+                            <i class="icone-gg fas fa-coffee"></i> Cafeteira
                         </li>
                     @endif
 
@@ -452,13 +413,13 @@
 
                     @if(empty($features['HouseCharacteristics']['Kitchen']['TableWare']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Talheres
+                            <i class="icone-gg fas fa-utensils"</i> Talheres
                         </li>
                     @endif
 
                     @if(empty($features['HouseCharacteristics']['Kitchen']['KitchenUtensils']) === false)
                         <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Utensílios de coziha
+                            <i class="icone-gg fas fa-utensil-spoon"></i> Utensílios de coziha
                         </li>
                     @endif
 
@@ -762,8 +723,8 @@
     <div class="container pt-15 mb-15">
         <div class="row">
             <div class="col grow-0">
-                <h4 class="texto-m d-flex gap-5 mb-5"><strong class="texto-laranja">R$45</strong> /noite</h4>
-                <h4 class="texto-m d-flex gap-5"><i class="icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>
+                <h4 class="texto-m d-flex gap-5 mb-5"><strong class="texto-laranja">R${{$price}}</strong> /noite</h4>
+                <!--<h4 class="texto-m d-flex gap-5"><i class="icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>-->
             </div>
             <div class="col">
                 <a href="pagina-checkout.shtml" class="btn">Verificar disponibilidade</a>
