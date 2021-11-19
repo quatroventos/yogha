@@ -21,11 +21,14 @@ class SearchController extends Controller
     public function query(Request $request)
     {
         $input = $request->all();
+        $today = date("Y-m-d");
 
-        $data = Localizations::select('District', 'Region')
-            ->where('District', 'like', "%".strtolower($input['query'])."%")
-            //->whereJsonContains('LOWER(LocalizationData->District->Name)', "%{$input['query']}%")
-            ->get();
+        $data = \DB::table('localizations')
+            ->Leftjoin('rates', 'rates.AccommodationId', '=', 'localizations.AccommodationId')
+            ->where('localizations.District', 'like', "%".strtolower($input['query'])."%")
+            ->where('rates.Rates->RatePeriod->EndDate', '>', "{$today}")
+            ->get()
+            ->unique('District');
 
         return response()->json($data);
 
@@ -35,19 +38,18 @@ class SearchController extends Controller
     public function searchbydistrict($district)
     {
         $today = date("Y-m-d");
-        //TODO: buscar propriedades aonde o bairro for a busca e estiver dentro
-        //do range de datas válidas para a acomodação
+
         $results = \DB::table('accommodations')
-            ->Leftjoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
-            ->Leftjoin('localizations','localizations.AccommodationId','=','accommodations.AccommodationId')
-            ->Leftjoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
+            ->Leftjoin('descriptions', 'descriptions.AccommodationId', '=', 'accommodations.AccommodationId')
+            ->Leftjoin('localizations', 'localizations.AccommodationId', '=', 'accommodations.AccommodationId')
+            ->Leftjoin('rates', 'rates.AccommodationId', '=', 'accommodations.AccommodationId')
             ->where('District', 'like', "%{$district}%")
             ->where('rates.Rates->RatePeriod->EndDate', '>', "{$today}")
             ->get();
 
-        //$rates = json_decode($results[0]->Rates, true);
-        //$price = $rates['RatePeriod']['RoomOnly']['Price'];
-        $price = 1;
+            $rates = json_decode($results[0]->Rates, true);
+            $price = $rates['RatePeriod']['RoomOnly']['Price'];
+
 
         session()->forget('accommodations.recent');
         //TODO: colocar em um helper ou trait
