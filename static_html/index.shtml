@@ -65,7 +65,7 @@
             <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>
           </div>
         </div>
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col">
               <h1 class="text-center texto-branco mb-15"><strong>Sinta-se em casa onde estiver</strong></h1>
               <a href="#!" class="btn d-flex btn-2 mb-15 switch" data-bs-toggle="collapse" data-bs-target="#aba-busca"><i class="uil uil-search"></i> Onde você quer morar hoje?</a>
@@ -332,6 +332,10 @@
     </section>
 
     <!-- FOOTER -->
+    <!--#include virtual="footer.html"-->
+
+    <!-- FOOTER -->
+<!--
     <footer class="pt-30 fundo-marrom-claro text-center texto-marrom">
       <div class="container">
         <div class="row">
@@ -371,6 +375,7 @@
         </div>
       </div>
     </footer>
+-->
 
     <!-- OVERLAY -->
     <a href="#!" class="fundo-escuro"></a>

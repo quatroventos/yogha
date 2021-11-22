@@ -223,11 +223,15 @@ p {
   font-size: 12px;
   line-height: 1.3em;
 }
-
 .texto-g,
 .texto-g * {
   font-size: 26px;
   line-height: 1.3em;
+}
+
+.texto-fino,
+.texto-fino * {
+  font-weight: 200;
 }
 
 /* cores */
@@ -403,7 +407,7 @@ ul.lista-extra:after {
     border-right: none;
   }
   .form-inline.merge input + .btn {
-    border-color: var(--marrom);
+    /*border-color: var(--marrom);*/
   }
   .form-inline.merge input:focus + .btn {
     border-color: var(--laranja);
@@ -411,6 +415,19 @@ ul.lista-extra:after {
   .form-inline.merge input[type='password'] + .btn {
     color: var(--marrom);
   }
+
+/* form quantidade */
+.form-quantidade .btn {
+  font-size: 12px;
+  padding: 0;
+}
+.form-quantidade input {
+  border: none !important;
+  min-height: 32px;
+  padding: 0 !important;
+  text-align: center;
+  width: 32px;
+}
 
 /* input */
 input:not([type=checkbox]),
@@ -420,6 +437,7 @@ textarea {
   border: 2px solid var(--marrom);
   border-radius: 21px;
   display: inline-flex;
+  line-height: 1em;
   justify-content: center;
   max-width: 375px;
   min-height: 42px;
@@ -451,13 +469,21 @@ input[type=checkbox]:checked {
     margin-bottom: 0;
   }
 
+/* input 2 */
+input.input-2,
+select.input-2,
+textarea.input-2 {
+  border-color: var(--branco);
+}
+
+
 /* botoes */
 .btn,
 .btn:visited {
   align-items: center;
   justify-self: center;
   background: var(--laranja);
-  border: none;
+  border: 2px solid var(--laranja);
   border-radius: 21px;
   color: var(--branco);
   display: inline-flex;
@@ -477,12 +503,14 @@ input[type=checkbox]:checked {
 .btn:hover,
 .btn:active {
   background: var(--marrom-escuro);
+  border-color: var(--marrom-escuro);
   color: var(--branco);
 }
 
 .btn-2,
 .btn-2:visited {
   background: var(--branco);
+  border-color: var(--branco);
   color: var(--laranja);
 }
 .btn-2:hover,
@@ -493,6 +521,7 @@ input[type=checkbox]:checked {
 .btn-3,
 .btn-3:visited {
   background: var(--marrom-claro);
+  border-color: var(--marrom-claro);
   color: var(--marrom-escuro);
 }
 .btn-4,
@@ -536,6 +565,7 @@ input[type=checkbox]:checked {
 .btn-p {
   font-size: 12px;
   min-height: 32px;
+  min-width: 32px;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -634,7 +664,6 @@ div.alerta.ativo {
 ----------------------------------------------------------------- */
 
 .slider {
-  margin-bottom: 15px;
   margin-left: -15px;
   margin-right: -15px;
   overflow-x: scroll;
@@ -831,8 +860,9 @@ div.alerta.ativo {
 #aba-loja {}
 
 /* aba loja single */
-#aba-loja-single {}
-
+#aba-loja-single {
+  height: 100%;
+}
   #aba-loja-single .container {
     border-radius: 0;
   }
@@ -842,7 +872,7 @@ div.alerta.ativo {
       min-height: 230px;
     }
 
-/* aba-mensagens */
+/* aba mensagens */
 #aba-mensagens {}
   #aba-mensagens li {
     border-bottom: 1px solid var(--marrom-claro);
@@ -854,7 +884,7 @@ div.alerta.ativo {
     opacity: .5;
   }
 
-/* aba-mensagens-conversa */
+/* aba mensagens conversa */
 #aba-mensagens-conversa {}
   #aba-mensagens-conversa li {
     border-bottom: 1px solid var(--marrom-claro);
@@ -863,30 +893,27 @@ div.alerta.ativo {
     border-bottom: none;
   }
 
-/* aba-mensagens-nova */
+/* aba mensagens nova */
 #aba-mensagens-nova {}
 
-/* aba-usuario */
+/* aba usuario */
 #aba-usuario .container {}
   #aba-usuario .form-check a {
     float: right;
   }
 
-/* aba-loja */
-#aba-loja-single {
+/* aba blog single */
+#aba-blog-single {
   height: 100%;
 }
-  #aba-loja-single .container {
+  #aba-blog-single .container {
     border-radius: 0;
   }
-    #aba-loja-single .container .topo {
+    #aba-blog-single .container > .row:first-child {
       background-position: center center;
       background-size: cover;
       min-height: 230px;
-      margin: -15px -15px 30px;
-      padding: 15px;
     }
-
 
 /* SHOW ON SCROLL
 ----------------------------------------------------------------- */
@@ -1000,16 +1027,21 @@ body.overlay .fundo-escuro {
 #home {}
 
 /* header */
-#home header {
+header {
   background: url(../img/fundo-header.jpg) no-repeat top center;
   background-size: cover;
 }
-  #home header .row:first-child a {
+  header .row:first-child a i {
     margin-top: -3px;
   }
-  #home header .row:last-child {
-    padding: 80px 0 65px;
+  header .container > .row:nth-child(2) {
+    min-height: 250px;
+    height: 100%;
   }
+
+.interna header {
+  height: 70vh;
+}
 
 /* corporativo */
 section#corporativo {
@@ -1286,4 +1318,45 @@ body.resultado #aba-resultado {
     width: 15vw;
     max-width: 72px;
     max-height: 72px;
+  }
+
+
+/* INTERNAS
+----------------------------------------------------------------- */
+
+/* etapas */
+.etapas .row {
+  margin-bottom: 50px;
+  position: relative;
+}
+.etapas .row:last-child {
+  margin-bottom: 30px;
+}
+  .etapas .row:last-child:after,
+  .etapas .row:last-child:before {
+    display: none;
+  }
+  .etapas .row::after {
+    bottom: -20px;
+    border-right: 1px solid var(--marrom);
+    content: "";
+    display: block;
+    left: 50%;
+    height: 30px;
+    position: absolute;
+    z-index: 2;
+  }
+  .etapas .row::before {
+    bottom: -18px;
+    border-bottom: 1px solid var(--marrom);
+    border-right: 1px solid var(--marrom);
+    content: "";
+    display: block;
+    left: 50%;
+    height: 15px;
+    margin-left: -7px;
+    position: absolute;
+    transform: rotate(45deg);
+    width: 15px;
+    z-index: 2;
   }

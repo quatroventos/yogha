@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+
+  <!-- HEAD -->
+  <!--#include virtual="head.html"-->
+
+  <body class="interna">
+
+    <!-- alerta -->
+    <div class="alerta *ativo"><i class="uil uil-heart"></i> Salvo na sa lista de favoritos!</div>
+
+<!-- MENUS --> 
+
+    <!-- MENU SUPERIOR -->
+    <!--#include virtual="menu-sup.html"-->    
+
+    <!-- MENU INFERIOR -->
+    <!--#include virtual="menu-inf.html"-->    
+
+    <!-- MENU LATERAL -->
+    <!--#include virtual="menu-lateral.html"-->
+
+
+<!-- CONTEUDO -->
+
+    <!-- HEADER -->
+    <header class="mb-30" style="background-image: url(img/fundo-quem-somos.jpg)">
+      <div class="container h-100 pt-15">
+        <div class="row mb-30">
+          <div class="col">
+            <a href="index.shtml"><img class="img-m" src="img/logo-yogha-branco.svg"></a>
+          </div>
+          <div class="col align-items-end justify-content-center">
+            <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>
+          </div>
+        </div>
+        <div class="row h-100 text-center texto-branco">
+          <div class="col">
+            <h1 class="mb-15"><strong>SINTA-SE EM CASA</strong></h1>
+            <h2 class="texto-fino texto-g">Acreditamos que é possível se sentir em casa seja onde estiver</h2>
+          </div>          
+        </div>
+      </div>
+    </header>
+
+    <!-- BLOCO --->
+    <section class="text-center mb-30">
+      <div class="container mb-10">
+        <div class="row">
+          <div class="col-12">
+            <h3 class="texto-g texto-fino mb-15">Foi para realizar esse objetivo que nos tornamos especialistas em gestão de canais de hospedagens</h3>
+            <p>Nossa missão é oferecer a melhor experiência em hospedagens, tanto para hóspedes como para proprietários.</p>
+            <p>A excelência com que realizamos cada locação já conquistou mais de 20.000 hóspedes em Curitiba, desde 2016.</p>
+            <p>Isso é fruto da nossa expertise em atendimento ao cliente, mercado imobiliário e hotelaria.</p>
+            <p>seu jeito de se hospedar mudou e mudou para melhor!</p>
+            <p><strong>Yogha, sinta-se em casa.</strong></p>
+          </div>    
+        </div>
+      </div>
+    </section>
+
+    <hr class="mb-30">
+
+    <!-- BLOCO --->
+    <section class="text-center mb-30">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h3 class="mb-15"><strong>NOVIDADE NAS REDES</strong></h3>
+            <h3 class="texto-g texto-fino mb-15">Siga nosso @ e fique por dentro de tudo o que rola por aqui!</h3>
+          </div>
+          <div class="col-12">
+            <div class="slider slide-3col">
+              <ul>
+                <li>
+                  <a href="#!">
+                    <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                  </a>
+                </li>
+                <li>
+                  <a href="#!">
+                    <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                  </a>
+                </li>
+                <li>
+                  <a href="#!">
+                    <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <a href="#!" class="btn mx-auto">@yogha.host</a>
+          </div>   
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <!--#include virtual="footer.html"-->
+
+<!-- SCRIPTS -->
+
+    <!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <!-- SLICK -->
+    <script type="text/javascript" src="js/slick.min.js"></script>
+
+    <!-- FUNCOES -->
+    <script type="text/javascript" src="js/funcoes.js"></script>
+
+  </body>
+
+</html>
