@@ -23,7 +23,7 @@
                                 @foreach($services as $service)
                                 <tr>
                                     <td>{{$service->id}}</td>
-                                    <td><img src="{{URL::to('/');}}/files/services/{{$service->image}}" width="80"></td>
+                                    <td><img src="{{URL::to('/')}}/files/services/{{$service->image}}" width="80"></td>
                                     <td>{{$service->title}}</td>
                                     <td>{{$service->price}}</td>
                                 </tr>

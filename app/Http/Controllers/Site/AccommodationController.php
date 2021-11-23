@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Services;
 use Illuminate\Http\Request;
 
 class AccommodationController extends Controller
@@ -21,6 +22,9 @@ class AccommodationController extends Controller
             ->Leftjoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
             ->where('accommodations.AccommodationId','=', $accommodationid)
             ->get();
+
+        $services = Services::all();
+
 
         //grava visita na sessão para mostrar em ultimos visitados
         session()->push('accommodations.recent', $accommodation[0]->AccommodationId);
@@ -53,7 +57,7 @@ class AccommodationController extends Controller
             $totalcamas += $features['Distribution']['KingBeds'];
         }
 
-        return view('site.accommodation.index', compact('accommodation', 'price', 'description', 'pictures', 'features', 'localization', 'latitude', 'longitude', 'zoom', 'totalcamas' ));
+        return view('site.accommodation.index', compact('accommodation', 'price', 'description', 'pictures', 'features', 'localization', 'latitude', 'longitude', 'zoom', 'totalcamas', 'services' ));
     }
 
 }

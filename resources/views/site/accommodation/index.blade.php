@@ -1,4 +1,5 @@
 <?php
+    //dd($accommodation);
     //Distribution
     /*
 
@@ -491,44 +492,32 @@
             <div class="col">
                 <div class="slider slide-4col texto-m texto-branco">
                     <ul>
+                        @foreach($services as $service)
                         <li>
-                            <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" >
-                                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                            <a href="{{URL::to('/service_details')}}/{{$service->id}}" class="service-link" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" >
+                                <picture style="background-image: url({{URL::to('/')}}/files/services/{{$service->image}});"></picture>
                                 <div>
-                                    <h3>Limpeza</h3>
+                                    <h3>{{$service->title}} - R$ {{$service->price}}</h3>
                                 </div>
                             </a>
                         </li>
-                        <li>
-                            <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" >
-                                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                <div>
-                                    <h3>Lavanderia</h3>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" >
-                                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                <div>
-                                    <h3>Aluguel de carro</h3>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" >
-                                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                <div>
-                                    <h3>Guia turístico</h3>
-                                </div>
-                            </a>
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+    $(document).ready(function(){
+        // your on click function here
+        $('.service-link').click(function(){
+            $('#aba-loja-single').load($(this).attr('href'));
+            return false;
+        });
+    });
+</script>
 
 <hr class="mb-30">
 
@@ -541,16 +530,6 @@
         </div>
         <div class="row mb-30">
             <div class="col">
-{{--                <iframe--}}
-{{--                    class="mapa"--}}
-{{--                    width="600"--}}
-{{--                    height="450"--}}
-{{--                    frameborder="0" style="border:0"--}}
-{{--                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBmkujyYai1vhF5NXfXDyIDbeWyaVEU3xk&q='{{$description[1]['Region']['Name']}}'&zoom={{$zoom}}&center={{$latitude}},{{$longitude}}"--}}
-{{--                    allowfullscreen=""--}}
-{{--                    loading="lazy">--}}
-{{--                </iframe>--}}
-
 
                 <div id="map"></div>
 
@@ -571,46 +550,46 @@
 
             </div>
         </div>
-        <div class="row mb-15">
-            <div class="col">
-                <h3><strong>Encontre nas proximidades</strong></h3>
-            </div>
-        </div>
-        <div class="row mb-15">
-            <div class="col">
-                <ul class="gap-10">
-                    <li class="row">
-                        <div class="col grow-0 pe-0">
-                            <i class="icone-m uil uil-map-marker"></i>
-                        </div>
-                        <div class="col">
-                            <p class="texto-m mb-0"><strong>Restaurante Barolo</strong> → 110m</p>
-                            <p class="texto-m mb-0">Restaurante</p>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col grow-0 pe-0">
-                            <i class="icone-m uil uil-map-marker"></i>
-                        </div>
-                        <div class="col">
-                            <p class="texto-m mb-0"><strong>We are Bastards</strong> → 320m</p>
-                            <p class="texto-m mb-0">Restaurante</p>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col grow-0 pe-0">
-                            <i class="icone-m uil uil-map-marker"></i>
-                        </div>
-                        <div class="col">
-                            <p class="texto-m mb-0"><strong>Hipermercado Condor</strong> → 1,5km</p>
-                            <p class="texto-m mb-0">Supermercado</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+{{--        <div class="row mb-15">--}}
+{{--            <div class="col">--}}
+{{--                <h3><strong>Encontre nas proximidades</strong></h3>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="row mb-15">--}}
+{{--            <div class="col">--}}
+{{--                <ul class="gap-10">--}}
+{{--                    <li class="row">--}}
+{{--                        <div class="col grow-0 pe-0">--}}
+{{--                            <i class="icone-m uil uil-map-marker"></i>--}}
+{{--                        </div>--}}
+{{--                        <div class="col">--}}
+{{--                            <p class="texto-m mb-0"><strong>Restaurante Barolo</strong> → 110m</p>--}}
+{{--                            <p class="texto-m mb-0">Restaurante</p>--}}
+{{--                        </div>--}}
+{{--                    </li>--}}
+{{--                    <li class="row">--}}
+{{--                        <div class="col grow-0 pe-0">--}}
+{{--                            <i class="icone-m uil uil-map-marker"></i>--}}
+{{--                        </div>--}}
+{{--                        <div class="col">--}}
+{{--                            <p class="texto-m mb-0"><strong>We are Bastards</strong> → 320m</p>--}}
+{{--                            <p class="texto-m mb-0">Restaurante</p>--}}
+{{--                        </div>--}}
+{{--                    </li>--}}
+{{--                    <li class="row">--}}
+{{--                        <div class="col grow-0 pe-0">--}}
+{{--                            <i class="icone-m uil uil-map-marker"></i>--}}
+{{--                        </div>--}}
+{{--                        <div class="col">--}}
+{{--                            <p class="texto-m mb-0"><strong>Hipermercado Condor</strong> → 1,5km</p>--}}
+{{--                            <p class="texto-m mb-0">Supermercado</p>--}}
+{{--                        </div>--}}
+{{--                    </li>--}}
+{{--                </ul>--}}
+{{--            </div>--}}
 
-        </div>
-    </div>
+{{--        </div>--}}
+{{--    </div>--}}
 </section>
 
 <hr class="mb-30">
