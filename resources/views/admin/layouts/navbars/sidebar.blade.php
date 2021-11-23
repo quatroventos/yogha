@@ -22,6 +22,13 @@ Tip 2: you can also add an image using data-image tag
                     <p>Prateleiras</p>
                 </a>
             </li>
+
+            <li class="nav-item @if($activePage == 'services') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'admin/services')}}">
+                    <i class="nc-icon nc-paper-2"></i>
+                    <p>Serviços</p>
+                </a>
+            </li>
             <!--<li class="nav-item @if($activePage == 'typography') active @endif">
                 <a class="nav-link" href="{{route('page.index', 'typography')}}">
                     <i class="nc-icon nc-paper-2"></i>

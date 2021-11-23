@@ -25,10 +25,15 @@ Auth::routes();
 
 Route::namespace('App\Http\Controllers\Backend')->group(function() {
     Route::get('/admin', 'AdminController@index')->name('dashboard');
-    Route::get('/admin/shelves', 'ShelvesController@index')->name('prateleiras');
+    Route::get('/admin/shelves', 'ShelvesController@index')->name('shelves');
     Route::get('/admin/shelves/edit', 'ShelvesController@edit')->name('shelf.edit');
     Route::get('/admin/shelves/update', 'ShelvesController@update')->name('shelf.update');
     Route::post('/admin/shelves/create', 'ShelvesController@create')->name('shelf.create');
+
+    Route::get('/admin/services', 'ServicesController@index')->name('services');
+    Route::get('/admin/services/edit', 'ServicesController@edit')->name('service.edit');
+    Route::get('/admin/services/update', 'ServicesController@update')->name('service.update');
+    Route::post('/admin/services/create', 'ServicesController@create')->name('service.create');
 });
 
 Route::group(['middleware' => 'auth'], function () {
