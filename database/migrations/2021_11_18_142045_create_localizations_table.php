@@ -13,7 +13,7 @@ class CreateLocalizationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('localizations', function (Blueprint $table) {
+        Schema::create('site.localizations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->foreignId('AccommodationId');

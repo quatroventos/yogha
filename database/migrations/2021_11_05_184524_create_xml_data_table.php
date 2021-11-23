@@ -13,7 +13,7 @@ class CreateXmlDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('xml_data', function (Blueprint $table) {
+        Schema::create('site.xml_data', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table -> integer("AccommodationId")->nullable();

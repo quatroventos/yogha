@@ -19,7 +19,7 @@ class HomeController extends Controller
     public function __invoke(Request $request)
     {
 
-        session()->forget('accommodations.recent');
+        //session()->forget('accommodations.recent');
         //die();
 
         //select acomodações na home
@@ -51,10 +51,13 @@ class HomeController extends Controller
             $recently_viewed = '';
         }
 
+
+        $today = date("Y-m-d");
         //TODO: colocar em um helper ou trait
         //pega aleatoriamente uma acomodação para o botão me surpreenda
         $surpriseme = \DB::table('accommodations')
-            ->select('AccommodationId')
+            ->Leftjoin('rates', 'rates.AccommodationId', '=', 'accommodations.AccommodationId')
+            ->where('rates.Rates->RatePeriod->EndDate', '>', "{$today}")
             ->take(1)
             ->inRandomOrder()
             ->get();

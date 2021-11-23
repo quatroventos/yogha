@@ -13,7 +13,7 @@ class CreateRatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('rates', function (Blueprint $table) {
+        Schema::create('site.rates', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->foreignId('AccommodationId')->nullable();

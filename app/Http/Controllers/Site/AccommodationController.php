@@ -15,8 +15,6 @@ class AccommodationController extends Controller
      */
     public function index($accommodationid)
     {
-        session()->push('accommodations.recent', $accommodationid);
-
         $accommodation = \DB::table('accommodations')
             ->select('accommodations.*','descriptions.*','rates.*')
             ->Leftjoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
@@ -24,6 +22,10 @@ class AccommodationController extends Controller
             ->where('accommodations.AccommodationId','=', $accommodationid)
             ->get();
 
+        //grava visita na sessão para mostrar em ultimos visitados
+        session()->push('accommodations.recent', $accommodation[0]->AccommodationId);
+
+        //variáveis para uso na view
         $rates = json_decode($accommodation[0]->Rates, true);
         $price = $rates['RatePeriod']['RoomOnly']['Price'];
 

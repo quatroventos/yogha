@@ -80,7 +80,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="Description" content="">
     <meta name="Keywords" content="">
-
+    <style>
+        #map {
+            height: 300px;
+            height: 300px;
+        }
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
     <!-- CANONICAL -->
     <link rel="canonical" href="http://www.yogha.com.br/">
 
@@ -112,9 +123,16 @@
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
+    <!-- GOOGLE MAPS -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSeQcKPvoa7ix-NIn8yf_gRlBqv4QtaYI&callback=initMap&v=weekly&channel=2" async ></script>
 </head>
 
 <body id="single-anuncio">
+
+<!-- ABA LOJA -->
+@include('site.abas.service_list')
+<!-- ABA LOJA SINGLE -->
+@include('site.abas.service_details')
 
 <!-- CONTEUDO -->
 
@@ -523,32 +541,33 @@
         </div>
         <div class="row mb-30">
             <div class="col">
-                <iframe
-                    class="mapa"
-                    width="600"
-                    height="450"
-                    frameborder="0" style="border:0"
-                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBmkujyYai1vhF5NXfXDyIDbeWyaVEU3xk&q='{{$description[1]['Region']['Name']}}'&zoom={{$zoom}}&center={{$latitude}},{{$longitude}}"
-                    allowfullscreen=""
-                    loading="lazy">
-                </iframe>
+{{--                <iframe--}}
+{{--                    class="mapa"--}}
+{{--                    width="600"--}}
+{{--                    height="450"--}}
+{{--                    frameborder="0" style="border:0"--}}
+{{--                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBmkujyYai1vhF5NXfXDyIDbeWyaVEU3xk&q='{{$description[1]['Region']['Name']}}'&zoom={{$zoom}}&center={{$latitude}},{{$longitude}}"--}}
+{{--                    allowfullscreen=""--}}
+{{--                    loading="lazy">--}}
+{{--                </iframe>--}}
 
-{{--                <div id="map"></div>--}}
-{{--                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmkujyYai1vhF5NXfXDyIDbeWyaVEU3xk&callback=initMap&v=weekly&channel=2" async ></script>--}}
-{{--                <script>--}}
-{{--                    function initMap() {--}}
-{{--                        const myLatLng = { lat: {{$latitude}}, lng: {{$longiture}} };--}}
-{{--                        const map = new google.maps.Map(document.getElementById("map"), {--}}
-{{--                            zoom: {{$zoom}},--}}
-{{--                            center: myLatLng,--}}
-{{--                        });--}}
-{{--                        new google.maps.Marker({--}}
-{{--                            position: myLatLng,--}}
-{{--                            map,--}}
-{{--                            title: "{{$accommodation[0]->AccommodationName}}",--}}
-{{--                        });--}}
-{{--                    }--}}
-{{--                </script>--}}
+
+                <div id="map"></div>
+
+                <script>
+                    function initMap() {
+                        const myLatLng = { lat: {{$latitude}}, lng: {{$longitude}} };
+                        const map = new google.maps.Map(document.getElementById("map"), {
+                            zoom: {{$zoom}},
+                            center: myLatLng,
+                        });
+                        new google.maps.Marker({
+                            position: myLatLng,
+                            map,
+                            title: "{{$accommodation[0]->AccommodationName}}",
+                        });
+                    }
+                </script>
 
             </div>
         </div>

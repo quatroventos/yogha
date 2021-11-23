@@ -50,7 +50,6 @@ class SearchController extends Controller
             $rates = json_decode($results[0]->Rates, true);
             $price = $rates['RatePeriod']['RoomOnly']['Price'];
 
-
         session()->forget('accommodations.recent');
         //TODO: colocar em um helper ou trait
         //select acomodações mais recentes para a busca
@@ -70,7 +69,6 @@ class SearchController extends Controller
         //TODO: colocar em um helper ou trait
         //pega aleatoriamente uma acomodação para o botão me surpreenda
         $surpriseme = \DB::table('accommodations')
-            ->select('AccommodationId')
             ->Leftjoin('rates', 'rates.AccommodationId', '=', 'accommodations.AccommodationId')
             ->where('rates.Rates->RatePeriod->EndDate', '>', "{$today}")
             ->take(1)

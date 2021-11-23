@@ -13,7 +13,7 @@ class CreateShelfLayoutsTable extends Migration
      */
     public function up()
     {
-        Schema::create('shelf_layouts', function (Blueprint $table) {
+        Schema::create('site.shelf_layouts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->text("title");

@@ -33,7 +33,7 @@ class ShelvesController extends Controller
             ->orderby('position', 'asc')
             ->get();
         //dd($shelves);
-        return view('shelves.index', compact('shelves'));
+        return view('admin.shelves.index', compact('shelves'));
     }
 
 
@@ -41,7 +41,7 @@ class ShelvesController extends Controller
     {
         $filters = \DB::table('shelf_filters')->select('*')->get();
         $layouts = \DB::table('shelf_layouts')->select('*')->get();
-        return view('shelves.edit', compact('filters', 'layouts'));
+        return view('admin.shelves.edit', compact('filters', 'layouts'));
     }
 
 

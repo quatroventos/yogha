@@ -13,7 +13,7 @@ class Descriptions extends Migration
      */
     public function up()
     {
-        Schema::create('descriptions', function (Blueprint $table) {
+        Schema::create('site.descriptions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table -> foreignId("AccommodationId")->nullable();

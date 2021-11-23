@@ -13,7 +13,7 @@ class CreateShelvesTable extends Migration
      */
     public function up()
     {
-        Schema::create('shelves', function (Blueprint $table) {
+        Schema::create('site.shelves', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table -> text("title");

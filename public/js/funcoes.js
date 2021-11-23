@@ -55,25 +55,3 @@ $window.on('scroll', function(){
     showScroll.addClass('hidden');
   };
 });
-
-
-$('input.typeahead').keyup(function(){
-    $('.surpriseme').hide();
-});
-var path = "{{ url('autocomplete-search-query') }}";
-$('input.typeahead').typeahead({
-    source:  function (query, process) {
-        return $.get(path, { query: query }, function (data) {
-
-            //$('#searchResults').append(data);
-
-            $('#searchResults').empty();
-            $.each(data, function( index, value ) {
-                $('#searchResults').append('<li><a href="searchbydistrict/'+data[index]["District"]+'">'+data[index]["District"]+' - '+data[index]["District"]+'</a></li>')
-            });
-
-        });
-    },
-    hint: false,
-    minLength: 1
-});

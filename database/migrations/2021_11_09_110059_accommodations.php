@@ -13,7 +13,7 @@ class Accommodations extends Migration
      */
     public function up()
     {
-        Schema::create('accommodations', function (Blueprint $table) {
+        Schema::create('site.accommodations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table -> integer("AccommodationId")->nullable();

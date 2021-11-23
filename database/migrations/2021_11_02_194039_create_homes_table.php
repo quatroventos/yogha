@@ -13,7 +13,7 @@ class CreateHomesTable extends Migration
      */
     public function up()
     {
-        Schema::create('homes', function (Blueprint $table) {
+        Schema::create('site.homes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });

@@ -1,4 +1,4 @@
-@extends('layouts.site')
+@extends('site.layouts.site')
 @section('content')
 
     <!-- HEADER -->
