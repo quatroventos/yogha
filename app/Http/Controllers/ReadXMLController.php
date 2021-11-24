@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Localizations;
+use App\Models\OccuppationalRules;
 use Illuminate\Http\Request;
 use App\Models\Accommodations;
 use App\Models\Descriptions;
@@ -23,6 +24,10 @@ class ReadXMLController extends Controller
         echo "rates apagada<br>";
         \DB::table('localizations')->truncate();
         echo "localizations apagada<br>";
+        \DB::table('occuppationalrules')->truncate();
+        echo "occuppational rules apagada<br>";
+
+
 
             $accommodationsXML = file_get_contents(public_path('xml/Accommodations.xml'));
             $accommodationsObj = simplexml_load_string($accommodationsXML);
@@ -39,8 +44,12 @@ class ReadXMLController extends Controller
             $ratesJson = json_encode($ratesObj);
             $ratesArray = json_decode($ratesJson, true);
 
-            //dd($ratesArray);
+            $ocuppationalRulesXML = file_get_contents(public_path('xml/OccupationalRules.xml'));
+            $ocuppationalRulesObj = simplexml_load_string($ocuppationalRulesXML);
+            $ocuppationalRulesJson = json_encode($ocuppationalRulesObj);
+            $ocuppationalRulesArray = json_decode($ocuppationalRulesJson, true);
 
+            //dd($ocuppationalRulesArray);
 
         if(count($ratesArray['AccommodationList']['Accommodation']) > 0){
 
@@ -115,6 +124,40 @@ class ReadXMLController extends Controller
                     "CheckInCheckOutInfo" => $CheckInCheckOutInfo,
                ];
 
+                //dd($ocuppationalRulesArray['OccupationalRule']);
+               //importa Occuppational Rules em outra tabela
+
+
+                $occuppationalArray = [];
+                foreach($ocuppationalRulesArray['OccupationalRule'] as $occupationalRule){
+                    if ($occupationalRule['Id'] == $data['OccupationalRuleId']) {
+                        foreach($occupationalRule['Season'] as $index => $season) {
+                            echo "importando occupational rule " . $data['OccupationalRuleId'] . " para accommodation: " . $data['AccommodationId'] . "<br>";
+
+                            $occuppationalArray = array_merge($occuppationalArray, ["AccommodationId" => $data['AccommodationId']]);
+
+                            if (isset($season['StartDate']) && empty($season['StartDate']) === false) {
+                                $occuppationalArray = array_merge($occuppationalArray, ["StartDate" => $season['StartDate']]);
+                            }
+
+                            if (isset($season['EndDate']) && empty($season['EndDate']) === false) {
+                                $occuppationalArray = array_merge($occuppationalArray, ["EndDate" => $season['EndDate']]);
+                            }
+
+                            if (isset($season['MinimumNights']) && empty($season['MinimumNights']) === false) {
+                                $occuppationalArray = array_merge($occuppationalArray, ["MinimumNights" => $season['MinimumNights']]);
+                            }
+                            echo "<pre>";
+                            print_r($occuppationalArray);
+                            echo "</pre>";
+                        }
+                        OccuppationalRules::insert($occuppationalArray);
+                        echo "Occuppational Rule importada para a accommodation: ".$data['AccommodationId']."<br>";
+                    }else{
+                        echo "Occuppational rule ".$occupationalRule['Id']." não encontrada para a Accommodation ".$data['AccommodationId']."<br>";
+                    }
+                }
+
 
 
 
@@ -158,6 +201,8 @@ class ReadXMLController extends Controller
                     $localizationArray = array_merge($localizationArray, ["KindOfWay" => $data['LocalizationData']['AreaDist']['Name']]);
                 }
                 Localizations::insert($localizationArray);
+
+
             }//foreach accommodations
             Accommodations::insert($dataArray);
 

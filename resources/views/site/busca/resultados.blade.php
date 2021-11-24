@@ -146,6 +146,12 @@
         </div>
 
         @foreach($results as $result)
+            <?php
+                $rules = json_decode($result->Season, true);
+            ?>
+
+
+        <?php dd($rules); ?>
         <div class="row mb-30">
             <div class="col">
                 <a href="/accommodation/{{$result->AccommodationId}}">
@@ -176,7 +182,7 @@
 {{--                </div>--}}
                 <a href="/accommodation/{{$result->AccommodationId}}" class="texto-marrom-escuro">
                     <h2 class="mb-5"><strong>{{$result->AccommodationName}}</strong></h2>
-                    <p class="texto-m texto-ret mb-5"><span></span></p>
+                    <p class="texto-m texto-ret mb-5"><span>{{$rules['MinimumNights']}}</span></p>
                     <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$price}}</strong> /noite • <span class="texto-marrom">preço estimado</span></h4>
                 </a>
             </div>

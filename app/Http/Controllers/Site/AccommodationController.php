@@ -23,8 +23,12 @@ class AccommodationController extends Controller
             ->where('accommodations.AccommodationId','=', $accommodationid)
             ->get();
 
-        $services = Services::all();
+        $occuppationalrules = \DB::table('occuppationalrules')
+            ->select('occuppationalrules')
+            ->where('occuppationalrules.Id','=', $accommodation[0]->OccupationalRuleId)
+            ->get();
 
+        $services = Services::all();
 
         //grava visita na sessão para mostrar em ultimos visitados
         session()->push('accommodations.recent', $accommodation[0]->AccommodationId);
@@ -57,7 +61,7 @@ class AccommodationController extends Controller
             $totalcamas += $features['Distribution']['KingBeds'];
         }
 
-        return view('site.accommodation.index', compact('accommodation', 'price', 'description', 'pictures', 'features', 'localization', 'latitude', 'longitude', 'zoom', 'totalcamas', 'services' ));
+        return view('site.accommodation.index', compact('accommodation', 'price', 'description', 'pictures', 'features', 'localization', 'latitude', 'longitude', 'zoom', 'totalcamas', 'services', 'occuppationalrules' ));
     }
 
 }

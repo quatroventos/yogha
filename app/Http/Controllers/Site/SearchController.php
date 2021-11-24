@@ -43,6 +43,7 @@ class SearchController extends Controller
             ->Leftjoin('descriptions', 'descriptions.AccommodationId', '=', 'accommodations.AccommodationId')
             ->Leftjoin('localizations', 'localizations.AccommodationId', '=', 'accommodations.AccommodationId')
             ->Leftjoin('rates', 'rates.AccommodationId', '=', 'accommodations.AccommodationId')
+            ->Leftjoin('occuppationalrules', 'accommodations.OccupationalRuleId', '=', 'occuppationalrules.Id')
             ->where('District', 'like', "%{$district}%")
             ->where('rates.Rates->RatePeriod->EndDate', '>', "{$today}")
             ->get();
@@ -50,7 +51,7 @@ class SearchController extends Controller
             $rates = json_decode($results[0]->Rates, true);
             $price = $rates['RatePeriod']['RoomOnly']['Price'];
 
-        session()->forget('accommodations.recent');
+
         //TODO: colocar em um helper ou trait
         //select acomodações mais recentes para a busca
         $accommodations_session = session()->get('accommodations.recent');
