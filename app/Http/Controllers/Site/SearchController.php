@@ -26,7 +26,6 @@ class SearchController extends Controller
         $data = \DB::table('localizations')
             ->Leftjoin('rates', 'rates.AccommodationId', '=', 'localizations.AccommodationId')
             ->where('localizations.District', 'like', "%".strtolower($input['query'])."%")
-            ->where('rates.Rates->RatePeriod->EndDate', '>', "{$today}")
             ->get()
             ->unique('District');
 
@@ -49,16 +48,11 @@ class SearchController extends Controller
         $results = \DB::table('accommodations')
             ->Leftjoin('descriptions', 'descriptions.AccommodationId', '=', 'accommodations.AccommodationId')
             ->Leftjoin('localizations', 'localizations.AccommodationId', '=', 'accommodations.AccommodationId')
-            ->Leftjoin('rates', 'rates.AccommodationId', '=', 'accommodations.AccommodationId')
+            ->Leftjoin('rates','accommodations.AccommodationId', '=', 'rates.AccommodationId')
             ->where('District', 'like', "%{$district}%")
+            ->where('StartDate', '<', "{$startdate}")
+            ->where('EndDate', '>', "{$enddate}")
             ->get();
-
-            $rates = json_decode($results[0]->Rates, true);
-            if(!empty($rates['RatePeriod']['RoomOnly']['Price'])) {
-                $price = $rates['RatePeriod']['RoomOnly']['Price'];
-            }else{
-                $price = '';
-            }
 
         //recupera occupattional rules de acordo com a data selecionada
         $occuppationalrules = \DB::table('occuppationalrules')
@@ -85,13 +79,11 @@ class SearchController extends Controller
         //TODO: colocar em um helper ou trait
         //pega aleatoriamente uma acomodação para o botão me surpreenda
         $surpriseme = \DB::table('accommodations')
-            ->Leftjoin('rates', 'rates.AccommodationId', '=', 'accommodations.AccommodationId')
-            ->where('rates.Rates->RatePeriod->EndDate', '>', "{$today}")
             ->take(1)
             ->inRandomOrder()
             ->get();
 
-        return view('site.busca.resultados', compact('results', 'district', 'surpriseme', 'recently_viewed', 'price', 'occuppationalrules', 'startdate', 'enddate'));
+        return view('site.busca.resultados', compact('results', 'district', 'surpriseme', 'recently_viewed', 'occuppationalrules', 'startdate', 'enddate'));
     }
 
 }

@@ -51,27 +51,24 @@ class ReadXMLController extends Controller
 
             //dd($ocuppationalRulesArray);
 
-        if(count($ratesArray['AccommodationList']['Accommodation']) > 0){
-
-            $dataArray = array();
-
-            foreach($ratesArray['AccommodationList']['Accommodation'] as $index => $data){
-
-                $rates = json_encode($data['Rates']);
-                $vat = json_encode($data['VAT']);
-
-                $dataArray[] = [
-                    "AccommodationId" => $data['AccommodationId'],
-                    "Capacity" => $data['Capacity'],
-                    "Rates" => $rates,
-                    "VAT" => $vat,
-                ];
-            }
-
-            Rates::insert($dataArray);
-
-            echo "Rates importadas!<br>";
-        }
+//        if(count($ratesArray['AccommodationList']['Accommodation']) > 0){
+//
+//            $dataArray = array();
+//
+//            foreach($ratesArray['AccommodationList']['Accommodation'] as $index => $data){
+//                $dataArray = array_merge($dataArray, ["AccommodationId" => $data['AccommodationId']]);
+//                $dataArray = array_merge($dataArray, ["AccommodationId" => $data['Capacity']]);
+//
+//                foreach($data['Rates']){
+//
+//                }
+//
+//            }
+//
+//            Rates::insert($dataArray);
+//
+//            echo "Rates importadas!<br>";
+//        }
 
         if(count($descriptionsArray['Accommodation']) > 0){
 
@@ -124,11 +121,53 @@ class ReadXMLController extends Controller
                     "CheckInCheckOutInfo" => $CheckInCheckOutInfo,
                ];
 
-                //dd($ocuppationalRulesArray['OccupationalRule']);
-               //importa Occuppational Rules em outra tabela
+                //importa Rates em outra tabela
+                foreach($ratesArray['AccommodationList']['Accommodation'] as $rateData) {
+                    if ($rateData['AccommodationId'] == $data['AccommodationId']) {
+
+                        foreach ($rateData['Rates'] as $index => $rate) {
+
+                            $rateArray = [];
+
+                            echo "importando Rates de " . $rateData['AccommodationId'] . " para accommodation: " . $data['AccommodationId'] . "<br>";
+
+                            $rateArray = array_merge($rateArray, ["AccommodationId" => $rateData['AccommodationId']]);
+                            $rateArray = array_merge($rateArray, ["Capacity" => $rateData['Capacity']]);
+
+                            if (isset($rate['StartDate']) && empty($rate['StartDate']) === false) {
+                                $rateArray = array_merge($rateArray, ["StartDate" => $rate['StartDate']]);
+                                echo "StartDate = " . $rate['StartDate'];
+                            }
+
+                            if (isset($rate['EndDate']) && empty($rate['EndDate']) === false) {
+                                $rateArray = array_merge($rateArray, ["EndDate" => $rate['EndDate']]);
+                                echo "EndDate = " . $rate['EndDate'];
+                            }
+
+                            if (isset($rateData['VAT']) && empty($rateData['VAT']) === false) {
+                                $rateArray = array_merge($rateArray, ["VAT" => $rateData['VAT']['Included']]);
+                                echo "VAT = " . $rateData['VAT']['Included'];
+                            }
+
+                            if (isset($rate['RoomOnly']) && empty($rate['RoomOnly']) === false) {
+                                $rateArray = array_merge($rateArray, ["Price" => $rate['RoomOnly']['Price']]);
+                                echo "Price = " . $rate['RoomOnly']['Price'];
+                            }
+
+                            echo "<pre>";
+                            print_r($rateArray);
+                            echo "</pre>";
+                            Rates::insert($rateArray);
+                            echo "Rate importada para a accommodation: " . $data['AccommodationId'] . "<br>";
+                        }
+
+                    } else {
+                        echo "Rate " . $rateData['AccommodationId'] . " não encontrada para a Accommodation " . $data['AccommodationId'] . "<br>";
+                    }
+                }//foreach
 
 
-
+                    //importa Occuppational Rules em outra tabela
                 foreach($ocuppationalRulesArray['OccupationalRule'] as $occupationalRule){
                     if ($occupationalRule['Id'] == $data['OccupationalRuleId']) {
                         foreach($occupationalRule['Season'] as $index => $season) {
@@ -162,9 +201,6 @@ class ReadXMLController extends Controller
                         echo "Occuppational rule ".$occupationalRule['Id']." não encontrada para a Accommodation ".$data['AccommodationId']."<br>";
                     }
                 }
-
-
-
 
                //importa LocalizationData em outra tabela
                 $localizationArray = ["AccommodationId" => $data['AccommodationId']];

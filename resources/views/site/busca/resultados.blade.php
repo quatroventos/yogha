@@ -131,7 +131,7 @@
                 <a href="pagina-single-anuncio.shtml">
                     <h2 class="mb-5 texto-ret"><strong>Título do anúncio</strong></h2>
                     <p class="texto-m texto-ret mb-5"><span>O estúdio em Curitiba tem 1 quarto e capacidade para 4 pessoas</span></p>
-                    <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$price}}</strong> /noite <span class="texto-marrom texto-p">preço estimado</span></h4>
+                    <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$</strong> /noite <span class="texto-marrom texto-p">preço estimado</span></h4>
                 </a>
             </div>
         </div>
@@ -179,7 +179,7 @@
                         @if(isset($occuppationalrules) && !empty($occuppationalrules))
                             <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}.</span></p>
                         @endif
-                    <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$price}}</strong> /noite • <span class="texto-marrom">preço estimado</span></h4>
+                    <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$result->Price}}</strong> /noite • <span class="texto-marrom">preço estimado</span></h4>
                 </a>
             </div>
         </div>
