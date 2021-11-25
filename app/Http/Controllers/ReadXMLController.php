@@ -128,20 +128,24 @@ class ReadXMLController extends Controller
                //importa Occuppational Rules em outra tabela
 
 
-                $occuppationalArray = [];
+
                 foreach($ocuppationalRulesArray['OccupationalRule'] as $occupationalRule){
                     if ($occupationalRule['Id'] == $data['OccupationalRuleId']) {
                         foreach($occupationalRule['Season'] as $index => $season) {
+                            $occuppationalArray = [];
+
                             echo "importando occupational rule " . $data['OccupationalRuleId'] . " para accommodation: " . $data['AccommodationId'] . "<br>";
 
                             $occuppationalArray = array_merge($occuppationalArray, ["AccommodationId" => $data['AccommodationId']]);
 
                             if (isset($season['StartDate']) && empty($season['StartDate']) === false) {
                                 $occuppationalArray = array_merge($occuppationalArray, ["StartDate" => $season['StartDate']]);
+                                echo "StartDate = ".$season['StartDate'];
                             }
 
                             if (isset($season['EndDate']) && empty($season['EndDate']) === false) {
                                 $occuppationalArray = array_merge($occuppationalArray, ["EndDate" => $season['EndDate']]);
+                                echo "EndDate = ".$season['EndDate'];
                             }
 
                             if (isset($season['MinimumNights']) && empty($season['MinimumNights']) === false) {
@@ -150,9 +154,10 @@ class ReadXMLController extends Controller
                             echo "<pre>";
                             print_r($occuppationalArray);
                             echo "</pre>";
+                            OccuppationalRules::insert($occuppationalArray);
+                            echo "Occuppational Rule importada para a accommodation: ".$data['AccommodationId']."<br>";
                         }
-                        OccuppationalRules::insert($occuppationalArray);
-                        echo "Occuppational Rule importada para a accommodation: ".$data['AccommodationId']."<br>";
+
                     }else{
                         echo "Occuppational rule ".$occupationalRule['Id']." não encontrada para a Accommodation ".$data['AccommodationId']."<br>";
                     }

@@ -35,22 +35,37 @@ class SearchController extends Controller
     }
 
     //busca por distrito / bairro
-    public function searchbydistrict($district)
+    public function searchbydistrict($district, $startdate='', $enddate='')
     {
+        //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
         $today = date("Y-m-d");
+        if($startdate == '') {
+            $startdate = $today;
+        }
+        if($enddate == '') {
+            $enddate = date('Y-m-d', strtotime($today. ' + 2 days'));
+        }
 
         $results = \DB::table('accommodations')
             ->Leftjoin('descriptions', 'descriptions.AccommodationId', '=', 'accommodations.AccommodationId')
             ->Leftjoin('localizations', 'localizations.AccommodationId', '=', 'accommodations.AccommodationId')
             ->Leftjoin('rates', 'rates.AccommodationId', '=', 'accommodations.AccommodationId')
-            ->Leftjoin('occuppationalrules', 'accommodations.OccupationalRuleId', '=', 'occuppationalrules.Id')
             ->where('District', 'like', "%{$district}%")
-            ->where('rates.Rates->RatePeriod->EndDate', '>', "{$today}")
             ->get();
 
             $rates = json_decode($results[0]->Rates, true);
-            $price = $rates['RatePeriod']['RoomOnly']['Price'];
+            if(!empty($rates['RatePeriod']['RoomOnly']['Price'])) {
+                $price = $rates['RatePeriod']['RoomOnly']['Price'];
+            }else{
+                $price = '';
+            }
 
+        //recupera occupattional rules de acordo com a data selecionada
+        $occuppationalrules = \DB::table('occuppationalrules')
+            ->where('AccommodationId', '=', $results[0]->AccommodationId)
+            ->where('StartDate', '<', "{$startdate}")
+            ->where('EndDate', '>', "{$enddate}")
+            ->get();
 
         //TODO: colocar em um helper ou trait
         //select acomodações mais recentes para a busca
@@ -76,7 +91,7 @@ class SearchController extends Controller
             ->inRandomOrder()
             ->get();
 
-        return view('site.busca.resultados', compact('results', 'district', 'surpriseme', 'recently_viewed', 'price'));
+        return view('site.busca.resultados', compact('results', 'district', 'surpriseme', 'recently_viewed', 'price', 'occuppationalrules', 'startdate', 'enddate'));
     }
 
 }

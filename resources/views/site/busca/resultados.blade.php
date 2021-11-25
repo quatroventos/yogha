@@ -65,7 +65,6 @@
         </div>
     </div>
 </section>
-
 <section class="fixo-t">
     <div class="container pt-15 mb-15">
         <div class="row busca-resumo collapse show">
@@ -146,12 +145,6 @@
         </div>
 
         @foreach($results as $result)
-            <?php
-                $rules = json_decode($result->Season, true);
-            ?>
-
-
-        <?php dd($rules); ?>
         <div class="row mb-30">
             <div class="col">
                 <a href="/accommodation/{{$result->AccommodationId}}">
@@ -181,8 +174,11 @@
 {{--                    <div class="col grow-0"><a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-favoritos"><i class="icone-m uil uil-heart"></i></a></div>--}}
 {{--                </div>--}}
                 <a href="/accommodation/{{$result->AccommodationId}}" class="texto-marrom-escuro">
-                    <h2 class="mb-5"><strong>{{$result->AccommodationName}}</strong></h2>
-                    <p class="texto-m texto-ret mb-5"><span>{{$rules['MinimumNights']}}</span></p>
+                    <h2 class="mb-5"><strong>{{$result->AccommodationName}}</strong>
+
+                        @if(isset($occuppationalrules) && !empty($occuppationalrules))
+                            <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}.</span></p>
+                        @endif
                     <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$price}}</strong> /noite • <span class="texto-marrom">preço estimado</span></h4>
                 </a>
             </div>
@@ -211,14 +207,18 @@
 <script>
     $(function() {
         $('input[name="daterange"]').daterangepicker({
-            startDate: moment().startOf('day'),
-            endDate: moment().startOf('day').add(2, 'day'),
+            opens: 'left',
+            startDate: '{{date('%d/%m/%Y', strtotime($startdate))}}',
+            endDate: '{{date('%d/%m/%Y', strtotime($enddate))}}',
             locale: {
                 format: 'DD/M/Y'
             }
+        }, function(start, end, label) {
+            window.location.href = '/searchbydistrict/{{$district}}/'+start.format('YYYY-MM-DD')+'/'+end.format('YYYY-MM-DD');
         });
     });
 </script>
 </body>
+
 
 </html>
