@@ -721,7 +721,7 @@
     <div class="container pt-15 mb-15">
         <div class="row">
             <div class="col grow-0">
-                <h4 class="texto-m d-flex gap-5 mb-5"><strong class="texto-laranja">R${{$price}}</strong> /noite</h4>
+                <h4 class="texto-m d-flex gap-5 mb-5"><strong class="texto-laranja">R${{$accommodation[0]->Price}}</strong> /noite</h4>
                 <!--<h4 class="texto-m d-flex gap-5"><i class="icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>-->
             </div>
             <div class="col">

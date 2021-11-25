@@ -25,17 +25,13 @@ class AccommodationController extends Controller
 
         $occuppationalrules = \DB::table('occuppationalrules')
             ->select('occuppationalrules')
-            ->where('occuppationalrules.Id','=', $accommodation[0]->OccupationalRuleId)
+            ->where('occuppationalrules.AccommodationId','=', $accommodation[0]->AccommodationId)
             ->get();
 
         $services = Services::all();
 
         //grava visita na sessão para mostrar em ultimos visitados
         session()->push('accommodations.recent', $accommodation[0]->AccommodationId);
-
-        //variáveis para uso na view
-        $rates = json_decode($accommodation[0]->Rates, true);
-        $price = $rates['RatePeriod']['RoomOnly']['Price'];
 
         $description = json_decode($accommodation[0]->InternationalizedItem, true);
         $pictures = json_decode($accommodation[0]->Pictures, true);
@@ -61,7 +57,7 @@ class AccommodationController extends Controller
             $totalcamas += $features['Distribution']['KingBeds'];
         }
 
-        return view('site.accommodation.index', compact('accommodation', 'price', 'description', 'pictures', 'features', 'localization', 'latitude', 'longitude', 'zoom', 'totalcamas', 'services', 'occuppationalrules' ));
+        return view('site.accommodation.index', compact('accommodation', 'description', 'pictures', 'features', 'localization', 'latitude', 'longitude', 'zoom', 'totalcamas', 'services', 'occuppationalrules' ));
     }
 
 }
