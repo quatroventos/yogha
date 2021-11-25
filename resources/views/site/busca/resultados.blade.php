@@ -173,7 +173,7 @@
 {{--                    </div>--}}
 {{--                    <div class="col grow-0"><a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-favoritos"><i class="icone-m uil uil-heart"></i></a></div>--}}
 {{--                </div>--}}
-                <a href="/accommodation/{{$result->AccommodationId}}{{()}}" class="texto-marrom-escuro">
+                <a href="/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}" class="texto-marrom-escuro">
                     <h2 class="mb-5"><strong>{{$result->AccommodationName}}</strong>
 
                         @if(isset($occuppationalrules) && !empty($occuppationalrules))

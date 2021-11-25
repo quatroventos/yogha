@@ -14,14 +14,26 @@ class AccommodationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index($accommodationid)
+    public function index($accommodationid, $startdate='', $enddate='')
     {
+        //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
+        $today = date("Y-m-d");
+        if($startdate == '') {
+            $startdate = $today;
+        }
+        if($enddate == '') {
+            $enddate = date('Y-m-d', strtotime($today. ' + 2 days'));
+        }
+
         $accommodation = \DB::table('accommodations')
             ->select('accommodations.*','descriptions.*','rates.*')
             ->Leftjoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
             ->Leftjoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
             ->where('accommodations.AccommodationId','=', $accommodationid)
+            ->where('StartDate', '<', "{$startdate}")
+            ->where('EndDate', '>', "{$enddate}")
             ->get();
+
 
         $occuppationalrules = \DB::table('occuppationalrules')
             ->select('occuppationalrules')
