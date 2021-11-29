@@ -122,32 +122,34 @@
 <section id="aba-resultado" class="aba">
     <div class="container fundo-branco pt-15 h-100">
 
-        <div class="row gap-10 anuncio-flutuante texto-marrom-escuro" style="display:hidden;">
-            <div class="col grow-0 pe-0">
-                <a href="pagina-single-anuncio.shtml">
-                    <picture class="pic-m" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                </a>
-            </div>
-            <div class="col ps-0">
-                <div class="row mb-5">
-                    <div class="col">
-                        <p class="avaliacao mb-0 texto-marrom">
-                            <i class="icone-m uil uil-star"></i>
-                            <i class="icone-m uil uil-star"></i>
-                            <i class="icone-m uil uil-star"></i>
-                            <i class="icone-m uil uil-star"></i>
-                            <i class="icone-m uil uil-star"></i>
-                        </p>
-                    </div>
-                    <div class="col grow-0"><a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-favoritos"><i class="icone-m texto-laranja uil uil-heart"></i></a></div>
+        @foreach($results as $result)
+            <div id="{{$result->AccommodationId}}" class="row gap-10 anuncio-flutuante texto-marrom-escuro" style="display:none;">
+                <div class="col grow-0 pe-0">
+                <?php $pictures = json_decode($result->Pictures, true); ?>
+                @if(isset($pictures))
+
+                    @if(isset($pictures['Picture'][0]['OriginalURI']) && $pictures['Picture'][0]['OriginalURI'] != '')
+                        <a href="{{'/accommodation/'.$result->AccommodationId}}">
+                            <picture class="pic-m" style="background-image: url({{$pictures['Picture'][0]['OriginalURI']}});"></picture>
+                        </a>
+                    @endif
+
+                @endif
+
                 </div>
-                <a href="pagina-single-anuncio.shtml">
-                    <h2 class="mb-5 texto-ret"><strong>Título do anúncio</strong></h2>
-                    <p class="texto-m texto-ret mb-5"><span>O estúdio em Curitiba tem 1 quarto e capacidade para 4 pessoas</span></p>
-                    <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$</strong> /noite <span class="texto-marrom texto-p">preço estimado</span></h4>
-                </a>
+                <div class="col ps-0">
+                    <a href="{{'/accommodation/'.$result->AccommodationId;}}">
+                        <h2 class="mb-5 texto-ret"><strong>{{$result->AccommodationName}}</strong></h2>
+                        @if(isset($occuppationalrules) && !empty($occuppationalrules))
+                            <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}</span></p>
+                        @endif
+                        <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$result->Price}}</strong> /noite <span class="texto-marrom texto-p">preço estimado</span></h4>
+                    </a>
+                </div>
             </div>
-        </div>
+        @endforeach
+
+
         <div class="row mb-15">
             <div class="col">
                 <a href="#!" class="arrastar toggle-resultado texto-marrom-escuro text-center">
@@ -161,18 +163,18 @@
         <div class="row mb-30">
             <div class="col">
                 <a href="/accommodation/{{$result->AccommodationId}}">
-                    <div class="slick mb-15">
+
                         <?php $pictures = json_decode($result->Pictures, true); ?>
                         @if(isset($pictures))
-                            <div class="slick mb-15">
+                                <div class="slick slide-full mb-15">
                                 @foreach ($pictures['Picture'] as $picture)
                                     @if(isset($picture['OriginalURI']) && $picture['OriginalURI'] != '')
-                                        <picture style="background-image: url({{$picture['OriginalURI']}});"></picture>
+                                        <picture class="pic-full" style="background-image: url({{$picture['OriginalURI']}});"></picture>
                                     @endif
                                 @endforeach
                             </div>
                         @endif
-                    </div>
+
                 </a>
 {{--                <div class="row mb-5">--}}
 {{--                    <div class="col">--}}
@@ -244,14 +246,9 @@
                     $zoom = $localization['GoogleMaps']['Zoom'];
                     $link = '/accommodation/'.$result->AccommodationId;
                 ?>
-
-
-                ['{{$result->AccommodationName}}',{{$latitude}}, {{$longitude}}, '{{$link}}'],
+                ['{{$result->AccommodationName}}',{{$latitude}}, {{$longitude}}, '{{$link}}', {{$result->AccommodationId}}],
             @endforeach
         ];
-
-
-
 
         var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 10,
@@ -281,8 +278,10 @@
         });
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
-                $('.anuncio-flutuante').fadeIn(fast);
-                alert(locations[i][3]);
+                $('.anuncio-flutuante').hide();
+                $('#'+locations[i][4]).fadeIn();
+
+                //alert(locations[i][3]);
             }
         })(marker, i));
     }

@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\Backend\@password']);
 });
 
-Route::group(['middleware' => 'auth'], function () {
-	Route::post('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
-});
+
+	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
+
 
