@@ -63,11 +63,11 @@
         </div>
         <div class="row mb-15">
           <div class="col px-0">
-            <div class="slick">
-              <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-              <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-              <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-              <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
+            <div class="slick slide-full">
+              <picture class="pic-full" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+              <picture class="pic-full" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+              <picture class="pic-full" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+              <picture class="pic-full" style="background-image: url(img/fundo-imagem.jpg);"></picture>
             </div>            
           </div>   
         </div>

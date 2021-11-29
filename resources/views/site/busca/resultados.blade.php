@@ -44,6 +44,21 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+    <!-- GOOGLE MAPS -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSeQcKPvoa7ix-NIn8yf_gRlBqv4QtaYI&v=weekly&channel=2" ></script>
+
+    <style>
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 
 </head>
 
@@ -101,15 +116,13 @@
     </div>
 </section>
 
-<div id="mapa">
-    <iframe class="mapa h-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14145.8843541857!2d-48.441258572734185!3d-27.578920855907995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95273e5b0a4530f1%3A0x84687ff8c0db3768!2sBarra%20da%20Lagoa%2C%20Florian%C3%B3polis%20-%20SC!5e0!3m2!1spt-BR!2sbr!4v1636255329072!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-</div>
+<div id="map"></div>
 
 <!-- ABA RESULTADO -->
 <section id="aba-resultado" class="aba">
     <div class="container fundo-branco pt-15 h-100">
 
-        <div class="row gap-10 anuncio-flutuante texto-marrom-escuro">
+        <div class="row gap-10 anuncio-flutuante texto-marrom-escuro" style="display:hidden;">
             <div class="col grow-0 pe-0">
                 <a href="pagina-single-anuncio.shtml">
                     <picture class="pic-m" style="background-image: url(img/fundo-imagem.jpg);"></picture>
@@ -204,6 +217,7 @@
 
 <!-- FUNCOES -->
 <script type="text/javascript" src="{{asset('js/funcoes.js')}}"></script>
+
 <script>
     $(function() {
         $('input[name="daterange"]').daterangepicker({
@@ -217,6 +231,71 @@
             window.location.href = '/searchbydistrict/{{$district}}/'+start.format('YYYY-MM-DD')+'/'+end.format('YYYY-MM-DD');
         });
     });
+
+
+    function initializeMap() {
+
+        var locations = [
+            @foreach($results as $result)
+                <?php
+                    $localization = json_decode($result->LocalizationData, true);
+                    $latitude = $localization['GoogleMaps']['Latitude'];
+                    $longitude = $localization['GoogleMaps']['Longitude'];
+                    $zoom = $localization['GoogleMaps']['Zoom'];
+                    $link = '/accommodation/'.$result->AccommodationId;
+                ?>
+
+
+                ['{{$result->AccommodationName}}',{{$latitude}}, {{$longitude}}, '{{$link}}'],
+            @endforeach
+        ];
+
+
+
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: new google.maps.LatLng({{$latitude}},{{$longitude}}),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    var icon = {
+        scaledSize: new google.maps.Size(70, 70)
+    };
+
+    var marker = new google.maps.Marker({
+        map: map,
+        animation: google.maps.Animation.DROP,
+        icon : icon
+    });
+
+    for (i = 0; i < locations.length; i++) {
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            map: map,
+            icon : icon
+        });
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                $('.anuncio-flutuante').fadeIn(fast);
+                alert(locations[i][3]);
+            }
+        })(marker, i));
+    }
+
+    // var styles = [
+    //     {"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}
+    // ];
+    //
+    // map.setOptions({styles: styles});
+
+    }
+    initializeMap();
+
 </script>
 </body>
 

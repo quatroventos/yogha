@@ -84,7 +84,6 @@
     <style>
         #map {
             height: 300px;
-            height: 300px;
         }
         html,
         body {

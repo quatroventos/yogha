@@ -5,11 +5,48 @@ $('body').css({ paddingTop : alturaFixoT + 15 + 'px' });
 $('body').css({ paddingBottom : alturaFixoB + 'px' });
 $('body#resultado-busca').css({ paddingTop : 0 + 'px' });
 
+
 // slick
-$('.slick').slick({
-  infinite: true,
-  slidesToShow: 1,
+if (screen.width > 760) {
+  $('.slider').addClass('slick');
+}
+else {
+  $('.slider').removeClass('slick');
+}
+
+$('.slick.slide-auto ul').slick({
+  infinite: false,
+  slidesToScroll: 3,
+  arrows: false,
+  dots: false
+});
+
+$('.slick.slide-full').slick({
+  infinite: false,
   slidesToScroll: 1,
+  arrows: false,
+  dots: true
+});
+$('.slick.slide-2col ul').slick({
+  infinite: false,
+  slidesToShow: 2,
+  slidesToScroll: 2,
+  arrows: false,
+  dots: true
+});
+
+$('.slick.slide-3col ul').slick({
+  infinite: false,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  arrows: false,
+  dots: true
+});
+
+$('.slick.slide-4col ul').slick({
+  infinite: false,
+  slidesToShow: 4,
+  slidesToScroll: 3,
   arrows: false,
   dots: true
 });
@@ -50,8 +87,8 @@ var showScroll = $('.show-b, .show-t');
 $window.on('scroll', function(){
   var scrollTop = $window.scrollTop();        
   showScroll.toggleClass('hidden', scrollTop > prev);
-  prev = scrollTop;
   if (scrollTop < 100) {
     showScroll.addClass('hidden');
   };
+  prev = scrollTop;
 });

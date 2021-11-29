@@ -34,7 +34,7 @@
             <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>
           </div>
         </div>
-        <div class="row h-100 text-center texto-branco">
+        <div class="row mb-30 h-100 text-center texto-branco">
           <div class="col">
             <h1 class="mb-15"><strong>VIAJA MUITO A TRABALHO?</strong></h1>
             <h2 class="texto-fino texto-g">Seja um parceiro Yogha e receba benefícios exclusívos só para você</h2>
@@ -46,8 +46,8 @@
     <!-- BLOCO --->
     <section class="text-center mb-30">
       <div class="container mb-10">
-        <div class="row">
-          <div class="col-12">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8">
             <h3 class="texto-g texto-fino mb-15">Sabemos como é importante confiar que o local onde você estará oferecerá tudo o que você precisa</h3>
             <p><strong>Pensando nisso é que desenvolvemos o programa Yogha Corporativo, para ajudar você com todas as facilidades que podemos oferecer.</strong></p>
             <p>Nossa missão é oferecer a melhor experiência em hospedagens, tanto para hóspedes como para proprietários. Entregamos a tranquilidade que você sempre quis com o retorno financeiro que você merece.</p>
@@ -163,8 +163,8 @@
     <!-- BLOCO --->
     <section class="text-center">
       <div class="container mb-10">
-        <div class="row">
-          <div class="col-12">
+        <div class="row justify-content-center">
+          <div class="col-12 col-sm-6">
             <h3 class="texto-g texto-fino mb-15">Deixe o trabalho duro com a gente</h3>
             <p><strong>Anuncie seu imóvel na Yogha</strong></p>
             <p class="texto-m">Locação com tranquilidade e rentabilidade.</p>
@@ -176,8 +176,8 @@
     <!-- BLOCO --->
     <section class="mb-30">
       <div class="container">
-        <div class="row">
-          <div class="col">
+        <div class="row justify-content-center">
+          <div class="col-12 col-sm-6">
             <form>
               <div class="form-group">
                 <input class="d-flex" type="text" name="Nome" placeholder="Nome">

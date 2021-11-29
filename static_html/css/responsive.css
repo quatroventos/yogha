@@ -111,6 +111,11 @@
 	  }
 
 
+/* ABAS
+----------------------------------------------------------------- */
+
+
+
 /* LANDINGPAGE
 ----------------------------------------------------------------- */
 
@@ -223,4 +228,42 @@
   }
 
 
+/* HOME
+----------------------------------------------------------------- */
+
+#home {}
+
+/* header */
+header {
+  height: 70vh;
+}
+	header .row {
+		align-items: end !important;
+	}
+
+/* header */
+.interna header {
+  background-position: center center;
+  height: 70vh;
+  position: relative;
+}
+	.interna header .row {
+		align-items: end;
+	  z-index: 2;
+	}
+	.interna header::after {
+	  content: "";
+	  position: absolute;
+	  top: 0;
+	  background: #00000055;
+	  background: linear-gradient(0deg, #000000CC 0%, #00000000 100%);
+	  bottom: 0;
+	  left: 0;
+	  right: 0;
+	  z-index: 1;
+	}
+
+
+/* footer */
+footer {}
 
