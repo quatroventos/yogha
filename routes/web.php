@@ -18,6 +18,10 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/autocomplete-search-query', 'SearchController@query')->name('autocomplete.search.query');
     Route::get('/searchbydistrict/{district}/{startdate?}/{enddate?}', 'SearchController@searchbydistrict')->name('search.district');
     Route::get('/service_details/{serviceid}', 'ServicesController@show_details');
+    Route::get('/blog/{category}/{slug}', 'BlogController@category')->name('blog.category');
+    Route::get('/blog/{slug}', 'BlogController@post')->name('blog.post');
+    Route::get('/blog', 'BlogController@index')->name('blog');
+
 });
 
 Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');
@@ -35,6 +39,16 @@ Route::namespace('App\Http\Controllers\Backend')->group(function() {
     Route::get('/admin/services/edit', 'ServicesController@edit')->name('service.edit');
     Route::get('/admin/services/update', 'ServicesController@update')->name('service.update');
     Route::post('/admin/services/create', 'ServicesController@create')->name('service.create');
+
+    Route::get('/admin/blog', 'BlogController@index')->name('blog');
+    Route::get('/admin/blog/edit', 'BlogController@edit')->name('blog.edit');
+    Route::get('/admin/blog/update', 'BlogController@update')->name('blog.update');
+    Route::post('/admin/blog/create', 'BlogController@create')->name('blog.create');
+
+    Route::get('/admin/blog_cat', 'BlogController@cat_index')->name('blog_cat');
+    Route::get('/admin/blog_cat/edit', 'BlogController@edit_cat')->name('blog_cat.edit');
+    Route::get('/admin/blog_cat/update', 'BlogController@update_cat')->name('blog_cat.update');
+    Route::post('/admin/blog_cat/create', 'BlogController@create_cat')->name('blog_cat.create');
 });
 
 Route::group(['middleware' => 'auth'], function () {
