@@ -28,7 +28,6 @@
         </div>
     </div>
 </header>
-
 <!-- BLOCO --->
 <section class="mb-30">
     <div class="container">
@@ -41,12 +40,9 @@
             <div class="col">
                 <div class="slider slide-auto">
                     <ul>
-                        <li><a href="#!" class="btn btn-3 btn-p">Título da categoria</a></li>
-                        <li><a href="#!" class="btn btn-3 btn-p">Título da categoria</a></li>
-                        <li><a href="#!" class="btn btn-3 btn-p">Título da categoria</a></li>
-                        <li><a href="#!" class="btn btn-3 btn-p">Título da categoria</a></li>
-                        <li><a href="#!" class="btn btn-3 btn-p">Título da categoria</a></li>
-                        <li><a href="#!" class="btn btn-3 btn-p">Título da categoria</a></li>
+                        @foreach($cats as $cat)
+                            <li><a href="#!" class="btn btn-3 btn-p">{{$cat->title}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -63,70 +59,24 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-sm-6">
-                <div class="row mb-15">
-                    <div class="col col-sm-6 grow-0 pe-0">
-                        <a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-blog-single">
-                            <picture class="pic-m" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                        </a>
-                    </div>
-                    <div class="col col-sm-6 texto-marrom-escuro">
-                        <a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-blog-single">
-                            <p class="texto-p texto-marrom mb-5">14/10 às 16:30</p>
-                            <h3 class="mb-5"><strong>O que fazer em Curitiba: 8 dicas imperdíveis</strong></h3>
-                        </a>
-                        <a href="#!" class="texto-m texto-laranja">Título da categoria</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="row mb-15">
-                    <div class="col col-sm-6 grow-0 pe-0">
-                        <a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-blog-single">
-                            <picture class="pic-m" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                        </a>
-                    </div>
-                    <div class="col col-sm-6 texto-marrom-escuro">
-                        <a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-blog-single">
-                            <p class="texto-p texto-marrom mb-5">14/10 às 16:30</p>
-                            <h3 class="mb-5"><strong>O que fazer em Curitiba: 8 dicas imperdíveis</strong></h3>
-                        </a>
-                        <a href="#!" class="texto-m texto-laranja">Título da categoria</a>
+            @foreach($posts as $post)
+                <div class="col-12 col-sm-6">
+                    <div class="row mb-15">
+                        <div class="col col-sm-6 grow-0 pe-0">
+                            <a href="{{URL::to('/blog/'.$post->slug)}}" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-blog-single">
+                                <picture class="pic-m" style="background-image: url({{URL::to('/files/blog_posts/'.$post->image)}});"></picture>
+                            </a>
+                        </div>
+                        <div class="col col-sm-6 texto-marrom-escuro">
+                            <a href="{{URL::to('/blog/'.$post->slug)}}" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-blog-single">
+                                <p class="texto-p texto-marrom mb-5"><p class="texto-p texto-marrom mb-5">{{date_format($post->created_at,"d/m \\à\\s H:i")}}</p></p>
+                                <h3 class="mb-5"><strong>{{$post->title}}</strong></h3>
+                            </a>
+                            <a href="#!" class="texto-m texto-laranja">{{$post->category_id}}</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="row mb-15">
-                    <div class="col col-sm-6 grow-0 pe-0">
-                        <a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-blog-single">
-                            <picture class="pic-m" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                        </a>
-                    </div>
-                    <div class="col col-sm-6 texto-marrom-escuro">
-                        <a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-blog-single">
-                            <p class="texto-p texto-marrom mb-5">14/10 às 16:30</p>
-                            <h3 class="mb-5"><strong>O que fazer em Curitiba: 8 dicas imperdíveis</strong></h3>
-                        </a>
-                        <a href="#!" class="texto-m texto-laranja">Título da categoria</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="row mb-15">
-                    <div class="col col-sm-6 grow-0 pe-0">
-                        <a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-blog-single">
-                            <picture class="pic-m" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                        </a>
-                    </div>
-                    <div class="col col-sm-6 texto-marrom-escuro">
-                        <a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-blog-single">
-                            <p class="texto-p texto-marrom mb-5">14/10 às 16:30</p>
-                            <h3 class="mb-5"><strong>O que fazer em Curitiba: 8 dicas imperdíveis</strong></h3>
-                        </a>
-                        <a href="#!" class="texto-m texto-laranja">Título da categoria</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
