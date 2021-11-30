@@ -68,7 +68,7 @@
 
                 $('#searchResults').empty();
                 $.each(data, function( index, value ) {
-                    $('#searchResults').append('<li><a href="/searchbydistrict/'+data[index]["District"]+'">'+data[index]["District"]+' - '+data[index]["District"]+'</a></li>')
+                    $('#searchResults').append('<li><a href="{{URL::to('/');}}/searchbydistrict/'+data[index]["District"]+'">'+data[index]["District"]+' - '+data[index]["District"]+'</a></li>')
                 });
 
             });

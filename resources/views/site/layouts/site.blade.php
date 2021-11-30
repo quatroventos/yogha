@@ -92,16 +92,16 @@
         <div class="row">
             <div class="col">
                 <ul>
-                    <li><a href="index.html"><img src="{{asset('img/logo-yogha.svg')}}"></a></li>
+                    <li><a href="/"><img src="{{asset('img/logo-yogha.svg')}}"></a></li>
                     <li><a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="switch"><i class="uil uil-times"></i></a></li>
                 </ul>
                 <ul>
-                    <li><a href="#!">Vantagens especiais</a>
-                    <li><a href="#!">Alugue seu imóvel</a>
-                    <li><a href="#!">Como funciona</a>
-                    <li><a href="#!">Quem somos</a>
-                    <li><a href="#!">Blog</a>
-                    <li><a href="#!">Ajuda</a>
+                    <li><a href="{{URL::to('/')}}/corporativo">Vantagens especiais</a>
+                    <li><a href="{{URL::to('/')}}/alugue">Alugue seu imóvel</a>
+                    <li><a href="{{URL::to('/')}}/como-funciona">Como funciona</a>
+                    <li><a href="{{URL::to('/')}}/quem-somos">Quem somos</a>
+                    <li><a href="{{URL::to('/')}}/blog">Blog</a>
+                    <li><a href="{{URL::to('/')}}/ajuda">Ajuda</a>
                 </ul>
                 <ul class="social">
                     <li><a href="#!"><i class="uil uil-facebook-f"></i></a></li>

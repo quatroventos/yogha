@@ -125,20 +125,20 @@
         @foreach($results as $result)
             <div id="{{$result->AccommodationId}}" class="row gap-10 anuncio-flutuante texto-marrom-escuro" style="display:none;">
                 <div class="col grow-0 pe-0">
-                <?php $pictures = json_decode($result->Pictures, true); ?>
-                @if(isset($pictures))
+                    <?php $pictures = json_decode($result->Pictures, true); ?>
+                    @if(isset($pictures))
 
-                    @if(isset($pictures['Picture'][0]['OriginalURI']) && $pictures['Picture'][0]['OriginalURI'] != '')
-                        <a href="{{'/accommodation/'.$result->AccommodationId}}">
-                            <picture class="pic-m" style="background-image: url({{$pictures['Picture'][0]['OriginalURI']}});"></picture>
-                        </a>
+                        @if(isset($pictures['Picture'][0]['OriginalURI']) && $pictures['Picture'][0]['OriginalURI'] != '')
+                            <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}a">
+                                <picture class="pic-m" style="background-image: url({{$pictures['Picture'][0]['OriginalURI']}});"></picture>
+                            </a>
+                        @endif
+
                     @endif
-
-                @endif
 
                 </div>
                 <div class="col ps-0">
-                    <a href="{{'/accommodation/'.$result->AccommodationId;}}">
+                    <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}">
                         <h2 class="mb-5 texto-ret"><strong>{{$result->AccommodationName}}</strong></h2>
                         @if(isset($occuppationalrules) && !empty($occuppationalrules))
                             <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}</span></p>
@@ -160,13 +160,13 @@
         </div>
 
         @foreach($results as $result)
-        <div class="row mb-30">
-            <div class="col">
-                <a href="/accommodation/{{$result->AccommodationId}}">
+            <div class="row mb-30">
+                <div class="col">
+                    <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}">
 
                         <?php $pictures = json_decode($result->Pictures, true); ?>
                         @if(isset($pictures))
-                                <div class="slick slide-full mb-15">
+                            <div class="slick slide-full mb-15">
                                 @foreach ($pictures['Picture'] as $picture)
                                     @if(isset($picture['OriginalURI']) && $picture['OriginalURI'] != '')
                                         <picture class="pic-full" style="background-image: url({{$picture['OriginalURI']}});"></picture>
@@ -175,29 +175,29 @@
                             </div>
                         @endif
 
-                </a>
-{{--                <div class="row mb-5">--}}
-{{--                    <div class="col">--}}
-{{--                        <p class="avaliacao texto-marrom mb-0">--}}
-{{--                            <i class="icone-m uil uil-star"></i>--}}
-{{--                            <i class="icone-m uil uil-star"></i>--}}
-{{--                            <i class="icone-m uil uil-star"></i>--}}
-{{--                            <i class="icone-m uil uil-star"></i>--}}
-{{--                            <i class="icone-m uil uil-star"></i>--}}
-{{--                        </p>--}}
-{{--                    </div>--}}
-{{--                    <div class="col grow-0"><a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-favoritos"><i class="icone-m uil uil-heart"></i></a></div>--}}
-{{--                </div>--}}
-                <a href="/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}" class="texto-marrom-escuro">
-                    <h2 class="mb-5"><strong>{{$result->AccommodationName}}</strong>
+                    </a>
+                    {{--                <div class="row mb-5">--}}
+                    {{--                    <div class="col">--}}
+                    {{--                        <p class="avaliacao texto-marrom mb-0">--}}
+                    {{--                            <i class="icone-m uil uil-star"></i>--}}
+                    {{--                            <i class="icone-m uil uil-star"></i>--}}
+                    {{--                            <i class="icone-m uil uil-star"></i>--}}
+                    {{--                            <i class="icone-m uil uil-star"></i>--}}
+                    {{--                            <i class="icone-m uil uil-star"></i>--}}
+                    {{--                        </p>--}}
+                    {{--                    </div>--}}
+                    {{--                    <div class="col grow-0"><a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-favoritos"><i class="icone-m uil uil-heart"></i></a></div>--}}
+                    {{--                </div>--}}
+                    <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}" class="texto-marrom-escuro">
+                        <h2 class="mb-5"><strong>{{$result->AccommodationName}}</strong>
 
-                        @if(isset($occuppationalrules) && !empty($occuppationalrules))
-                            <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}.</span></p>
-                        @endif
-                    <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$result->Price}}</strong> /noite • <span class="texto-marrom">preço estimado</span></h4>
-                </a>
+                            @if(isset($occuppationalrules) && !empty($occuppationalrules))
+                                <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}.</span></p>
+                            @endif
+                            <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$result->Price}}</strong> /noite • <span class="texto-marrom">preço estimado</span></h4>
+                    </a>
+                </div>
             </div>
-        </div>
         @endforeach
 
     </div>
@@ -230,7 +230,7 @@
                 format: 'DD/M/Y'
             }
         }, function(start, end, label) {
-            window.location.href = '/searchbydistrict/{{$district}}/'+start.format('YYYY-MM-DD')+'/'+end.format('YYYY-MM-DD');
+            window.location.href = '{{URL::to('/');}}/searchbydistrict/{{$district}}/'+start.format('YYYY-MM-DD')+'/'+end.format('YYYY-MM-DD');
         });
     });
 
@@ -238,59 +238,59 @@
     function initializeMap() {
 
         var locations = [
-            @foreach($results as $result)
+                @foreach($results as $result)
                 <?php
-                    $localization = json_decode($result->LocalizationData, true);
-                    $latitude = $localization['GoogleMaps']['Latitude'];
-                    $longitude = $localization['GoogleMaps']['Longitude'];
-                    $zoom = $localization['GoogleMaps']['Zoom'];
-                    $link = '/accommodation/'.$result->AccommodationId;
+                $localization = json_decode($result->LocalizationData, true);
+                $latitude = $localization['GoogleMaps']['Latitude'];
+                $longitude = $localization['GoogleMaps']['Longitude'];
+                $zoom = $localization['GoogleMaps']['Zoom'];
+                $link = '/accommodation/'.$result->AccommodationId;
                 ?>
-                ['{{$result->AccommodationName}}',{{$latitude}}, {{$longitude}}, '{{$link}}', {{$result->AccommodationId}}],
+            ['{{$result->AccommodationName}}',{{$latitude}}, {{$longitude}}, '{{$link}}', {{$result->AccommodationId}}],
             @endforeach
         ];
 
         var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-        center: new google.maps.LatLng({{$latitude}},{{$longitude}}),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
+            zoom: 10,
+            center: new google.maps.LatLng({{$latitude}},{{$longitude}}),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
 
-    var infowindow = new google.maps.InfoWindow();
+        var infowindow = new google.maps.InfoWindow();
 
-    var marker, i;
+        var marker, i;
 
-    var icon = {
-        scaledSize: new google.maps.Size(70, 70)
-    };
+        var icon = {
+            scaledSize: new google.maps.Size(70, 70)
+        };
 
-    var marker = new google.maps.Marker({
-        map: map,
-        animation: google.maps.Animation.DROP,
-        icon : icon
-    });
-
-    for (i = 0; i < locations.length; i++) {
-        marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        var marker = new google.maps.Marker({
             map: map,
+            animation: google.maps.Animation.DROP,
             icon : icon
         });
-        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-            return function () {
-                $('.anuncio-flutuante').hide();
-                $('#'+locations[i][4]).fadeIn();
 
-                //alert(locations[i][3]);
-            }
-        })(marker, i));
-    }
+        for (i = 0; i < locations.length; i++) {
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                map: map,
+                icon : icon
+            });
+            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                return function () {
+                    $('.anuncio-flutuante').hide();
+                    $('#'+locations[i][4]).fadeIn();
 
-    // var styles = [
-    //     {"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}
-    // ];
-    //
-    // map.setOptions({styles: styles});
+                    //alert(locations[i][3]);
+                }
+            })(marker, i));
+        }
+
+        // var styles = [
+        //     {"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}
+        // ];
+        //
+        // map.setOptions({styles: styles});
 
     }
     initializeMap();
