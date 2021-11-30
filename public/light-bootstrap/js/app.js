@@ -526,7 +526,22 @@ demo = {
             }
         });
     }
-
-
-
 }
+
+//wysiwyg
+tinymce.init({
+    selector: '#wysiwyg',
+    toolbar_mode: 'floating',
+    tinycomments_mode: 'embedded',
+    language: 'pt_BR',
+    height : "480",
+    tinycomments_author: 'Author name',
+});
+
+//cria slug enquanto digito o título
+//TODO: passar para o arquivo de scripts
+$('input[name=title]').keyup(function(){
+    slugval = url_slug($(this).val());
+    $('input[name=slug]').val(slugval);
+
+});

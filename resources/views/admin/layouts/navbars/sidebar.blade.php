@@ -29,6 +29,21 @@ Tip 2: you can also add an image using data-image tag
                     <p>Serviços</p>
                 </a>
             </li>
+
+            <li class="nav-item @if($activePage == 'blog') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'admin/blog')}}">
+                    <i class="nc-icon nc-notes"></i>
+                    <p>Posts do blog</p>
+                </a>
+            </li>
+
+            <li class="nav-item @if($activePage == 'blog_cat') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'admin/blog_cat')}}">
+                    <i class="nc-icon nc-notes"></i>
+                    <p>Categorias do blog</p>
+                </a>
+            </li>
+
             <!--<li class="nav-item @if($activePage == 'typography') active @endif">
                 <a class="nav-link" href="{{route('page.index', 'typography')}}">
                     <i class="nc-icon nc-paper-2"></i>

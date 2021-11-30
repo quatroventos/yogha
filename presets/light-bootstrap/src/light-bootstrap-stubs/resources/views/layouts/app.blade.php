@@ -1,4 +1,4 @@
-<!-- 
+<!--
 =========================================================
  Light Bootstrap Dashboard - v2.0.1
 =========================================================
@@ -29,7 +29,7 @@
         <link href="{{ asset('light-bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('light-bootstrap/css/light-bootstrap-dashboard.css?v=2.0.0') }} " rel="stylesheet" />
         <!-- CSS Just for demo purpose, don't include it in your project -->
-        <link href="{{ asset('light-bootstrap/css/demo.css') }}" rel="stylesheet" />
+        <link href="{{ asset('light-bootstrap/css/app.css') }}" rel="stylesheet" />
     </head>
 
     <body>
@@ -47,7 +47,7 @@
             </div>
 
         </div>
-       
+
 
 
     </body>
@@ -68,11 +68,11 @@
     <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
     <script src="{{ asset('light-bootstrap/js/light-bootstrap-dashboard.js?v=2.0.0') }}" type="text/javascript"></script>
     <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
-    <script src="{{ asset('light-bootstrap/js/demo.js') }}"></script>
+    <script src="{{ asset('light-bootstrap/js/app.js') }}"></script>
     @stack('js')
     <script>
       $(document).ready(function () {
-        
+
         $('#facebook').sharrre({
           share: {
             facebook: true

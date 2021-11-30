@@ -29,7 +29,7 @@
         <link href="{{ asset('light-bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('light-bootstrap/css/light-bootstrap-dashboard.css?v=2.0.0') }} " rel="stylesheet" />
         <!-- CSS Just for demo purpose, don't include it in your project -->
-        <link href="{{ asset('light-bootstrap/css/demo.css') }}" rel="stylesheet" />
+        <link href="{{ asset('light-bootstrap/css/app.css') }}" rel="stylesheet" />
     </head>
 
     <body>
@@ -48,11 +48,12 @@
 
         </div>
 
-
-
     </body>
-        <!--   Core JS Files   -->
+
+    <!-- jquery -->
     <script src="{{ asset('light-bootstrap/js/core/jquery.3.2.1.min.js') }}" type="text/javascript"></script>
+
+        <!--   Core JS Files   -->
     <script src="{{ asset('light-bootstrap/js/core/popper.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('light-bootstrap/js/core/bootstrap.min.js') }}" type="text/javascript"></script>
 
@@ -67,8 +68,13 @@
     <script src="{{ asset('light-bootstrap/js/plugins/bootstrap-notify.js') }}"></script>
     <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
     <script src="{{ asset('light-bootstrap/js/light-bootstrap-dashboard.js?v=2.0.0') }}" type="text/javascript"></script>
+    <!-- WYIWYG -->
+    <script src="https://cdn.tiny.cloud/1/q9tcivhn22lrfs30e3pvwqqmuzct0orwbqsiasx8mv59nb3m/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
-    <script src="{{ asset('light-bootstrap/js/demo.js') }}"></script>
+    <script src="{{ asset('light-bootstrap/js/app.js') }}"></script>
+    <!--url slug plugin-->
+    <script src="{{ asset('light-bootstrap/js/plugins/url_slug.js') }}"></script>
+
     @stack('js')
     <script>
       $(document).ready(function () {

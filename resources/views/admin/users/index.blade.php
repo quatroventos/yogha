@@ -1,4 +1,4 @@
-<!-- 
+<!--
 =========================================================
  Light Bootstrap Dashboard - v2.0.1
 =========================================================
@@ -29,29 +29,29 @@
          <link href="{{ asset('light-bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
          <link href="{{ asset('light-bootstrap/css/light-bootstrap-dashboard.css?v=2.0.0') }} " rel="stylesheet" />
          <!-- CSS Just for demo purpose, don't include it in your project -->
-         <link href="{{ asset('light-bootstrap/css/demo.css') }}" rel="stylesheet" />
- 
+         <link href="{{ asset('light-bootstrap/css/app.css') }}" rel="stylesheet" />
+
          <!-- Canonical SEO -->
          <link rel="canonical" href="https://www.creative-tim.com/product/light-bootstrap-dashboard-laravel" />        <!--  Social tags      -->
          <meta name="keywords" content="design system, dashboard, bootstrap 4 dashboard, bootstrap 4 design, bootstrap 4 system, bootstrap 4, bootstrap 4 uit kit, bootstrap 4 kit, light bootstrap, light bootstrap dashboard, creative tim,updivision, html dashboard, html css template, web template, bootstrap, bootstrap 4, css3 template, frontend, responsive bootstrap template, bootstrap dashboard, responsive dashboard, laravel, laravel php, laravel php framework, free laravel admin template, free laravel admin, free laravel admin template + Front End + CRUD, crud laravel php, crud laravel, laravel backend admin dashboard">
          <meta name="description" content="Start your development with a Bootstrap 4 Admin Dashboard built for Laravel Framework 5.5 and Up.">
- 
- 
+
+
          <!-- Schema.org markup for Google+ -->
          <meta itemprop="name" content="Light Bootstrap Dashboard Laravel by Creative Tim & UPDIVISION">
          <meta itemprop="description" content="Start your development with a Bootstrap 4 Admin Dashboard built for Laravel Framework 5.5 and Up.">
- 
+
          <meta itemprop="image" content="https://s3.amazonaws.com/creativetim_bucket/products/213/opt_lbd_laravel_thumbnail.jpg">
- 
+
          <!-- Twitter Card data -->
          <meta name="twitter:card" content="product">
          <meta name="twitter:site" content="@creativetim">
          <meta name="twitter:title" content="Light Bootstrap Dashboard Laravel by Creative Tim & UPDIVISION">
- 
+
          <meta name="twitter:description" content="Start your development with a Bootstrap 4 Admin Dashboard built for Laravel Framework 5.5 and Up.">
          <meta name="twitter:creator" content="@creativetim">
          <meta name="twitter:image" content="https://s3.amazonaws.com/creativetim_bucket/products/213/opt_lbd_laravel_thumbnail.jpg">
- 
+
          <!-- Open Graph data -->
          <meta property="fb:app_id" content="655968634437471">
          <meta property="og:title" content="Light Bootstrap Dashboard Laravel by Creative Tim & UPDIVISION" />
@@ -67,7 +67,7 @@
          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
          })(window,document,'script','dataLayer','GTM-NKDMSK6');</script>
          <!-- End Google Tag Manager -->
-     
+
          <script>
              // Facebook Pixel Code Don't Delete
                ! function(f, b, e, v, n, t, s) {
@@ -96,7 +96,7 @@
                }
          </script>
      </head>
- 
+
 
 <body class="clickup-chrome-ext_installed">
     <!-- Google Tag Manager (noscript) -->
@@ -112,7 +112,7 @@
         <div class="sidebar" data-image="{{ asset('light-bootstrap/img/sidebar-5.jpg') }}">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
-        
+
         Tip 2: you can also add an image using data-image tag
         -->
             <div class="sidebar-wrapper">
@@ -128,7 +128,7 @@
                             <p>{{ __("Dashboard") }}</p>
                         </a>
                     </li>
-                   
+
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#laravelExamples" aria-expanded="true">
                             <i>
@@ -156,7 +156,7 @@
                             </ul>
                         </div>
                     </li>
-        
+
                     <li class="nav-item ">
                         <a class="nav-link" href="{{route('page.index', 'table')}}">
                             <i class="nc-icon nc-notes"></i>
@@ -270,7 +270,7 @@
         </li>
     </ul>
 </div>
-</div>            
+</div>
         <div class=" main-panel ">
             <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                 <div class="container-fluid">
@@ -380,13 +380,13 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-                            
+
                                                                         <tr>
                                         <td>Admin Admin</td>
                                         <td>admin@lightbp.com</td>
                                         <td>2020-02-25 12:37:04</td>
                                         <td class="d-flex justify-content-end">
-                                                
+
                                                 <a href="#"><i class="fa fa-edit"></i></a>
                                                                                         </td>
                                     </tr>
@@ -434,7 +434,7 @@
 </footer>            </div>
 
     </div>
-   
+
 
 
 
@@ -442,7 +442,7 @@
         <script src="{{ asset('light-bootstrap/js/core/jquery.3.2.1.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('light-bootstrap/js/core/popper.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('light-bootstrap/js/core/bootstrap.min.js') }}" type="text/javascript"></script>
-    
+
         <script src="{{ asset('light-bootstrap/js/plugins/jquery.sharrre.js') }}"></script>
         <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
         <script src="{{ asset('light-bootstrap/js/plugins/bootstrap-switch.js') }}"></script>
@@ -459,7 +459,7 @@
         @stack('js')
         <script>
           $(document).ready(function () {
-            
+
             $('#facebook').sharrre({
               share: {
                 facebook: true
@@ -474,7 +474,7 @@
               template: '<i class="fab fa-facebook-f"></i> Facebook',
               url: 'https://light-bootstrap-dashboard-laravel.creative-tim.com/login'
             });
-    
+
             $('#google').sharrre({
               share: {
                 googlePlus: true
@@ -489,7 +489,7 @@
               template: '<i class="fab fa-google-plus"></i> Google',
               url: 'https://light-bootstrap-dashboard-laravel.creative-tim.com/login'
             });
-    
+
             $('#twitter').sharrre({
               share: {
                 twitter: true
