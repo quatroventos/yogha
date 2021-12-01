@@ -20,12 +20,21 @@ $('.slick.slide-auto ul').slick({
   arrows: false,
   dots: false
 });
-
 $('.slick.slide-full').slick({
   infinite: false,
-  slidesToScroll: 1,
+  slidesToShow: 3,
+  slidesToScroll: 3,
   arrows: false,
-  dots: true
+  dots: true,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+  ]
 });
 $('.slick.slide-2col ul').slick({
   infinite: false,

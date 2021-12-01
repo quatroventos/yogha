@@ -81,17 +81,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="Description" content="">
     <meta name="Keywords" content="">
-    <style>
-        #map {
-            height: 300px;
-        }
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
+
     <!-- CANONICAL -->
     <link rel="canonical" href="http://www.yogha.com.br/">
 
@@ -125,6 +115,7 @@
 
     <!-- GOOGLE MAPS -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSeQcKPvoa7ix-NIn8yf_gRlBqv4QtaYI&callback=initMap&v=weekly&channel=2" async ></script>
+
 </head>
 
 <body id="single-anuncio">
@@ -140,22 +131,22 @@
     <div class="container">
         <div class="row pt-15">
             <div class="col">
-                <a href="javascript:history.back();" class="btn btn-2 btn-ico me-auto"><i class="uil uil-angle-left"></i></a>
+                <a href="javascript:history.back();" class="btn btn-2 btn-ico me-auto"><i class="d-inline-flex uil uil-angle-left"></i></a>
             </div>
             <div class="col">
                 <div class="form-group form-inline justify-content-end gap-10">
-                    <a href="#!" class="btn btn-2 btn-ico"><i class="uil uil-upload"></i></a>
-                    <a href="#!" class="btn btn-2 btn-ico"><i class="uil uil-heart"></i></a>
+                    <a href="#!" class="btn btn-2 btn-ico"><i class="d-inline-flex uil uil-upload"></i></a>
+                    <a href="#!" class="btn btn-2 btn-ico"><i class="d-inline-flex uil uil-heart"></i></a>
                 </div>
             </div>
         </div>
         @if(isset($pictures))
             <div class="row mb-15">
                 <div class="col px-0">
-                <div class="slick">
+                <div class="slick slide-full">
                     @foreach ($pictures['Picture'] as $picture)
                         @if(isset($picture['OriginalURI']) && $picture['OriginalURI'] != '')
-                            <picture style="background-image: url({{$picture['OriginalURI']}});"></picture>
+                            <picture class="pic-full" style="background-image: url({{$picture['OriginalURI']}});"></picture>
                         @endif
                     @endforeach
                 </div>
@@ -184,7 +175,7 @@
                         {{$features['Distribution']['Toilets']}} Banheiros
                     @endif
                 </p>
-                <h4 class="texto-m d-flex gap-5"><i class="icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>
+                <!--<h4 class="texto-m d-flex gap-5"><i class="d-inline-flex icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>-->
             </div>
         </div>
     </div>
@@ -194,453 +185,356 @@
 
 <section class="mb-15">
     <div class="container">
-        <div class="row mb-30">
-            <div class="col">
-                @if(empty($description[1]['Description']) === false)
-                    <p><?php echo $description[1]['Description']; ?></p>
-                @endif
-                {{--TODO: truncate dos textos de descrição --}}
-                <!--<div>
-                    <div class="conteudo-extra collapse">
-                        <p>Conteúdo extra</p>
+
+        <div class="row descricao">
+            <div class="col-12 col-sm-8">
+                <div class="row mb-30">
+                    <div class="col">
+                        @if(empty($description[1]['Description']) === false)
+                            <p><?php echo $description[1]['Description']; ?></p>
+                        @endif
+                        {{--TODO: truncate dos textos de descrição --}}
+                        <!--<div>
+                            <div class="conteudo-extra collapse">
+                                <p>Conteúdo extra</p>
+                            </div>
+                        </div>
+                        <a href="#!" data-bs-toggle="collapse" data-bs-target=".conteudo-extra" aria-expanded="false" class="btn-link texto-m px-0 d-flex">
+                            <p class="align-items-center mb-0 mostrar-mais"><strong> Mostrar mais</strong> <i class="d-inline-flex icone-m uil uil-angle-down"></i></p>
+                            <p class="align-items-center mb-0 mostrar-menos"><strong> Mostrar menos</strong> <i class="d-inline-flex icone-m uil uil-angle-up"></i></p>
+                        </a>-->
                     </div>
                 </div>
-                <a href="#!" data-bs-toggle="collapse" data-bs-target=".conteudo-extra" aria-expanded="false" class="btn-link texto-m px-0 d-flex">
-                    <p class="align-items-center mb-0 mostrar-mais"><strong> Mostrar mais</strong> <i class="icone-m uil uil-angle-down"></i></p>
-                    <p class="align-items-center mb-0 mostrar-menos"><strong> Mostrar menos</strong> <i class="icone-m uil uil-angle-up"></i></p>
-                </a>-->
-            </div>
-        </div>
-        <div class="row mb-15">
-            <div class="col">
-                <h3><strong>O que este espaço oferece</strong></h3>
-            </div>
-        </div>
-        <div class="row mb-15">
-            <div class="col">
-                <ul class="gap-10">
-                    @if(empty($features['HouseCharacteristics']['wifi']) === false)
-                    <li class="d-flex align-items-center gap-10">
-                        <i class="icone-gg uil uil-wifi"></i> Wifi
-                    </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['TV']) === false)
-                    <li class="d-flex align-items-center gap-10">
-                        <i class="icone-gg uil uil-desktop"></i> Televisão
-                    </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['TVSatellite']) === false)
-                    <li class="d-flex align-items-center gap-10">
-                        <i class="icone-gg fas fa-satellite-dish"></i> Televisão a Cabo
-                    </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['DVD']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-compact-disc"></i> DVD
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Garden']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-flower"></i> Jardim
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['GardenFurniture']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg fas fa-chair"></i> Móveis de jardim
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Iron']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg fas fa-tshirt"></i> Ferro de passar roupa
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['FirePlace']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg fas fa-fire-alt"></i> Lareira
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Barbecue']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Churrasqueira
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Radio']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil fas fa-volume-up"></i> Radio
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['MiniBar']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg fas fa-cocktail"></i> Mini Bar
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Terrace']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg far fa-building"></i> Terraço
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Elevator']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Elevador
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Balcony']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Sacada
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['JuiceSqueazer']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg far far-lemon"></i> Espremedor de suco
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['ElectricKettle']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg fas fa-blender"></i> Chaleira elétrica
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['HairDryer']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Secador de cabelo
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['ChildrenArea']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg fas fa-child"></i> Espaço kids
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Gym']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg fa-dumbbell"></i> Academia
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Alarm']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-bell-school"></i> Alarme
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Tennis']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-tennis-ball"></i> Quadra de tênis
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Squash']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-tennis-ball"></i> Quadra de squash
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Sauna']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Sauna
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['NumOfFans']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg fas fa-fan"></i> Ventilador
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['NumOfElectronicMosquitoRepeller']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Repelente de insetos
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['WindowScreens']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Tela nas janelas
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['HandicappedFacilities']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-accessible-icon-alt"></i> Acessibilidade
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Jacuzzi']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg fas fa-hot-tub"></i> Jacuzzi
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Kitchen']['Fridge']) === false)
-                    <li class="d-flex align-items-center gap-10">
-                        <i class="icone-gg uil uil-garden"></i> Geladeira
-                    </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Kitchen']['Freezer']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-snowflake"></i> Freezer
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Kitchen']['WashingMachine']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Máquina de lavar roupas
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Kitchen']['Dryer']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Secadora
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Kitchen']['Dishwasher']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Lava louças
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Kitchen']['CoffeeMachine']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg fas fa-coffee"></i> Cafeteira
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Kitchen']['Fryer']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Fritadeira
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Kitchen']['TableWare']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg fas fa-utensils"></i> Talheres
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Kitchen']['KitchenUtensils']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg fas fa-utensil-spoon"></i> Utensílios de coziha
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Kitchen']['Microwave']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Microondas
-                        </li>
-                    @endif
-
-                    @if(empty($features['HouseCharacteristics']['Kitchen']['Oven']) === false)
-                        <li class="d-flex align-items-center gap-10">
-                            <i class="icone-gg uil uil-garden"></i> Forno
-                        </li>
-                    @endif
-
-
-{{--TODO: Deixar essa lista colapsável--}}
-                    <!--
-                        <ul class="lista-extra collapse gap-10">
-                            <li class="d-flex align-items-center gap-10">
-                                <i class="icone-gg uil uil-basketball"></i> Área de esportes
+                <hr class="mb-30">
+                <div class="row mb-15">
+                    <div class="col">
+                        <h3><strong>O que este espaço oferece</strong></h3>
+                    </div>
+                </div>
+                <div class="row mb-30">
+                    <div class="col">
+                        <ul class="gap-10 lista-colunas icone-m texto-m">
+                            @if(empty($features['HouseCharacteristics']['wifi']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-wifi"></i> Wifi
                             </li>
-                            <li class="d-flex align-items-center gap-10">
-                                <i class="icone-gg uil uil-raindrops-alt"></i> Lavanderia
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['TV']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-desktop"></i> Televisão
                             </li>
-                            <li class="d-flex align-items-center gap-10">
-                                <i class="icone-gg uil uil-swimmer"></i> Piscina
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['TVSatellite']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex fas fa-satellite-dish"></i> Televisão a Cabo
                             </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['DVD']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-compact-disc"></i> DVD
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Garden']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                            <i class="d-inline-flex  uil uil-flower"></i> Jardim
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['GardenFurniture']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                            <i class="d-inline-flex  fas fa-chair"></i> Móveis de jardim
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Iron']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex  fas fa-tshirt"></i> Ferro de passar roupa
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['FirePlace']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex  fas fa-fire-alt"></i> Lareira
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Barbecue']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex  uil uil-garden"></i> Churrasqueira
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Radio']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex  uil fas fa-volume-up"></i> Radio
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['MiniBar']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex fas fa-cocktail"></i> Mini Bar
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Terrace']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex far fa-building"></i> Terraço
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Elevator']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-garden"></i> Elevador
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Balcony']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-garden"></i> Sacada
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['JuiceSqueazer']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex far far-lemon"></i> Espremedor de suco
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['ElectricKettle']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex fas fa-blender"></i> Chaleira elétrica
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['HairDryer']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-garden"></i> Secador de cabelo
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['ChildrenArea']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex fas fa-child"></i> Espaço kids
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Gym']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex fa-dumbbell"></i> Academia
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Alarm']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-bell-school"></i> Alarme
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Tennis']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-tennis-ball"></i> Quadra de tênis
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Squash']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-tennis-ball"></i> Quadra de squash
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Sauna']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-garden"></i> Sauna
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['NumOfFans']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex fas fa-fan"></i> Ventilador
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['NumOfElectronicMosquitoRepeller']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-garden"></i> Repelente de insetos
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['WindowScreens']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-garden"></i> Tela nas janelas
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['HandicappedFacilities']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-accessible-icon-alt"></i> Acessibilidade
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Jacuzzi']) === false)
+                            <li class="d-inline-flex d-flex align-items-center gap-10">
+                                <i class="d-inline-flex fas fa-hot-tub"></i> Jacuzzi
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Kitchen']['Fridge']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-garden"></i> Geladeira
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Kitchen']['Freezer']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-snowflake"></i> Freezer
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Kitchen']['WashingMachine']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-garden"></i> Máquina de lavar roupas
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Kitchen']['Dryer']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-garden"></i> Secadora
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Kitchen']['Dishwasher']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-garden"></i> Lava louças
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Kitchen']['CoffeeMachine']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex fas fa-coffee"></i> Cafeteira
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Kitchen']['Fryer']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-garden"></i> Fritadeira
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Kitchen']['TableWare']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex fas fa-utensils"></i> Talheres
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Kitchen']['KitchenUtensils']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex fas fa-utensil-spoon"></i> Utensílios de coziha
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Kitchen']['Microwave']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-garden"></i> Microondas
+                            </li>
+                            @endif
+
+                            @if(empty($features['HouseCharacteristics']['Kitchen']['Oven']) === false)
+                            <li class="d-inline-flex align-items-center gap-10">
+                                <i class="d-inline-flex uil uil-garden"></i> Forno
+                            </li>
+                            @endif
+                        {{--TODO: Deixar essa lista colapsável--}}
+                        <!--
+                            <ul class="lista-extra collapse gap-10">
+                                <li class="d-inline-flex align-items-center gap-10">
+                                    <i class="d-inline-flex uil uil-basketball"></i> Área de esportes
+                                </li>
+                                <li class="d-inline-flex align-items-center gap-10">
+                                    <i class="d-inline-flex uil uil-raindrops-alt"></i> Lavanderia
+                                </li>
+                                <li class="d-inline-flex align-items-center gap-10">
+                                    <i class="d-inline-flex uil uil-swimmer"></i> Piscina
+                                </li>
+                            </ul>
+                        -->
                         </ul>
-                    -->
-                </ul>
-                <!--<a href="#!" data-bs-toggle="collapse" data-bs-target=".lista-extra" aria-expanded="false" class="btn-link texto-m px-0 d-flex">
-                    <p class="align-items-center mb-0 mostrar-mais"><strong> Mostrar todas as 27 comodidades</strong> <i class="icone-m uil uil-angle-down"></i></p>
-                    <p class="align-items-center mb-0 mostrar-menos"><strong> Esconder</strong> <i class="icone-m uil uil-angle-up"></i></p>
-                </a>-->
-            </div>
-        </div>
-    </div>
-</section>
-
-<hr class="mb-30">
-
-<section class="mb-15">
-    <div class="container">
-        <div class="row mb-15">
-            <div class="col">
-                <h3><strong>Serviços extras</strong></h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="slider slide-4col texto-m texto-branco">
-                    <ul>
-                        @foreach($services as $service)
-                        <li>
-                            <a href="{{URL::to('/service_details')}}/{{$service->id}}" class="service-link" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" >
-                                <picture style="background-image: url({{URL::to('/')}}/files/services/{{$service->image}});"></picture>
-                                <div>
-                                    <h3>{{$service->title}} - R$ {{$service->price}}</h3>
-                                </div>
-                            </a>
-                        </li>
-                        @endforeach
-                    </ul>
+                        <!--<a href="#!" data-bs-toggle="collapse" data-bs-target=".lista-extra" aria-expanded="false" class="btn-link texto-m px-0 d-flex">
+                            <p class="align-items-center mb-0 mostrar-mais"><strong> Mostrar todas as 27 comodidades</strong> <i class="d-inline-flex icone-m uil uil-angle-down"></i></p>
+                            <p class="align-items-center mb-0 mostrar-menos"><strong> Esconder</strong> <i class="d-inline-flex icone-m uil uil-angle-up"></i></p>
+                        </a>-->
+                    </div>
+                </div>
+                <hr class="mb-30">
+                <div class="row mb-15">
+                    <div class="col">
+                        <h3><strong>Serviços extras</strong></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="slider slide-4col texto-m texto-branco">
+                            <ul>
+                                @foreach($services as $service)
+                                <li>
+                                    <a href="{{URL::to('/service_details')}}/{{$service->id}}" class="service-link" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" >
+                                        <picture style="background-image: url({{URL::to('/')}}/files/services/{{$service->image}});"></picture>
+                                        <div>
+                                            <h3>{{$service->title}} - R$ {{$service->price}}</h3>
+                                        </div>
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+            <div class="col-12 col-sm-4">
+                <div class="row mb-15">
+                    <div class="col">
+                        <h3><strong>Localização</strong></h3>
+                    </div>
+                </div>
+                <div class="row mb-30">
+                    <div class="col">
 
-<script>
-    $(document).ready(function(){
-        // your on click function here
-        $('.service-link').click(function(){
-            $('#aba-loja-single').load($(this).attr('href'));
-            return false;
-        });
-    });
-</script>
+                        <div id="map"></div>
 
-<hr class="mb-30">
+                        <script>
+                            function initMap() {
+                                const myLatLng = { lat: {{$latitude}}, lng: {{$longitude}} };
+                                const map = new google.maps.Map(document.getElementById("map"), {
+                                    zoom: {{$zoom}},
+                                    center: myLatLng,
+                                });
+                                new google.maps.Marker({
+                                    position: myLatLng,
+                                    map,
+                                    title: "{{$accommodation[0]->AccommodationName}}",
+                                });
+                            }
+                        </script>
 
-<section class="mb-15">
-    <div class="container">
-        <div class="row mb-15">
-            <div class="col">
-                <h3><strong>Localização</strong></h3>
-            </div>
-        </div>
-        <div class="row mb-30">
-            <div class="col">
-
-                <div id="map"></div>
-
-                <script>
-                    function initMap() {
-                        const myLatLng = { lat: {{$latitude}}, lng: {{$longitude}} };
-                        const map = new google.maps.Map(document.getElementById("map"), {
-                            zoom: {{$zoom}},
-                            center: myLatLng,
-                        });
-                        new google.maps.Marker({
-                            position: myLatLng,
-                            map,
-                            title: "{{$accommodation[0]->AccommodationName}}",
-                        });
-                    }
-                </script>
-
-            </div>
-        </div>
-{{--        <div class="row mb-15">--}}
-{{--            <div class="col">--}}
-{{--                <h3><strong>Encontre nas proximidades</strong></h3>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="row mb-15">--}}
-{{--            <div class="col">--}}
-{{--                <ul class="gap-10">--}}
-{{--                    <li class="row">--}}
-{{--                        <div class="col grow-0 pe-0">--}}
-{{--                            <i class="icone-m uil uil-map-marker"></i>--}}
-{{--                        </div>--}}
-{{--                        <div class="col">--}}
-{{--                            <p class="texto-m mb-0"><strong>Restaurante Barolo</strong> → 110m</p>--}}
-{{--                            <p class="texto-m mb-0">Restaurante</p>--}}
-{{--                        </div>--}}
-{{--                    </li>--}}
-{{--                    <li class="row">--}}
-{{--                        <div class="col grow-0 pe-0">--}}
-{{--                            <i class="icone-m uil uil-map-marker"></i>--}}
-{{--                        </div>--}}
-{{--                        <div class="col">--}}
-{{--                            <p class="texto-m mb-0"><strong>We are Bastards</strong> → 320m</p>--}}
-{{--                            <p class="texto-m mb-0">Restaurante</p>--}}
-{{--                        </div>--}}
-{{--                    </li>--}}
-{{--                    <li class="row">--}}
-{{--                        <div class="col grow-0 pe-0">--}}
-{{--                            <i class="icone-m uil uil-map-marker"></i>--}}
-{{--                        </div>--}}
-{{--                        <div class="col">--}}
-{{--                            <p class="texto-m mb-0"><strong>Hipermercado Condor</strong> → 1,5km</p>--}}
-{{--                            <p class="texto-m mb-0">Supermercado</p>--}}
-{{--                        </div>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-
-{{--        </div>--}}
-{{--    </div>--}}
-</section>
-
-<hr class="mb-30">
-
-{{--<section class="mb-15">--}}
-{{--    <div class="container">--}}
-{{--        <div class="row mb-15">--}}
-{{--            <div class="col">--}}
-{{--                <h4 class="texto-m d-flex gap-5"><i class="icone-m uil uil-star"></i> <strong>9,5</strong> • 2 avaliações</h4>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="row">--}}
-{{--            <div class="col">--}}
-{{--                <div class="slider slide-2col depoimentos">--}}
-{{--                    <ul>--}}
-{{--                        <li>--}}
-{{--                            <h3 class="mb-5"><strong>Wagner</strong></h3>--}}
-{{--                            <p class="texto-m mb-10">2 horas atrás</p>--}}
-{{--                            <p class="mb-0 texto-m">local ótimo e o atendimento impecável, retornarei em breve.</p>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <h3 class="mb-5"><strong>Larissa</strong></h3>--}}
-{{--                            <p class="texto-m mb-10">Set 2021</p>--}}
-{{--                            <p class="mb-0 texto-m">Uma ótima experiência estadia :D</p>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <h3 class="mb-5"><strong>Wagner</strong></h3>--}}
-{{--                            <p class="texto-m mb-10">2 horas atrás</p>--}}
-{{--                            <p class="mb-0 texto-m">local ótimo e o atendimento impecável, retornarei em breve.</p>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</section>--}}
-
-{{--<hr class="mb-30">--}}
-
-<section class="mb-15">
-    <div class="container">
-        <div class="row mb-15">
-            <div class="col">
-                <h3><strong>Contatos</strong></h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col d-flex gap-10">
-                <div class="form-group form-inline">
-                    <a href="#!" class="btn btn-4 btn-p">E-mail</a>
-                    <a href="#!" class="btn btn-4 btn-p">Whatsapp</a>
-                    <a href="#!" class="btn btn-4 btn-p">Telefone</a>
+                    </div>
+                </div>
+                <hr class="mb-30">
+                <div class="row mb-15">
+                    <div class="col">
+                        <h3><strong>Contatos</strong></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex gap-10">
+                        <div class="form-group form-inline">
+                            <a href="#!" class="btn btn-4 btn-p">E-mail</a>
+                            <a href="#!" class="btn btn-4 btn-p">Whatsapp</a>
+                            <a href="#!" class="btn btn-4 btn-p">Telefone</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -652,65 +546,59 @@
 <section class="mb-30">
     <div class="container texto-m texto-marrom-escuro">
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <a href="#!" data-bs-toggle="collapse" data-bs-target="#cont-extra-1" class="row">
                     <div class="col">
                         <p class="mb-5"><strong>Observações</strong></p>
                         <p class="mb-15">Não é permitido fumar</p>
                     </div>
                     <div class="col d-inline-flex align-self-center grow-0 mb-15">
-                        <i class="icone-m uil uil-angle-right"></i>
+                        <i class="d-inline-flex icone-m uil uil-angle-right"></i>
                     </div>
                 </a>
             </div>
-            <div class="row collapse" id="cont-extra-1">
-                <div class="col">
-                    <p class="mb-15">Não obstante, a constante divulgação das informações estende o alcance e a importância das condições financeiras e administrativas exigidas.</p>
-                </div>
+            <div class="col-12 collapse" id="cont-extra-1">
+                <p class="mb-15">Não obstante, a constante divulgação das informações estende o alcance e a importância das condições financeiras e administrativas exigidas.</p>
             </div>
         </div>
         <hr class="mb-15">
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <a href="#!" data-bs-toggle="collapse" data-bs-target="#cont-extra-2" class="row">
                     <div class="col">
                         <p class="mb-5"><strong>Consições de reserva</strong></p>
                         <p class="mb-15">Desde a reserva até 6 dias antes da entrada, o cancelamento terá um custo de 10% do valor do aluguel</p>
                     </div>
                     <div class="col d-inline-flex align-self-center grow-0 mb-15">
-                        <i class="icone-m uil uil-angle-right"></i>
+                        <i class="d-inline-flex icone-m uil uil-angle-right"></i>
                     </div>
                 </a>
             </div>
-            <div class="row collapse" id="cont-extra-2">
-                <div class="col">
-                    <p class="mb-15">Não obstante, a constante divulgação das informações estende o alcance e a importância das condições financeiras e administrativas exigidas.</p>
-                </div>
+            <div class="col-12 collapse" id="cont-extra-2">
+                <p class="mb-15">Não obstante, a constante divulgação das informações estende o alcance e a importância das condições financeiras e administrativas exigidas.</p>
             </div>
         </div>
         <hr class="mb-15">
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <a href="#!" data-bs-toggle="collapse" data-bs-target="#cont-extra-3" class="row">
                     <div class="col">
                         <p class="mb-5"><strong>Notas adicionais</strong></p>
                         <p class="mb-15">Horário de entrada: todos os dias de 15:00 a 20:00</p>
                     </div>
                     <div class="col d-inline-flex align-self-center grow-0 mb-15">
-                        <i class="icone-m uil uil-angle-right"></i>
+                        <i class="d-inline-flex icone-m uil uil-angle-right"></i>
                     </div>
                 </a>
             </div>
-            <div class="row collapse" id="cont-extra-3">
-                <div class="col">
-                    <p class="mb-15">Não obstante, a constante divulgação das informações estende o alcance e a importância das condições financeiras e administrativas exigidas.</p>
-                </div>
+            <div class="col-12 collapse" id="cont-extra-3">
+                <p class="mb-15">Não obstante, a constante divulgação das informações estende o alcance e a importância das condições financeiras e administrativas exigidas.</p>
             </div>
         </div>
         <hr class="mb-15">
         <div class="row">
             <div class="col">
-                <a href="#!" class="btn-link texto-m"><i class="icone-m uil uil-shield-exclamation"></i> <strong>Denunciar este anúncio</strong></a>
+                <a href="#!" class="btn-link texto-m"><i class="d-inline-flex icone-m uil uil-shield-exclamation"></i> <strong>Denunciar este anúncio</strong></a>
             </div>
         </div>
     </div>
@@ -718,12 +606,12 @@
 
 <section class="fixo-b">
     <div class="container pt-15 mb-15">
-        <div class="row">
+        <div class="row justify-content-between">
             <div class="col grow-0">
-                <h4 class="texto-m d-flex gap-5 mb-5"><strong class="texto-laranja">R${{$accommodation[0]->Price}}</strong> /noite</h4>
-                <!--<h4 class="texto-m d-flex gap-5"><i class="icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>-->
+                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$accommodation[0]->Price}}</strong> /noite</h4>
+                <!--<h4 class="texto-m d-flex gap-5"><i class="d-inline-flex icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>-->
             </div>
-            <div class="col">
+            <div class="col col-sm-5">
                 <a href="pagina-checkout.shtml" class="btn">Verificar disponibilidade</a>
             </div>
         </div>

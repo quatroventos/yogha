@@ -121,7 +121,7 @@
 <!--#include virtual="aba-hospedes.html"-->
 
 <!-- ABA BUSCA -->
-@include('site.abas.busca', compact('recently_viewed','surpriseme'))
+@include('site.abas.search', compact('recently_viewed','surpriseme'))
 
 <!-- ABA LOJA -->
 @include('site.abas.service_list')
@@ -141,7 +141,7 @@
 <!--#include virtual="aba-mensagens-nova.html"-->
 
 <!-- ABA USUARIO USUARIO -->
-<!--#include virtual="aba-usuario.html"-->
+@include('site.abas.user')
 
 <!-- CONTEUDO -->
 

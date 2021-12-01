@@ -206,6 +206,45 @@ section.mapa-chamada .container > .row {
   }
 
 
+/* SINGLE ANUNCIO
+----------------------------------------------------------------- */
+
+#single-anuncio {
+
+}
+	#single-anuncio .descricao {
+	}
+		#single-anuncio .descricao > div:first-child {
+			border-right: 1px solid var(--marrom-claro);
+			padding-right: 0;
+		}
+			#single-anuncio .descricao > div:first-child > .row {
+				margin-right: 30px;
+			}
+		#single-anuncio .descricao > div:last-child {
+			padding-left: 0;
+		}
+			#single-anuncio .descricao > div:last-child > .row {
+				margin-left: 30px;
+			}
+
+	#single-anuncio .descricao ul.lista-colunas li {
+		width: 32%;
+	}
+
+
+
+/* CHECKOUT
+----------------------------------------------------------------- */
+
+#checkout {
+}
+  #checkout .anuncio picture {
+    height: 25vw;
+    width: 30vw;
+  }
+
+
 /* LANDINGPAGE
 ----------------------------------------------------------------- */
 

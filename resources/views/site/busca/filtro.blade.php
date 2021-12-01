@@ -71,8 +71,8 @@
         <div class="form-group">
             <label for="daterange">Tempo de estadia:</label>
             <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
-            <input type="text" name="startdate" id="startdate" value="{{date('Y-m-d', strtotime($startdate))}}">
-            <input type="text" name="enddate" id="enddate" value="{{date('Y-m-d', strtotime($startdate))}}">
+            <input type="hidden" name="startdate" id="startdate" value="{{date('Y-m-d', strtotime($startdate))}}">
+            <input type="hidden" name="enddate" id="enddate" value="{{date('Y-m-d', strtotime($startdate))}}">
         </div>
         <div class="form-group">
             <label>Adultos</label>
