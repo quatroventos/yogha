@@ -64,7 +64,7 @@
 </nav>
 
 <!-- MENU INFERIOR -->
-<nav class="menu-inf">
+<nav class="menu-inf fixo-b">
     <div class="container">
         <div class="row mx-0 text-center">
             <div class="col px-0">

@@ -111,9 +111,99 @@
 	  }
 
 
+/* SLIDER
+----------------------------------------------------------------- */
+
+  /* slide var */
+  .slide-var ul {
+  	padding-left: 15px;
+	  padding-right: 15px;
+	}
+  .slide-var ul .slick-list li {
+      width: 30%;
+  }
+		.slide-var ul .slick-list li picture {
+			max-height: 100px;
+			max-width: 120px;
+		}
+
+
+/* LISTAS
+----------------------------------------------------------------- */
+
+ul.lista-colunas {
+	column-gap: 2% !important;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+	ul.lista-colunas li {
+		width: 25%;
+	}
+
+
 /* ABAS
 ----------------------------------------------------------------- */
 
+.aba {}
+.aba.collapse.show {
+    bottom: 0;
+}
+  .aba .container {
+    padding-top: 50px !important;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+/* aba favoritos */
+#aba-favoritos ul li .row {
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 15px;
+}
+	#aba-favoritos ul li .col {
+		flex-grow: 1;
+		padding-left: 0;
+		padding-right: 0;
+	}
+		#aba-favoritos ul li picture {
+			margin-bottom: 20px;
+			width: 100%;
+		}
+
+/* aba usuario */
+#aba-usuario .container {}
+	#aba-usuario .container .perfil .pe-0 {
+		padding-right: 15px !important;
+	}
+		#aba-usuario .container .perfil > .row {
+			margin-right: 0;
+		}
+		#aba-usuario .perfil .form-group {
+			justify-content: center;
+			padding-top: 20px;
+		}
+  #aba-usuario .perfil + div {
+  	border-left:  1px solid var(--marrom-claro);
+  }
+  	#aba-usuario .container .perfil + div > h3 {
+			margin-left: -15px;
+			margin-right: -15px;
+		}
+  	#aba-usuario .container .perfil + div > .row {
+			margin-left: 0;
+		}
+
+
+/* MAPA
+----------------------------------------------------------------- */
+
+/* mapa chamada */
+section.mapa-chamada .container > .row {
+	padding: 50px;
+}
+  section.mapa-chamada .mb-10 {
+    margin-bottom: 0 !important;
+  }
 
 
 /* LANDINGPAGE
@@ -263,6 +353,12 @@ header {
 	  z-index: 1;
 	}
 
+	/* corporativo */
+	section#corporativo {}
+	  section#corporativo .container {
+	    padding-left: 50px;
+	    padding-right: 50px;
+	  }
 
 /* footer */
 footer {}

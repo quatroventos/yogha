@@ -33,6 +33,22 @@ class SearchController extends Controller
 
     }
 
+    //filtra por data e quantidade de hospedes
+    public function filter($district = '', $startdate='', $enddate='')
+    {
+        //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
+        $today = date("Y-m-d");
+        if($startdate == '') {
+            $startdate = $today;
+        }
+        if($enddate == '') {
+            $enddate = date('Y-m-d', strtotime($today. ' + 2 days'));
+        }
+
+        return view('site.busca.filtro', compact('district', 'startdate', 'enddate'));
+    }
+
+
     //busca por distrito / bairro
     public function searchbydistrict($district, $startdate='', $enddate='')
     {

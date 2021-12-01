@@ -85,7 +85,7 @@
         <div class="row busca-resumo collapse show">
             <div class="col btn-flutuante">
                 <a href="javascript:history.back();" class="btn btn-2 btn-p btn-ico"><i class="icone-m uil uil-angle-left"></i></a>
-                <a href="#!" class="btn btn-3 btn-p d-flex texto-ret" data-bs-toggle="collapse" data-bs-target=".busca-resumo, .busca-detalhes"><span>{{$district}}</span><span class="text-right texto-p">8/10 → 9/10 - 2 hospedes</span></a>
+                <a href="#!" class="btn btn-3 btn-p d-flex texto-ret" data-bs-toggle="collapse" data-bs-target=".busca-resumo, .busca-detalhes"><span>{{$district}}</span><span class="text-right texto-p">{{date_format(date_create($startdate),"d/m/y")}} → {{date_format(date_create($enddate),"d/m/y")}} - {{Request::segment(5)+Request::segment(6)}} hospedes</span></a>
                 <a href="#!" class="btn btn-2 btn-p btn-ico" data-bs-toggle="collapse" data-bs-target=".busca-filtro"><i class="uil uil-sliders-v-alt"></i></a>
             </div>
         </div>
@@ -162,7 +162,7 @@
         @foreach($results as $result)
             <div class="row mb-30">
                 <div class="col">
-                    <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}">
+                    <a href="{{URL::to('/')}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}">
 
                         <?php $pictures = json_decode($result->Pictures, true); ?>
                         @if(isset($pictures))

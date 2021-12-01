@@ -13,15 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::namespace('App\Http\Controllers\Site')->group(function(){
+    //home
     Route::get('/', 'HomeController');
+    //accommodation
     Route::get('/accommodation/{accommodationid}/{startdate?}/{enddate?}', 'AccommodationController@index');
+    //search
     Route::get('/autocomplete-search-query', 'SearchController@query')->name('autocomplete.search.query');
-    Route::get('/searchbydistrict/{district}/{startdate?}/{enddate?}', 'SearchController@searchbydistrict')->name('search.district');
+    Route::get('/searchfilter/{district?}/{startdate?}/{enddate?}', 'SearchController@filter');
+    Route::get('/searchbydistrict/{district}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'SearchController@searchbydistrict')->name('search.district');
+    //services
     Route::get('/service_details/{serviceid}', 'ServicesController@show_details');
+    //blog
     Route::get('/blog/{category}/{slug}', 'BlogController@category')->name('blog.category');
     Route::get('/blog/{slug}', 'BlogController@post')->name('blog.post');
     Route::get('/blog', 'BlogController@index')->name('blog');
-
+    //checkout
+    Route::get('/checkout', 'CheckoutController@index')->name('checkout');
 });
 
 Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');

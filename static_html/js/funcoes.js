@@ -21,6 +21,13 @@ $('.slick.slide-auto ul').slick({
   dots: false
 });
 
+$('.slick.slide-var ul').slick({
+  infinite: false,
+  variableWidth: true,
+  arrows: false,
+  dots: true
+});
+
 $('.slick.slide-full').slick({
   infinite: false,
   slidesToScroll: 1,

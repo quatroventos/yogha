@@ -23,7 +23,7 @@ html {
   height:100%
 } 
 body {
-  min-height:100%
+  min-height:100%;
 }
 body {
   color: var(--marrom-escuro);
@@ -69,7 +69,7 @@ body.overlay {
 }
 
 .scroll-y {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 
@@ -379,6 +379,7 @@ ul.lista-extra:after {
 }
 .form-inline {
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
 }
   .form-inline > * {
@@ -392,6 +393,7 @@ ul.lista-extra:after {
 .form-inline.merge {
   gap: 0;
   align-self: center;
+  flex-wrap: nowrap;
   width: 100%;
 }
   .form-inline.merge > * {
@@ -413,7 +415,7 @@ ul.lista-extra:after {
     border-right: none;
   }
   .form-inline.merge input + .btn {
-    /*border-color: var(--marrom);*/
+    border-color: var(--marrom);
   }
   .form-inline.merge input:focus + .btn {
     border-color: var(--laranja);
@@ -447,6 +449,9 @@ textarea {
   justify-content: center;
   min-height: 42px;
   padding: 0 15px;
+}
+textarea {
+  border-radius: 21px;
 }
 input:not([type=checkbox]):focus,
 select:focus,
@@ -655,6 +660,11 @@ div.alerta.ativo {
       flex: 1 0 auto;
     }
 
+    /* slide var */
+    .slide-var ul li {
+        max-width: 60%;
+    }
+
     /* slide full */
     .slide-full {
       margin-bottom: 0 !important;
@@ -754,7 +764,7 @@ div.alerta.ativo {
     padding: 0 !important;
   }
   .slick-dots li button:before {
-    color: var(--laranja) !important;
+    color: var(--marrom-escuro) !important;
     font-size: 30px;
   }
 
@@ -864,6 +874,7 @@ div.alerta.ativo {
 /* ABAS
 ----------------------------------------------------------------- */
 
+
 .aba {  
   bottom: -100%;
   position: fixed;
@@ -871,6 +882,9 @@ div.alerta.ativo {
   transition: all 0.2s cubic-bezier(0.86, 0, 0.07, 1);
   width: 100vw;
   z-index: 1100;
+}
+.aba .slider .collapse:not(.show) {
+  display: block;
 }
 .aba.collapse.show {
     bottom: 0;
