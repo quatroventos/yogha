@@ -141,7 +141,11 @@
 <!--#include virtual="aba-mensagens-nova.html"-->
 
 <!-- ABA USUARIO USUARIO -->
-@include('site.abas.user')
+@if (Auth::check()) {
+    @include('site.abas.user', compact($user))
+@else
+    @include('site.abas.login')
+@endif
 
 <!-- CONTEUDO -->
 

@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\Controller;
 namespace App\Http\Controllers\Backend;
-
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;

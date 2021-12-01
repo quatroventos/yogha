@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Accommodations;
 use Illuminate\Http\Request;
 use RicorocksDigitalAgency\Soap\Facades\Soap;
@@ -21,6 +22,17 @@ class HomeController extends Controller
 
         //session()->forget('accommodations.recent');
         //die();
+
+        if (Auth::check()) {
+            $userid = Auth::user()->id;
+            $user = \DB::table('public.customers')
+                ->select('public.customers.*')
+                ->leftJoin('site.users', 'site.users.email', '=', 'public.customers.email')
+                ->leftJoin('avantio.booking', 'avantio.booking.customer_id', '=', 'public.customers.id')
+                ->where('site.users.id', '=',  $userid)
+                ->get();
+            dd($user);
+        }
 
         //select acomodações na home
         $accommodations = \DB::table('accommodations')
@@ -65,6 +77,6 @@ class HomeController extends Controller
         $position = Location::get('178.132.95.179');
 
 
-        return view('site.home.index', compact('accommodations', 'shelves', 'position', 'recently_viewed', 'surpriseme'));
+        return view('site.home.index', compact('accommodations', 'shelves', 'position', 'recently_viewed', 'surpriseme', 'user'));
     }
 }

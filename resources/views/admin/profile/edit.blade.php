@@ -19,7 +19,7 @@
                             <form method="post" action="{{ route('profile.update') }}" autocomplete="off"
                                 enctype="multipart/form-data">
                                 @csrf
-                                @method('patch')
+
 
                                 <h6 class="heading-small text-muted mb-4">{{ __('User information') }}</h6>
 
@@ -49,7 +49,6 @@
                             <hr class="my-4" />
                             <form method="post" action="{{ route('profile.password') }}">
                                 @csrf
-                                @method('patch')
 
                                 <h6 class="heading-small text-muted mb-4">{{ __('Password') }}</h6>
 
