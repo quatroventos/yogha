@@ -6,7 +6,7 @@
     <div class="container h-100 pt-15">
         <div class="row mb-30">
             <div class="col">
-                <a href="index.shtml"><img class="img-m" src="img/logo-yogha-branco.svg"></a>
+                <a href="{{URL::to('/')}}"><img class="img-m" src="{{asset('img/logo-yogha-branco.svg')}}"></a>
             </div>
             <div class="col align-items-end justify-content-center">
                 <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>

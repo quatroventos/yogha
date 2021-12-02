@@ -26,21 +26,52 @@
 
     <!-- PROXIMIDADE -->
 
-    <?php foreach($shelves as $shelf){ ?>
+{{--    <?php foreach($shelves as $shelf){ ?>--}}
+{{--        <section class="mb-15">--}}
+{{--            <div class="container">--}}
+{{--                <div class="row mb-10">--}}
+{{--                    <div class="col">--}}
+{{--                        <h2><strong><?php echo $shelf->title; ?></strong></h2>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                @php--}}
+{{--                    $layout = $shelf->layoutfile;--}}
+{{--                @endphp--}}
+{{--                @include($layout, ['accommodations' => $accommodations])--}}
+{{--            </div>--}}
+{{--        </section>--}}
+{{--    <?php } ?>--}}
+
+        <!-- Mais visitados -->
         <section class="mb-15">
             <div class="container">
                 <div class="row mb-10">
                     <div class="col">
-                        <h2><strong><?php echo $shelf->title; ?></strong></h2>
+                        <h2><strong>Mais acessados</strong></h2>
                     </div>
                 </div>
-                @php
-                    $layout = $shelf->layoutfile;
-                @endphp
-                @include($layout, ['accommodations' => $accommodations])
+                <div class="slider slide-3col">
+                    <ul>
+                        <?php foreach($mostvisited as $accommodation){
+                        $pictures = json_decode($accommodation->Pictures, true);
+                        if(isset($pictures['Picture'][0]['PreparedURI'])){
+                            $thumbnail = $pictures['Picture'][0]['ThumbnailURI'];
+                        }
+                        ?>
+                            <li>
+                                <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>" class="texto-marrom-escuro">
+                                    <?php if(isset($pictures['Picture'][0]['OriginalURI'])){ ?>
+                                    <picture class="mb-10" style="background-image: url(<?php echo $pictures['Picture'][0]['OriginalURI']; ?>);"></picture>
+                                    <?php } ?>
+                                    <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
+                                        <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$accommodation->Price}}</strong>/noite</h4>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
             </div>
         </section>
-    <?php } ?>
 
         <!-- MAPA -->
         <section class="mapa-chamada mb-30">
@@ -52,43 +83,14 @@
                                 <i class="icone-g uil uil-map-marker"></i>
                             </div>
                             <div class="col mb-10">
-                                <h3><strong>Título da categoria</strong></h3>
+                                <h3><strong>Curitiba</strong></h3>
                                 <h4 class="texto-m"><strong>15 opções</strong> perto de você</h4>
                             </div>
                             <div class="col-12 col-sm-5">
-                                <a href="pagina-resultado-busca.shtml" class="btn d-flex btn-2">Mostrar no mapa</a>
+                                <a href="{{URL::to('/searchbydistrict/sin%20especificar/')}}" class="btn d-flex btn-2">Mostrar no mapa</a>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- AVALIADOS -->
-        <section class="mb-15">
-            <div class="container">
-                <div class="row mb-10">
-                    <div class="col">
-                        <h2><strong>Mais bem avaliados</strong></h2>
-                    </div>
-                </div>
-                <div class="slider slide-3col">
-                    <ul>
-                        <?php foreach($accommodations as $accommodation){
-                            $pictures = json_decode($accommodation->Pictures, true);
-                            if(isset($pictures['Picture'][0]['PreparedURI'])){
-                                $thumbnail = $pictures['Picture'][0]['ThumbnailURI'];
-                            }
-                            ?>
-                        <li>
-                            <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                <h3 class="mb-5">Título do anúncio</h3>
-                                <h4 class="texto-m d-flex gap-5"><i class="texto-laranja icone-m uil uil-star"></i> <strong class="texto-laranja" strong>9,5</strong> (200)</h4>
-                            </a>
-                        </li>
-                        <?php } ?>
-                    </ul>
                 </div>
             </div>
         </section>
@@ -103,20 +105,22 @@
                 </div>
                 <div class="slider slide-3col">
                     <ul>
+                        <?php foreach($discount as $accommodation){
+                        $pictures = json_decode($accommodation->Pictures, true);
+                        if(isset($pictures['Picture'][0]['PreparedURI'])){
+                            $thumbnail = $pictures['Picture'][0]['ThumbnailURI'];
+                        }
+                        ?>
                         <li>
-                            <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                <h3 class="mb-5">Título do anúncio</h3>
-                                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$45</strong> /noite</h4>
+                            <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>" class="texto-marrom-escuro">
+                                <?php if(isset($pictures['Picture'][0]['OriginalURI'])){ ?>
+                                <picture class="mb-10" style="background-image: url(<?php echo $pictures['Picture'][0]['OriginalURI']; ?>);"></picture>
+                                <?php } ?>
+                                <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
+                                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$accommodation->Price}}</strong>/noite</h4>
                             </a>
                         </li>
-                        <li>
-                            <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                <h3 class="mb-5">Título do anúncio</h3>
-                                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$45</strong> /noite</h4>
-                            </a>
-                        </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -129,7 +133,7 @@
                     <div class="col-8 col-sm-4 align-items-start">
                         <h4 class="texto-laranja texto-m mb-10"><strong>Corporativo</strong></h4>
                         <h3 class="texto-branco mb-15">Vantagens especiais para parceiros Yogha</h3>
-                        <a href="#!" class="btn btn-2">Saiba mais</a>
+                        <a href="{{URL::to('/corporativo')}}" class="btn btn-2">Saiba mais</a>
                     </div>
                 </div>
             </div>
@@ -140,102 +144,30 @@
             <div class="container">
                 <div class="row mb-10">
                     <div class="col">
-                        <h2><strong>Mais procurados</strong></h2>
+                        <h2><strong>Bairros populares</strong></h2>
                     </div>
                 </div>
                 <div class="row mb-10">
                     <div class="col">
                         <div class="slider slide-4col text-center texto-m texto-branco">
                             <ul>
+                                <?php foreach($populardistricts as $populardistrict){ ?>
                                 <li>
-                                    <a href="pagina-resultado-busca.shtml">
+                                    <a href="{{URL::to('/searchbydistrict/'.$populardistrict->District)}}">
                                         <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
                                         <div>
-                                            <h3><strong>Título da categoria</strong></h3>
+                                            <h3><strong>{{$populardistrict->District}}</strong></h3>
                                         </div>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="pagina-resultado-busca.shtml">
-                                        <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                        <div>
-                                            <h3><strong>Título da categoria</strong></h3>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="pagina-resultado-busca.shtml">
-                                        <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                        <div>
-                                            <h3><strong>Título da categoria</strong></h3>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="pagina-resultado-busca.shtml">
-                                        <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                        <div>
-                                            <h3><strong>Título da categoria</strong></h3>
-                                        </div>
-                                    </a>
-                                </li>
+                                <?php } ?>
                             </ul>
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
         </section>
 
-        <!-- ESTILO -->
-        <section class="mb-15">
-            <div class="container">
-                <div class="row mb-10">
-                    <div class="col">
-                        <h2><strong>Qual é o seu estilo?</strong></h2>
-                    </div>
-                </div>
-                <div class="slider slide-4col texto-m texto-branco">
-                    <ul>
-                        <li>
-                            <a href="pagina-resultado-busca.shtml">
-                                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                <div>
-                                    <h3><strong>Sol e praia</strong></h3>
-                                    <h4>20 destinos</h4>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="pagina-resultado-busca.shtml">
-                                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                <div>
-                                    <h3><strong>Sol e praia</strong></h3>
-                                    <h4>20 destinos</h4>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="pagina-resultado-busca.shtml">
-                                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                <div>
-                                    <h3><strong>Sol e praia</strong></h3>
-                                    <h4>20 destinos</h4>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="pagina-resultado-busca.shtml">
-                                <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                <div>
-                                    <h3><strong>Sol e praia</strong></h3>
-                                    <h4>20 destinos</h4>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
 
         <!-- ALUGUE -->
         <section class="mb-30">
@@ -243,7 +175,7 @@
                 <div class="row justify-content-center">
                     <div class="col col-sm-6">
                         <h2 class="justify-content-center d-flex mb-10 gap-10"><i class="icone-gg texto-laranja uil uil-house-user"></i> <strong>Uma renda extra para você</strong></h2>
-                        <a href="#!" class="btn d-flex">Alugue seu imóvel</a>
+                        <a href="{{URL::to('/alugue')}}" class="btn d-flex">Alugue seu imóvel</a>
                     </div>
                 </div>
             </div>

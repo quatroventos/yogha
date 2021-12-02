@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Services;
+use App\Models\Stats;
 use Illuminate\Http\Request;
 
 class AccommodationController extends Controller
@@ -16,6 +17,12 @@ class AccommodationController extends Controller
      */
     public function index($accommodationid, $startdate='', $enddate='')
     {
+        //insere nas estatísticas
+        $stat = new Stats;
+        $stat->type = 'accommodation';
+        $stat->content_id = $accommodationid;
+        $stat->save();
+
         //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
         $today = date("Y-m-d");
         if($startdate == '') {

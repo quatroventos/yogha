@@ -54,7 +54,7 @@
     <div class="container">
         <div class="row">
             <div class="col justify-content-center">
-                <a href="index.html"><img src="{{asset('img/icone-yogha-branco.svg')}}"></a>
+                <a href="{{URL::to('/')}}"><img src="{{asset('img/icone-yogha-branco.svg')}}"></a>
             </div>
             <div class="col align-items-end justify-content-center">
                 <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="switch"><i class="icone-g texto-branco uil uil-bars"></i></a>
@@ -141,7 +141,7 @@
 <!--#include virtual="aba-mensagens-nova.html"-->
 
 <!-- ABA USUARIO USUARIO -->
-@if (Auth::check()) {
+@if (Auth::check())
     @include('site.abas.user', compact($user))
 @else
     @include('site.abas.login')
@@ -170,7 +170,7 @@
                     <li><a href="#!">Política de cookies</a></li>
                     <li><a href="#!">Condições gerais</a></li>
                 </ul>
-                <img class="img-m mx-auto mb-20" src="img/logo-yogha.svg">
+                <img class="img-m mx-auto mb-20" src="{{asset('img/logo-yogha.svg')}}">
                 <ul class="gap-5 mb-20">
                     <li><a href="#!">41. 99694-1949</a></li>
                     <li><a href="#!">reservas@yogha.com.br</a></li>

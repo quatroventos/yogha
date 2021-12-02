@@ -480,7 +480,7 @@
                             <ul>
                                 @foreach($services as $service)
                                 <li>
-                                    <a href="{{URL::to('/service_details')}}/{{$service->id}}" class="service-link" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" >
+                                    <a href="{{URL::to('/service_details')}}/{{$service->id}}" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" >
                                         <picture style="background-image: url({{URL::to('/')}}/files/services/{{$service->image}});"></picture>
                                         <div>
                                             <h3>{{$service->title}} - R$ {{$service->price}}</h3>
@@ -619,7 +619,7 @@
 </section>
 
 <!-- OVERLAY -->
-<a href="#!" class="fundo-escuro"></a>
+<a href="#!" class="fundo-escuro switch"></a>
 
 <!-- SCRIPTS -->
 

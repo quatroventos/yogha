@@ -63,7 +63,7 @@
 </head>
 
 <!-- ABA BUSCA -->
-@include('site.abas.busca', compact('recently_viewed','surpriseme'))
+@include('site.abas.search', compact('recently_viewed','surpriseme'))
 
 
 <body id="resultado-busca">

@@ -31,8 +31,43 @@ class HomeController extends Controller
                 ->leftJoin('avantio.booking', 'avantio.booking.customer_id', '=', 'public.customers.id')
                 ->where('site.users.id', '=',  $userid)
                 ->get();
-            dd($user);
+            //dd($user);
+        }else{
+            $user = '';
         }
+
+        //descontos exclusivos (ordena pelo preço mais baixo)
+        $discount = \DB::table('accommodations')
+            ->select('accommodations.*','descriptions.*','rates.*')
+            ->Leftjoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
+            ->Leftjoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
+            ->where('Price', '>', '30')
+            ->OrderBy('Price','ASC')
+            ->take(10)
+            ->get();
+
+        //accommodations mais acessadas
+        $mostvisited = \DB::table('accommodations')
+            ->select('accommodations.*','descriptions.*','rates.*',\DB::raw('count(stats.*) as views'))
+            ->leftJoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
+            ->leftJoin('stats','stats.content_id', '=', 'accommodations.AccommodationId')
+            ->Leftjoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
+            ->groupBy('accommodations.AccommodationId', 'stats.content_id', 'accommodations.id', 'descriptions.id', 'rates.id')
+            ->where('stats.type', '=', 'accommodation')
+            ->OrderBy('views', 'DESC')
+            ->take(10)
+            ->get();
+
+
+        //districts mais acessadas
+        $populardistricts = \DB::table('localizations')
+            ->select('localizations.District',\DB::raw('count(stats.*) as views'))
+            ->leftJoin('stats','stats.content_id', '=', 'localizations.AccommodationId')
+            ->groupBy('localizations.District')
+            ->where('stats.type', '=', 'accommodation')
+            ->OrderBy('views', 'DESC')
+            ->take(10)
+            ->get();
 
         //select acomodações na home
         $accommodations = \DB::table('accommodations')
@@ -77,6 +112,6 @@ class HomeController extends Controller
         $position = Location::get('178.132.95.179');
 
 
-        return view('site.home.index', compact('accommodations', 'shelves', 'position', 'recently_viewed', 'surpriseme', 'user'));
+        return view('site.home.index', compact('accommodations', 'shelves', 'position', 'recently_viewed', 'surpriseme', 'user', 'mostvisited', 'discount', 'populardistricts'));
     }
 }

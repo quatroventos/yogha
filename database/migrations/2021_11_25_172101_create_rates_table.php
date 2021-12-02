@@ -21,7 +21,7 @@ class CreateRatesTable extends Migration
             $table->date('StartDate')->nullable();
             $table->date('EndDate')->nullable();
             $table->text('VAT')->nullable();
-            $table->text('Price')->nullable();
+            $table->integer('Price')->nullable();
         });
     }
 

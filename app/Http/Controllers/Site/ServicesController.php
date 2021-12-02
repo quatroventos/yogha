@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
+use App\Models\Stats;
 use Illuminate\Http\Request;
 use App\Models\Services;
 
@@ -23,6 +24,12 @@ class ServicesController extends Controller
 
     public function show_details($serviceid)
     {
+        //insere nas estatísticas
+        $stat = new Stats;
+        $stat->type = 'service';
+        $stat->content_id = $accommodationid;
+        $stat->save();
+
         $service = Services::where('id', $serviceid)->first();
 
         return view('site.services.service_details', compact('service'));

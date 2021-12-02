@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
@@ -13,6 +14,20 @@ class PageController extends Controller
      */
     public function index($page)
     {
+
+        if (Auth::check()) {
+            $userid = Auth::user()->id;
+            $user = \DB::table('public.customers')
+                ->select('public.customers.*')
+                ->leftJoin('site.users', 'site.users.email', '=', 'public.customers.email')
+                ->leftJoin('avantio.booking', 'avantio.booking.customer_id', '=', 'public.customers.id')
+                ->where('site.users.id', '=',  $userid)
+                ->get();
+            //dd($user);
+        }else{
+            $user = '';
+        }
+
         if (view()->exists("site.paginas.{$page}")) {
             //TODO: colocar em um helper ou trait
             //select acomodações mais recentes para a busca
@@ -37,7 +52,7 @@ class PageController extends Controller
                 ->get();
 
 
-            return view("site.paginas.{$page}", compact('recently_viewed', 'surpriseme'));
+            return view("site.paginas.{$page}", compact('recently_viewed', 'surpriseme', 'user'));
         }
         return abort(404);
     }

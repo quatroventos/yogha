@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Accommodations;
 use App\Models\Localizations;
 use App\Models\Descriptions;
+use App\Models\Stats;
 use Illuminate\Http\Request;
 
 
@@ -52,6 +53,7 @@ class SearchController extends Controller
     //busca por distrito / bairro
     public function searchbydistrict($district, $startdate='', $enddate='')
     {
+
         //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
         $today = date("Y-m-d");
         if($startdate == '') {

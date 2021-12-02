@@ -206,6 +206,59 @@ section.mapa-chamada .container > .row {
   }
 
 
+/* SINGLE ANUNCIO
+----------------------------------------------------------------- */
+
+#single-anuncio {
+
+}
+	#single-anuncio .descricao {
+	}
+		#single-anuncio .descricao > div:first-child {
+			border-right: 1px solid var(--marrom-claro);
+			padding-right: 0;
+		}
+			#single-anuncio .descricao > div:first-child > .row {
+				margin-right: 30px;
+			}
+		#single-anuncio .descricao > div:last-child {
+			padding-left: 0;
+		}
+			#single-anuncio .descricao > div:last-child > .row {
+				margin-left: 30px;
+			}
+
+	#single-anuncio .descricao ul.lista-colunas li {
+		width: 32%;
+	}
+
+	#single-anuncio .descricao > div:first-child > .row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+
+
+/* CHECKOUT
+----------------------------------------------------------------- */
+
+#checkout {
+}
+	#checkout .descricao {
+		padding-top: 30px;
+		justify-content: space-between;
+	}
+		#checkout .descricao > div:first-child > .row {
+	  	margin-right: 50px;
+	  }
+		  #checkout .descricao > div:first-child picture {
+		  	margin-bottom: 30px;
+		  }
+	  #checkout .descricao > div:first-last {
+	  }
+
+
 /* LANDINGPAGE
 ----------------------------------------------------------------- */
 
