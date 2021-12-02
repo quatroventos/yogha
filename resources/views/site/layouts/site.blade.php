@@ -129,7 +129,7 @@
 @include('site.abas.service_details')
 
 <!-- ABA FAVORITOS -->
-<!--#include virtual="aba-favoritos.html"-->
+@include('site.abas.favorites', compact('favorites'))
 
 <!-- ABA MENSAGENS -->
 <!--#include virtual="aba-mensagens.html"-->

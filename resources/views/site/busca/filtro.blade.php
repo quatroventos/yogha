@@ -47,47 +47,67 @@
     <!-- GOOGLE MAPS -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSeQcKPvoa7ix-NIn8yf_gRlBqv4QtaYI&v=weekly&channel=2" ></script>
 
-    <style>
-        #map {
-            height: 100%;
-            width: 100%;
-        }
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
-
 </head>
 
-<body id="resultado-busca">
+<body id="aba-filtro-busca">
 
-<!-- CONTEUDO -->
+    <section class="fixo-t">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col grow-0 px-0">
+            <a href="#!" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
+          </div>  
+          <div class="col align-self-center *justify-content-center">
+            <h3 class="text-center"><strong>Data e Hóspedes</strong></h3>
+          </div> 
+          <div class="col grow-0 px-0">
+            <span href="#!" class="btn btn-2 btn-ico"></span>
+          </div>         
+        </div>
+      </div>      
+    </section>
 
-<section id="aba-resultado" class="aba">
-    <div class="container fundo-branco pt-15 h-100">
-        <div class="form-group">
-            <label for="daterange">Tempo de estadia:</label>
-            <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
-            <input type="hidden" name="startdate" id="startdate" value="{{date('Y-m-d', strtotime($startdate))}}">
-            <input type="hidden" name="enddate" id="enddate" value="{{date('Y-m-d', strtotime($startdate))}}">
+    <section id="">
+        <div class="container">
+            <div class="row justify-content-center pt-15 mb-15">
+                <div class="col col-sm-6">
+                    <h2 class="mb-10"><strong>Escolha quando e com quem estará lá</strong></h2>
+                    <p class="texto-m">Adicione suas datas e hóspedes de viagem para ver os preços exatos</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="daterange" class="texto-m mb-5">Datas</label>
+                        <input type="text" class="d-flex" name="daterange" value="01/01/2018 - 01/15/2018" />
+                        <input type="hidden" name="startdate" id="startdate" value="{{date('Y-m-d', strtotime($startdate))}}">
+                        <input type="hidden" name="enddate" id="enddate" value="{{date('Y-m-d', strtotime($startdate))}}">
+                    </div>
+                    <div class="form-group">
+                        <label class="texto-m mb-5">Adultos</label>
+                        <input type="number" class="d-flex" name="adults" id="adults" placeholder="0">
+                    </div>
+                    <div class="form-group mb-0">
+                        <label class="texto-m mb-5">Crianças</label>
+                    </div>
+                    <div class="form-group form-inline children-group">
+                        <input type="number" name="children" id="children" placeholder="Idade">
+                        <a href="#!" class="btn btn-4 btn-ico children"><i class="uil uil-plus"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Adultos</label>
-            <input type="number" class="form-control" name="adults" id="adults">
-        </div>
-        <div class="form-group">
-            <label>Crianças</label>
-            <button class="children">Adicionar Criança</button>
-        </div>
-        <div class="form-group">
-            <button id="submit">Enviar</button>
-        </div>
-    </div>
-</section>
+    </section>
 
+    <section class="fixo-b">
+      <div class="container pt-15 mb-15">
+        <div class="row justify-content-center">
+          <div class="col-12 col-sm-5">
+            <button id="submit" class="btn">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
 
 <!-- BOOTSTRAP -->
@@ -125,7 +145,7 @@
             window.location.href = '{{URL::to('/')}}/searchbydistrict/{{Request::segment(2)}}/'+startdate+'/'+enddate+'/'+adults+'/'+children+'/'+ages;
         });
         $(".children").click(function(){
-            $('.children').after('<br><label>Idade da criança</label><input type="number" class="form-control age" name="children"><a href="">Remover</a>')
+            $('.children-group').before('<div class="form-group form-inline"><input type="number" name="children" id="children" placeholder="Idade"><a href="#!" class="btn btn-4 btn-ico children"><i class="uil uil-minus"></i></a></div>')
         })
     });
 </script>

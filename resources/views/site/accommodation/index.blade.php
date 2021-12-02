@@ -136,7 +136,23 @@
             <div class="col">
                 <div class="form-group form-inline justify-content-end gap-10">
                     <a href="#!" class="btn btn-2 btn-ico"><i class="d-inline-flex uil uil-upload"></i></a>
-                    <a href="#!" class="btn btn-2 btn-ico"><i class="d-inline-flex uil uil-heart"></i></a>
+                    @auth
+                    <a href="#!" id="fav" class="btn btn-2 btn-ico"><i class="far fa-heart"></i></a>
+                    <a href="#!" id="unfav" style="display: none;" class="btn btn-2 btn-ico"><i class="fas fa-heart"></i></a>
+                    <script>
+                        $('#fav').click(function(){
+                            $.ajax({
+                                url: "{{URL::to('/favorite/'.$accommodation[0]->AccommodationId.'/'.auth()->id())}}",
+                                context: document.body
+                            }).done(function() {
+                                $('#fav').hide();
+                                $('#unfav').show();
+                            });
+                        })
+                    </script>
+                    @else
+                        <a href="{{URL::to('/login')}}" id="fav" class="btn btn-2 btn-ico"><i class="far fa-heart"></i></a>
+                    @endauth
                 </div>
             </div>
         </div>

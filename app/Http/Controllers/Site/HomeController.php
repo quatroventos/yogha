@@ -83,6 +83,19 @@ class HomeController extends Controller
             ->leftJoin('shelf_filters','shelf_filters.id','=','shelves.shelfFilterId')
             ->get();
 
+        if(isset($userid) != '') {
+            $favorites = \DB::table('favorites')
+                ->select('favorites.*', 'accommodations.*', 'rates.*', 'descriptions.*','localizations.*')
+                ->join('accommodations', 'accommodations.AccommodationId', '=', 'favorites.accommodation_id')
+                ->join('descriptions', 'descriptions.AccommodationId', '=', 'accommodations.AccommodationId')
+                ->join('localizations', 'localizations.AccommodationId', '=', 'accommodations.AccommodationId')
+                ->join('rates', 'rates.AccommodationId', '=', 'accommodations.AccommodationId')
+                ->where('favorites.user_id', '=', $userid)
+                ->get();
+        }else{
+            $favorites="";
+        }
+
         //TODO: colocar em um helper ou trait
         //select acomodações mais recentes para a busca
         $accommodations_session = session()->get('accommodations.recent');
@@ -112,6 +125,6 @@ class HomeController extends Controller
         $position = Location::get('178.132.95.179');
 
 
-        return view('site.home.index', compact('accommodations', 'shelves', 'position', 'recently_viewed', 'surpriseme', 'user', 'mostvisited', 'discount', 'populardistricts'));
+        return view('site.home.index', compact('accommodations', 'shelves', 'position', 'recently_viewed', 'surpriseme', 'user', 'mostvisited', 'discount', 'populardistricts', 'favorites'));
     }
 }

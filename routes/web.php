@@ -29,6 +29,9 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/blog', 'BlogController@index')->name('blog');
     //checkout
     Route::get('/checkout', 'CheckoutController@index')->name('checkout');
+    //favorites
+    Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@fav');
+    //Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@unfav');
 });
 
 Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');

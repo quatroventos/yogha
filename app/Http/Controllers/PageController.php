@@ -28,6 +28,19 @@ class PageController extends Controller
             $user = '';
         }
 
+        if(isset($userid) != '') {
+            $favorites = \DB::table('favorites')
+                ->select('favorites.*', 'accommodations.*', 'rates.*', 'descriptions.*','localizations.*')
+                ->join('accommodations', 'accommodations.AccommodationId', '=', 'favorites.accommodation_id')
+                ->join('descriptions', 'descriptions.AccommodationId', '=', 'accommodations.AccommodationId')
+                ->join('localizations', 'localizations.AccommodationId', '=', 'accommodations.AccommodationId')
+                ->join('rates', 'rates.AccommodationId', '=', 'accommodations.AccommodationId')
+                ->where('favorites.user_id', '=', $userid)
+                ->get();
+        }else{
+            $favorites="";
+        }
+
         if (view()->exists("site.paginas.{$page}")) {
             //TODO: colocar em um helper ou trait
             //select acomodações mais recentes para a busca
@@ -52,7 +65,7 @@ class PageController extends Controller
                 ->get();
 
 
-            return view("site.paginas.{$page}", compact('recently_viewed', 'surpriseme', 'user'));
+            return view("site.paginas.{$page}", compact('recently_viewed', 'surpriseme', 'user','favorites'));
         }
         return abort(404);
     }
