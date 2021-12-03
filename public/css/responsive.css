@@ -1,5 +1,19 @@
 @media (min-width: 767.98px) {
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--marrom-claro); 
+}
+::-webkit-scrollbar-thumb {
+  background: var(--marrom);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--laranja); 
+}
+
 	/* TEMA
 	----------------------------------------------------------------- */
 
@@ -206,6 +220,61 @@ section.mapa-chamada .container > .row {
   }
 
 
+/* RESULTADO BUSCA
+----------------------------------------------------------------- */
+
+#resultado-busca {}
+        
+#resultado-busca .busca-resumo .col-6.pe-0 .btn {
+  border-radius: 21px 0 0 21px;
+}
+#resultado-busca .busca-resumo .col-6.ps-0 .btn {
+  border-radius: 0 21px 21px 0;
+}
+
+/* mapa pagina */
+#resultado-busca #map {
+  left: 50%;
+  top: 73px;
+}
+
+/* aba resultado */
+.anuncio-flutuante {
+    bottom: 15px;
+    left: 50%;
+    right: unset;
+    width: auto;
+  } 
+    .anuncio-flutuante .col picture {
+      max-height: 100px;
+    }
+
+#aba-resultado {
+	left: 0;
+  bottom: 0;
+  height: auto;
+  position: fixed;
+  top: 73px;
+  right: 50%; 
+  width: 50vw;
+}
+  #aba-resultado .container {
+    border-radius: 0;
+    overflow-y: auto;
+  }
+    #aba-resultado a.arrastar:before {
+      display: none;
+    }
+    #aba-resultado .slick picture {
+    	border-radius: 0;
+      height: 20vw;
+    }
+
+  #resultado-busca .fundo-escuro-mapa {
+    display: none !important;
+  }
+
+
 /* SINGLE ANUNCIO
 ----------------------------------------------------------------- */
 
@@ -232,6 +301,12 @@ section.mapa-chamada .container > .row {
 		width: 32%;
 	}
 
+	#single-anuncio .descricao > div:first-child > .row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
 
 
 /* CHECKOUT
@@ -239,10 +314,18 @@ section.mapa-chamada .container > .row {
 
 #checkout {
 }
-  #checkout .anuncio picture {
-    height: 25vw;
-    width: 30vw;
-  }
+	#checkout .descricao {
+		padding-top: 30px;
+		justify-content: space-between;
+	}
+		#checkout .descricao > div:first-child > .row {
+	  	margin-right: 50px;
+	  }
+		  #checkout .descricao > div:first-child picture {
+		  	margin-bottom: 30px;
+		  }
+	  #checkout .descricao > div:first-last {
+	  }
 
 
 /* LANDINGPAGE

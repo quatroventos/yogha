@@ -71,9 +71,21 @@ $('.fundo-escuro').on('click', function(e) {
 });
 
 // resultado
+$(window).scroll(function() {
+  var scrollTop2 = $window.scrollTop();
+  if (scrollTop2 < 250) {  
+    $('.fundo-escuro-mapa').css('display','none');
+  };
+});
+
 $('.toggle-resultado').on('click', function(e) {
   $('body').toggleClass('resultado');
+  window.scrollTo(0, 0);
 });
+
+if($('body#resultado-busca')) {
+  window.scrollTo(0, 300);
+};
 
 // senha mostrar
 $('.mostrar-senha').click(function(){
@@ -93,8 +105,8 @@ var prev = 0;
 var $window = $(window);
 var showScroll = $('.show-b, .show-t');
 
-$window.on('scroll', function(){
-  var scrollTop = $window.scrollTop();        
+$(window).scroll(function() {
+  var scrollTop = $window.scrollTop();
   showScroll.toggleClass('hidden', scrollTop > prev);
   if (scrollTop < 100) {
     showScroll.addClass('hidden');

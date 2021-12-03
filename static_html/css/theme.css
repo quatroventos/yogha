@@ -445,6 +445,7 @@ textarea {
   border: 2px solid var(--marrom);
   border-radius: 100px;
   display: inline-flex;
+  flex-grow: 1;
   line-height: 1em;
   justify-content: center;
   min-height: 42px;
@@ -555,7 +556,7 @@ textarea.input-2 {
   min-width: 42px;
 }
 
-.btn-p {
+.btn-p, {
   font-size: 12px;
   min-height: 32px;
   min-width: 32px;
@@ -955,6 +956,32 @@ div.alerta.ativo {
       min-height: 230px;
     }
 
+@media (max-width: 526px) {
+
+/* aba filtro busca */
+#aba-filtro-busca {}
+  #aba-filtro-busca .daterangepicker {
+    left: 15px !important;
+    right: 15px !important;
+    width: calc(100vw - 30px);
+  }
+    #aba-filtro-busca .daterangepicker .drp-calendar {
+      max-width: 100%;
+      padding: 0;
+    }
+}
+
+      #aba-filtro-busca .daterangepicker .drp-buttons .btn {
+        font-size: 12px;
+        min-height: 32px;
+        min-width: 32px;
+        padding-left: 15px;
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-right: 15px;
+      }
+
+
 /* SHOW ON SCROLL
 ----------------------------------------------------------------- */
 
@@ -1031,12 +1058,6 @@ section.mapa-chamada {}
       color: var(--laranja);
       font-size: 35px;
     }
-
-/* mapa iframe */
-iframe.mapa {
-  height: 60vw;
-  width: 100%;
-}
 
 
 /* FUNDO ESCURO
@@ -1250,6 +1271,19 @@ body.resultado #aba-resultado {
     width: 100%;
     z-index: 1;
   }
+
+  #single-anuncio .descricao #map {
+    height: 30vh;
+    width: 100%;
+  }
+
+  #single-anuncio .descricao {
+  }
+    #single-anuncio .descricao > div:first-child > .row:last-child {
+      border-bottom: 1px solid var(--marrom-claro);
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+    }
 
 
 /* CHECKOUT

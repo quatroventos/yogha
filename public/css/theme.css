@@ -445,6 +445,7 @@ textarea {
   border: 2px solid var(--marrom);
   border-radius: 100px;
   display: inline-flex;
+  flex-grow: 1;
   line-height: 1em;
   justify-content: center;
   min-height: 42px;
@@ -955,6 +956,32 @@ div.alerta.ativo {
       min-height: 230px;
     }
 
+@media (max-width: 526px) {
+
+/* aba filtro busca */
+#aba-filtro-busca {}
+  #aba-filtro-busca .daterangepicker {
+    left: 15px !important;
+    right: 15px !important;
+    width: calc(100vw - 30px);
+  }
+    #aba-filtro-busca .daterangepicker .drp-calendar {
+      max-width: 100%;
+      padding: 0;
+    }
+}
+
+      #aba-filtro-busca .daterangepicker .drp-buttons .btn {
+        font-size: 12px;
+        min-height: 32px;
+        min-width: 32px;
+        padding-left: 15px;
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-right: 15px;
+      }
+
+
 /* SHOW ON SCROLL
 ----------------------------------------------------------------- */
 
@@ -1098,32 +1125,14 @@ footer {}
 
 #resultado-busca {}
         
-#resultado-busca .col.btn-flutuante .btn:first-child {
-  position: absolute;
-  top: 15px;
-  left: 0;
-}       
-#resultado-busca .col.btn-flutuante .btn:last-child {
-  position: absolute;
-  top: 15px;
-  right: 0;
+#resultado-busca .busca-resumo .col-6.pe-0 .btn {
+  border-radius: 16px 0 0 16px;
 }
-#resultado-busca .col.btn-flutuante .btn.d-flex {
-  margin: 0 auto;
-  max-width: unset;
-  width: calc(100% - 54px);
+#resultado-busca .busca-resumo .col-6.ps-0 .btn {
+  border-radius: 0 16px 16px 0;
 }
-  #resultado-busca .btn > span + span {
-    text-align: right;
-    width: 70%;
-  }
-#resultado-busca .busca-detalhes .col.btn-flutuante .btn:first-child {
-  margin-right: auto;
-  position: relative;
-  left: -15px;
-  top: 0;
-}
-#resultado-busca .busca-detalhes .btn.mb-0 {
+
+/*#resultado-busca .busca-detalhes .btn.mb-0 {
   border-radius: 100px 100px 0 0;
   padding-left: 10px;
   padding-right: 10px;
@@ -1140,13 +1149,13 @@ footer {}
   border-top: 0;
   padding-left: 10px;
   padding-right: 10px;
-}
+}*/
 
 /* mapa pagina */
-#resultado-busca #mapa {
+#resultado-busca #map {
   bottom: 0;
   left: 0;
-  position: fixed;
+  position: fixed !important;
   right: 0;
   top: 0;
   z-index: 0;
@@ -1156,34 +1165,29 @@ footer {}
 .anuncio-flutuante {
     background: var(--branco);
     border-radius: 10px;
-    display: none;
     left: 0;
     margin: 0 15px;
-    opacity: 0;
     padding: 15px 0;
     position: absolute;
     right: 0;
-    top: -140px;
+    bottom: 95px;
   } 
     .anuncio-flutuante .col picture {
       max-height: 100px;
-    }
-   .anuncio-flutuante .col {
-      width: 50%;
+      max-width: 120px;
     }
 
 #aba-resultado {
   bottom: unset;
   height: auto;
   position: absolute;
-  top: 300px;
-  z-index: 700;
-}
-  #aba-resultado a.arrastar {
-    cursor: grab;
+  top: calc(100% - 80px);
+  z-index: 700;  
+} 
+  #aba-resultado .arrastar {
     display: block;
   }
-    #aba-resultado a.arrastar:before {
+    #aba-resultado .arrastar:before {
       content: "";
       background: var(--marrom-claro);
       border-radius: 2px;
@@ -1194,33 +1198,25 @@ footer {}
     }
   #aba-resultado .slick {
     border-radius: 10px;
+    margin-bottom: 15px !important;
     overflow: hidden;
   }
     #aba-resultado .slick picture {
       height: 60vw;
-    }
+    }  
 
-body.resultado {
-}
-body.resultado #aba-resultado {
-  top: calc(100% - 80px);
-}
-  body.resultado .anuncio-flutuante {
-    display: flex;
-    opacity: 1;
+  #resultado-busca .fundo-escuro-mapa {
+    background: #00000022;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 600;
   }
   body.resultado .fundo-escuro-mapa {
     display: none;
   }
-
-#resultado-busca .fundo-escuro-mapa {
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 600;
-}
 
 
 /* SINGLE ANUNCIO
@@ -1244,6 +1240,19 @@ body.resultado #aba-resultado {
     width: 100%;
     z-index: 1;
   }
+
+  #single-anuncio .descricao #map {
+    height: 30vh;
+    width: 100%;
+  }
+
+  #single-anuncio .descricao {
+  }
+    #single-anuncio .descricao > div:first-child > .row:last-child {
+      border-bottom: 1px solid var(--marrom-claro);
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+    }
 
 
 /* CHECKOUT

@@ -62,13 +62,13 @@
 
         <form>
 
-          <div class="row">
-            <div class="col">
+          <div class="row justify-content-center">
+            <div class="col col-sm-6">
               <picture class="pic-p mx-auto" style="background-image: url(img/foto-usuario.png);"></picture>
             </div>
           </div>
-          <div class="row">
-            <div class="col">
+          <div class="row justify-content-center">
+            <div class="col col-sm-6">
               <div class="form-group form-inline justify-content-center gap-0">
                 <a href="#!" class="btn btn-p btn-link"><strong>Alterar foto</strong></a>
                 <a href="#!" class="btn btn-p btn-link"><strong>Excluir foto</strong></a>
@@ -78,33 +78,33 @@
 
           <hr class="mb-30">
 
-          <div class="row mb-15">
-            <div class="col">
+          <div class="row justify-content-center mb-15">
+            <div class="col col-sm-6">
               <h3><strong>Dados pessoais</strong></h3>
             </div>
           </div>
-          <div class="row mb-15">
-            <div class="col">            
-              <div class="form-inline">
-                <div class="form-group">
-                  <label for="nome">Nome</label>
+          <div class="row justify-content-center mb-15">
+            <div class="col col-sm-6">            
+              <div class="row">
+                <div class="form-group col-12 col-sm-6">
+                  <label class="texto-m mb-5" for="nome">Nome</label>
                   <input type="text" class="form-control" id="nome" placeholder="Nome">
                 </div>
-                <div class="form-group">
-                  <label for="sobrenome">Sobrenome</label>
+                <div class="form-group col-12 col-sm-6">
+                  <label class="texto-m mb-5" for="sobrenome">Sobrenome</label>
                   <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome">
                 </div>
               </div>
               <div class="form-group">
-                <label for="email">Email</label>
+                <label class="texto-m mb-5" for="email">Email</label>
                 <input type="email" class="form-control" id="email" placeholder="E-mail">
               </div>
               <div class="form-group">
-                <label for="telefone">Telefone</label>
+                <label class="texto-m mb-5" for="telefone">Telefone</label>
                 <input type="tel" class="form-control" id="telefone" placeholder="E-mail">
               </div>
               <div class="form-group">
-                <label for="data-nasc">Data de nascimento</label>
+                <label class="texto-m mb-5" for="data-nasc">Data de nascimento</label>
                 <input type="date" class="form-control" id="data-nasc" placeholder="dd/mm/aaaa">
               </div>          
             </div>
@@ -112,23 +112,23 @@
 
           <hr class="mb-30">
 
-          <div class="row mb-15">
-            <div class="col">
+          <div class="row justify-content-center mb-15">
+            <div class="col col-sm-6 mb-15">
               <h3><strong>Localização</strong></h3>
             </div>
           </div>
-          <div class="row mb-15">
-            <div class="col">
+          <div class="row justify-content-center mb-15">
+            <div class="col col-sm-6">
               <div class="form-group">
-                <label for="pais">País</label>
+                <label class="texto-m mb-5" for="pais">País</label>
                 <input type="text" class="form-control" id="pais" placeholder="">
               </div>
               <div class="form-group">
-                <label for="estado">Estado</label>
+                <label class="texto-m mb-5" for="estado">Estado</label>
                 <input type="text" class="form-control" id="estado" placeholder="">
               </div>
               <div class="form-group">
-                <label for="cidade">Cidade</label>
+                <label class="texto-m mb-5" for="cidade">Cidade</label>
                 <input type="email" class="form-control" id="cidade" placeholder="">
               </div>        
             </div>
@@ -136,23 +136,23 @@
 
           <hr class="mb-30">
 
-          <div class="row mb-15">
-            <div class="col">
+          <div class="row justify-content-center mb-15">
+            <div class="col col-sm-6">
               <h3><strong>Alterar senha</strong></h3>
             </div>
           </div>
-          <div class="row mb-30">
-            <div class="col">
+          <div class="row justify-content-center mb-30">
+            <div class="col col-sm-6">
               <div class="form-group">
-                <label for="pais">Senha antiga</label>
+                <label class="texto-m mb-5" for="pais">Senha antiga</label>
                 <input type="password" class="form-control" id="pais" placeholder="">
               </div>
               <div class="form-group">
-                <label for="estado">Nova senha</label>
+                <label class="texto-m mb-5" for="estado">Nova senha</label>
                 <input type="password" class="form-control" id="estado" placeholder="">
               </div>
               <div class="form-group">
-                <label for="cidade">Repita a senha</label>
+                <label class="texto-m mb-5" for="cidade">Repita a senha</label>
                 <input type="password" class="form-control" id="cidade" placeholder="">
               </div>
               <div>
@@ -164,8 +164,8 @@
             </div>
           </div>
 
-          <div class="row mb-15">
-            <div class="col">
+          <div class="row justify-content-center mb-15">
+            <div class="col col-sm-5">
               <button type="submit" class="btn d-flex">Salvar</button>
             </div>
           </div>

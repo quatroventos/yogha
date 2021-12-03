@@ -9,19 +9,19 @@
     <!-- alerta -->
     <div class="alerta *ativo"><i class="uil uil-heart"></i> Salvo na sa lista de favoritos!</div>
 
-<!-- MENUS -->
+<!-- MENUS --> 
 
     <!-- MENU SUPERIOR -->
-    <!--#include virtual="menu-sup.html"-->
+    <!--#include virtual="menu-sup.html"-->    
 
     <!-- MENU INFERIOR -->
-    <!--#include virtual="menu-inf.html"-->
+    <!--#include virtual="menu-inf.html"-->    
 
     <!-- MENU LATERAL -->
     <!--#include virtual="menu-lateral.html"-->
 
 <!-- ABAS -->
-
+    
     <!-- ABA DATAS -->
     <!--#include virtual="aba-blog-single.html"-->
 
@@ -32,7 +32,7 @@
       <div class="container h-100 pt-15">
         <div class="row mb-30">
           <div class="col">
-            <a href="{{URL::to('/')}}"><img class="img-m" src="{{asset('img/logo-yogha-branco.svg')}}"></a>
+            <a href="index.shtml"><img class="img-m" src="img/logo-yogha-branco.svg"></a>
           </div>
           <div class="col align-items-end justify-content-center">
             <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>
@@ -42,7 +42,7 @@
           <div class="col">
             <h1 class="mb-15"><strong>BLOG</strong></h1>
             <h2 class="texto-fino texto-g">Dicas e ideias para você aproveitar da melhor forma as suas estadias</h2>
-          </div>
+          </div>          
         </div>
         <div class="row">
           <div class="col">
@@ -50,7 +50,7 @@
               <input class="d-flex input-2" type="text" name="" placeholder="O que você procura?">
               <button class="btn btn-2 btn-ico"><i class="uil uil-search"></i></button>
             </div>
-          </div>
+          </div>          
         </div>
       </div>
     </header>
@@ -61,7 +61,7 @@
         <div class="row mb-10">
           <div class="col">
             <h2><strong>Categorias</strong></h2>
-          </div>
+          </div>       
         </div>
         <div class="row">
           <div class="col">
@@ -75,7 +75,7 @@
                 <li><a href="#!" class="btn btn-3 btn-p">Título da categoria</a></li>
               </ul>
             </div>
-          </div>
+          </div>       
         </div>
       </div>
     </section>
@@ -86,7 +86,7 @@
         <div class="row mb-10">
           <div class="col">
             <h2><strong>Últimos posts</strong></h2>
-          </div>
+          </div>      
         </div>
         <div class="row">
           <div class="col-12 col-sm-6">
@@ -152,7 +152,7 @@
                 <a href="#!" class="texto-m texto-laranja">Título da categoria</a>
               </div>
             </div>
-          </div>
+          </div>          
         </div>
       </div>
     </section>
@@ -163,7 +163,7 @@
         <div class="row">
           <div class="col">
             <a href="#!" class="btn mx-auto">Mais <i class="uil uil-arrow-down"></i></a>
-          </div>
+          </div>    
         </div>
       </div>
     </section>

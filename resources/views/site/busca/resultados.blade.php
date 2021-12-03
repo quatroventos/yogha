@@ -47,23 +47,10 @@
     <!-- GOOGLE MAPS -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSeQcKPvoa7ix-NIn8yf_gRlBqv4QtaYI&v=weekly&channel=2" ></script>
 
-    <style>
-        #map {
-            height: 100%;
-            width: 100%;
-        }
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
-
 </head>
 
 <!-- ABA BUSCA -->
-@include('site.abas.search', compact('recently_viewed','surpriseme'))
+@include('site.abas.busca', compact('recently_viewed','surpriseme'))
 
 
 <body id="resultado-busca">
@@ -75,7 +62,7 @@
     <div class="container mb-15">
         <div class="row">
             <div class="col justify-content-center">
-                <a href="#!" class="btn mx-auto switch"><i class="uil uil-map"></i> Mapa</a>
+                <a href="#!" class="btn mx-auto toggle-resultado"><i class="uil uil-map"></i> Mapa</a>
             </div>
         </div>
     </div>
@@ -83,32 +70,16 @@
 <section class="fixo-t">
     <div class="container pt-15 mb-15">
         <div class="row busca-resumo collapse show">
-            <div class="col btn-flutuante">
+            <div class="col grow-0 px-0">
                 <a href="javascript:history.back();" class="btn btn-2 btn-p btn-ico"><i class="icone-m uil uil-angle-left"></i></a>
-                <a href="#!" class="btn btn-3 btn-p d-flex texto-ret" data-bs-toggle="collapse" data-bs-target=".busca-resumo, .busca-detalhes"><span>{{$district}}</span><span class="text-right texto-p">{{date_format(date_create($startdate),"d/m/y")}} → {{date_format(date_create($enddate),"d/m/y")}} - {{Request::segment(5)+Request::segment(6)}} hospedes</span></a>
-                <a href="#!" class="btn btn-2 btn-p btn-ico" data-bs-toggle="collapse" data-bs-target=".busca-filtro"><i class="uil uil-sliders-v-alt"></i></a>
             </div>
-        </div>
-        <div class="row busca-detalhes collapse">
-            <div class="col">
-                <div class="row mb-10">
-                    <div class="col btn-flutuante">
-                        <a href="#!" class="btn btn-2 btn-p btn-ico" data-bs-toggle="collapse" data-bs-target=".busca-resumo, .busca-detalhes"class="btn btn-2 btn-p btn-ico"><i class="icone-m uil uil-times"></i></a>
-                        <a href="#!" class="btn btn-2 btn-p btn-ico" data-bs-toggle="collapse" data-bs-target=".busca-filtro"><i class="uil uil-sliders-v-alt"></i></a>
-                    </div>
-                </div>
+            <div class="col ps-0">                
                 <div class="row">
-                    <div class="col">
-                        <a href="#!"  data-bs-toggle="collapse" data-bs-target="#aba-busca" class="btn btn-4 texto-m d-flex mb-0 justify-content-start switch"><i class="icone-m uil uil-search"></i> <span>{{$district}}</span></a>
+                    <div class="col-6 pe-0">
+                        <a href="#!" class="btn btn-3 btn-p texto-ret"><span>{{$district}}</span></a>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col pe-0">
-                        <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
-                        <!--<a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-datas" class="btn btn-4 texto-m d-flex mb-0 justify-content-start switch"><i class="icone-m uil uil-calender"></i> <span>08/10 → 12/10</span></a>-->
-                    </div>
-                    <div class="col ps-0">
-                        <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-hospedes" class="btn btn-4 texto-m d-flex mb-0 justify-content-start switch"><i class="icone-m uil uil-users-alt"></i> <span>2 hóspedes</span></a>
+                    <div class="col-6 ps-0">
+                        <a href="#!" class="btn btn-3 btn-p texto-ret"><span class="text-right texto-p">{{date_format(date_create($startdate),"d/m/y")}} → {{date_format(date_create($enddate),"d/m/y")}} - {{Request::segment(5)+Request::segment(6)}} hospedes</span></a>
                     </div>
                 </div>
             </div>
@@ -118,64 +89,70 @@
 
 <div id="map"></div>
 
+<!-- ANUNCIO FLUTUANTE -->
+@foreach($results as $result)
+<section id="{{$result->AccommodationId}}" class="anuncio-flutuante" style="display: none;">
+    <div class="container fundo-branco h-100">
+
+        <div class="row gap-10 texto-marrom-escuro">
+            <div class="col grow-0 pe-0">
+                <?php $pictures = json_decode($result->Pictures, true); ?>
+                @if(isset($pictures))
+
+                    @if(isset($pictures['Picture'][0]['OriginalURI']) && $pictures['Picture'][0]['OriginalURI'] != '')
+                        <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}a">
+                            <picture class="pic-m" style="background-image: url({{$pictures['Picture'][0]['OriginalURI']}});"></picture>
+                        </a>
+                    @endif
+
+                @endif
+
+            </div>
+            <div class="col ps-0">
+                <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}">
+                    <h2 class="mb-5 texto-ret"><strong>{{$result->AccommodationName}}</strong></h2>
+                    @if(isset($occuppationalrules) && !empty($occuppationalrules))
+                        <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}</span></p>
+                    @endif
+                    <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$result->Price}}</strong> /noite <span class="texto-marrom texto-p">preço estimado</span></h4>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+@endforeach
+
 <!-- ABA RESULTADO -->
 <section id="aba-resultado" class="aba">
     <div class="container fundo-branco pt-15 h-100">
 
-        @foreach($results as $result)
-            <div id="{{$result->AccommodationId}}" class="row gap-10 anuncio-flutuante texto-marrom-escuro" style="display:none;">
-                <div class="col grow-0 pe-0">
-                    <?php $pictures = json_decode($result->Pictures, true); ?>
-                    @if(isset($pictures))
-
-                        @if(isset($pictures['Picture'][0]['OriginalURI']) && $pictures['Picture'][0]['OriginalURI'] != '')
-                            <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}a">
-                                <picture class="pic-m" style="background-image: url({{$pictures['Picture'][0]['OriginalURI']}});"></picture>
-                            </a>
-                        @endif
-
-                    @endif
-
-                </div>
-                <div class="col ps-0">
-                    <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}">
-                        <h2 class="mb-5 texto-ret"><strong>{{$result->AccommodationName}}</strong></h2>
-                        @if(isset($occuppationalrules) && !empty($occuppationalrules))
-                            <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}</span></p>
-                        @endif
-                        <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$result->Price}}</strong> /noite <span class="texto-marrom texto-p">preço estimado</span></h4>
-                    </a>
-                </div>
-            </div>
-        @endforeach
-
-
-        <div class="row mb-15">
+        <div class="row arrastar texto-marrom-escuro text-center mb-15">
             <div class="col">
-                <a href="#!" class="arrastar toggle-resultado texto-marrom-escuro text-center">
-                    <p class="mb-0">Acomodações em <strong>{{ucfirst(trans($district))}}</strong></p>
-                    <h2><strong>Resultado da busca</strong></h2>
-                </a>
+                <p class="mb-0">Acomodações em</p>
+                <h2><strong>{{ucfirst(trans($district))}}</strong></h2>
             </div>
         </div>
 
         @foreach($results as $result)
             <div class="row mb-30">
                 <div class="col">
-                    <a href="{{URL::to('/')}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}">
+                    
 
                         <?php $pictures = json_decode($result->Pictures, true); ?>
                         @if(isset($pictures))
-                            <div class="slick slide-full mb-15">
+                            <div class="slick slide-full">
                                 @foreach ($pictures['Picture'] as $picture)
                                     @if(isset($picture['OriginalURI']) && $picture['OriginalURI'] != '')
-                                        <picture class="pic-full" style="background-image: url({{$picture['OriginalURI']}});"></picture>
+                                    <a href="{{URL::to('/')}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}">
+                                        <picture style="background-image: url({{$picture['OriginalURI']}});"></picture>
+                                    </a>
                                     @endif
                                 @endforeach
                             </div>
                         @endif
 
-                    </a>
+                    
                     {{--                <div class="row mb-5">--}}
                     {{--                    <div class="col">--}}
                     {{--                        <p class="avaliacao texto-marrom mb-0">--}}
