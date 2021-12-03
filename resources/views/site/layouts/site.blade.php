@@ -74,13 +74,21 @@
                 <a href="#!" class="btn btn-ico mb-0 switch" data-bs-toggle="collapse" data-bs-target="#aba-loja"><i class="icone-g uil uil-shopping-bag"></i></a>
             </div>
             <div class="col px-0">
-                <a href="#!" class="btn btn-ico mb-0 switch" data-bs-toggle="collapse" data-bs-target="#aba-favoritos"><i class="icone-g uil uil-heart"></i></a>
+                @auth
+                    <a href="#!" class="btn btn-ico mb-0 switch" data-bs-toggle="collapse" data-bs-target="#aba-favoritos"><i class="icone-g uil uil-heart"></i></a>
+                @else
+                    <a href="{{URL::to('/login')}}" class="btn btn-ico mb-0" ><i class="icone-g uil uil-heart"></i></a>
+                @endauth
             </div>
             <div class="col px-0">
                 <a href="#!" class="btn btn-ico mb-0 switch" data-bs-toggle="collapse" data-bs-target="#aba-mensagens"><i class="icone-g uil uil-comment-alt"></i></a>
             </div>
             <div class="col px-0">
+                @auth
                 <a href="#!" class="btn btn-ico mb-0 switch" data-bs-toggle="collapse" data-bs-target="#aba-usuario"><i class="icone-g uil uil-user"></i></a>
+                @else
+                    <a href="{{URL::to('/login')}}" class="btn btn-ico mb-0" ><i class="icone-g uil uil-user"></i></a>
+                @endauth
             </div>
         </div>
     </div>
