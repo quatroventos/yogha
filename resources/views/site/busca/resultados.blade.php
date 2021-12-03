@@ -50,7 +50,7 @@
 </head>
 
 <!-- ABA BUSCA -->
-@include('site.abas.busca', compact('recently_viewed','surpriseme'))
+@include('site.abas.search', compact('recently_viewed','surpriseme'))
 
 
 <body id="resultado-busca">
@@ -73,7 +73,7 @@
             <div class="col grow-0 px-0">
                 <a href="javascript:history.back();" class="btn btn-2 btn-p btn-ico"><i class="icone-m uil uil-angle-left"></i></a>
             </div>
-            <div class="col ps-0">                
+            <div class="col ps-0">
                 <div class="row">
                     <div class="col-6 pe-0">
                         <a href="#!" class="btn btn-3 btn-p texto-ret"><span>{{$district}}</span></a>
@@ -100,7 +100,7 @@
                 @if(isset($pictures))
 
                     @if(isset($pictures['Picture'][0]['OriginalURI']) && $pictures['Picture'][0]['OriginalURI'] != '')
-                        <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}a">
+                        <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
                             <picture class="pic-m" style="background-image: url({{$pictures['Picture'][0]['OriginalURI']}});"></picture>
                         </a>
                     @endif
@@ -109,7 +109,7 @@
 
             </div>
             <div class="col ps-0">
-                <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}">
+                <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
                     <h2 class="mb-5 texto-ret"><strong>{{$result->AccommodationName}}</strong></h2>
                     @if(isset($occuppationalrules) && !empty($occuppationalrules))
                         <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}</span></p>
@@ -137,14 +137,14 @@
         @foreach($results as $result)
             <div class="row mb-30">
                 <div class="col">
-                    
+
 
                         <?php $pictures = json_decode($result->Pictures, true); ?>
                         @if(isset($pictures))
                             <div class="slick slide-full">
                                 @foreach ($pictures['Picture'] as $picture)
                                     @if(isset($picture['OriginalURI']) && $picture['OriginalURI'] != '')
-                                    <a href="{{URL::to('/')}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}">
+                                    <a href="{{URL::to('/')}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
                                         <picture style="background-image: url({{$picture['OriginalURI']}});"></picture>
                                     </a>
                                     @endif
@@ -152,20 +152,7 @@
                             </div>
                         @endif
 
-                    
-                    {{--                <div class="row mb-5">--}}
-                    {{--                    <div class="col">--}}
-                    {{--                        <p class="avaliacao texto-marrom mb-0">--}}
-                    {{--                            <i class="icone-m uil uil-star"></i>--}}
-                    {{--                            <i class="icone-m uil uil-star"></i>--}}
-                    {{--                            <i class="icone-m uil uil-star"></i>--}}
-                    {{--                            <i class="icone-m uil uil-star"></i>--}}
-                    {{--                            <i class="icone-m uil uil-star"></i>--}}
-                    {{--                        </p>--}}
-                    {{--                    </div>--}}
-                    {{--                    <div class="col grow-0"><a href="#!" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-favoritos"><i class="icone-m uil uil-heart"></i></a></div>--}}
-                    {{--                </div>--}}
-                    <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}" class="texto-marrom-escuro">
+                    <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}" class="texto-marrom-escuro">
                         <h2 class="mb-5"><strong>{{$result->AccommodationName}}</strong>
 
                             @if(isset($occuppationalrules) && !empty($occuppationalrules))
@@ -204,7 +191,35 @@
             startDate: '{{date('%d/%m/%Y', strtotime($startdate))}}',
             endDate: '{{date('%d/%m/%Y', strtotime($enddate))}}',
             locale: {
-                format: 'DD/M/Y'
+                "applyLabel": "Salvar",
+                "cancelLabel": "Cancelar",
+                "fromLabel": "De",
+                "toLabel": "A",
+                "weekLabel": "S",
+                "daysOfWeek": [
+                    "Dom",
+                    "Seg",
+                    "Ter",
+                    "Qua",
+                    "Qui",
+                    "Sex",
+                    "Sáb"
+                ],
+                "monthNames": [
+                    "Janeiro",
+                    "Fevereiro",
+                    "Março",
+                    "Abril",
+                    "Maio",
+                    "Junho",
+                    "Julho",
+                    "Agosto",
+                    "Setembro",
+                    "Outubro",
+                    "Novembro",
+                    "Dezembro"
+                ],
+                "firstDay": 1
             }
         }, function(start, end, label) {
             window.location.href = '{{URL::to('/');}}/searchbydistrict/{{$district}}/'+start.format('YYYY-MM-DD')+'/'+end.format('YYYY-MM-DD');

@@ -16,7 +16,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     //home
     Route::get('/', 'HomeController');
     //accommodation
-    Route::get('/accommodation/{accommodationid}/{startdate?}/{enddate?}', 'AccommodationController@index');
+    Route::get('/accommodation/{accommodationid}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'AccommodationController@index');
     //search
     Route::get('/autocomplete-search-query', 'SearchController@query')->name('autocomplete.search.query');
     Route::get('/searchfilter/{district?}/{startdate?}/{enddate?}', 'SearchController@filter');
@@ -28,7 +28,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/blog/{slug}', 'BlogController@post')->name('blog.post');
     Route::get('/blog', 'BlogController@index')->name('blog');
     //checkout
-    Route::get('/checkout', 'CheckoutController@index')->name('checkout');
+    Route::get('/checkout/{accommodationid}/{startdate}/{enddate}/{adults?}/{children?}/{ages?}', 'CheckoutController@index')->name('checkout');
     //favorites
     Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@fav');
     //Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@unfav');

@@ -628,7 +628,7 @@
                 <!--<h4 class="texto-m d-flex gap-5"><i class="d-inline-flex icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>-->
             </div>
             <div class="col col-sm-5">
-                <a href="pagina-checkout.shtml" class="btn">Verificar disponibilidade</a>
+                <a href="{{URL::to('/checkout/'.$accommodation[0]->AccommodationId.'/'.Request::segment(3).'/'.Request::segment(4).'/'.Request::segment(5).'/'.Request::segment(6))}}" class="btn">Verificar disponibilidade</a>
             </div>
         </div>
     </div>

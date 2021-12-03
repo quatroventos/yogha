@@ -56,15 +56,15 @@
         <div class="row justify-content-center">
           <div class="col grow-0 px-0">
             <a href="#!" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
-          </div>  
+          </div>
           <div class="col align-self-center *justify-content-center">
             <h3 class="text-center"><strong>Data e Hóspedes</strong></h3>
-          </div> 
+          </div>
           <div class="col grow-0 px-0">
             <span href="#!" class="btn btn-2 btn-ico"></span>
-          </div>         
+          </div>
         </div>
-      </div>      
+      </div>
     </section>
 
     <section id="">
@@ -126,7 +126,35 @@
             startDate: '{{date('%d/%m/%Y', strtotime($startdate))}}',
             endDate: '{{date('%d/%m/%Y', strtotime($enddate))}}',
             locale: {
-                format: 'DD/M/Y'
+                "applyLabel": "Salvar",
+                "cancelLabel": "Cancelar",
+                "fromLabel": "De",
+                "toLabel": "A",
+                "weekLabel": "S",
+                "daysOfWeek": [
+                    "Dom",
+                    "Seg",
+                    "Ter",
+                    "Qua",
+                    "Qui",
+                    "Sex",
+                    "Sáb"
+                ],
+                "monthNames": [
+                    "Janeiro",
+                    "Fevereiro",
+                    "Março",
+                    "Abril",
+                    "Maio",
+                    "Junho",
+                    "Julho",
+                    "Agosto",
+                    "Setembro",
+                    "Outubro",
+                    "Novembro",
+                    "Dezembro"
+                ],
+                "firstDay": 1
             }
         }, function(start, end, label) {
             $('#startdate').val(start.format('YYYY-MM-DD'));
