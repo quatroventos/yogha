@@ -191,6 +191,7 @@
             startDate: '{{date('%d/%m/%Y', strtotime($startdate))}}',
             endDate: '{{date('%d/%m/%Y', strtotime($enddate))}}',
             locale: {
+                format: 'DD/MM/YYYY',
                 "applyLabel": "Salvar",
                 "cancelLabel": "Cancelar",
                 "fromLabel": "De",

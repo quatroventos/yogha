@@ -6,6 +6,7 @@ use App\Models\Localizations;
 use App\Models\OccuppationalRules;
 use Illuminate\Http\Request;
 use App\Models\Accommodations;
+use App\Models\Availabilities;
 use App\Models\Descriptions;
 use App\Models\Rates;
 
@@ -26,8 +27,8 @@ class ReadXMLController extends Controller
         echo "localizations apagada<br>";
         \DB::table('occuppationalrules')->truncate();
         echo "occuppational rules apagada<br>";
-
-
+        \DB::table('availabilities')->truncate();
+        echo "occuppational rules apagada<br>";
 
             $accommodationsXML = file_get_contents(public_path('xml/Accommodations.xml'));
             $accommodationsObj = simplexml_load_string($accommodationsXML);
@@ -44,12 +45,16 @@ class ReadXMLController extends Controller
             $ratesJson = json_encode($ratesObj);
             $ratesArray = json_decode($ratesJson, true);
 
+            $availabilityXML = file_get_contents(public_path('xml/Availabilities.xml'));
+            $availabilityObj = simplexml_load_string($availabilityXML);
+            $availabilityJson = json_encode($availabilityObj);
+            $availabilityArray = json_decode($availabilityJson, true);
+
             $ocuppationalRulesXML = file_get_contents(public_path('xml/OccupationalRules.xml'));
             $ocuppationalRulesObj = simplexml_load_string($ocuppationalRulesXML);
             $ocuppationalRulesJson = json_encode($ocuppationalRulesObj);
             $ocuppationalRulesArray = json_decode($ocuppationalRulesJson, true);
 
-            //dd($ocuppationalRulesArray);
 
 //        if(count($ratesArray['AccommodationList']['Accommodation']) > 0){
 //
@@ -120,6 +125,48 @@ class ReadXMLController extends Controller
                     "Features" => $features,
                     "CheckInCheckOutInfo" => $CheckInCheckOutInfo,
                ];
+
+               //importa Availability em outra tabela
+               foreach($availabilityArray['AccommodationList']['Accommodation'] as $availabilityData) {
+                if ($availabilityData['AccommodationId'] == $data['AccommodationId']) {
+
+                    //dd($availabilityData['Availabilities']['AvailabilityPeriod']);
+                    
+                    foreach ($availabilityData['Availabilities']['AvailabilityPeriod'] as $index => $availability) {
+
+                        $availArray = [];
+
+                        echo "importando Availabilities de " . $availabilityData['AccommodationId'] . " para accommodation: " . $data['AccommodationId'] . "<br>";
+
+                        $availArray = array_merge($availArray, ["AccommodationId" => $availabilityData['AccommodationId']]);
+            
+                        if (isset($availability['StartDate']) && empty($availability['StartDate']) === false) {
+                            $availArray = array_merge($availArray, ["StartDate" => $availability['StartDate']]);
+                            echo "StartDate = " . $availability['StartDate'];
+                        }
+
+                        if (isset($rate['EndDate']) && empty($availability['EndDate']) === false) {
+                            $availArray = array_merge($availability, ["EndDate" => $availability['EndDate']]);
+                            echo "EndDate = " . $availability['EndDate'];
+                        }
+
+                        if (isset($rate['State']) && empty($availability['State']) === false) {
+                            $availArray = array_merge($availability, ["State" => $availability['State']]);
+                            echo "State = " . $availability['State'];
+                        }
+
+                        echo "<pre>";
+                        print_r($availArray);
+                        echo "</pre>";
+                        Availabilities::insert($availArray);
+                        echo "Availability importada para a accommodation: " . $data['AccommodationId'] . "<br>";
+                    }
+
+                } else {
+                    //echo "Availability " . $availabilityData['AccommodationId'] . " não encontrada para a Accommodation " . $data['AccommodationId'] . "<br>";
+                }
+
+            }//foreach
 
                 //importa Rates em outra tabela
                 foreach($ratesArray['AccommodationList']['Accommodation'] as $rateData) {

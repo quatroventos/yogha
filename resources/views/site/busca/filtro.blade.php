@@ -126,6 +126,7 @@
             startDate: '{{date('%d/%m/%Y', strtotime($startdate))}}',
             endDate: '{{date('%d/%m/%Y', strtotime($enddate))}}',
             locale: {
+                format: 'DD/MM/YYYY',
                 "applyLabel": "Salvar",
                 "cancelLabel": "Cancelar",
                 "fromLabel": "De",
@@ -155,6 +156,11 @@
                     "Dezembro"
                 ],
                 "firstDay": 1
+            },
+            isInvalidDate: function(date) {
+                if (date.format('YYYY-M-D') == '2021-10-12') {
+                    return true;
+                }
             }
         }, function(start, end, label) {
             $('#startdate').val(start.format('YYYY-MM-DD'));
