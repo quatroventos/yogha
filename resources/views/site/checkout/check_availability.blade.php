@@ -39,11 +39,6 @@
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-    <!-- DATE RANGE -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
     <!-- GOOGLE MAPS -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSeQcKPvoa7ix-NIn8yf_gRlBqv4QtaYI&v=weekly&channel=2" ></script>
 
@@ -55,7 +50,7 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col grow-0 px-0">
-            <a href="javascript:history.back();" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
+            <a href="#!" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
           </div>
           <div class="col align-self-center *justify-content-center">
             <h3 class="text-center"><strong>Data e Hóspedes</strong></h3>
@@ -79,9 +74,9 @@
                 <div class="col col-sm-6">
                     <div class="form-group">
                         <label for="daterange" class="texto-m mb-5">Datas</label>
-                        <input type="text" class="d-flex" name="daterange" value="01/01/2018 - 01/15/2018" />
+                        <input type="text" autocomplete="off" name="date_range" id="datepicker" value="{{date('Y-m-d', strtotime($startdate))}} - {{date('Y-m-d', strtotime($enddate))}}">
                         <input type="hidden" name="startdate" id="startdate" value="{{date('Y-m-d', strtotime($startdate))}}">
-                        <input type="hidden" name="enddate" id="enddate" value="{{date('Y-m-d', strtotime($startdate))}}">
+                        <input type="hidden" name="enddate" id="enddate" value="{{date('Y-m-d', strtotime($enddate))}}">
                     </div>
                     <div class="form-group">
                         <label class="texto-m mb-5">Adultos</label>
@@ -116,56 +111,14 @@
 <!-- SLICK -->
 <script type="text/javascript" src="{{asset('js/slick.min.js')}}"></script>
 
+<!-- DATE PICKER -->
+<script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
+
 <!-- FUNCOES -->
 <script type="text/javascript" src="{{asset('js/funcoes.js')}}"></script>
 
 <script>
     $(function() {
-        $('input[name="daterange"]').daterangepicker({
-            opens: 'left',
-            startDate: '{{date('%d/%m/%Y', strtotime($startdate))}}',
-            endDate: '{{date('%d/%m/%Y', strtotime($enddate))}}',
-            locale: {
-                format: 'DD/MM/YYYY',
-                "applyLabel": "Salvar",
-                "cancelLabel": "Cancelar",
-                "fromLabel": "De",
-                "toLabel": "A",
-                "weekLabel": "S",
-                "daysOfWeek": [
-                    "Dom",
-                    "Seg",
-                    "Ter",
-                    "Qua",
-                    "Qui",
-                    "Sex",
-                    "Sáb"
-                ],
-                "monthNames": [
-                    "Janeiro",
-                    "Fevereiro",
-                    "Março",
-                    "Abril",
-                    "Maio",
-                    "Junho",
-                    "Julho",
-                    "Agosto",
-                    "Setembro",
-                    "Outubro",
-                    "Novembro",
-                    "Dezembro"
-                ],
-                "firstDay": 1
-            },
-            isInvalidDate: function(date) {
-                if (date.format('YYYY-M-D') == '2021-10-12') {
-                    return true;
-                }
-            }
-        }, function(start, end, label) {
-            $('#startdate').val(start.format('YYYY-MM-DD'));
-            $('#enddate').val(end.format('YYYY-MM-DD'));
-        });
         $('#submit').click(function (){
             startdate = $('#startdate').val();
             enddate = $('#enddate').val();
@@ -176,13 +129,26 @@
                 value = $(this).val();
                 ages = ages+value+',';
             });
-            window.location.href = '{{URL::to('/')}}/searchbydistrict/{{Request::segment(2)}}/'+startdate+'/'+enddate+'/'+adults+'/'+children+'/'+ages;
+            window.location.href = '{{URL::to('/')}}/checkout/{{Request::segment(2)}}/'+startdate+'/'+enddate+'/'+adults+'/'+children+'/'+ages;
         });
         $(".children").click(function(){
             $('.children-group').before('<div class="form-group form-inline"><input type="number" name="children" id="children" placeholder="Idade"><a href="#!" class="btn btn-4 btn-ico children"><i class="uil uil-minus"></i></a></div>')
         })
     });
-</script>
+
+
+    const unavailableDates = <?php echo $unavailableDates; ?>;
+    new Litepicker({
+        element: document.getElementById('datepicker'),
+        inlineMode: true,
+        singleMode: false,
+        lockDays: unavailableDates,
+        numberOfColumns: 2,
+        numberOfMonths: 2
+    });
+
+
+    </script>
 </body>
 
 

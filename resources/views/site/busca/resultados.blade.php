@@ -76,7 +76,7 @@
             <div class="col ps-0">
                 <div class="row">
                     <div class="col-6 pe-0">
-                        <a href="#!" class="btn btn-3 btn-p texto-ret"><span>{{$district}}</span></a>
+                        <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-busca" class="btn btn-3 btn-p texto-ret switch"><span>{{$district}}</span></a>
                     </div>
                     <div class="col-6 ps-0">
                         <a href="#!" class="btn btn-3 btn-p texto-ret"><span class="text-right texto-p">{{date_format(date_create($startdate),"d/m/y")}} → {{date_format(date_create($enddate),"d/m/y")}} - {{Request::segment(5)+Request::segment(6)}} hospedes</span></a>

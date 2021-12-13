@@ -116,8 +116,6 @@
     <!-- GOOGLE MAPS -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSeQcKPvoa7ix-NIn8yf_gRlBqv4QtaYI&callback=initMap&v=weekly&channel=2" async ></script>
 
-    <!-- calendário-->
-    <link  href="{{asset('css/hotel-datepicker.css')}}" rel="stylesheet">
 
 </head>
 
@@ -597,9 +595,6 @@
                 <p class="mb-15">Não obstante, a constante divulgação das informações estende o alcance e a importância das condições financeiras e administrativas exigidas.</p>
             </div>
         </div>
-        <div>
-            <input type="text" autocomplete="off" name="date-selection" id="date-selection">
-        </div>
         <hr class="mb-15">
         <div class="row">
             <div class="col-12">
@@ -634,7 +629,11 @@
                 <!--<h4 class="texto-m d-flex gap-5"><i class="d-inline-flex icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>-->
             </div>
             <div class="col col-sm-5">
-                <a href="{{URL::to('/checkout/'.$accommodation[0]->AccommodationId.'/'.Request::segment(3).'/'.Request::segment(4).'/'.Request::segment(5).'/'.Request::segment(6))}}" class="btn">Verificar disponibilidade</a>
+                @if(Request::segment(3) == '')
+                <a href="{{URL::to('/check_availability/'.$accommodation[0]->AccommodationId);}}" class="btn">Verificar disponibilidade</a>
+                @else
+                    <a href="{{URL::to('/checkout/'.$accommodation[0]->AccommodationId.'/'.Request::segment(3).'/'.Request::segment(4).'/'.Request::segment(5).'/'.Request::segment(6))}}" class="btn">Reservar</a>
+                @endif
             </div>
         </div>
     </div>
@@ -651,20 +650,8 @@
 <!-- SLICK -->
 <script type="text/javascript" src="{{asset('js/slick.min.js')}}"></script>
 
-<!-- calendário -->
-<script src="{{asset('js/fecha.min.js')}}"></script>
-<script src="{{asset('js/hotel-datepicker.min.js')}}"></script>"
-
 <!-- FUNCOES -->
 <script type="text/javascript" src="{{asset('js/funcoes.js')}}"></script>
-
-<script>
-    var input = document.getElementById('date-selection');
-    var datepicker = new HotelDatepicker(input, {
-    disabledDates:<?php echo $unavailableDates; ?>
-});
-</script>
-
 
 
 

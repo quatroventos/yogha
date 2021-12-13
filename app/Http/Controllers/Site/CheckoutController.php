@@ -86,4 +86,41 @@ class CheckoutController extends Controller{
 
         return view('site.checkout.index', compact('accommodation','pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites'));
     }
+
+    //filtra por data e quantidade de hospedes
+    public function check_availability($accommodationid = '', $startdate='', $enddate='')
+    {
+        //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
+        $today = date("Y-m-d");
+        if($startdate == '') {
+            $startdate = $today;
+        }
+        if($enddate == '') {
+            $enddate = date('Y-m-d', strtotime($today. ' + 2 days'));
+        }
+
+        $availability = \DB::table('availabilities')
+            ->where('AccommodationId','=', $accommodationid)
+            ->where('State', '=', 'UNAVAILABLE')
+            ->get();
+
+        if (count($availability) != 0) {
+            //cria array com o range de datas
+            $unavailableDates = array();
+            $current = strtotime($availability[0]->StartDate);
+            $last = strtotime($availability[0]->EndDate);
+
+            while ($current <= $last) {
+
+                $unavailableDates[] = date("Y-m-d", $current);
+                $current = strtotime("+1 day", $current);
+            }
+
+            $unavailableDates = json_encode($unavailableDates);
+        }else{
+            $unavailableDates = "";
+        }
+
+        return view('site.checkout.check_availability', compact('accommodationid', 'unavailableDates', 'startdate', 'enddate'));
+    }
 }

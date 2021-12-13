@@ -29,6 +29,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/blog', 'BlogController@index')->name('blog');
     //checkout
     Route::get('/checkout/{accommodationid}/{startdate}/{enddate}/{adults?}/{children?}/{ages?}', 'CheckoutController@index')->name('checkout');
+    Route::get('/check_availability/{accommodationid}', 'CheckoutController@check_availability');
     //favorites
     Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@fav');
     //Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@unfav');
