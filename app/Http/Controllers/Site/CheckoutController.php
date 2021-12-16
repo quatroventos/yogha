@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Stevebauman\Location\Facades\Location;
+use Jetimob\Juno\Facades\Juno;
 
-class CheckoutController extends Controller{
+class CheckoutController extends Controller
+{
 
-    public function index($accommodationid, $startdate = '', $enddate='', $adults='', $children='', $ages='')
+    public function index($accommodationid, $startdate = '', $enddate = '', $adults = '', $children = '', $ages = '')
     {
         if (Auth::check()) {
             $userid = Auth::user()->id;
@@ -17,31 +19,31 @@ class CheckoutController extends Controller{
                 ->select('public.customers.*')
                 ->leftJoin('site.users', 'site.users.email', '=', 'public.customers.email')
                 ->leftJoin('avantio.booking', 'avantio.booking.customer_id', '=', 'public.customers.id')
-                ->where('site.users.id', '=',  $userid)
+                ->where('site.users.id', '=', $userid)
                 ->get();
-        }else{
+        } else {
             $user = '';
         }
 
-        if(isset($userid) != '') {
+        if (isset($userid) != '') {
             $favorites = \DB::table('favorites')
-                ->select('favorites.*', 'accommodations.*', 'rates.*', 'descriptions.*','localizations.*')
+                ->select('favorites.*', 'accommodations.*', 'rates.*', 'descriptions.*', 'localizations.*')
                 ->join('accommodations', 'accommodations.AccommodationId', '=', 'favorites.accommodation_id')
                 ->join('descriptions', 'descriptions.AccommodationId', '=', 'accommodations.AccommodationId')
                 ->join('localizations', 'localizations.AccommodationId', '=', 'accommodations.AccommodationId')
                 ->join('rates', 'rates.AccommodationId', '=', 'accommodations.AccommodationId')
                 ->where('favorites.user_id', '=', $userid)
                 ->get();
-        }else{
-            $favorites="";
+        } else {
+            $favorites = "";
         }
 
 
         $accommodation = \DB::table('accommodations')
-            ->select('accommodations.*','descriptions.*','rates.*')
-            ->Leftjoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
-            ->Leftjoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
-            ->where('accommodations.AccommodationId','=', $accommodationid)
+            ->select('accommodations.*', 'descriptions.*', 'rates.*')
+            ->Leftjoin('descriptions', 'descriptions.AccommodationId', '=', 'accommodations.AccommodationId')
+            ->Leftjoin('rates', 'rates.AccommodationId', '=', 'accommodations.AccommodationId')
+            ->where('accommodations.AccommodationId', '=', $accommodationid)
             ->first();
 
         $pictures = json_decode($accommodation->Pictures, true);
@@ -49,16 +51,16 @@ class CheckoutController extends Controller{
 
         //calcula o numero total de camas disponíveis
         $totalcamas = 0;
-        if(empty($features['Distribution']['DoubleBeds']) === false){
-            $totalcamas +=  $features['Distribution']['DoubleBeds'];
+        if (empty($features['Distribution']['DoubleBeds']) === false) {
+            $totalcamas += $features['Distribution']['DoubleBeds'];
         }
-        if(empty($features['Distribution']['IndividualBeds']) === false){
+        if (empty($features['Distribution']['IndividualBeds']) === false) {
             $totalcamas += $features['Distribution']['IndividualBeds'];
         }
-        if(empty($features['Distribution']['QueenBeds']) === false){
+        if (empty($features['Distribution']['QueenBeds']) === false) {
             $totalcamas += $features['Distribution']['QueenBeds'];
         }
-        if(empty($features['Distribution']['KingBeds']) === false){
+        if (empty($features['Distribution']['KingBeds']) === false) {
             $totalcamas += $features['Distribution']['KingBeds'];
         }
 
@@ -84,23 +86,23 @@ class CheckoutController extends Controller{
             ->inRandomOrder()
             ->get();
 
-        return view('site.checkout.index', compact('accommodation','pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites'));
+        return view('site.checkout.index', compact('accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites'));
     }
 
     //filtra por data e quantidade de hospedes
-    public function check_availability($accommodationid = '', $startdate='', $enddate='')
+    public function check_availability($accommodationid = '', $startdate = '', $enddate = '')
     {
         //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
         $today = date("Y-m-d");
-        if($startdate == '') {
+        if ($startdate == '') {
             $startdate = $today;
         }
-        if($enddate == '') {
-            $enddate = date('Y-m-d', strtotime($today. ' + 2 days'));
+        if ($enddate == '') {
+            $enddate = date('Y-m-d', strtotime($today . ' + 2 days'));
         }
 
         $availability = \DB::table('availabilities')
-            ->where('AccommodationId','=', $accommodationid)
+            ->where('AccommodationId', '=', $accommodationid)
             ->where('State', '=', 'UNAVAILABLE')
             ->get();
 
@@ -117,10 +119,15 @@ class CheckoutController extends Controller{
             }
 
             $unavailableDates = json_encode($unavailableDates);
-        }else{
+        } else {
             $unavailableDates = "";
         }
 
         return view('site.checkout.check_availability', compact('accommodationid', 'unavailableDates', 'startdate', 'enddate'));
+    }
+
+    public function generatebillet()
+    {
+        echo Juno::request(DocumentListRequest::class, $resourceToken);
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86f15caeb2ca71f006af642975729237",
+    "content-hash": "378e07296bcc39999566ad5404ff3d38",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1508,6 +1508,63 @@
                 }
             ],
             "time": "2021-10-06T17:43:30+00:00"
+        },
+        {
+            "name": "jetimob/juno-sdk-php-laravel",
+            "version": "v1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jetimob/juno-sdk-php-laravel.git",
+                "reference": "1d41d193bf48bc657fe7ed788d163eaa409da54c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jetimob/juno-sdk-php-laravel/zipball/1d41d193bf48bc657fe7ed788d163eaa409da54c",
+                "reference": "1d41d193bf48bc657fe7ed788d163eaa409da54c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^7.2",
+                "php": "^7.4"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.2",
+                "phpunit/phpunit": "^9.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jetimob\\Juno\\JunoServiceProvider"
+                    ],
+                    "aliases": {
+                        "Juno": "Jetimob\\Juno\\Facades\\Juno"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jetimob\\Juno\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alan Weingartner",
+                    "email": "hi@alanwgt.com"
+                }
+            ],
+            "description": "Juno integration developed to Jetimob's internal use.",
+            "homepage": "https://github.com/jetimob/juno-sdk-php-laravel",
+            "support": {
+                "issues": "https://github.com/jetimob/juno-sdk-php-laravel/issues",
+                "source": "https://github.com/jetimob/juno-sdk-php-laravel/tree/v1.1.4"
+            },
+            "time": "2021-04-13T17:50:13+00:00"
         },
         {
             "name": "laravel/framework",

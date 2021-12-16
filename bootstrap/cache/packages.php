@@ -17,6 +17,17 @@
       0 => 'Fruitcake\\Cors\\CorsServiceProvider',
     ),
   ),
+  'jetimob/juno-sdk-php-laravel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Jetimob\\Juno\\JunoServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Juno' => 'Jetimob\\Juno\\Facades\\Juno',
+    ),
+  ),
   'laravel/sail' => 
   array (
     'providers' => 

@@ -27,9 +27,9 @@
                 <div class="row mb-30">
                     <div class="col grow-0 pe-0">
                         <?php //dd($pictures);?>
-                        @if(isset($pictures))
-                            <picture class="pic-p" style="background-image: url({{$pictures['Picture'][0]['OriginalURI']}});"></picture>
-                        @endif
+{{--                        @if(isset($pictures))--}}
+{{--                            <picture class="pic-p" style="background-image: url({{$pictures['Picture'][0]['OriginalURI']}});"></picture>--}}
+{{--                        @endif--}}
 
                     </div>
                     <div class="col">

@@ -16,6 +16,26 @@ class UserController extends Controller
      */
     public function index(User $model)
     {
-        return view('admin.users.index', ['users' => $model->paginate(15)]);
+
+        $users = \DB::table('users')
+            ->select('users.*','user_roles.title as roleTitle')
+            ->leftJoin('user_roles','user_roles.id','=','users.role_id')
+            ->get();
+
+        return view('admin.users.index', compact('users'));
+    }
+
+    /**
+     * Display the add user form
+     *
+     * @param  \App\Models\User  $model
+     * @return \Illuminate\View\View
+     */
+    public function edit(User $model)
+    {
+
+        $roles = \DB::table('user_roles')->get();
+
+        return view('admin.users.edit', compact('roles'));
     }
 }

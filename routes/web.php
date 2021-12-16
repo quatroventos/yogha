@@ -30,6 +30,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     //checkout
     Route::get('/checkout/{accommodationid}/{startdate}/{enddate}/{adults?}/{children?}/{ages?}', 'CheckoutController@index')->name('checkout');
     Route::get('/check_availability/{accommodationid}', 'CheckoutController@check_availability');
+    Route::get('/checkout/boleto', 'CheckoutController@generatebillet');
     //favorites
     Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@fav');
     //Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@unfav');
@@ -60,10 +61,15 @@ Route::namespace('App\Http\Controllers\Backend')->group(function() {
     Route::get('/admin/blog_cat/edit', 'BlogController@edit_cat')->name('blog_cat.edit');
     Route::get('/admin/blog_cat/update', 'BlogController@update_cat')->name('blog_cat.update');
     Route::post('/admin/blog_cat/create', 'BlogController@create_cat')->name('blog_cat.create');
+
+    Route::get('/admin/user', 'Usercontroller@index')->name('user.index');
+    Route::get('/admin/user/edit', 'Usercontroller@edit')->name('user.edit');
+    Route::get('/admin/user/update', 'Usercontroller@update_user');
+    Route::post('/admin/user/create', 'Usercontroller@create_user')->name('user.create');
 });
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::resource('user', 'App\Http\Controllers\Backend\UserController', ['except' => ['show']]);
+	//Route::get('user', 'App\Http\Controllers\Backend\UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\Backend\ProfileController@edit']);
 	Route::post('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\Backend\ProfileController@update']);
 	Route::post('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\Backend\@password']);

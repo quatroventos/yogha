@@ -6,7 +6,7 @@
         <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-usuario" class="btn btn-2 btn-ico mb-0 switch"><i class="uil uil-angle-left"></i></a>
       </div>
       <div class="col ps-0">
-        <h2 class="texto-g texto-ret"><strong>{{$user[0]->name}}</strong></h2>
+        <h2 class="texto-g texto-ret"><strong>{{$user[0]->name != '' ? $user[0]->name : ''}}</strong></h2>
       </div>
     </div>
 

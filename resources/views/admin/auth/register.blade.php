@@ -51,131 +51,183 @@
 
 <body id="editar-perfil">
 
-    <section>
-      <div class="container">
+<section>
+    <div class="container">
 
         <div class="row mb-15 align-items-center">
-          <div class="col px-0 grow-0">
-            <a href="index.shtml" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
-          </div>  
-          <div class="col ps-0">
-            <h2 class="texto-g texto-ret"><strong>João Silveira Santos</strong></h2>
-          </div>        
-        </div>      
+            <div class="col px-0 grow-0">
+                <a href="index.shtml" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
+            </div>
+            <div class="col ps-0">
+                <h2 class="texto-g texto-ret"><strong>João Silveira Santos</strong></h2>
+            </div>
+        </div>
+
+
+        <!-- form original -->
+
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
+            <div class="card card-plain">
+                <div class="content">
+                    <div class="form-group">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required autofocus>
+                    </div>
+
+                    <div class="form-group">   {{-- is-invalid make border red --}}
+                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Enter email" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" required >
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password_confirmation" placeholder="Password Confirmation" class="form-control" required autofocus>
+                    </div>
+                    <div class="form-group d-flex justify-content-center">
+                        <div class="form-check rounded col-md-10 text-left">
+                            <label class="form-check-label text-white d-flex align-items-center">
+                                <input class="form-check-input" name="agree" type="checkbox" required >
+                                <span class="form-check-sign"></span>
+                                <b>{{ __('Agree with terms and conditions') }}</b>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="footer text-center">
+                        <button type="submit" class="btn btn-fill btn-neutral btn-wd">{{ __('Create Free Account') }}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="col">
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-warning alert-dismissible fade show" >
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+                    {{ $error }}
+                </div>
+            @endforeach
+        </div>
+
+        <!-- form original -->
+
+
 
         <form>
 
-          <div class="row justify-content-center">
-            <div class="col col-sm-6">
-              <picture class="pic-p mx-auto" style="background-image: url(img/foto-usuario.png);"></picture>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col col-sm-6">
-              <div class="form-group form-inline justify-content-center gap-0">
-                <a href="#!" class="btn btn-p btn-link"><strong>Alterar foto</strong></a>
-                <a href="#!" class="btn btn-p btn-link"><strong>Excluir foto</strong></a>
-              </div>
-            </div>
-          </div>
 
-          <hr class="mb-30">
-
-          <div class="row justify-content-center mb-15">
-            <div class="col col-sm-6">
-              <h3><strong>Dados pessoais</strong></h3>
-            </div>
-          </div>
-          <div class="row justify-content-center mb-15">
-            <div class="col col-sm-6">            
-              <div class="row">
-                <div class="form-group col-12 col-sm-6">
-                  <label class="texto-m mb-5" for="nome">Nome</label>
-                  <input type="text" class="form-control" id="nome" placeholder="Nome">
+            <div class="row justify-content-center">
+                <div class="col col-sm-6">
+                    <picture class="pic-p mx-auto" style="background-image: url(img/foto-usuario.png);"></picture>
                 </div>
-                <div class="form-group col-12 col-sm-6">
-                  <label class="texto-m mb-5" for="sobrenome">Sobrenome</label>
-                  <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome">
+            </div>
+            <div class="row justify-content-center">
+                <div class="col col-sm-6">
+                    <div class="form-group form-inline justify-content-center gap-0">
+                        <a href="#!" class="btn btn-p btn-link"><strong>Alterar foto</strong></a>
+                        <a href="#!" class="btn btn-p btn-link"><strong>Excluir foto</strong></a>
+                    </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="texto-m mb-5" for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="E-mail">
-              </div>
-              <div class="form-group">
-                <label class="texto-m mb-5" for="telefone">Telefone</label>
-                <input type="tel" class="form-control" id="telefone" placeholder="E-mail">
-              </div>
-              <div class="form-group">
-                <label class="texto-m mb-5" for="data-nasc">Data de nascimento</label>
-                <input type="date" class="form-control" id="data-nasc" placeholder="dd/mm/aaaa">
-              </div>          
             </div>
-          </div>
 
-          <hr class="mb-30">
+            <hr class="mb-30">
 
-          <div class="row justify-content-center mb-15">
-            <div class="col col-sm-6 mb-15">
-              <h3><strong>Localização</strong></h3>
+            <div class="row justify-content-center mb-15">
+                <div class="col col-sm-6">
+                    <h3><strong>Dados pessoais</strong></h3>
+                </div>
             </div>
-          </div>
-          <div class="row justify-content-center mb-15">
-            <div class="col col-sm-6">
-              <div class="form-group">
-                <label class="texto-m mb-5" for="pais">País</label>
-                <input type="text" class="form-control" id="pais" placeholder="">
-              </div>
-              <div class="form-group">
-                <label class="texto-m mb-5" for="estado">Estado</label>
-                <input type="text" class="form-control" id="estado" placeholder="">
-              </div>
-              <div class="form-group">
-                <label class="texto-m mb-5" for="cidade">Cidade</label>
-                <input type="email" class="form-control" id="cidade" placeholder="">
-              </div>        
+            <div class="row justify-content-center mb-15">
+                <div class="col col-sm-6">
+                    <div class="row">
+                        <div class="form-group col-12 col-sm-6">
+                            <label class="texto-m mb-5" for="nome">Nome</label>
+                            <input type="text" class="form-control" id="nome" placeholder="Nome">
+                        </div>
+                        <div class="form-group col-12 col-sm-6">
+                            <label class="texto-m mb-5" for="sobrenome">Sobrenome</label>
+                            <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="texto-m mb-5" for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="E-mail">
+                    </div>
+                    <div class="form-group">
+                        <label class="texto-m mb-5" for="telefone">Telefone</label>
+                        <input type="tel" class="form-control" id="telefone" placeholder="Telefone">
+                    </div>
+                    <div class="form-group">
+                        <label class="texto-m mb-5" for="data-nasc">Data de nascimento</label>
+                        <input type="date" class="form-control" id="data-nasc" placeholder="dd/mm/aaaa">
+                    </div>
+                </div>
             </div>
-          </div>
 
-          <hr class="mb-30">
+            <hr class="mb-30">
 
-          <div class="row justify-content-center mb-15">
-            <div class="col col-sm-6">
-              <h3><strong>Alterar senha</strong></h3>
+            <div class="row justify-content-center mb-15">
+                <div class="col col-sm-6 mb-15">
+                    <h3><strong>Localização</strong></h3>
+                </div>
             </div>
-          </div>
-          <div class="row justify-content-center mb-30">
-            <div class="col col-sm-6">
-              <div class="form-group">
-                <label class="texto-m mb-5" for="pais">Senha antiga</label>
-                <input type="password" class="form-control" id="pais" placeholder="">
-              </div>
-              <div class="form-group">
-                <label class="texto-m mb-5" for="estado">Nova senha</label>
-                <input type="password" class="form-control" id="estado" placeholder="">
-              </div>
-              <div class="form-group">
-                <label class="texto-m mb-5" for="cidade">Repita a senha</label>
-                <input type="password" class="form-control" id="cidade" placeholder="">
-              </div>
-              <div>
-                <p class="texto-m mb-0">A senha deve ter pelo menos:</p>
-                <p class="texto-m mb-0">1 letra maiúscula</p>
-                <p class="texto-m mb-0">1 número</p>
-                <p class="texto-m mb-0">1 caractere especial (@, $,%,!, &, etc)</p>
-              </div>      
+            <div class="row justify-content-center mb-15">
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label class="texto-m mb-5" for="pais">País</label>
+                        <input type="text" class="form-control" id="pais" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label class="texto-m mb-5" for="estado">Estado</label>
+                        <input type="text" class="form-control" id="estado" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label class="texto-m mb-5" for="cidade">Cidade</label>
+                        <input type="text" class="form-control" id="cidade" placeholder="">
+                    </div>
+                </div>
             </div>
-          </div>
 
-          <div class="row justify-content-center mb-15">
-            <div class="col col-sm-5">
-              <button type="submit" class="btn d-flex">Salvar</button>
+            <hr class="mb-30">
+
+            <div class="row justify-content-center mb-15">
+                <div class="col col-sm-6">
+                    <h3><strong>Senha</strong></h3>
+                </div>
             </div>
-          </div>
+            <div class="row justify-content-center mb-30">
+                <div class="col col-sm-6">
+                    {{--              <div class="form-group">--}}
+                    {{--                <label class="texto-m mb-5" for="pais">Senha antiga</label>--}}
+                    {{--                <input type="password" class="form-control" id="pais" placeholder="">--}}
+                    {{--              </div>--}}
+                    <div class="form-group">
+                        <label class="texto-m mb-5" for="estado">Nova senha</label>
+                        <input type="password" class="form-control" id="estado" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label class="texto-m mb-5" for="cidade">Repita a senha</label>
+                        <input type="password" class="form-control" id="cidade" placeholder="">
+                    </div>
+                    <div>
+                        <p class="texto-m mb-0">A senha deve ter pelo menos:</p>
+                        <p class="texto-m mb-0">1 letra maiúscula</p>
+                        <p class="texto-m mb-0">1 número</p>
+                        <p class="texto-m mb-0">1 caractere especial (@, $,%,!, &, etc)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mb-15">
+                <div class="col col-sm-5">
+                    <button type="submit" class="btn d-flex">Salvar</button>
+                </div>
+            </div>
 
         </form>
-      </div>
-    </section>
+    </div>
+</section>
 
 </body>
 
