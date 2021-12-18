@@ -1,8 +1,10 @@
 @extends('admin.layouts.app', ['activePage' => 'blog_cat', 'title' => 'Yogha - Admin v1.0.0 - Categoria', 'navName' => 'Categorias', 'activeButton' => 'categorias'])
 @section('content')
-    <div class="alert-success">
+ @if(\Session::get('success'))
+    <div class="alert alert-success">
         {!! \Session::get('success') !!}
     </div>
+    @endif
     <div class="content">
         <div class="container-fluid">
             <div class="section-image">

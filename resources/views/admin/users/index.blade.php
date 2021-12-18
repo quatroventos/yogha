@@ -2,6 +2,14 @@
 
 @section('content')
 
+    @if(\Session::get('success'))
+ @if(\Session::get('success'))
+    <div class="alert alert-success">
+        {!! \Session::get('success') !!}
+    </div>
+    @endif
+    @endif
+
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -23,7 +31,7 @@
                                 @foreach($users as $user)
                                 <tr>
                                     <td>{{$user->id}}</td>
-                                    <td>{{$user->name}} {{$user->surname}}</td>
+                                    <td><a href="/admin/user/edit/{{$user->id}}">{{$user->name}} {{$user->surname}}</a></td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->roleTitle}}</td>
                                 </tr>

@@ -539,7 +539,6 @@ tinymce.init({
 });
 
 //cria slug enquanto digito o título
-//TODO: passar para o arquivo de scripts
 $('input[name=title]').keyup(function(){
     slugval = url_slug($(this).val());
     $('input[name=slug]').val(slugval);

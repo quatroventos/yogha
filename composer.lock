@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "378e07296bcc39999566ad5404ff3d38",
+    "content-hash": "b106dcc73b0562424e2d4bb3023f1356",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -121,6 +121,54 @@
                 }
             ],
             "time": "2021-08-15T20:50:18+00:00"
+        },
+        {
+            "name": "brocard/geolocation",
+            "version": "v0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/brocard/geonames.git",
+                "reference": "c0546bca2af5909fc1de9fe05e6044317eafed98"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/brocard/geonames/zipball/c0546bca2af5909fc1de9fe05e6044317eafed98",
+                "reference": "c0546bca2af5909fc1de9fe05e6044317eafed98",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": ">=6.2",
+                "php": ">=5.6.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BrocardJr\\Geo\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yusniel Brocard",
+                    "email": "brocard@gmail.com"
+                }
+            ],
+            "description": "Set a geolocation tables for any projects",
+            "keywords": [
+                "brocard",
+                "geonames",
+                "laravel",
+                "laravel 5.3",
+                "package"
+            ],
+            "support": {
+                "issues": "https://github.com/brocard/geonames/issues",
+                "source": "https://github.com/brocard/geonames/tree/master"
+            },
+            "time": "2017-07-04T14:31:30+00:00"
         },
         {
             "name": "composer/ca-bundle",

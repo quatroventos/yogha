@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+
         /*
          * Geolocation
          */
@@ -169,7 +170,6 @@ return [
         /*
          * Package Service Providers...
          */
-
         LaravelFrontendPresets\LightBootstrapPreset\LightBootstrapPresetServiceProvider::class,
 
         /*

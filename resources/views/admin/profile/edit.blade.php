@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <hr class="my-4" />
+
                             <form method="post" action="{{ route('profile.password') }}">
                                 @csrf
 

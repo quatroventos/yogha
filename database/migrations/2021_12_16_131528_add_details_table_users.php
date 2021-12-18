@@ -18,9 +18,9 @@ class AddDetailsTableUsers extends Migration
             $table->text('phone')->nullable();
             $table->date('birthday')->nullable();
             $table->text('cpf')->nullable();
-            $table->text('country')->nullable();
-            $table->text('estate')->nullable();
-            $table->text('city')->nullable();
+            $table->foreignId('country_id')->nullable();
+            $table->foreignId('state_id')->nullable();
+            $table->foreignId('city_id')->nullable();
             $table->text('district')->nullable();
             $table->text('zip_code')->nullable();
             $table->text('street')->nullable();

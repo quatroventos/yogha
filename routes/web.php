@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');
+Route::get('/states/{country_id}', 'App\Http\Controllers\WorldController@states');
+Route::get('/cities/{state_id}', 'App\Http\Controllers\WorldController@cities');
+
 Route::namespace('App\Http\Controllers\Site')->group(function(){
     //home
     Route::get('/', 'HomeController');
@@ -36,7 +40,6 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     //Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@unfav');
 });
 
-Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');
 
 Auth::routes();
 
@@ -63,9 +66,12 @@ Route::namespace('App\Http\Controllers\Backend')->group(function() {
     Route::post('/admin/blog_cat/create', 'BlogController@create_cat')->name('blog_cat.create');
 
     Route::get('/admin/user', 'Usercontroller@index')->name('user.index');
-    Route::get('/admin/user/edit', 'Usercontroller@edit')->name('user.edit');
-    Route::get('/admin/user/update', 'Usercontroller@update_user');
-    Route::post('/admin/user/create', 'Usercontroller@create_user')->name('user.create');
+    Route::get('/admin/user/edit/{user_id?}', 'Usercontroller@edit')->name('user.edit');
+    Route::get('/admin/user/delete/{user_id}', 'Usercontroller@delete')->name('user.delete');
+    Route::post('/admin/user/update', 'Usercontroller@update')->name('user.update');
+    Route::post('/admin/user/password', 'Usercontroller@password')->name('user.password');
+    Route::post('/admin/user/create', 'Usercontroller@create')->name('user.create');
+
 });
 
 Route::group(['middleware' => 'auth'], function () {

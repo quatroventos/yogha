@@ -1,4 +1,4 @@
-<div class="sidebar" data-image="{{ asset('light-bootstrap/img/sidebar-5.jpg') }}" data-color="orange">
+<div class="sidebar" data-image="{{ asset('light-bootstrap/img/sidebar-yogha.jpg') }}" data-color="orange">
     <!--
 Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
@@ -6,7 +6,7 @@ Tip 2: you can also add an image using data-image tag
 -->
     <div class="sidebar-wrapper">
         <div class="logo text-center">
-            <h2>Yogha <small>v 1.0</small></h2>
+            <h2>Yogha <small style="color:white; font-size:10px;">v 1.0</small></h2>
         </div>
         <ul class="nav">
             <li class="nav-item @if($activePage == 'dashboard') active @endif">
