@@ -25,16 +25,25 @@ class HomeController extends Controller
 
         if (Auth::check()) {
             $userid = Auth::user()->id;
-            $user = \DB::table('public.customers')
-                ->select('public.customers.*')
-                ->leftJoin('site.users', 'site.users.email', '=', 'public.customers.email')
-                ->leftJoin('avantio.booking', 'avantio.booking.customer_id', '=', 'public.customers.id')
-                ->where('site.users.id', '=',  $userid)
+            $useremail = Auth::user()->email;
+            $user = Auth::user();
+            $userreservations =  \DB::table('avantio.booking_lists')
+                //TODO: puxar dados via api
+                ->select('avantio.booking_lists.*','accommodations.*')
+                ->join('site.accommodations', 'accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
+                ->join('descriptions','descriptions.AccommodationId','=','avantio.booking_lists.accommodation_code')
+                ->join('stats','stats.content_id', '=', 'avantio.booking_lists.accommodation_code')
+                ->join('rates','rates.AccommodationId','=','avantio.booking_lists.accommodation_code')
+                ->where('booking_lists.email', '=', $useremail)
                 ->get();
-            //dd($user);
         }else{
             $user = '';
         }
+
+        echo "<pre>";
+            print_r($userreservations);
+        echo "</pre>";
+
 
         //descontos exclusivos (ordena pelo preço mais baixo)
         $discount = \DB::table('accommodations')
@@ -51,7 +60,7 @@ class HomeController extends Controller
             ->select('accommodations.*','descriptions.*','rates.*',\DB::raw('count(stats.*) as views'))
             ->leftJoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
             ->leftJoin('stats','stats.content_id', '=', 'accommodations.AccommodationId')
-            ->Leftjoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
+            ->leftjoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
             ->groupBy('accommodations.AccommodationId', 'stats.content_id', 'accommodations.id', 'descriptions.id', 'rates.id')
             ->where('stats.type', '=', 'accommodation')
             ->OrderBy('views', 'DESC')
@@ -125,6 +134,6 @@ class HomeController extends Controller
         $position = Location::get('178.132.95.179');
 
 
-        return view('site.home.index', compact('accommodations', 'shelves', 'position', 'recently_viewed', 'surpriseme', 'user', 'mostvisited', 'discount', 'populardistricts', 'favorites'));
+        return view('site.home.index', compact('accommodations', 'shelves', 'position', 'recently_viewed', 'surpriseme', 'user', 'mostvisited', 'discount', 'populardistricts', 'favorites', 'userreservations'));
     }
 }

@@ -18,7 +18,7 @@ Route::get('/cities/{state_id}', 'App\Http\Controllers\WorldController@cities');
 
 Route::namespace('App\Http\Controllers\Site')->group(function(){
     //home
-    Route::get('/', 'HomeController');
+    Route::get('/', 'HomeController')->name('home');
     //accommodation
     Route::get('/accommodation/{accommodationid}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'AccommodationController@index');
     //search
@@ -34,7 +34,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     //checkout
     Route::get('/checkout/{accommodationid}/{startdate}/{enddate}/{adults?}/{children?}/{ages?}', 'CheckoutController@index')->name('checkout');
     Route::get('/check_availability/{accommodationid}', 'CheckoutController@check_availability');
-    Route::get('/checkout/boleto', 'CheckoutController@generatebillet');
+    Route::post('/checkout/boleto', 'CheckoutController@generatebillet')->name('generate.billet');
     //favorites
     Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@fav');
     //Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@unfav');
@@ -44,41 +44,43 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 Auth::routes();
 
 Route::namespace('App\Http\Controllers\Backend')->group(function() {
-    Route::get('/admin', 'AdminController@index')->name('dashboard');
-    Route::get('/admin/shelves', 'ShelvesController@index')->name('shelves');
-    Route::get('/admin/shelves/edit', 'ShelvesController@edit')->name('shelf.edit');
-    Route::get('/admin/shelves/update', 'ShelvesController@update')->name('shelf.update');
-    Route::post('/admin/shelves/create', 'ShelvesController@create')->name('shelf.create');
 
-    Route::get('/admin/services', 'ServicesController@index')->name('services');
-    Route::get('/admin/services/edit', 'ServicesController@edit')->name('service.edit');
-    Route::get('/admin/services/update', 'ServicesController@update')->name('service.update');
-    Route::post('/admin/services/create', 'ServicesController@create')->name('service.create');
+    Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/admin/blog', 'BlogController@index')->name('blog');
-    Route::get('/admin/blog/edit', 'BlogController@edit')->name('blog.edit');
-    Route::get('/admin/blog/update', 'BlogController@update')->name('blog.update');
-    Route::post('/admin/blog/create', 'BlogController@create')->name('blog.create');
+        Route::get('/admin', 'AdminController@index')->name('dashboard');
+        Route::get('/admin/shelves', 'ShelvesController@index')->name('shelves');
+        Route::get('/admin/shelves/edit', 'ShelvesController@edit')->name('shelf.edit');
+        Route::get('/admin/shelves/update', 'ShelvesController@update')->name('shelf.update');
+        Route::post('/admin/shelves/create', 'ShelvesController@create')->name('shelf.create');
 
-    Route::get('/admin/blog_cat', 'BlogController@cat_index')->name('blog_cat');
-    Route::get('/admin/blog_cat/edit', 'BlogController@edit_cat')->name('blog_cat.edit');
-    Route::get('/admin/blog_cat/update', 'BlogController@update_cat')->name('blog_cat.update');
-    Route::post('/admin/blog_cat/create', 'BlogController@create_cat')->name('blog_cat.create');
+        Route::get('/admin/services', 'ServicesController@index')->name('services');
+        Route::get('/admin/services/edit', 'ServicesController@edit')->name('service.edit');
+        Route::get('/admin/services/update', 'ServicesController@update')->name('service.update');
+        Route::post('/admin/services/create', 'ServicesController@create')->name('service.create');
 
-    Route::get('/admin/user', 'Usercontroller@index')->name('user.index');
-    Route::get('/admin/user/edit/{user_id?}', 'Usercontroller@edit')->name('user.edit');
-    Route::get('/admin/user/delete/{user_id}', 'Usercontroller@delete')->name('user.delete');
-    Route::post('/admin/user/update', 'Usercontroller@update')->name('user.update');
-    Route::post('/admin/user/password', 'Usercontroller@password')->name('user.password');
-    Route::post('/admin/user/create', 'Usercontroller@create')->name('user.create');
+        Route::get('/admin/blog', 'BlogController@index')->name('blog');
+        Route::get('/admin/blog/edit', 'BlogController@edit')->name('blog.edit');
+        Route::get('/admin/blog/update', 'BlogController@update')->name('blog.update');
+        Route::post('/admin/blog/create', 'BlogController@create')->name('blog.create');
 
-});
+        Route::get('/admin/blog_cat', 'BlogController@cat_index')->name('blog_cat');
+        Route::get('/admin/blog_cat/edit', 'BlogController@edit_cat')->name('blog_cat.edit');
+        Route::get('/admin/blog_cat/update', 'BlogController@update_cat')->name('blog_cat.update');
+        Route::post('/admin/blog_cat/create', 'BlogController@create_cat')->name('blog_cat.create');
 
-Route::group(['middleware' => 'auth'], function () {
-	//Route::get('user', 'App\Http\Controllers\Backend\UserController', ['except' => ['show']]);
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\Backend\ProfileController@edit']);
-	Route::post('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\Backend\ProfileController@update']);
-	Route::post('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\Backend\@password']);
+        Route::get('/admin/user', 'Usercontroller@index')->name('user.index');
+        Route::get('/admin/user/edit/{user_id?}', 'Usercontroller@edit')->name('user.edit');
+        Route::get('/admin/user/delete/{user_id}', 'Usercontroller@delete')->name('user.delete');
+        Route::post('/admin/user/update', 'Usercontroller@update')->name('user.update');
+        Route::post('/admin/user/password', 'Usercontroller@password')->name('user.password');
+        Route::post('/admin/user/create', 'Usercontroller@create')->name('user.create');
+
+        //Route::get('user', 'App\Http\Controllers\Backend\UserController', ['except' => ['show']]);
+        Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\Backend\ProfileController@edit']);
+        Route::post('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\Backend\ProfileController@update']);
+        Route::post('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\Backend\@password']);
+
+    });
 });
 
 Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);

@@ -5,25 +5,35 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Stevebauman\Location\Facades\Location;
-use Jetimob\Juno\Facades\Juno;
+use Jetimob\Juno\Juno;
+use Jetimob\Juno\Lib\Model\Billing;
+use Jetimob\Juno\Lib\Model\Charge;
+use Jetimob\Juno\Lib\Http\Charge\ChargeCreationRequest;
+
 
 class CheckoutController extends Controller
 {
 
     public function index($accommodationid, $startdate = '', $enddate = '', $adults = '', $children = '', $ages = '')
     {
+
         if (Auth::check()) {
             $userid = Auth::user()->id;
-            $user = \DB::table('public.customers')
-                ->select('public.customers.*')
-                ->leftJoin('site.users', 'site.users.email', '=', 'public.customers.email')
-                ->leftJoin('avantio.booking', 'avantio.booking.customer_id', '=', 'public.customers.id')
-                ->where('site.users.id', '=', $userid)
+            $useremail = Auth::user()->email;
+            $user = Auth::user();
+            $userreservations =  \DB::table('avantio.booking_lists')
+                //TODO: puxar dados via api
+                ->select('avantio.booking_lists.*','accommodations.*')
+                ->join('site.accommodations', 'accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
+                ->join('descriptions','descriptions.AccommodationId','=','avantio.booking_lists.accommodation_code')
+                ->join('stats','stats.content_id', '=', 'avantio.booking_lists.accommodation_code')
+                ->join('rates','rates.AccommodationId','=','avantio.booking_lists.accommodation_code')
+                ->where('booking_lists.email', '=', $useremail)
                 ->get();
-        } else {
+        }else{
             $user = '';
         }
+
 
         if (isset($userid) != '') {
             $favorites = \DB::table('favorites')
@@ -86,12 +96,30 @@ class CheckoutController extends Controller
             ->inRandomOrder()
             ->get();
 
-        return view('site.checkout.index', compact('accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites'));
+        return view('site.checkout.index', compact('accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations'));
     }
 
     //filtra por data e quantidade de hospedes
     public function check_availability($accommodationid = '', $startdate = '', $enddate = '')
     {
+
+        if (Auth::check()) {
+            $userid = Auth::user()->id;
+            $useremail = Auth::user()->email;
+            $user = Auth::user();
+            $userreservations =  \DB::table('avantio.booking_lists')
+                //TODO: puxar dados via api
+                ->select('avantio.booking_lists.*','accommodations.*')
+                ->join('site.accommodations', 'accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
+                ->join('descriptions','descriptions.AccommodationId','=','avantio.booking_lists.accommodation_code')
+                ->join('stats','stats.content_id', '=', 'avantio.booking_lists.accommodation_code')
+                ->join('rates','rates.AccommodationId','=','avantio.booking_lists.accommodation_code')
+                ->where('booking_lists.email', '=', $useremail)
+                ->get();
+        }else{
+            $user = '';
+        }
+
         //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
         $today = date("Y-m-d");
         if ($startdate == '') {
@@ -123,11 +151,33 @@ class CheckoutController extends Controller
             $unavailableDates = "";
         }
 
-        return view('site.checkout.check_availability', compact('accommodationid', 'unavailableDates', 'startdate', 'enddate'));
+        return view('site.checkout.check_availability', compact('accommodationid', 'unavailableDates', 'startdate', 'enddate', 'userreservations'));
     }
 
-    public function generatebillet()
+    public function generatebillet(Request $request)
     {
-        echo Juno::request(DocumentListRequest::class, $resourceToken);
+
+        //https://github.com/jetimob/juno-sdk-php-laravel
+        //https://www.brasilnaweb.com.br/blog/cartoes-de-credito-validos-para-teste-de-sistemas/
+
+        $billing = new Billing();
+        $billing->name = $request->name;
+        $billing->document = $request->document;
+        $billing->phone = $request->phone;
+        $billing->email = $request->email;
+        $billing->notify = true;
+
+        $charge = new Charge();
+        $charge->description    = $request->description;
+        $charge->amount         = $request->amount;
+        $charge->dueDate        = Juno::formatDate(2022, 2, 25);
+
+//        $charge->maxOverdueDays = 99;
+//        $charge->fine           = 9.9;
+//        $charge->interest       = 9.9;
+
+        $response = \Juno::request(new ChargeCreationRequest($charge, $billing), '20362C74C22CB65B370C0194CBEFAFA98D4E9211E868C55BF7B6DA73ABF4D212');
+
+        echo $response;
     }
 }

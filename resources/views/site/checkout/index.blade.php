@@ -84,11 +84,47 @@
                         <h3 class="mb-15"><strong>Detalhes do preço</strong></h3>
                     </div>
                 </div>
+
+<!--                --><?php
+
+                //ultima checagem de disponibilidade
+//                try{
+//                    $client = new
+//                SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
+//                    $credentials = array(
+//                        "Language" => "EN",
+//                        "UserName" => 'GA1e659a7390',
+//                        "Password" => 'ed891d602f7a'
+//                    );
+//                    $criteria = array(
+//                        "Accommodation" => array(
+//                            "AccommodationCode" => $accommodation->AccommodationId,
+//                            "UserCode" => '836efa4efbe7fa63f2ebbae30d7b965f',
+//
+//                        ),
+//                        "Occupants" => array(
+//                            "AdultsNumber" => 2
+//                            "LoginGA" => #Company#
+//                        ),
+//                        "DateFrom" => date_format(date_create(Request::segment(3)),"d/m/y"),
+//                        "DateTo" => date_format(date_create(Request::segment(4)),"d/m/y")
+//                    );
+//                    $request = array(
+//                        "Credentials" => $credentials,
+//                        "Criteria" => $criteria
+//                    );
+//                    $result = $client->IsAvailable($request);
+//                    print_r($result);
+//                }
+//                catch(SoapFault $e){
+//                echo $e; }
+//
+//             ?>
                 <div class="row mb-30">
                     <div class="col">
                         <ul class="gap-5 texto-m">
-                            <li>R$9,41 x 7 noites</li>
-                            <li class="cor-laranja">Desconto semanal</li>
+                            <?php $noites = round((strtotime(Request::segment(4)) - strtotime(Request::segment(3)))/86400, 1); ?>
+                            <li>R$ {{$accommodation->Price}} x {{$noites}} noites</li>
                             <li>Taxa de limpeza</li>
                             <li class="mb-10">Taxa de serviço</li>
                             <li><strong>Total (BLR)</strong></li>
@@ -96,11 +132,10 @@
                     </div>
                     <div class="col grow-0">
                         <ul class="gap-5 text-end texto-m">
-                            <li>R$65,87</li>
-                            <li class="cor-laranja">-R$3,29</li>
+                            <li>R$ {{$accommodation->Price * $noites}}</li>
                             <li>R$12,55</li>
                             <li class="mb-10">R$10,61</li>
-                            <li><strong>R$85,74</strong></li>
+                            <li><strong>{{$accommodation->Price * $noites}}</strong></li>
                         </ul>
                     </div>
                 </div>
@@ -129,30 +164,36 @@
                                 </a>
                             </li>
                             <li class="campos-cartao collapse">
-                                <form class="pt-10 mb-30">
+                                <form method="post" action="{{ route('generate.billet') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}}">
+                                    <input type="hidden" name="amount" value="{{$accommodation->Price * $noites}}">
                                     <div class="form-group">
-                                        <input class="d-flex" type="text" name="" placeholder="Nome no cartão">
+                                        <input class="d-flex" type="text" name="name" placeholder="Nome no cartão">
                                     </div>
                                     <div class="form-group">
-                                        <input class="d-flex" type="text" name="" placeholder="Número do cartão">
+                                        <input class="d-flex" type="text" name="card_number" placeholder="Número do cartão">
                                     </div>
                                     <div class="form-group form-inline">
-                                        <input class="d-flex" type="text" name="" placeholder="Validade">
-                                        <input class="d-flex" type="text" name="" placeholder="CVV">
+                                        <input class="d-flex" type="text" name="card_due_date" placeholder="Validade">
+                                        <input class="d-flex" type="text" name="cvv" placeholder="CVV">
                                     </div>
                                     <h3 class="mb-10 d-block text-center texto-m">Endereço de cobrança</h3>
                                     <div class="form-group">
-                                        <input class="d-flex" type="text" name="" placeholder="Endereço">
+                                        <input class="d-flex" type="text" name="document" placeholder="CPF">
                                     </div>
                                     <div class="form-group">
-                                        <input class="d-flex" type="text" name="" placeholder="Número">
+                                        <input class="d-flex" type="text" name="street" placeholder="Endereço">
                                     </div>
                                     <div class="form-group">
-                                        <input class="d-flex" type="text" name="" placeholder="Cidade">
+                                        <input class="d-flex" type="text" name="number" placeholder="Número">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="d-flex" type="text" name="city" placeholder="Cidade">
                                     </div>
                                     <div class="form-group form-inline">
-                                        <input class="d-flex" type="text" name="" placeholder="Estado">
-                                        <input class="d-flex" type="text" name="" placeholder="Cep">
+                                        <input class="d-flex" type="text" name="estate" placeholder="Estado">
+                                        <input class="d-flex" type="text" name="zip" placeholder="Cep">
                                     </div>
                                     <button class="btn d-flex">Salvar</button>
                                 </form>
@@ -167,29 +208,9 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#!" class="row texto-marrom align-items-center">
-                                    <div class="col grow-0 pe-0">
-                                        <picture></picture>
-                                    </div>
-                                    <div class="col d-inline-flex align-self-center">
-                                        <p class="mb-0">Opção de pagamento x</p>
-                                    </div>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </div>
-{{--                <div class="row cupom-desconto collapse">--}}
-{{--                    <div class="col">--}}
-{{--                        <form class="pt-15">--}}
-{{--                            <div class="form-group">--}}
-{{--                                <input class="d-flex" type="text" name="" placeholder="Cupom de desconto">--}}
-{{--                            </div>--}}
-{{--                            <button class="btn d-flex">Salvar</button>--}}
-{{--                        </form>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
                 <div class="row mb-30 pt-15">
                     <div class="col">
                         <a href="#!" data-bs-toggle="collapse" data-bs-target=".cupom-desconto" class="btn-link texto-m px-0"><strong>Insira um cupom</strong></a>
@@ -204,28 +225,29 @@
                 <div class="row texto-m mb-15">
                     <div class="col">
                         <h4 class="texto-m"><strong>Nome</strong></h4>
-                        <p class="mb-0">Bruno Blanke Pereira</p>
+                        <p class="mb-0">{{$user->name}} {{$user->surname}}</p>
                     </div>
                 </div>
                 <div class="row texto-m mb-15">
                     <div class="col">
                         <h4 class="texto-m"><strong>Endereço</strong></h4>
-                        <p class="mb-0">Heleodoro João florindo, 155 - Barra da Lagoa, Florianópolis - SC, 88061415</p>
+                        <p class="mb-0">{{$user->street}}, {{$user->number}} - {{$user->complement ?? ''}} - {{$user->district}},
+                            {{$user->city}} - {{$user->state}}, {{$user->zip_code}}</p>
                     </div>
                 </div>
                 <div class="row texto-m mb-15">
                     <div class="col">
                         <h4 class="texto-m"><strong>Contato</strong></h4>
-                        <p class="mb-0">48 9995-65651</p>
-                        <p class="mb-0">brunoblanke@gmail.com</p>
+                        <p class="mb-0">{{$user->phone}}</p>
+                        <p class="mb-0">{{$user->email}}</p>
                     </div>
                 </div>
-                <div class="row texto-m mb-15">
-                    <div class="col">
-                        <h4 class="texto-m"><strong>Observações</strong></h4>
-                        <p class="mb-0">Pensando mais a longo prazo, a expansão dos mercados mundiais aponta para a melhoria das condições financeiras e administrativas exigidas.</p>
-                    </div>
-                </div>
+{{--                <div class="row texto-m mb-15">--}}
+{{--                    <div class="col">--}}
+{{--                        <h4 class="texto-m"><strong>Observações</strong></h4>--}}
+{{--                        <p class="mb-0">Pensando mais a longo prazo, a expansão dos mercados mundiais aponta para a melhoria das condições financeiras e administrativas exigidas.</p>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="row texto-m mb-30">
                     <div class="col">
                         <a href="pagina-editar-perfil.shtml" class="btn-link btn-p px-0"><strong>Editar dados</strong></a>

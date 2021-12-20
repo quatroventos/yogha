@@ -136,7 +136,11 @@
         })
     });
 
-
+    <?php
+    if ($unavailableDates == ''){
+        $unavailableDates = "[]";
+    }
+    ?>
     const unavailableDates = <?php echo $unavailableDates; ?>;
     new Litepicker({
         element: document.getElementById('datepicker'),

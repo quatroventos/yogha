@@ -1,3 +1,12 @@
+<?php
+//TODO: criar middleware
+$role = \Auth::user()->role_id;
+echo $role;
+
+if ($role != 1) {
+    header("Location: /");
+}
+?>
 <!--
 =========================================================
  Light Bootstrap Dashboard - v2.0.1

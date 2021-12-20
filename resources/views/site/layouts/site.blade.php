@@ -150,7 +150,7 @@
 
 <!-- ABA USUARIO USUARIO -->
 @if (Auth::check())
-    @include('site.abas.user', compact($user))
+    @include('site.abas.user', compact('user', 'userreservations'))
 @else
     @include('site.abas.login')
 @endif

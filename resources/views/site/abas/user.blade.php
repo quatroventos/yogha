@@ -6,7 +6,7 @@
         <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-usuario" class="btn btn-2 btn-ico mb-0 switch"><i class="uil uil-angle-left"></i></a>
       </div>
       <div class="col ps-0">
-        <h2 class="texto-g texto-ret"><strong>{{$user[0]->name != '' ? $user[0]->name : ''}}</strong></h2>
+        <h2 class="texto-g texto-ret"><strong>{{$user->name ?? ''}} {{$user->surname ?? ''}}</strong></h2>
       </div>
     </div>
 
@@ -15,7 +15,7 @@
 
         <div class="row">
           <div class="col col-sm-12 mb-15 pe-0 grow-0">
-            <picture class="pic-p mx-auto" style="background-image: url(img/foto-usuario.png);"></picture>
+            <picture class="pic-p mx-auto" style="background-image: url(/files/users/{{$user->profile_pic ?? ''}});"></picture>
           </div>
           <div class="col col-sm-12 mb-15 justify-content-center">
             <div class="row mx-0 text-center">
@@ -113,42 +113,28 @@
           <div class="col">
             <div class="slider slide-var texto-marrom-escuro">
               <ul class="gap-15">
-                <li class="d-flex gap-10">
-                  <a href="pagina-single-anuncio.shtml">
-                    <picture class="pic-p" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                  <div class="">
-                    <a href="pagina-single-anuncio.shtml">
-                      <h3 class="mb-5">Título do anúncio</h3>
-                      <h4 class="texto-m mb-5">Local</h4>
-                      <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> 8/10 → 9/10</h4>
-                    </a>
-                  </div>
-                </li>
-                <li class="d-flex gap-10">
-                  <a href="pagina-single-anuncio.shtml">
-                    <picture class="pic-p" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                  <div class="">
-                    <a href="pagina-single-anuncio.shtml">
-                      <h3 class="mb-5">Título do anúncio</h3>
-                      <h4 class="texto-m mb-5">Local</h4>
-                      <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> 8/10 → 9/10</h4>
-                    </a>
-                  </div>
-                </li>
-                <li class="d-flex gap-10">
-                  <a href="pagina-single-anuncio.shtml">
-                    <picture class="pic-p" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                  <div class="">
-                    <a href="pagina-single-anuncio.shtml">
-                      <h3 class="mb-5">Título do anúncio</h3>
-                      <h4 class="texto-m mb-5">Local</h4>
-                      <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> 8/10 → 9/10</h4>
-                    </a>
-                  </div>
-                </li>
+
+                  @foreach($userreservations as $accommodation)
+                      <?php
+                          $pictures = json_decode($accommodation->Pictures, true);
+                          if(isset($pictures['Picture'][0]['PreparedURI'])){
+                            $thumbnail = $pictures['Picture'][0]['ThumbnailURI'];
+                          }
+                      ?>
+
+                          <li>
+                              <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>" class="texto-marrom-escuro">
+                                  <?php if(isset($pictures['Picture'][0]['OriginalURI'])){ ?>
+                                  <picture class="mb-10" style="background-image: url(<?php echo $pictures['Picture'][0]['OriginalURI']; ?>);"></picture>
+                                  <?php } ?>
+                                  <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
+                                  <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$accommodation->District}}</strong>/noite</h4>
+                                  <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> 8/10 → 9/10</h4>
+                              </a>
+                          </li>
+
+                  @endforeach
+
               </ul>
             </div>
           </div>
