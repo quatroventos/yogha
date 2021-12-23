@@ -17,6 +17,7 @@ class CheckoutController extends Controller
 
     public function index($accommodationid, $startdate = '', $enddate = '', $adults = '', $children = '', $ages = '')
     {
+        $today = date("Y-m-d");
 
         if (Auth::check()) {
             $userid = Auth::user()->id;
@@ -31,9 +32,19 @@ class CheckoutController extends Controller
                 ->join('rates','rates.AccommodationId','=','avantio.booking_lists.accommodation_code')
                 ->where('booking_lists.email', '=', $useremail)
                 ->get();
+            $userfuturereservations =  \DB::table('avantio.booking_lists')
+                //TODO: puxar dados via api
+                ->select('avantio.booking_lists.*','site.accommodations.*', 'site.descriptions.*', 'site.localizations.*')
+                ->join('site.accommodations', 'site.accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
+                ->join('site.descriptions','site.descriptions.AccommodationId','=','accommodations.AccommodationId')
+                ->join('site.localizations','site.localizations.AccommodationId','=','accommodations.AccommodationId')
+                ->where('booking_lists.email', '=', $useremail)
+                ->where('booking_lists.start_date', '>', $today)
+                ->get();
         }else{
             $user = '';
             $userreservations = '';
+            $userfuturereservations = '';
         }
 
 
@@ -98,7 +109,7 @@ class CheckoutController extends Controller
             ->inRandomOrder()
             ->get();
 
-        return view('site.checkout.index', compact('accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations'));
+        return view('site.checkout.index', compact('accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations'));
     }
 
     //filtra por data e quantidade de hospedes

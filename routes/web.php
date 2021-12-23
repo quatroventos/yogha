@@ -48,7 +48,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
         Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\Backend\ProfileController@edit']);
 
-        Route::get('/user/delete/{user_id}', 'Usercontroller@delete')->name('user.delete');
+        Route::get('/user/delete/{user_id}', 'Usercontroller@delete')->name('frontend.user.delete');
         Route::post('/user/update', 'Usercontroller@update')->name('frontend.user.update');
         Route::post('/user/password', 'Usercontroller@password')->name('frontend.user.password');
 
@@ -73,7 +73,7 @@ Route::namespace('App\Http\Controllers\Backend')->group(function() {
         Route::get('/admin/services/update', 'ServicesController@update')->name('service.update');
         Route::post('/admin/services/create', 'ServicesController@create')->name('service.create');
 
-        Route::get('/admin/blog', 'BlogController@index')->name('blog');
+        Route::get('/admin/blog', 'BlogController@index')->name('blog.index');
         Route::get('/admin/blog/edit', 'BlogController@edit')->name('blog.edit');
         Route::get('/admin/blog/update', 'BlogController@update')->name('blog.update');
         Route::post('/admin/blog/create', 'BlogController@create')->name('blog.create');

@@ -65,12 +65,14 @@
               <ul class="gap-15">
                   @foreach($userfuturereservations as $accommodation)
                       <?php
+                      if($accommodation->Pictures != ''){
                       $pictures = json_decode($accommodation->Pictures, true);
-                      if(isset($pictures['Picture']['AdaptedURI'])){
-                          $thumbnail = $pictures['Picture']['AdaptedURI'];
-                      }else{
+                          if(isset($pictures['Picture']['AdaptedURI'])){
+                              $thumbnail = $pictures['Picture']['AdaptedURI'];
+                          }else{
                               $thumbnail = "";
                           }
+                      }
                       ?>
 
                       <li class="d-flex gap-10">
@@ -103,12 +105,14 @@
               <ul class="gap-15">
                   @foreach($userreservations as $accommodation)
                       <?php
+                      if(isset($accommodation->Pictures) != ''){
                           $pictures = json_decode($accommodation->Pictures, true);
                           if(isset($pictures['Picture']['AdaptedURI'])){
                               $thumbnail = $pictures['Picture']['AdaptedURI'];
                           }else{
                               $thumbnail = "";
                           }
+                      }
                       ?>
 
                           <li class="d-flex gap-10">
@@ -118,7 +122,7 @@
                               <div class="">
                                   <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>">
                                       <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
-                                      <h4 class="texto-m mb-5"><?php echo $accommodation->District; ?></h4>
+                                      <h4 class="texto-m mb-5">{{$accommodation->District ?? ''}}</h4>
                                       <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> {{date_format(date_create($accommodation->start_date),"d/m/y ")}} → {{date_format(date_create($accommodation->end_date),"d/m/y ")}}</h4>
                                   </a>
                               </div>
