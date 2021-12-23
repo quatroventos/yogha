@@ -94,10 +94,10 @@
         </div>
 
         @if(isset($user))
-            <form method="post" action="{{ route('user.update') }}" autocomplete="off" enctype="multipart/form-data">
+            <form method="post" action="{{ route('frontend.user.update') }}" autocomplete="off" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="{{$user->id}}">
         @else
-            <form method="post" action="{{ route('user.create') }}" autocomplete="off" enctype="multipart/form-data">
+            <form method="post" action="{{ route('frontend.user.create') }}" autocomplete="off" enctype="multipart/form-data">
         @endif
         @csrf
 
@@ -113,8 +113,8 @@
                 <div class="col col-sm-6">
                     <div class="form-group form-inline justify-content-center gap-0">
                         <input type="file" class="image" name="profile_pic" class="form-control-file">
-                        <input type="text" name="oldfile" value="{{$user->profile_pic ??  old('profile_pic') }}">
-                        <input type="text" name="imageBlob" id="imageBlob">
+                        <input type="hidden" name="oldfile" value="{{$user->profile_pic ??  old('profile_pic') }}">
+                        <input type="hidden" name="imageBlob" id="imageBlob">
                     </div>
                 </div>
             </div>
@@ -221,14 +221,23 @@
                         </select>
                         @include('admin.alerts.feedback', ['field' => 'city'])
                     </div>
+
+                    <div class="row justify-content-center mb-15">
+                        <div class="col col-sm-5">
+                            <button type="submit" class="btn d-flex">Salvar dados</button>
+                        </div>
+                    </div>
                 </div>
+
             </div>
-
+            </form>
             <hr class="mb-30">
-
+            <form method="post" action="{{ route('frontend.user.password') }}" autocomplete="off" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{$user->id}}">
+                @csrf
             <div class="row justify-content-center mb-15">
                 <div class="col col-sm-6">
-                    <h3><strong>Senha</strong></h3>
+                    <h3><strong>Alterar Senha</strong></h3>
                 </div>
             </div>
             <div class="row justify-content-center mb-30">
@@ -252,7 +261,7 @@
 
             <div class="row justify-content-center mb-15">
                 <div class="col col-sm-5">
-                    <button type="submit" class="btn d-flex">Salvar</button>
+                    <button type="submit" class="btn d-flex">Salvar nova senha</button>
                 </div>
             </div>
 
@@ -321,8 +330,8 @@
 
     $("#crop").click(function(){
         canvas = cropper.getCroppedCanvas({
-            width: 160,
-            height: 160,
+            width: 450,
+            height: 450,
         });
         canvas.toBlob(function(blob) {
             url = URL.createObjectURL(blob);

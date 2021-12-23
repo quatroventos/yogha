@@ -49,8 +49,8 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
         Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\Backend\ProfileController@edit']);
 
         Route::get('/user/delete/{user_id}', 'Usercontroller@delete')->name('user.delete');
-        Route::post('/user/update', 'Usercontroller@update')->name('user.update');
-        Route::post('/user/password', 'Usercontroller@password')->name('user.password');
+        Route::post('/user/update', 'Usercontroller@update')->name('frontend.user.update');
+        Route::post('/user/password', 'Usercontroller@password')->name('frontend.user.password');
 
     });
 });

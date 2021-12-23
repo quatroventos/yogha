@@ -319,8 +319,8 @@
         });
         $("#crop").click(function(){
             canvas = cropper.getCroppedCanvas({
-                width: 160,
-                height: 160,
+                width: 450,
+                height: 450,
             });
             canvas.toBlob(function(blob) {
                 url = URL.createObjectURL(blob);
