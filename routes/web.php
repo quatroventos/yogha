@@ -31,13 +31,28 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/blog/{category}/{slug}', 'BlogController@category')->name('blog.category');
     Route::get('/blog/{slug}', 'BlogController@post')->name('blog.post');
     Route::get('/blog', 'BlogController@index')->name('blog');
-    //checkout
-    Route::get('/checkout/{accommodationid}/{startdate}/{enddate}/{adults?}/{children?}/{ages?}', 'CheckoutController@index')->name('checkout');
-    Route::get('/check_availability/{accommodationid}', 'CheckoutController@check_availability');
-    Route::post('/checkout/boleto', 'CheckoutController@generatebillet')->name('generate.billet');
-    //favorites
-    Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@fav');
-    //Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@unfav');
+
+    Route::post('/user/create', 'Usercontroller@create')->name('frontend.user.create');
+    Route::get('/user/edit/{user_id?}', 'Usercontroller@edit')->name('frontend.user.edit');
+
+    Route::group(['middleware' => 'auth'], function () {
+        //checkout
+        Route::get('/checkout/{accommodationid}/{startdate}/{enddate}/{adults?}/{children?}/{ages?}', 'CheckoutController@index')->name('checkout');
+        Route::get('/check_availability/{accommodationid}', 'CheckoutController@check_availability');
+        Route::post('/checkout/billet', 'CheckoutController@generatebillet')->name('generate.billet');
+        Route::post('/checkout/pix', 'CheckoutController@generatepix')->name('generate.pix');
+        Route::post('/checkout/card', 'CheckoutController@generatecard')->name('generate.card');
+        //favorites
+        Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@fav');
+        Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@unfav');
+
+        Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\Backend\ProfileController@edit']);
+
+        Route::get('/user/delete/{user_id}', 'Usercontroller@delete')->name('user.delete');
+        Route::post('/user/update', 'Usercontroller@update')->name('user.update');
+        Route::post('/user/password', 'Usercontroller@password')->name('user.password');
+
+    });
 });
 
 

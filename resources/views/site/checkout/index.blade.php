@@ -147,78 +147,6 @@
                 <hr class="mb-30">
                 <div class="row">
                     <div class="col">
-                        <h3 class="mb-15"><strong>Pagar com</strong></h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <ul class="gap-10">
-                            <li>
-                                <a href="#!" data-bs-toggle="collapse" data-bs-target=".campos-cartao" class="row texto-marrom align-items-center">
-                                    <div class="col grow-0 pe-0">
-                                        <picture></picture>
-                                    </div>
-                                    <div class="col">
-                                        <p class="mb-0">Cartão de crédito</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="campos-cartao collapse">
-                                <form method="post" action="{{ route('generate.billet') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}}">
-                                    <input type="hidden" name="amount" value="{{$accommodation->Price * $noites}}">
-                                    <div class="form-group">
-                                        <input class="d-flex" type="text" name="name" placeholder="Nome no cartão">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="d-flex" type="text" name="card_number" placeholder="Número do cartão">
-                                    </div>
-                                    <div class="form-group form-inline">
-                                        <input class="d-flex" type="text" name="card_due_date" placeholder="Validade">
-                                        <input class="d-flex" type="text" name="cvv" placeholder="CVV">
-                                    </div>
-                                    <h3 class="mb-10 d-block text-center texto-m">Endereço de cobrança</h3>
-                                    <div class="form-group">
-                                        <input class="d-flex" type="text" name="document" placeholder="CPF">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="d-flex" type="text" name="street" placeholder="Endereço">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="d-flex" type="text" name="number" placeholder="Número">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="d-flex" type="text" name="city" placeholder="Cidade">
-                                    </div>
-                                    <div class="form-group form-inline">
-                                        <input class="d-flex" type="text" name="estate" placeholder="Estado">
-                                        <input class="d-flex" type="text" name="zip" placeholder="Cep">
-                                    </div>
-                                    <button class="btn d-flex">Salvar</button>
-                                </form>
-                            </li>
-                            <li>
-                                <a href="#!" class="row texto-marrom align-items-center">
-                                    <div class="col grow-0 pe-0">
-                                        <picture></picture>
-                                    </div>
-                                    <div class="col d-inline-flex align-self-center">
-                                        <p class="mb-0">Boleto bancário</p>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row mb-30 pt-15">
-                    <div class="col">
-                        <a href="#!" data-bs-toggle="collapse" data-bs-target=".cupom-desconto" class="btn-link texto-m px-0"><strong>Insira um cupom</strong></a>
-                    </div>
-                </div>
-                <hr class="mb-30">
-                <div class="row">
-                    <div class="col">
                         <h3 class="mb-15"><strong>Dado pessoais</strong></h3>
                     </div>
                 </div>
@@ -242,12 +170,6 @@
                         <p class="mb-0">{{$user->email}}</p>
                     </div>
                 </div>
-{{--                <div class="row texto-m mb-15">--}}
-{{--                    <div class="col">--}}
-{{--                        <h4 class="texto-m"><strong>Observações</strong></h4>--}}
-{{--                        <p class="mb-0">Pensando mais a longo prazo, a expansão dos mercados mundiais aponta para a melhoria das condições financeiras e administrativas exigidas.</p>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
                 <div class="row texto-m mb-30">
                     <div class="col">
                         <a href="pagina-editar-perfil.shtml" class="btn-link btn-p px-0"><strong>Editar dados</strong></a>
@@ -288,6 +210,108 @@
                         <p class="mb-0">Sua reserva ficará confirmada no momento e terá um débito no seu cartão de crédito pelo montante do depósito de confirmação. Para a sua tranquilidade, a operação realiza-se de forma segura através de uma via de pagamento bancária.</p>
                     </div>
                 </div>
+
+                <hr class="mb-30">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="mb-15"><strong>Pagar com</strong></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <ul class="gap-10">
+                            <li>
+                                <a href="#!" data-bs-toggle="collapse" data-bs-target=".campos-cartao" class="row texto-marrom align-items-center">
+                                    <div class="col grow-0 pe-0">
+                                        <picture></picture>
+                                    </div>
+                                    <div class="col">
+                                        <p class="mb-0">Cartão de crédito</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="campos-cartao collapse">
+                                <form method="post" action="{{ route('generate.card') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}}">
+                                    <input type="hidden" name="amount" value="{{$accommodation->Price * $noites}}">
+                                    <div class="form-group">
+                                        <input class="d-flex" type="text" name="name" placeholder="Nome no cartão">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="d-flex" type="text" name="card_number" placeholder="Número do cartão">
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <input class="d-flex" type="text" name="card_due_date" placeholder="Validade">
+                                        <input class="d-flex" type="text" name="cvv" placeholder="CVV">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="d-flex" type="text" name="document" placeholder="CPF">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="d-flex" type="text" name="email" placeholder="E-mail" value="{{$user->email}}">
+                                    </div>
+                                    <button type="submit" class="btn d-flex switch">Pagar com cartão</button>
+                                </form>
+                            </li>
+
+                            <li>
+                                <a href="#!" data-bs-toggle="collapse"  data-bs-target=".campos-boleto" class="row texto-marrom align-items-center">
+                                    <div class="col grow-0 pe-0">
+                                        <picture></picture>
+                                    </div>
+                                    <div class="col">
+                                        <p class="mb-0">Boleto</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="campos-boleto collapse">
+                                <form method="post" action="{{ route('generate.billet') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}} para {{$hospedes}} pessoas.">
+                                    <input type="hidden" name="amount" value="{{$accommodation->Price * $noites}}">
+                                    <input type="hidden" name="name" value="{{$user->name}} {{$user->surname}}">
+                                    <input type="hidden" name="paymenttype" value="BOLETO">
+                                    <div class="form-group">
+                                        <input class="d-flex" type="text" name="document" placeholder="CPF">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="d-flex" type="text" name="email" placeholder="E-mail de cobrança" value="{{$user->email}}">
+                                    </div>
+                                    <button type="submit" class="btn d-flex switch">Pagar com boleto</button>
+                                </form>
+                            </li>
+
+                            <li>
+                                <a href="#!" data-bs-toggle="collapse"  data-bs-target=".campos-boleto" class="row texto-marrom align-items-center">
+                                    <div class="col grow-0 pe-0">
+                                        <picture></picture>
+                                    </div>
+                                    <div class="col">
+                                        <p class="mb-0">Boleto Pix</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="campos-boleto collapse">
+                                <form method="post" action="{{ route('generate.pix') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}} para {{$hospedes}} pessoas.">
+                                    <input type="hidden" name="amount" value="{{$accommodation->Price * $noites}}">
+                                    <input type="hidden" name="name" value="{{$user->name}} {{$user->surname}}">
+                                    <input type="hidden" name="paymenttype" value="BOLETO">
+                                    <div class="form-group">
+                                        <input class="d-flex" type="text" name="document" placeholder="CPF">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="d-flex" type="text" name="email" placeholder="E-mail de cobrança" value="{{$user->email}}">
+                                    </div>
+                                    <button type="submit" class="btn d-flex switch">Pagar com boleto</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div><br>
+
                 <hr class="mb-30">
                 <div class="row texto-m mb-15">
                     <div class="col">
@@ -296,9 +320,10 @@
                 </div>
                 <div class="row mb-15 justify-content-center">
                     <div class="col col-sm-5">
-                        <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-usuario" aria-expanded="false" class="btn d-flex switch">Reservar</a>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

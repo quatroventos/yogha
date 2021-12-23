@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Jetimob\Juno\Juno;
 use Jetimob\Juno\Lib\Model\Billing;
@@ -32,6 +33,7 @@ class CheckoutController extends Controller
                 ->get();
         }else{
             $user = '';
+            $userreservations = '';
         }
 
 
@@ -118,6 +120,7 @@ class CheckoutController extends Controller
                 ->get();
         }else{
             $user = '';
+            $userreservations = '';
         }
 
         //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
@@ -154,30 +157,217 @@ class CheckoutController extends Controller
         return view('site.checkout.check_availability', compact('accommodationid', 'unavailableDates', 'startdate', 'enddate', 'userreservations'));
     }
 
-    public function generatebillet(Request $request)
+    public function generatecard(Request $request)
     {
 
-        //https://github.com/jetimob/juno-sdk-php-laravel
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://staging.ebanx.com.br/ws/direct',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_POSTFIELDS => '{
+                "integration_key": "7d8415bc1a9e2adb27935c16c6cd63719ba14173b92ac7a4fb5eaca47b56a87444e24ba24ca2a979bc25d91d3fecc96fa6a5",
+                "operation": "request",
+                "payment": {
+                    "name": "'.$request->name.'",
+                    "email": "'.$request->email.'",
+                    "document": "'.$request->document.'",
+                    "address": "'.$request->address.'",
+                    "street_number": "'.$request->number.'",
+                    "city": "'.$request->city.'",
+                    "state": "'.$request->state.'",
+                    "zipcode": "'.$request->zip_code.'",
+                    "country": "'.$request->country.'",
+                    "phone_number": "'.$request->phone.'",
+                    "payment_type_code": "creditcard",
+                    "merchant_payment_code": "3ad1f4096a2",
+                    "currency_code": "BRL",
+                    "instalments": '.$request->instalments.',
+                    "amount_total": '.$request->amount.',
+                    "creditcard": {
+                        "card_number": "'.$request->card_number.'",
+                        "card_name": "'.$request->card_name.'",
+                        "card_due_date": "'.$request->card_duetade.'",
+                        "card_cvv": "'.$request->card_cvv.'"
+                    }
+                }
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Cookie: AWSALB=bTEFJt7TM+9Z2QowvT6swovaMNKEnSxBcgyaIgTW3Q51hY5bWz/uyh29iIxLB7AAi7EY/iHHEQJTergBFJHl0kpyMteBuBfDj//5F6jR8C4juSyFa4HfA85/mKPY; AWSALBCORS=bTEFJt7TM+9Z2QowvT6swovaMNKEnSxBcgyaIgTW3Q51hY5bWz/uyh29iIxLB7AAi7EY/iHHEQJTergBFJHl0kpyMteBuBfDj//5F6jR8C4juSyFa4HfA85/mKPY'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+
+    }
+    public function generatebillet(Request $request)
+    {
         //https://www.brasilnaweb.com.br/blog/cartoes-de-credito-validos-para-teste-de-sistemas/
 
-        $billing = new Billing();
-        $billing->name = $request->name;
-        $billing->document = $request->document;
-        $billing->phone = $request->phone;
-        $billing->email = $request->email;
-        $billing->notify = true;
+        $curl = curl_init();
 
-        $charge = new Charge();
-        $charge->description    = $request->description;
-        $charge->amount         = $request->amount;
-        $charge->dueDate        = Juno::formatDate(2022, 2, 25);
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://sandbox.boletobancario.com/authorization-server/oauth/token',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Basic WGRzR0J3VFJPbTAyT3RPMjo4JUEyS19DOigob3trLn47e3MjdUh8cDUmOFVbNWt7Iw==',
+                'Content-Type: application/x-www-form-urlencoded',
+                'Cookie: AWSALBTG=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY=; AWSALBTGCORS=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY='
+            ),
+        ));
 
-//        $charge->maxOverdueDays = 99;
-//        $charge->fine           = 9.9;
-//        $charge->interest       = 9.9;
+        $response = curl_exec($curl);
 
-        $response = \Juno::request(new ChargeCreationRequest($charge, $billing), '20362C74C22CB65B370C0194CBEFAFA98D4E9211E868C55BF7B6DA73ABF4D212');
+        curl_close($curl);
+        $authBearerArray = json_decode($response);
 
+        $authBearer = $authBearerArray->access_token;
+        $duedate = Carbon::now()->addDays(5)->format('Y-m-d');
+        $birthday = implode('-', array_reverse(explode('/', $request->birthday)));
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://sandbox.boletobancario.com/api-integration/charges',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>'{
+                "charge": {
+                "description": "'.$request->description.'",
+
+                "references": [
+                    "A vista"
+                ],
+                "amount": '.$request->amount.',
+                "dueDate": "'.$duedate.'",
+                "installments": 1,
+                "maxOverdueDays": 10,
+                "fine": "1.00",
+                "interest": "2.00",
+                "discountAmount": "0",
+                "discountDays": 0,
+                "paymentTypes": [
+                    "BOLETO"
+                ],
+                "paymentAdvance": false
+                },
+                "billing": {
+                    "name": "'.$request->name.'",
+                    "document": "'.$request->document.'",
+                    "email": "'.$request->email.'",
+                    "birthDate": "'.$request->birthdate.'",
+                    "notify": true
+                }
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'X-Api-Version: 2',
+                'X-Resource-Token: 6208E5469C507A8BA724994B4E5D5DB1E255775316D87C510AAB5FC0E850DEF2',
+                'Authorization: Bearer '.$authBearer,
+                'Content-Type: application/json',
+                'Cookie: AWSALBTG=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY=; AWSALBTGCORS=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY='
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $info = curl_getinfo($curl);
+        print_r($info);
+
+        $response = json_decode($response);
+
+        echo  "<pre>";
+            print_r($response);
+        echo  "</pre>";
+
+        if($info['http_code'] == 200){
+            echo "ok!";
+        }else{
+            echo $response->details[0]->message;
+        }
+
+        curl_close($curl);
+
+    }
+
+    public function generatepix(Request $request)
+    {
+        //https://www.brasilnaweb.com.br/blog/cartoes-de-credito-validos-para-teste-de-sistemas/
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://sandbox.boletobancario.com/authorization-server/oauth/token',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Basic WGRzR0J3VFJPbTAyT3RPMjo4JUEyS19DOigob3trLn47e3MjdUh8cDUmOFVbNWt7Iw==',
+                'Content-Type: application/x-www-form-urlencoded',
+                'Cookie: AWSALBTG=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY=; AWSALBTGCORS=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY='
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        $authBearerArray = json_decode($response);
+
+        $authBearer = $authBearerArray->access_token;
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://sandbox.boletobancario.com/api-integration/pix/keys',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+            "type": "RANDOM_KEY"
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'X-Api-Version: 2',
+                'X-Resource-Token: 6208E5469C507A8BA724994B4E5D5DB1E255775316D87C510AAB5FC0E850DEF2',
+                'Authorization: Bearer '.$authBearer,
+                'Content-Type: application/json',
+                'Cookie: AWSALBTG=jd3KOErEt5wkoKB4dmSD3pwVV+MV33KuQW79pNS2Y59QaVLBU+F69SwTuNrpQZh+OLZbu8MxpOS1mmH58JYQuLjFR8EGPAUZxPtUCY887Y+tH0TypIjIp+0y6/roOvwZKY9mkqR3EuRDY7qF9a2Znrz6t9L+q8TK1p0rc1hAOBvxYnlU0HM=; AWSALBTGCORS=jd3KOErEt5wkoKB4dmSD3pwVV+MV33KuQW79pNS2Y59QaVLBU+F69SwTuNrpQZh+OLZbu8MxpOS1mmH58JYQuLjFR8EGPAUZxPtUCY887Y+tH0TypIjIp+0y6/roOvwZKY9mkqR3EuRDY7qF9a2Znrz6t9L+q8TK1p0rc1hAOBvxYnlU0HM='
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
         echo $response;
+
+
     }
 }

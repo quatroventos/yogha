@@ -150,7 +150,7 @@
 
                                         @if(!isset($user))
                                         <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
-                                            <label class="form-control-label" for="complement">Senha</label>
+                                            <label class="form-control-label" for="password">Senha</label>
                                             <input type="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Senha" value="{{ old('password') }}" required >
                                             @include('admin.alerts.feedback', ['field' => 'password'])
                                         </div>
@@ -241,7 +241,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Laravel Cropper Js - Crop Image Before Upload - Tutsmake.com</h5>
+                    <h5 class="modal-title" id="modalLabel"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -329,6 +329,7 @@
                 reader.onloadend = function() {
                     var base64data = reader.result;
                     $('#imageBlob').val(base64data);
+                    alert(base64data)
                     $modal.modal('hide');
                 }
             });

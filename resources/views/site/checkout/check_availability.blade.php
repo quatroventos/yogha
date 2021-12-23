@@ -141,14 +141,36 @@
         $unavailableDates = "[]";
     }
     ?>
+
+    var currentDate = new Date()
+    var day = currentDate.getDate()
+    var month = currentDate.getMonth() + 1
+    var year = currentDate.getFullYear()
+    var today = year + "-" + month + "-" + day
+
     const unavailableDates = <?php echo $unavailableDates; ?>;
-    new Litepicker({
+    var picker = new Litepicker({
         element: document.getElementById('datepicker'),
-        inlineMode: true,
+        format: 'DD/MM/YYYY',
+        disallowLockDaysInRange: true,
+        allowRepick: true,
+        inlineMode: false,
         singleMode: false,
         lockDays: unavailableDates,
+        minDate: today,
         numberOfColumns: 2,
-        numberOfMonths: 2
+        numberOfMonths: 2,
+        tooltipText: {
+            one: ' noite',
+            other: 'noites'
+        },
+        tooltipNumber: (totalDays) => {
+            return totalDays - 1;
+        }
+    });
+    picker.on('selected', (date1, date2) => {
+        $('#startdate').val(date1.format('YYYY-MM-DD'));
+        $('#enddate').val(date2.format('YYYY-MM-DD'));
     });
 
 

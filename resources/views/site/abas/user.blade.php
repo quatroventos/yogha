@@ -20,24 +20,24 @@
           <div class="col col-sm-12 mb-15 justify-content-center">
             <div class="row mx-0 text-center">
               <div class="col px-0">
-                <h3><strong>99</strong></h3>
+                <h3><strong>{{count($userreservations)}}</strong></h3>
                 <p class="texto-p mb-0">Viagens</p>
               </div>
               <div class="col px-0">
-                <h3><strong>99</strong></h3>
+                <h3><strong>{{count($userfuturereservations)}}</strong></h3>
                 <p class="texto-p mb-0">Reservas</p>
               </div>
-              <div class="col px-0">
-                <h3><strong>99</strong></h3>
-                <p class="texto-p mb-0">Avaliações</p>
-              </div>
+{{--              <div class="col px-0">--}}
+{{--                <h3><strong>99</strong></h3>--}}
+{{--                <p class="texto-p mb-0">Avaliações</p>--}}
+{{--              </div>--}}
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col col-sm-12">
             <div class="form-group form-inline">
-              <a href="pagina-editar-perfil.shtml" class="btn btn-p">Editar perfil</a>
+              <a href="user/edit/{{$user->id}}" class="btn btn-p">Editar perfil</a>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
@@ -63,42 +63,30 @@
           <div class="col">
             <div class="slider slide-var texto-marrom-escuro">
               <ul class="gap-15">
-                <li class="d-flex gap-10">
-                  <a href="pagina-single-anuncio.shtml">
-                    <picture class="pic-p" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                  <div class="">
-                    <a href="pagina-single-anuncio.shtml">
-                      <h3 class="mb-5">Título do anúncio</h3>
-                      <h4 class="texto-m mb-5">Local</h4>
-                      <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> 8/10 → 9/10</h4>
-                    </a>
-                  </div>
-                </li>
-                <li class="d-flex gap-10">
-                  <a href="pagina-single-anuncio.shtml">
-                    <picture class="pic-p" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                  <div class="">
-                    <a href="pagina-single-anuncio.shtml">
-                      <h3 class="mb-5">Título do anúncio</h3>
-                      <h4 class="texto-m mb-5">Local</h4>
-                      <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> 8/10 → 9/10</h4>
-                    </a>
-                  </div>
-                </li>
-                <li class="d-flex gap-10">
-                  <a href="pagina-single-anuncio.shtml">
-                    <picture class="pic-p" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                  <div class="">
-                    <a href="pagina-single-anuncio.shtml">
-                      <h3 class="mb-5">Título do anúncio</h3>
-                      <h4 class="texto-m mb-5">Local</h4>
-                      <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> 8/10 → 9/10</h4>
-                    </a>
-                  </div>
-                </li>
+                  @foreach($userfuturereservations as $accommodation)
+                      <?php
+                      $pictures = json_decode($accommodation->Pictures, true);
+                      if(isset($pictures['Picture']['AdaptedURI'])){
+                          $thumbnail = $pictures['Picture']['AdaptedURI'];
+                      }else{
+                              $thumbnail = "";
+                          }
+                      ?>
+
+                      <li class="d-flex gap-10">
+                          <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>">
+                              <picture class="pic-p" style="background-image: url({{$thumbnail ?? ''}});"></picture>
+                          </a>
+                          <div class="">
+                              <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>">
+                                  <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
+                                  <h4 class="texto-m mb-5"><?php echo $accommodation->District; ?></h4>
+                                  <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> {{date_format(date_create($accommodation->start_date),"d/m/y ")}} → {{date_format(date_create($accommodation->end_date),"d/m/y ")}}</h4>
+                              </a>
+                          </div>
+                      </li>
+
+                  @endforeach
               </ul>
             </div>
           </div>
@@ -113,24 +101,27 @@
           <div class="col">
             <div class="slider slide-var texto-marrom-escuro">
               <ul class="gap-15">
-
                   @foreach($userreservations as $accommodation)
                       <?php
                           $pictures = json_decode($accommodation->Pictures, true);
-                          if(isset($pictures['Picture'][0]['PreparedURI'])){
-                            $thumbnail = $pictures['Picture'][0]['ThumbnailURI'];
+                          if(isset($pictures['Picture']['AdaptedURI'])){
+                              $thumbnail = $pictures['Picture']['AdaptedURI'];
+                          }else{
+                              $thumbnail = "";
                           }
                       ?>
 
-                          <li>
-                              <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>" class="texto-marrom-escuro">
-                                  <?php if(isset($pictures['Picture'][0]['OriginalURI'])){ ?>
-                                  <picture class="mb-10" style="background-image: url(<?php echo $pictures['Picture'][0]['OriginalURI']; ?>);"></picture>
-                                  <?php } ?>
-                                  <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
-                                  <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$accommodation->District}}</strong>/noite</h4>
-                                  <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> 8/10 → 9/10</h4>
+                          <li class="d-flex gap-10">
+                              <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>">
+                                  <picture class="pic-p" style="background-image: url({{$thumbnail ?? ''}});"></picture>
                               </a>
+                              <div class="">
+                                  <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>">
+                                      <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
+                                      <h4 class="texto-m mb-5"><?php echo $accommodation->District; ?></h4>
+                                      <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> {{date_format(date_create($accommodation->start_date),"d/m/y ")}} → {{date_format(date_create($accommodation->end_date),"d/m/y ")}}</h4>
+                                  </a>
+                              </div>
                           </li>
 
                   @endforeach
@@ -139,12 +130,12 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <h3 class="mb-5"><strong>Não encontra sua reserva?</strong></h3>
-            <a href="#!" data-bs-toggle="collapse" data-bs-target=".localizador" class="btn-link btn-p px-0"><strong>Procure pelo localizador</strong></a>
-          </div>
-        </div>
+{{--        <div class="row">--}}
+{{--          <div class="col">--}}
+{{--            <h3 class="mb-5"><strong>Não encontra sua reserva?</strong></h3>--}}
+{{--            <a href="#!" data-bs-toggle="collapse" data-bs-target=".localizador" class="btn-link btn-p px-0"><strong>Procure pelo localizador</strong></a>--}}
+{{--          </div>--}}
+{{--        </div>--}}
         <div class="row localizador collapse">
           <div class="col">
             <form>

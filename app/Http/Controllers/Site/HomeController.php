@@ -22,6 +22,7 @@ class HomeController extends Controller
 
         //session()->forget('accommodations.recent');
         //die();
+        $today = date("Y-m-d");
 
         if (Auth::check()) {
             $userid = Auth::user()->id;
@@ -29,20 +30,30 @@ class HomeController extends Controller
             $user = Auth::user();
             $userreservations =  \DB::table('avantio.booking_lists')
                 //TODO: puxar dados via api
-                ->select('avantio.booking_lists.*','accommodations.*')
-                ->join('site.accommodations', 'accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
-                ->join('descriptions','descriptions.AccommodationId','=','avantio.booking_lists.accommodation_code')
-                ->join('stats','stats.content_id', '=', 'avantio.booking_lists.accommodation_code')
-                ->join('rates','rates.AccommodationId','=','avantio.booking_lists.accommodation_code')
+                ->select('avantio.booking_lists.*','site.accommodations.*', 'site.descriptions.*', 'site.localizations.*')
+                ->join('site.accommodations', 'site.accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
+                ->join('site.descriptions','site.descriptions.AccommodationId','=','accommodations.AccommodationId')
+                ->join('site.localizations','site.localizations.AccommodationId','=','accommodations.AccommodationId')
                 ->where('booking_lists.email', '=', $useremail)
+                ->where('booking_lists.start_date', '<', $today)
                 ->get();
+
+            $userfuturereservations =  \DB::table('avantio.booking_lists')
+                //TODO: puxar dados via api
+                ->select('avantio.booking_lists.*','site.accommodations.*', 'site.descriptions.*', 'site.localizations.*')
+                ->join('site.accommodations', 'site.accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
+                ->join('site.descriptions','site.descriptions.AccommodationId','=','accommodations.AccommodationId')
+                ->join('site.localizations','site.localizations.AccommodationId','=','accommodations.AccommodationId')
+                ->where('booking_lists.email', '=', $useremail)
+                ->where('booking_lists.start_date', '>', $today)
+                ->get();
+            //dd($userfuturereservations);
+
         }else{
             $user = '';
+            $userreservations = '';
+            $userfuturereservations = '';
         }
-
-        echo "<pre>";
-            print_r($userreservations);
-        echo "</pre>";
 
 
         //descontos exclusivos (ordena pelo preço mais baixo)
@@ -134,6 +145,6 @@ class HomeController extends Controller
         $position = Location::get('178.132.95.179');
 
 
-        return view('site.home.index', compact('accommodations', 'shelves', 'position', 'recently_viewed', 'surpriseme', 'user', 'mostvisited', 'discount', 'populardistricts', 'favorites', 'userreservations'));
+        return view('site.home.index', compact('accommodations', 'shelves', 'position', 'recently_viewed', 'surpriseme', 'user', 'mostvisited', 'discount', 'populardistricts', 'favorites', 'userreservations', 'userfuturereservations'));
     }
 }
