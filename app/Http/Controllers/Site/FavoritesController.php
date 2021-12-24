@@ -21,4 +21,10 @@ class FavoritesController extends Controller
 
         return true;
     }
+
+    protected function unfav($accommodationid, $userid)
+    {
+        Favorites::where('user_id',$userid)->where('accommodation_id',$accommodationid)->delete();
+        return true;
+    }
 }

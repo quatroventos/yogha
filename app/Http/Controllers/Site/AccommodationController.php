@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Favorites;
 use App\Models\Services;
 use App\Models\Stats;
 use Illuminate\Http\Request;
@@ -30,6 +31,14 @@ class AccommodationController extends Controller
         }
         if($enddate == '') {
             $enddate = date('Y-m-d', strtotime($today. ' + 2 days'));
+        }
+
+        $isfav = 0;
+        if(auth()->id() != null) {
+            $favorites = Favorites::where('user_id', auth()->id())->where('accommodation_id', $accommodationid)->get();
+            if(count($favorites)){
+                $isfav = 1;
+            }
         }
 
         $accommodation = \DB::table('accommodations')
@@ -76,7 +85,7 @@ class AccommodationController extends Controller
             $totalcamas += $features['Distribution']['KingBeds'];
         }
 
-        return view('site.accommodation.index', compact('accommodation', 'description', 'pictures', 'features', 'localization', 'latitude', 'longitude', 'zoom', 'totalcamas', 'services', 'occuppationalrules' ));
+        return view('site.accommodation.index', compact('accommodation', 'description', 'pictures', 'features', 'localization', 'latitude', 'longitude', 'zoom', 'totalcamas', 'services', 'occuppationalrules', 'isfav' ));
     }
 
 }

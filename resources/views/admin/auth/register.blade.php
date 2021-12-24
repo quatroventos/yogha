@@ -79,7 +79,12 @@
                 <a href="javascript:history.back();" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
             </div>
             <div class="col ps-0">
-                <h2 class="texto-g texto-ret"><strong>{{$user->name}} {{$user->surname}}</strong></h2>
+                @if(isset($user))
+                    <h2 class="texto-g texto-ret"><strong>{{$user->name ?? ''}} {{$user->surname ?? ''}}</strong></h2>
+                @else
+                    <h2 class="texto-g texto-ret"><strong>Registrar-se</strong></h2>
+                @endif
+
             </div>
         </div>
         @endif
@@ -95,7 +100,7 @@
 
         @if(isset($user))
             <form method="post" action="{{ route('frontend.user.update') }}" autocomplete="off" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="{{$user->id}}">
+                <input type="hidden" name="id" value="{{$user->id ?? ''}}">
         @else
             <form method="post" action="{{ route('frontend.user.create') }}" autocomplete="off" enctype="multipart/form-data">
         @endif
@@ -222,6 +227,25 @@
                         @include('admin.alerts.feedback', ['field' => 'city'])
                     </div>
 
+                    @if(!isset($user))
+
+                        <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
+                            <label class="form-control-label" for="password">Senha</label>
+                            <input type="password" id="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Senha" value="{{ old('password') }}" onkeyup="getPassword()" required >
+                            @include('admin.alerts.feedback', ['field' => 'password'])
+                        </div>
+                        <div>
+                            <ul class="lead list-group" id="requirements">
+                                <li id="length" class="list-group-item">Pelo menos 8 caracteres</li>
+                                <li id="lowercase" class="list-group-item">Ao menos 1 letra minúscula</li>
+                                <li id="uppercase" class="list-group-item">Ao menos 1 letra maiúscula</li>
+                                <li id="number" class="list-group-item">Ao menos 1 número</li>
+                                <li id="special" class="list-group-item">Ao menos 1 caractere especial</li>
+                            </ul>
+                        </div>
+
+                    @endif
+
                     <div class="row justify-content-center mb-15">
                         <div class="col col-sm-5">
                             <button type="submit" class="btn d-flex">Salvar dados</button>
@@ -231,9 +255,11 @@
 
             </div>
             </form>
+
+        @if(isset($user))
             <hr class="mb-30">
             <form method="post" action="{{ route('frontend.user.password') }}" autocomplete="off" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="{{$user->id}}">
+                <input type="hidden" name="id" value="{{$user->id ?? ''}}">
                 @csrf
             <div class="row justify-content-center mb-15">
                 <div class="col col-sm-6">
@@ -265,7 +291,8 @@
                 </div>
             </div>
 
-        </form>
+            </form>
+        @endif
     </div>
 </section>
 
@@ -421,7 +448,7 @@
         $('.date_time').mask('00/00/0000 00:00:00');
         $('.cep').mask('00000-000');
         $('.phone').mask('0000-0000');
-        $('.phone_with_ddd').mask('(00) 0000-0000');
+        $('.phone_with_ddd').mask('(00) 00000-0000');
         $('.phone_us').mask('(000) 000-0000');
         $('.mixed').mask('AAA 000-S0S');
         $('.cpf').mask('000.000.000-00', {reverse: true});

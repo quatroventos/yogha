@@ -34,6 +34,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
     Route::post('/user/create', 'Usercontroller@create')->name('frontend.user.create');
     Route::get('/user/edit/{user_id?}', 'Usercontroller@edit')->name('frontend.user.edit');
+    Route::get('/user/create_account/', 'Usercontroller@edit')->name('frontend.user.register');
 
     Route::group(['middleware' => 'auth'], function () {
         //checkout
@@ -44,7 +45,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
         Route::post('/checkout/card', 'CheckoutController@generatecard')->name('generate.card');
         //favorites
         Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@fav');
-        Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@unfav');
+        Route::get('/unfavorite/{accommodationid}/{userid}', 'FavoritesController@unfav');
 
         Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\Backend\ProfileController@edit']);
 

@@ -17,50 +17,13 @@ class CheckoutController extends Controller
 
     public function index($accommodationid, $startdate = '', $enddate = '', $adults = '', $children = '', $ages = '')
     {
-        $today = date("Y-m-d");
 
-        if (Auth::check()) {
-            $userid = Auth::user()->id;
-            $useremail = Auth::user()->email;
-            $user = Auth::user();
-            $userreservations =  \DB::table('avantio.booking_lists')
-                //TODO: puxar dados via api
-                ->select('avantio.booking_lists.*','accommodations.*')
-                ->join('site.accommodations', 'accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
-                ->join('descriptions','descriptions.AccommodationId','=','avantio.booking_lists.accommodation_code')
-                ->join('stats','stats.content_id', '=', 'avantio.booking_lists.accommodation_code')
-                ->join('rates','rates.AccommodationId','=','avantio.booking_lists.accommodation_code')
-                ->where('booking_lists.email', '=', $useremail)
-                ->get();
-            $userfuturereservations =  \DB::table('avantio.booking_lists')
-                //TODO: puxar dados via api
-                ->select('avantio.booking_lists.*','site.accommodations.*', 'site.descriptions.*', 'site.localizations.*')
-                ->join('site.accommodations', 'site.accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
-                ->join('site.descriptions','site.descriptions.AccommodationId','=','accommodations.AccommodationId')
-                ->join('site.localizations','site.localizations.AccommodationId','=','accommodations.AccommodationId')
-                ->where('booking_lists.email', '=', $useremail)
-                ->where('booking_lists.start_date', '>', $today)
-                ->get();
-        }else{
-            $user = '';
-            $userreservations = '';
-            $userfuturereservations = '';
-        }
-
-
-        if (isset($userid) != '') {
-            $favorites = \DB::table('favorites')
-                ->select('favorites.*', 'accommodations.*', 'rates.*', 'descriptions.*', 'localizations.*')
-                ->join('accommodations', 'accommodations.AccommodationId', '=', 'favorites.accommodation_id')
-                ->join('descriptions', 'descriptions.AccommodationId', '=', 'accommodations.AccommodationId')
-                ->join('localizations', 'localizations.AccommodationId', '=', 'accommodations.AccommodationId')
-                ->join('rates', 'rates.AccommodationId', '=', 'accommodations.AccommodationId')
-                ->where('favorites.user_id', '=', $userid)
-                ->get();
-        } else {
-            $favorites = "";
-        }
-
+        $user = getUserData();
+        $userreservations = getUserReservations();
+        $userfuturereservations = getUserFutureReservations();
+        $favorites = getUserFavorites();
+        $recently_viewed = getUserRecentlyViewed();
+        $surpriseme = generateSurprisemeUrl();
 
         $accommodation = \DB::table('accommodations')
             ->select('accommodations.*', 'descriptions.*', 'rates.*')
@@ -87,27 +50,6 @@ class CheckoutController extends Controller
             $totalcamas += $features['Distribution']['KingBeds'];
         }
 
-        //TODO: colocar em um helper ou trait
-        //select acomodações mais recentes para a busca
-        $accommodations_session = session()->get('accommodations.recent');
-        if (!empty($accommodations_session)) {
-            $accommodations_session = array_reverse($accommodations_session);
-            $recently_viewed = \DB::table('accommodations')
-                ->select('AccommodationName', 'AccommodationId')
-                //->where('AccommodationId','=',$accommodations_session)
-                ->whereIn('accommodations.AccommodationId', $accommodations_session)
-                ->take(10)
-                ->get();
-        } else {
-            $recently_viewed = '';
-        }
-
-        //TODO: colocar em um helper ou trait
-        //pega aleatoriamente uma acomodação para o botão me surpreenda
-        $surpriseme = \DB::table('accommodations')
-            ->take(1)
-            ->inRandomOrder()
-            ->get();
 
         return view('site.checkout.index', compact('accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations'));
     }
@@ -115,24 +57,6 @@ class CheckoutController extends Controller
     //filtra por data e quantidade de hospedes
     public function check_availability($accommodationid = '', $startdate = '', $enddate = '')
     {
-
-        if (Auth::check()) {
-            $userid = Auth::user()->id;
-            $useremail = Auth::user()->email;
-            $user = Auth::user();
-            $userreservations =  \DB::table('avantio.booking_lists')
-                //TODO: puxar dados via api
-                ->select('avantio.booking_lists.*','accommodations.*')
-                ->join('site.accommodations', 'accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
-                ->join('descriptions','descriptions.AccommodationId','=','avantio.booking_lists.accommodation_code')
-                ->join('stats','stats.content_id', '=', 'avantio.booking_lists.accommodation_code')
-                ->join('rates','rates.AccommodationId','=','avantio.booking_lists.accommodation_code')
-                ->where('booking_lists.email', '=', $useremail)
-                ->get();
-        }else{
-            $user = '';
-            $userreservations = '';
-        }
 
         //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
         $today = date("Y-m-d");
@@ -165,7 +89,7 @@ class CheckoutController extends Controller
             $unavailableDates = "";
         }
 
-        return view('site.checkout.check_availability', compact('accommodationid', 'unavailableDates', 'startdate', 'enddate', 'userreservations'));
+        return view('site.checkout.check_availability', compact('accommodationid', 'unavailableDates', 'startdate', 'enddate'));
     }
 
     public function generatecard(Request $request)

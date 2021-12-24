@@ -1,76 +1,3 @@
-<?php
-    //dd($accommodation);
-    //Distribution
-    /*
-
-    $capacidadetotal = $features['Distribution']['PeopleCapacity'];
-    $capacidadeadultos = $features['Distribution']['AdultsCapacity'];
-    $ocupacaominima = $features['Distribution']['MinimumOccupation'];
-    $criancas = $features['Distribution']['AcceptYoungsters'];
-    $quartos =  $features['Distribution']['Bedrooms'];
-    $camascasal =  $features['Distribution']['DoubleBeds'];
-    $camassolteiro =  $features['Distribution']['IndividualBeds'];
-    $sofacama =  $features['Distribution']['IndividualSofaBed'];
-    $sofacamacasal =  $features['Distribution']['DoubleSofaBed'];
-    $camasqueen = $features['Distribution']['QueenBeds'];
-    $camasking = $features['Distribution']['KingBeds'];
-    $banheiros = $features['Distribution']['Toilets'];
-    $banheiras = $features['Distribution']['BathroomWithBathtub'];
-    $chuveiros = $features['Distribution']['BathroomWithShower'];
-
-    //Housecarachteristics
-    $tv = $features['HouseCharacteristics']['TV'];
-    $tvnum = $features['HouseCharacteristics']['NumOfTelevisions'];
-    $tvacabo = $features['HouseCharacteristics']['TVSatellite']['Value'];
-    $jardim = $features['HouseCharacteristics']['Garden'];
-    $moveisjardim = $features['HouseCharacteristics']['GardenFurniture'];
-    $ferrodepassar = $features['HouseCharacteristics']['Iron'];
-    $lareira = $features['HouseCharacteristics']['FirePlace'];
-    $churrasqueira = $features['HouseCharacteristics']['Barbecue'];
-    $radio = $features['HouseCharacteristics']['Radio'];
-    $minibar = $features['HouseCharacteristics']['MiniBar'];
-    $terraco = $features['HouseCharacteristics']['Terrace'];
-    $cercado = $features['HouseCharacteristics']['FencedPlot'];
-    $elevador = $features['HouseCharacteristics']['Elevator'];
-    $dvd = $features['HouseCharacteristics']['DVD'];
-    $sacada = $features['HouseCharacteristics']['Balcony'];
-    $espremedordesuco = $features['HouseCharacteristics']['JuiceSqueazer'];
-    $chaleiraeletrica = $features['HouseCharacteristics']['ElectricKettle'];
-    $secadordecabelo = $features['HouseCharacteristics']['HairDryer'];
-    $espacokids = $features['HouseCharacteristics']['ChildrenArea'];
-    $academia = $features['HouseCharacteristics']['Gym'];
-    $alarme = $features['HouseCharacteristics']['Alarm'];
-    $quadradetenis = $features['HouseCharacteristics']['Tennis'];
-    $quadradesquash = $features['HouseCharacteristics']['Squash'];
-    $remo = $features['HouseCharacteristics']['Paddel'];
-    $sauna = $features['HouseCharacteristics']['Sauna'];
-    $numerodeventiladores = $features['HouseCharacteristics']['NumOfFans'];
-    $numeroderepelentes = $features['HouseCharacteristics']['NumOfElectronicMosquitoRepeller'];
-    $telaantimosquito = $features['HouseCharacteristics']['WindowScreens'];
-    $adaptadoparadeficientes = $features['HouseCharacteristics']['HandicappedFacilities'];
-    $jacuzzi = $features['HouseCharacteristics']['Jacuzzi'];
-    $permitidofumar = $features['HouseCharacteristics']['SmokingAllowed'];
-
-    //Kitchen
-    $classedecozinha = $features['HouseCharacteristics']['KitchenClass'];
-    $tipodecozinha = $features['HouseCharacteristics']['KitchenType'];
-    $numerodecozinhas = $features['HouseCharacteristics']['NumberOfKitchens'];
-    $geladeira = $features['HouseCharacteristics']['Fridge'];
-    $freezer = $features['HouseCharacteristics']['Freezer'];
-    $lavaroupas = $features['HouseCharacteristics']['WashingMachine'];
-    $lavaloucas = $features['HouseCharacteristics']['Dishwasher'];
-    $secadora = $features['HouseCharacteristics']['Dryer'];
-    $cafeteira = $features['HouseCharacteristics']['CoffeeMachine'];
-    $fritadeira = $features['HouseCharacteristics']['Fryer'];
-    $talheres = $features['HouseCharacteristics']['TableWare'];
-    $utensiliosdecozinha = $features['HouseCharacteristics']['KitchenUtensils'];
-    $microondas = $features['HouseCharacteristics']['Microwave'];
-    $forno = $features['HouseCharacteristics']['Oven'];
-    */
-
-
-?>
-
 <!doctype html>
 <html lang="pt-BR">
 
@@ -138,16 +65,31 @@
                 <div class="form-group form-inline justify-content-end gap-10">
                     <a href="#!" class="btn btn-2 btn-ico"><i class="d-inline-flex uil uil-upload"></i></a>
                     @auth
-                    <a href="#!" id="fav" class="btn btn-2 btn-ico"><i class="far fa-heart"></i></a>
-                    <a href="#!" id="unfav" style="display: none;" class="btn btn-2 btn-ico"><i class="fas fa-heart"></i></a>
+                        @if($isfav == 1)
+                            <a href="#!" id="fav"  style="display: none;"  class="btn btn-2 btn-ico"><i class="far fa-heart"></i></a>
+                            <a href="#!" id="unfav" class="btn btn-2 btn-ico"><i class="fas fa-heart"></i></a>
+                        @else
+                            <a href="#!" id="fav" class="btn btn-2 btn-ico"><i class="far fa-heart"></i></a>
+                            <a href="#!" id="unfav" style="display: none;" class="btn btn-2 btn-ico"><i class="fas fa-heart"></i></a>
+                        @endif
                     <script>
                         $('#fav').click(function(){
+
                             $.ajax({
                                 url: "{{URL::to('/favorite/'.$accommodation[0]->AccommodationId.'/'.auth()->id())}}",
                                 context: document.body
                             }).done(function() {
                                 $('#fav').hide();
                                 $('#unfav').show();
+                            });
+                        })
+                        $('#unfav').click(function(){
+                            $.ajax({
+                                url: "{{URL::to('/unfavorite/'.$accommodation[0]->AccommodationId.'/'.auth()->id())}}",
+                                context: document.body
+                            }).done(function() {
+                                $('#fav').show();
+                                $('#unfav').hide();
                             });
                         })
                     </script>

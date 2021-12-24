@@ -132,9 +132,7 @@
 @include('site.abas.search', compact('recently_viewed','surpriseme'))
 
 <!-- ABA LOJA -->
-@include('site.abas.service_list')
-<!-- ABA LOJA SINGLE -->
-@include('site.abas.service_details')
+@include('site.abas.service_list', compact('services'))
 
 <!-- ABA FAVORITOS -->
 @include('site.abas.favorites', compact('favorites'))

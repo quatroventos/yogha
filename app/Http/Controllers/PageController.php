@@ -14,6 +14,7 @@ class PageController extends Controller
      */
     public function index($page)
     {
+        $today = date("Y-m-d");
 
         if (Auth::check()) {
             $userid = Auth::user()->id;
@@ -27,6 +28,35 @@ class PageController extends Controller
         }else{
             $user = '';
         }
+
+        if (Auth::check()) {
+            $userid = Auth::user()->id;
+            $useremail = Auth::user()->email;
+            $user = Auth::user();
+            $userreservations =  \DB::table('avantio.booking_lists')
+                //TODO: puxar dados do Admin via api?
+                ->select('avantio.booking_lists.*','accommodations.*')
+                ->join('site.accommodations', 'accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
+                ->join('descriptions','descriptions.AccommodationId','=','avantio.booking_lists.accommodation_code')
+                ->join('stats','stats.content_id', '=', 'avantio.booking_lists.accommodation_code')
+                ->join('rates','rates.AccommodationId','=','avantio.booking_lists.accommodation_code')
+                ->where('booking_lists.email', '=', $useremail)
+                ->get();
+            $userfuturereservations =  \DB::table('avantio.booking_lists')
+                //TODO: puxar dados via api?
+                ->select('avantio.booking_lists.*','site.accommodations.*', 'site.descriptions.*', 'site.localizations.*')
+                ->join('site.accommodations', 'site.accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
+                ->join('site.descriptions','site.descriptions.AccommodationId','=','accommodations.AccommodationId')
+                ->join('site.localizations','site.localizations.AccommodationId','=','accommodations.AccommodationId')
+                ->where('booking_lists.email', '=', $useremail)
+                ->where('booking_lists.start_date', '>', $today)
+                ->get();
+        }else{
+            $user = '';
+            $userreservations = '';
+            $userfuturereservations = '';
+        }
+
 
         if(isset($userid) != '') {
             $favorites = \DB::table('favorites')
@@ -65,7 +95,7 @@ class PageController extends Controller
                 ->get();
 
 
-            return view("site.paginas.{$page}", compact('recently_viewed', 'surpriseme', 'user','favorites'));
+            return view("site.paginas.{$page}", compact('recently_viewed', 'surpriseme', 'user','favorites', 'userreservations', 'userfuturereservations'));
         }
         return abort(404);
     }
