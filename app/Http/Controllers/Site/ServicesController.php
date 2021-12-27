@@ -24,12 +24,6 @@ class ServicesController extends Controller
 
     public function show_details($serviceid)
     {
-        //insere nas estatísticas
-        $stat = new Stats;
-        $stat->type = 'service';
-        $stat->content_id = $accommodationid;
-        $stat->save();
-
         $service = Services::where('id', $serviceid)->first();
 
         return view('site.services.service_details', compact('service'));

@@ -1,11 +1,11 @@
 <?php
-//TODO: criar middleware
-$role = \Auth::user()->role_id;
-echo $role;
-
-if ($role != 1) {
-    header("Location: /");
-}
+////TODO: criar middleware
+//$role = \Auth::user()->role_id;
+//echo $role;
+//
+//if ($role != 1) {
+//    header("Location: /");
+//}
 ?>
 <!--
 =========================================================

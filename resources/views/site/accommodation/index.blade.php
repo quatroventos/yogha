@@ -72,27 +72,6 @@
                             <a href="#!" id="fav" class="btn btn-2 btn-ico"><i class="far fa-heart"></i></a>
                             <a href="#!" id="unfav" style="display: none;" class="btn btn-2 btn-ico"><i class="fas fa-heart"></i></a>
                         @endif
-                    <script>
-                        $('#fav').click(function(){
-
-                            $.ajax({
-                                url: "{{URL::to('/favorite/'.$accommodation[0]->AccommodationId.'/'.auth()->id())}}",
-                                context: document.body
-                            }).done(function() {
-                                $('#fav').hide();
-                                $('#unfav').show();
-                            });
-                        })
-                        $('#unfav').click(function(){
-                            $.ajax({
-                                url: "{{URL::to('/unfavorite/'.$accommodation[0]->AccommodationId.'/'.auth()->id())}}",
-                                context: document.body
-                            }).done(function() {
-                                $('#fav').show();
-                                $('#unfav').hide();
-                            });
-                        })
-                    </script>
                     @else
                         <a href="{{URL::to('/login')}}" id="fav" class="btn btn-2 btn-ico"><i class="far fa-heart"></i></a>
                     @endauth
@@ -439,7 +418,7 @@
                             <ul>
                                 @foreach($services as $service)
                                 <li>
-                                    <a href="{{URL::to('/service_details')}}/{{$service->id}}" class="switch" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" >
+                                    <a href="{{URL::to('/service_details')}}/{{$service->id}}" class="switch service-link" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" >
                                         <picture style="background-image: url({{URL::to('/')}}/files/services/{{$service->image}});"></picture>
                                         <div>
                                             <h3>{{$service->title}} - R$ {{$service->price}}</h3>
@@ -585,6 +564,27 @@
 <a href="#!" class="fundo-escuro switch"></a>
 
 <!-- SCRIPTS -->
+<script>
+    $('#fav').click(function(){
+
+        $.ajax({
+            url: "{{URL::to('/favorite/'.$accommodation[0]->AccommodationId.'/'.auth()->id())}}",
+            context: document.body
+        }).done(function() {
+            $('#fav').hide();
+            $('#unfav').show();
+        });
+    })
+    $('#unfav').click(function(){
+        $.ajax({
+            url: "{{URL::to('/unfavorite/'.$accommodation[0]->AccommodationId.'/'.auth()->id())}}",
+            context: document.body
+        }).done(function() {
+            $('#fav').show();
+            $('#unfav').hide();
+        });
+    })
+</script>
 
 <!-- BOOTSTRAP -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
