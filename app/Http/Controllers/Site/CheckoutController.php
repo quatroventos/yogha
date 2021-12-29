@@ -24,6 +24,7 @@ class CheckoutController extends Controller
         $favorites = getUserFavorites();
         $recently_viewed = getUserRecentlyViewed();
         $surpriseme = generateSurprisemeUrl();
+        $services = getAllServices();
 
         $accommodation = \DB::table('accommodations')
             ->select('accommodations.*', 'descriptions.*', 'rates.*')
@@ -32,6 +33,7 @@ class CheckoutController extends Controller
             ->where('accommodations.AccommodationId', '=', $accommodationid)
             ->first();
 
+        $description = json_decode($accommodation->InternationalizedItem, true);
         $pictures = json_decode($accommodation->Pictures, true);
         $features = json_decode($accommodation->Features, true);
 
@@ -51,7 +53,7 @@ class CheckoutController extends Controller
         }
 
 
-        return view('site.checkout.index', compact('accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations'));
+        return view('site.checkout.index', compact('description', 'features','accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services'));
     }
 
     //filtra por data e quantidade de hospedes

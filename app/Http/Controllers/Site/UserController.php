@@ -114,7 +114,7 @@ class UserController extends Controller
         $user->profile_pic = $imageName;
         $user->save();
 
-        return redirect()->back()->with('success', 'Usuário cadastrado!');
+        return redirect('/email_verification');
     }
 
     /**
@@ -181,4 +181,7 @@ class UserController extends Controller
         return redirect('/')->with('success', 'Senha alterada!');
     }
 
+    public function email_verification(){
+        echo view('admin.auth.verify');
+    }
 }

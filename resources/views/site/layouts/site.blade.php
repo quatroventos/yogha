@@ -159,43 +159,43 @@
 
 <!-- FOOTER -->
 <footer class="pt-30 fundo-marrom-claro text-center texto-marrom">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <ul class="gap-5 mb-20">
-                    <li><a href="#!">Como funciona</a></li>
-                    <li><a href="#!">Perguntas frequentes</a></li>
-                </ul>
-                <ul class="gap-5 mb-20">
-                    <li><a href="#!">Quem somos</a></li>
-                    <li><a href="#!">Trabalhe conocsco</a></li>
-                    <li><a href="#!">Blog</a></li>
-                </ul>
-                <ul class="gap-5 mb-20">
-                    <li><a href="#!">Política de confidencialidade</a></li>
-                    <li><a href="#!">Política de cookies</a></li>
-                    <li><a href="#!">Condições gerais</a></li>
-                </ul>
-                <img class="img-m mx-auto mb-20" src="{{asset('img/logo-yogha.svg')}}">
-                <ul class="gap-5 mb-20">
-                    <li><a href="#!">41. 99694-1949</a></li>
-                    <li><a href="#!">reservas@yogha.com.br</a></li>
-                </ul>
-                <ul class="gap-5 mb-20">
-                    <li>Rua Riachuelo, 110</li>
-                    <li>Centro, Curitiba - PR</li>
-                </ul>
-                <ul class="gap-10 mb-20 row justify-content-center">
-                    <li class="col grow-0 px-0"><a href="#!"><i class="icone-g uil uil-facebook-f"></i></a></li>
-                    <li class="col grow-0 px-0"><a href="#!"><i class="icone-g uil uil-instagram"></i></a></li>
-                </ul>
-                <ul class="gap-5 mb-30 texto-m">
-                    <li>Yogha gestão patrimonial</li>
-                    <li>CNPJ: 30.032.993/0001-44</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+{{--    <div class="container">--}}
+{{--        <div class="row">--}}
+{{--            <div class="col">--}}
+{{--                <ul class="gap-5 mb-20">--}}
+{{--                    <li><a href="#!">Como funciona</a></li>--}}
+{{--                    <li><a href="#!">Perguntas frequentes</a></li>--}}
+{{--                </ul>--}}
+{{--                <ul class="gap-5 mb-20">--}}
+{{--                    <li><a href="#!">Quem somos</a></li>--}}
+{{--                    <li><a href="#!">Trabalhe conocsco</a></li>--}}
+{{--                    <li><a href="#!">Blog</a></li>--}}
+{{--                </ul>--}}
+{{--                <ul class="gap-5 mb-20">--}}
+{{--                    <li><a href="#!">Política de confidencialidade</a></li>--}}
+{{--                    <li><a href="#!">Política de cookies</a></li>--}}
+{{--                    <li><a href="#!">Condições gerais</a></li>--}}
+{{--                </ul>--}}
+{{--                <img class="img-m mx-auto mb-20" src="{{asset('img/logo-yogha.svg')}}">--}}
+{{--                <ul class="gap-5 mb-20">--}}
+{{--                    <li><a href="#!">41. 99694-1949</a></li>--}}
+{{--                    <li><a href="#!">reservas@yogha.com.br</a></li>--}}
+{{--                </ul>--}}
+{{--                <ul class="gap-5 mb-20">--}}
+{{--                    <li>Rua Riachuelo, 110</li>--}}
+{{--                    <li>Centro, Curitiba - PR</li>--}}
+{{--                </ul>--}}
+{{--                <ul class="gap-10 mb-20 row justify-content-center">--}}
+{{--                    <li class="col grow-0 px-0"><a href="#!"><i class="icone-g uil uil-facebook-f"></i></a></li>--}}
+{{--                    <li class="col grow-0 px-0"><a href="#!"><i class="icone-g uil uil-instagram"></i></a></li>--}}
+{{--                </ul>--}}
+{{--                <ul class="gap-5 mb-30 texto-m">--}}
+{{--                    <li>Yogha gestão patrimonial</li>--}}
+{{--                    <li>CNPJ: 30.032.993/0001-44</li>--}}
+{{--                </ul>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 </footer>
 
 <!-- OVERLAY -->

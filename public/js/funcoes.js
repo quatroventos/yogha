@@ -20,21 +20,19 @@ $('.slick.slide-auto ul').slick({
   arrows: false,
   dots: false
 });
+
+$('.slick.slide-var ul').slick({
+  infinite: false,
+  variableWidth: true,
+  arrows: false,
+  dots: true
+});
+
 $('.slick.slide-full').slick({
   infinite: false,
-  slidesToShow: 3,
-  slidesToScroll: 3,
+  slidesToScroll: 1,
   arrows: false,
-  dots: true,
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
-      }
-    }
-  ]
+  dots: true
 });
 $('.slick.slide-2col ul').slick({
   infinite: false,
@@ -71,21 +69,9 @@ $('.fundo-escuro').on('click', function(e) {
 });
 
 // resultado
-$(window).scroll(function() {
-  var scrollTop2 = $window.scrollTop();
-  if (scrollTop2 < 250) {  
-    $('.fundo-escuro-mapa').css('display','none');
-  };
-});
-
 $('.toggle-resultado').on('click', function(e) {
   $('body').toggleClass('resultado');
-  window.scrollTo(0, 0);
 });
-
-if($('body#resultado-busca')) {
-  window.scrollTo(0, 300);
-};
 
 // senha mostrar
 $('.mostrar-senha').click(function(){
@@ -105,8 +91,8 @@ var prev = 0;
 var $window = $(window);
 var showScroll = $('.show-b, .show-t');
 
-$(window).scroll(function() {
-  var scrollTop = $window.scrollTop();
+$window.on('scroll', function(){
+  var scrollTop = $window.scrollTop();        
   showScroll.toggleClass('hidden', scrollTop > prev);
   if (scrollTop < 100) {
     showScroll.addClass('hidden');

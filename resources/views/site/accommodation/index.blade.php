@@ -551,7 +551,7 @@
             </div>
             <div class="col col-sm-5">
                 @if(Request::segment(3) == '')
-                <a href="{{URL::to('/check_availability/'.$accommodation[0]->AccommodationId);}}" class="btn">Verificar disponibilidade</a>
+                <a href="{{URL::to('/check_availability/'.$accommodation[0]->AccommodationId)}}" class="btn">Verificar disponibilidade</a>
                 @else
                     <a href="{{URL::to('/checkout/'.$accommodation[0]->AccommodationId.'/'.Request::segment(3).'/'.Request::segment(4).'/'.Request::segment(5).'/'.Request::segment(6))}}" class="btn">Reservar</a>
                 @endif

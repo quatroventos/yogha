@@ -1,4 +1,4 @@
-@extends('admin.layouts.app', ['activePage' => 'admin.dashboard', 'title' => 'Yogha - Admin v1.0.0 - Dashboard', 'navName' => 'admin.dashboard', 'activeButton' => 'admin.dashboard'])
+@extends('admin.layouts.app', ['activePage' => 'admin.dashboard', 'title' => 'Yogha - Admin v1.0.0 - Dashboard', 'navName' => 'Estatísticas', 'activeButton' => 'admin.dashboard'])
 
 @section('content')
     <div class="content">
@@ -7,201 +7,52 @@
                 <div class="col-md-4">
                     <div class="card ">
                         <div class="card-header ">
-                            <h4 class="card-title">{{ __('Email Statistics') }}</h4>
-                            <p class="card-category">{{ __('Last Campaign Performance') }}</p>
+                            <h4 class="card-title">Acomodações</h4>
                         </div>
                         <div class="card-body ">
-                            <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-                            <div class="legend">
-                                <i class="fa fa-circle text-info"></i> {{ __('Open') }}
-                                <i class="fa fa-circle text-danger"></i> {{ __('Bounce') }}
-                                <i class="fa fa-circle text-warning"></i> {{ __('Unsubscribe') }}
-                            </div>
-                            <hr>
-                            <div class="stats">
-                                <i class="fa fa-clock-o"></i> {{ __('Campaign sent 2 days ago') }}
-                            </div>
+                            <h1>{{$accommodations}}</h1>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-4">
                     <div class="card ">
                         <div class="card-header ">
-                            <h4 class="card-title">{{ __('Users Behavior') }}</h4>
-                            <p class="card-category">{{ __('24 Hours performance') }}</p>
+                            <h4 class="card-title">Serviços</h4>
                         </div>
                         <div class="card-body ">
-                            <div id="chartHours" class="ct-chart"></div>
+                            <h1>{{$services}}</h1>
                         </div>
-                        <div class="card-footer ">
-                            <div class="legend">
-                                <i class="fa fa-circle text-info"></i> {{ __('Open') }}
-                                <i class="fa fa-circle text-danger"></i> {{ __('Click') }}
-                                <i class="fa fa-circle text-warning"></i> {{ __('Click Second Time') }}
-                            </div>
-                            <hr>
-                            <div class="stats">
-                                <i class="fa fa-history"></i> {{ __('Updated 3 minutes ago') }}
-                            </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card ">
+                        <div class="card-header ">
+                            <h4 class="card-title">Usuários</h4>
+                        </div>
+                        <div class="card-body ">
+                            <h1>{{$users}}</h1>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card ">
                         <div class="card-header ">
-                            <h4 class="card-title">{{ __('2017 Sales') }}</h4>
-                            <p class="card-category">{{ __('All products including Taxes') }}</p>
+                            <h4 class="card-title">Reservas</h4>
                         </div>
                         <div class="card-body ">
-                            <div id="chartActivity" class="ct-chart"></div>
+                            <div id="chartBooking" class="ct-chart"></div>
                         </div>
                         <div class="card-footer ">
                             <div class="legend">
-                                <i class="fa fa-circle text-info"></i> {{ __('Tesla Model S') }}
-                                <i class="fa fa-circle text-danger"></i> {{ __('BMW 5 Series') }}
+                                <i class="fa fa-circle text-info"></i> dados
+                                <i class="fa fa-circle text-danger"></i> dados
+                                <i class="fa fa-circle text-warning"></i> dados
                             </div>
                             <hr>
                             <div class="stats">
-                                <i class="fa fa-check"></i> {{ __('Data information certified') }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card  card-tasks">
-                        <div class="card-header ">
-                            <h4 class="card-title">{{ __('Tasks') }}</h4>
-                            <p class="card-category">{{ __('Backend development') }}</p>
-                        </div>
-                        <div class="card-body ">
-                            <div class="table-full-width">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>{{ __('Sign contract for "What are conference organizers afraid of?"') }}</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" checked>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>{{ __('Lines From Great Russian Literature? Or E-mails From My Boss?') }}</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" checked>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>{{ __('Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit') }}
-                                            </td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>{{ __('Create 4 Invisible User Experiences you Never Knew About') }}</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>{{ __('Read "Following makes Medium better"') }}</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" disabled>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>{{ __('Unfollow 5 enemies from twitter') }}</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer ">
-                            <hr>
-                            <div class="stats">
-                                <i class="now-ui-icons loader_refresh spin"></i> {{ __('Updated 3 minutes ago') }}
+                                <i class="fa fa-history"></i> <span class="alert-danger">Dados falsos, apenas para apresentação do gráfico, verificar api para dados reais</span>
                             </div>
                         </div>
                     </div>
@@ -214,10 +65,43 @@
 @push('js')
     <script type="text/javascript">
         $(document).ready(function() {
-            // Javascript method's body can be found in assets/js/demos.js
-            demo.initDashboardPageCharts();
 
-            //demo.showNotification();
+            var dataSales = {
+                labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
+                series: [
+                    [287, 385, 490, 492, 554, 586, 698, 695, 752, 788, 846, 944],
+                    [67, 152, 143, 240, 287, 335, 435, 437, 539, 542, 544, 647],
+                    [23, 113, 67, 108, 190, 239, 307, 308, 439, 410, 410, 509]
+                ]
+            };
+
+            var optionsSales = {
+                lineSmooth: false,
+                low: 0,
+                high: 800,
+                showArea: true,
+                height: "245px",
+                axisX: {
+                    showGrid: false,
+                },
+                lineSmooth: Chartist.Interpolation.simple({
+                    divisor: 3
+                }),
+                showLine: false,
+                showPoint: false,
+            };
+
+            var responsiveSales = [
+                ['screen and (max-width: 640px)', {
+                    axisX: {
+                        labelInterpolationFnc: function (value) {
+                            return value[0];
+                        }
+                    }
+                }]
+            ];
+
+            Chartist.Line('#chartBooking', dataSales, optionsSales, responsiveSales);
 
         });
     </script>

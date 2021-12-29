@@ -35,11 +35,13 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/user/create', 'Usercontroller@create')->name('frontend.user.create');
     Route::get('/user/edit/{user_id?}', 'Usercontroller@edit')->name('frontend.user.edit');
     Route::get('/user/create_account/', 'Usercontroller@edit')->name('frontend.user.register');
+    Route::get('/user/email_verification/', 'Usercontroller@email_verification')->name('frontend.verification');
+    Route::get('/user/resend_confirmation/', 'Usercontroller@edit')->name('frontend.verification.resend');
 
     Route::group(['middleware' => 'auth'], function () {
         //checkout
         Route::get('/checkout/{accommodationid}/{startdate}/{enddate}/{adults?}/{children?}/{ages?}', 'CheckoutController@index')->name('checkout');
-        Route::get('/check_availability/{accommodationid}', 'CheckoutController@check_availability');
+        Route::get('/check_availability/{accommodationid}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'CheckoutController@check_availability');
         Route::post('/checkout/billet', 'CheckoutController@generatebillet')->name('generate.billet');
         Route::post('/checkout/pix', 'CheckoutController@generatepix')->name('generate.pix');
         Route::post('/checkout/card', 'CheckoutController@generatecard')->name('generate.card');
@@ -99,4 +101,4 @@ Route::namespace('App\Http\Controllers\Backend')->group(function() {
     });
 });
 
-Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
+Route::get('{page ?}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);

@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col grow-0 px-0">
-                <a href="pagina-single-anuncio.shtml" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
+                <a href="javascript:history.back();" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
             </div>
             <div class="col align-self-center *justify-content-center">
                 <h3 class="text-center"><strong>Confirmar e pagar</strong></h3>
@@ -27,13 +27,13 @@
                 <div class="row mb-30">
                     <div class="col grow-0 pe-0">
                         <?php //dd($pictures);?>
-{{--                        @if(isset($pictures))--}}
-{{--                            <picture class="pic-p" style="background-image: url({{$pictures['Picture'][0]['OriginalURI']}});"></picture>--}}
-{{--                        @endif--}}
-
+                        @if(isset($pictures))
+                            <picture class="pic-m" style="background-image: url({{$pictures['Picture'][0]['OriginalURI']}});"></picture>
+                        @endif
                     </div>
                     <div class="col">
-                        <p class="texto-m"><strong>O estúdio em Curitiba tem 1 quarto(s)</strong></p>
+                        <p></p>
+                        <p class="texto-m"><strong>{{$accommodation->UserKind}} em {{$description[1]['Region']['Name']}} com {{$features['Distribution']['Bedrooms']}} quarto(s)</strong></p>
                         <h2 class="mb-5"><strong>{{$accommodation->AccommodationName}}</strong></h2>
                         <p class="texto-m">
                             @if(empty($accommodation->Capacity) === false)
@@ -49,7 +49,7 @@
                                 {{$features['Distribution']['Toilets']}} Banheiros
                             @endif
                         </p>
-                        <a href="#!" class="btn-link texto-m px-0"><i class="icone-p uil uil-phone"></i> <strong>Reservar por telefone</strong></a>
+                        <small class="btn-link texto-m px-0"><i class="icone-p uil uil-phone"></i> <strong>Reservar por telefone: 41 9 9999-9999</strong></small>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,11 @@
                         <p class="mb-0">{{date_format(date_create(Request::segment(3)),"d/m/y")}} → {{date_format(date_create(Request::segment(4)),"d/m/y")}}</p>
                     </div>
                     <div class="col grow-0">
-                        <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-datas" aria-expanded="false" class="btn-link btn-p px-0 switch"><strong>Editar</strong></a>
+                        @auth
+                            <a href="{{URL::to('/check_availability/'.Request::segment(2).'/'.Request::segment(3).'/'.Request::segment(4).'/'.Request::segment(5).'/'.Request::segment(6))}}" class="btn-link btn-p px-0">Editar</a>
+                        @else
+                            <a href="{{URL::to('/login')}}" class="btn-link btn-p px-0" >Editar</a>
+                        @endauth
                     </div>
                 </div>
                 <div class="row texto-m mb-30">
@@ -75,7 +79,13 @@
                         <p class="mb-0">{{$hospedes}} hóspede{{($hospedes > 1 ? 's' : '')}}</p>
                     </div>
                     <div class="col grow-0">
-                        <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-hospedes" aria-expanded="false" class="btn-link btn-p px-0 switch"><strong>Editar</strong></a>
+                        <div class="col grow-0">
+                            @auth
+                                <a href="{{URL::to('/check_availability/'.Request::segment(2).'/'.Request::segment(3).'/'.Request::segment(4).'/'.Request::segment(5).'/'.Request::segment(6))}}" class="btn-link btn-p px-0">Editar</a>
+                            @else
+                                <a href="{{URL::to('/login')}}" class="btn-link btn-p px-0" >Editar</a>
+                            @endauth
+                        </div>
                     </div>
                 </div>
                 <hr class="mb-30">
@@ -135,7 +145,7 @@
                             <li>R$ {{$accommodation->Price * $noites}}</li>
                             <li>R$12,55</li>
                             <li class="mb-10">R$10,61</li>
-                            <li><strong>{{$accommodation->Price * $noites}}</strong></li>
+                            <li><strong>R${{$accommodation->Price * $noites + 12.55 + 10.61}}{{-- TODO: calcular taxas com base na api--}}</strong></li>
                         </ul>
                     </div>
                 </div>
@@ -172,7 +182,7 @@
                 </div>
                 <div class="row texto-m mb-30">
                     <div class="col">
-                        <a href="pagina-editar-perfil.shtml" class="btn-link btn-p px-0"><strong>Editar dados</strong></a>
+                        <a href="{{URL::to('user/edit/'.$user->id)}}" class="btn-link btn-p px-0"><strong>Editar dados</strong></a>
                     </div>
                 </div>
                 <hr class="mb-30">
@@ -283,16 +293,16 @@
                             </li>
 
                             <li>
-                                <a href="#!" data-bs-toggle="collapse"  data-bs-target=".campos-boleto" class="row texto-marrom align-items-center">
+                                <a href="#!" data-bs-toggle="collapse"  data-bs-target=".campos-pix" class="row texto-marrom align-items-center">
                                     <div class="col grow-0 pe-0">
                                         <picture></picture>
                                     </div>
                                     <div class="col">
-                                        <p class="mb-0">Boleto Pix</p>
+                                        <p class="mb-0">Pix</p>
                                     </div>
                                 </a>
                             </li>
-                            <li class="campos-boleto collapse">
+                            <li class="campos-pix collapse">
                                 <form method="post" action="{{ route('generate.pix') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}} para {{$hospedes}} pessoas.">

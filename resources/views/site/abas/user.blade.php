@@ -140,15 +140,15 @@
 {{--            <a href="#!" data-bs-toggle="collapse" data-bs-target=".localizador" class="btn-link btn-p px-0"><strong>Procure pelo localizador</strong></a>--}}
 {{--          </div>--}}
 {{--        </div>--}}
-        <div class="row localizador collapse">
-          <div class="col">
-            <form>
-              <div class="form-group">
-                <input class="d-flex" type="text" name="" placeholder="Insira o localizador">
-              </div>
-            </form>
-          </div>
-        </div>
+{{--        <div class="row localizador collapse">--}}
+{{--          <div class="col">--}}
+{{--            <form>--}}
+{{--              <div class="form-group">--}}
+{{--                <input class="d-flex" type="text" name="" placeholder="Insira o localizador">--}}
+{{--              </div>--}}
+{{--            </form>--}}
+{{--          </div>--}}
+{{--        </div>--}}
 
       </div>
     </div>

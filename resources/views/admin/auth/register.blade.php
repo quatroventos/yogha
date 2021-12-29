@@ -153,17 +153,17 @@
                     </div>
                     <div class="form-group{{ $errors->has('phone') ? ' has-danger' : '' }}">
                         <label class="texto-m mb-5 form-control-label" for="phone">Telefone</label>
-                        <input type="text" name="phone" class="phone_with_ddd form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" placeholder="Telefone" value="{{$user->phone ??  old('phone') }}" required >
+                        <input type="text" name="phone" class="phone_with_ddd form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" placeholder="(00) 00000-0000" value="{{$user->phone ??  old('phone') }}" required >
                         @include('admin.alerts.feedback', ['field' => 'phone'])
                     </div>
                     <div class="form-group{{ $errors->has('birthday') ? ' has-danger' : '' }}">
                         <label class="texto-m mb-5 form-control-label" for="birthday">Aniversário</label>
-                        <input type="text" name="birthday" class="date form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}" placeholder="Aniversário" value="{{implode('/', array_reverse(explode('-', $user->birthday ?? ''))) ?? old('birthday') }}" required >
+                        <input type="text" name="birthday" class="date form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}" placeholder="DD/MM/AAAA" value="{{implode('/', array_reverse(explode('-', $user->birthday ?? ''))) ?? old('birthday') }}" required >
                         @include('admin.alerts.feedback', ['field' => 'birthday'])
                     </div>
                     <div class="form-group{{ $errors->has('cpf') ? ' has-danger' : '' }}">
                         <label class="texto-m mb-5 form-control-label" for="cpf">CPF</label>
-                        <input type="text" name="cpf" class="cpf form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" placeholder="CPF" value="{{$user->cpf ??  old('cpf') }}" required >
+                        <input type="text" name="cpf" class="cpf form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" placeholder="000.000.000-00" value="{{$user->cpf ??  old('cpf') }}" required >
                         @include('admin.alerts.feedback', ['field' => 'cpf'])
                     </div>
                 </div>
@@ -180,7 +180,7 @@
                 <div class="col col-sm-6">
                     <div class="form-group{{ $errors->has('zip_code') ? ' has-danger' : '' }}">
                         <label class="texto-m mb-5 form-control-label" for="zip_code">CEP</label>
-                        <input type="text" name="zip_code" id="cep" class="cep form-control{{ $errors->has('zip_code') ? ' is-invalid' : '' }}" placeholder="CEP" value="{{$user->zip_code ?? old('zip_code') }}" required >
+                        <input type="text" name="zip_code" id="cep" class="cep form-control{{ $errors->has('zip_code') ? ' is-invalid' : '' }}" placeholder="00000-000" value="{{$user->zip_code ?? old('zip_code') }}" required >
                         @include('admin.alerts.feedback', ['field' => 'zip_code'])
                     </div>
                     <div class="form-group{{ $errors->has('street') ? ' has-danger' : '' }}">
@@ -195,7 +195,7 @@
                     </div>
                     <div class="form-group{{ $errors->has('complement') ? ' has-danger' : '' }}">
                         <label class="texto-m mb-5 form-control-label" for="complement">Complemento</label>
-                        <input type="text" name="complement" class="form-control{{ $errors->has('complement') ? ' is-invalid' : '' }}" placeholder="Complemento" value="{{$user->complement ??  old('complement') }}" required >
+                        <input type="text" name="complement" class="form-control{{ $errors->has('complement') ? ' is-invalid' : '' }}" placeholder="Complemento" value="{{$user->complement ??  old('complement') }}" >
                         @include('admin.alerts.feedback', ['field' => 'complement'])
                     </div>
                     <div class="form-group{{ $errors->has('district') ? ' has-danger' : '' }}">

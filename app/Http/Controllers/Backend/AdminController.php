@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Accommodations;
 use App\Models\Services;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -26,18 +27,16 @@ class AdminController extends Controller
     {
         $accommodations = Accommodations::count();
         $services = Services::count();
+        $users = User::count();
 
-        //todo: criar lista agrupada por data para grafico de reservas.
-//        $bookingStats = \DB::table('avantio.booking_lists')
-
-//            ->where('occuppationalrules.AccommodationId','=', $accommodation[0]->AccommodationId)
-//            ->get();
+        $bookingStats = \DB::table('avantio.booking_lists')->get();
+        //dd($bookingStats);
 
 
         return view('admin.dashboard', compact(
             'accommodations',
             'services',
-
+            'users'
         ));
     }
 }

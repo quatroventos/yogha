@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="pt-BR">
-
     <head>
-
         <!-- META -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,28 +49,26 @@
 
     <body id="usuario-login">
 
-    @section('content')
-
-    @if (session('resent'))
-        <div class="alert alert-success" role="alert">
-             <p>Um link de verificação foi enviado para ao seu e-mail</p>
-        </div>
-    @endif
+{{--    @if (session('resent'))--}}
+{{--        <div class="alert alert-success" role="alert">--}}
+{{--             <p>Um link de verificação foi enviado para ao seu e-mail</p>--}}
+{{--        </div>--}}
+{{--    @endif--}}
 
     <section class="fixo-t">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col grow-0 px-0">
-                    <a href="#!" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
-                </div>  
+                    <a href="{{route('home')}}" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
+                </div>
                 <div class="col align-self-center *justify-content-center">
                     <h3 class="text-center"><strong>Recuperar senha</strong></h3>
-                </div> 
+                </div>
                 <div class="col grow-0 px-0">
                     <span class="btn btn-2 btn-ico"></span>
-                </div>         
+                </div>
             </div>
-        </div>      
+        </div>
     </section>
 
     <!-- usuario senha -->
@@ -80,10 +76,10 @@
         <div class="container h-100">
             <div class="row align-items-center justify-content-center mb-30 h-100">
                 <div class="col col-sm-6">
-                    <h2 class="text-center mb-10"><strong>Cerifique seu e-mail</strong></h2>
-                    <h3 class="text-center mb-15">Para prosseguir, verifique seu e-mail, enviamos um link de verificação</h3>
+                    <h2 class="text-center mb-10"><strong>Verifique seu e-mail</strong></h2>
+                    <h3 class="text-center mb-15">Enviamos um link de verificação para seu e-mail.</h3>
                     <p>Caso não tenha recebido</p>
-                    <form method="POST" action="{{ route('verification.resend') }}">
+                    <form method="POST" action="{{ route('frontend.verification.resend') }}">
                         @csrf
                         <button type="submit" class="btn btn-link p-0 m-0 align-baseline">Reenviar link</button>.
                     </form>
@@ -91,7 +87,7 @@
             </div>
         </div>
     </section>
-    @endsection
+
 
     </body>
 
