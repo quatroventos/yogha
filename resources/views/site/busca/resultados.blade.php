@@ -111,9 +111,9 @@
             <div class="col ps-0">
                 <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
                     <h2 class="mb-5 texto-ret"><strong>{{$result->AccommodationName}}</strong></h2>
-                    @if(isset($occuppationalrules) && !empty($occuppationalrules))
-                        <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}</span></p>
-                    @endif
+{{--                    @if(isset($occuppationalrules) && !empty($occuppationalrules))--}}
+{{--                        <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}</span></p>--}}
+{{--                    @endif--}}
                     <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$result->Price}}</strong> /noite <span class="texto-marrom texto-p">preço estimado</span></h4>
                 </a>
             </div>

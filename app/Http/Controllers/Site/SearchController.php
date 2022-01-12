@@ -54,6 +54,9 @@ class SearchController extends Controller
     public function searchbydistrict($district, $startdate='', $enddate='')
     {
 
+        $recently_viewed = getUserRecentlyViewed();
+        $surpriseme = generateSurprisemeUrl();
+
         //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
         $today = date("Y-m-d");
         if($startdate == '') {
@@ -68,40 +71,21 @@ class SearchController extends Controller
             ->Leftjoin('localizations', 'localizations.AccommodationId', '=', 'accommodations.AccommodationId')
             ->Leftjoin('rates','accommodations.AccommodationId', '=', 'rates.AccommodationId')
             ->where('District', 'like', "%{$district}%")
-            ->where('StartDate', '<', "{$startdate}")
-            ->where('EndDate', '>', "{$enddate}")
-            ->get();
-
-        //recupera occupattional rules de acordo com a data selecionada
-        $occuppationalrules = \DB::table('occuppationalrules')
-            ->where('AccommodationId', '=', $results[0]->AccommodationId)
-            ->where('StartDate', '<', "{$startdate}")
-            ->where('EndDate', '>', "{$enddate}")
-            ->get();
-
-        //TODO: colocar em um helper ou trait
-        //select acomodações mais recentes para a busca
-        $accommodations_session = session()->get('accommodations.recent');
-        if(!empty($accommodations_session)) {
-            $accommodations_session = array_reverse($accommodations_session);
-            $recently_viewed = \DB::table('accommodations')
-                ->select('AccommodationName', 'AccommodationId')
-                //->where('AccommodationId','=',$accommodations_session)
-                ->whereIn('accommodations.AccommodationId', $accommodations_session)
-                ->take(10)
-                ->get();
-        }else{
-            $recently_viewed = '';
-        }
-
-        //TODO: colocar em um helper ou trait
-        //pega aleatoriamente uma acomodação para o botão me surpreenda
-        $surpriseme = \DB::table('accommodations')
+//            ->where('StartDate', '<', "{$startdate}")
+//            ->where('EndDate', '>', "{$enddate}")
             ->take(1)
-            ->inRandomOrder()
             ->get();
 
-        return view('site.busca.resultados', compact('results', 'district', 'surpriseme', 'recently_viewed', 'occuppationalrules', 'startdate', 'enddate'));
+//        //recupera occupattional rules de acordo com a data selecionada
+//        $occuppationalrules = \DB::table('occuppationalrules')
+//            ->where('AccommodationId', '=', $results[0]->AccommodationId)
+//            ->where('StartDate', '<', "{$startdate}")
+//            ->where('EndDate', '>', "{$enddate}")
+//            ->get();
+
+
+
+        return view('site.busca.resultados', compact('results', 'district', 'surpriseme', 'recently_viewed', 'startdate', 'enddate'));
     }
 
 }

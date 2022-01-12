@@ -595,6 +595,15 @@
 <!-- FUNCOES -->
 <script type="text/javascript" src="{{asset('js/funcoes.js')}}"></script>
 
+<script>
+    $(document).ready(function(){
+        // your on click function here
+        $('.service-link').click(function(){
+            $('#aba-loja-single').load($(this).attr('href'));
+            return false;
+        });
+    });
+</script>
 
 
 </body>
