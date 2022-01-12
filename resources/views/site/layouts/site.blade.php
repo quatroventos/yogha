@@ -112,8 +112,8 @@
                     <li><a href="{{URL::to('/')}}/ajuda">Ajuda</a>
                 </ul>
                 <ul class="social">
-                    <li><a href="#!"><i class="uil uil-facebook-f"></i></a></li>
-                    <li><a href="#!"><i class="uil uil-instagram"></i></a></li>
+                    <li><a href="https://www.facebook.com/yogha.host" target="_blank"><i class="uil uil-facebook-f"></i></a></li>
+                    <li><a href="https://www.instagram.com/yogha.host/" target="_blank"><i class="uil uil-instagram"></i></a></li>
                 </ul>
             </div>
         </div>
