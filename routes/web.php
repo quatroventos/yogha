@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');
 Route::get('/states/{country_id}', 'App\Http\Controllers\WorldController@states');
 Route::get('/cities/{state_id}', 'App\Http\Controllers\WorldController@cities');
@@ -101,4 +102,4 @@ Route::namespace('App\Http\Controllers\Backend')->group(function() {
     });
 });
 
-Route::get('{page ?}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
+Route::get('/{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
