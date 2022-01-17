@@ -29,6 +29,8 @@ class ReadXMLController extends Controller
         echo "occuppational rules apagada<br>";
         \DB::table('availabilities')->truncate();
         echo "availabilities rules apagada<br>";
+        \DB::table('rates')->truncate();
+        echo "rates apagada<br>";
 
             $accommodationsXML = file_get_contents(public_path('xml/Accommodations.xml'));
             $accommodationsObj = simplexml_load_string($accommodationsXML);
@@ -112,7 +114,7 @@ class ReadXMLController extends Controller
                         "EndDate" => $endDate,
                         "State" => $state,
                     ];
-                    
+
                 }
             }
 
@@ -153,7 +155,7 @@ class ReadXMLController extends Controller
 
                //importa Availability em outra tabela
                //dd($availabilityArray);
-               foreach($availabilityArray['AccommodationList']['Accommodation'] as $availabilityData)             
+               foreach($availabilityArray['AccommodationList']['Accommodation'] as $availabilityData)
 
                 //importa Rates em outra tabela
                 foreach($ratesArray['AccommodationList']['Accommodation'] as $rateData) {
