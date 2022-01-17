@@ -230,40 +230,40 @@
                 <div class="row">
                     <div class="col">
                         <ul class="gap-10">
-                            <li>
-                                <a href="#!" data-bs-toggle="collapse" data-bs-target=".campos-cartao" class="row texto-marrom align-items-center">
-                                    <div class="col grow-0 pe-0">
-                                        <picture></picture>
-                                    </div>
-                                    <div class="col">
-                                        <p class="mb-0">Cartão de crédito</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="campos-cartao collapse">
-                                <form method="post" action="{{ route('generate.card') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}}">
-                                    <input type="hidden" name="amount" value="{{$accommodation->Price * $noites}}">
-                                    <div class="form-group">
-                                        <input class="d-flex" type="text" name="name" placeholder="Nome no cartão">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="d-flex" type="text" name="card_number" placeholder="Número do cartão">
-                                    </div>
-                                    <div class="form-group form-inline">
-                                        <input class="d-flex" type="text" name="card_due_date" placeholder="Validade">
-                                        <input class="d-flex" type="text" name="cvv" placeholder="CVV">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="d-flex" type="text" name="document" placeholder="CPF">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="d-flex" type="text" name="email" placeholder="E-mail" value="{{$user->email}}">
-                                    </div>
-                                    <button type="submit" class="btn d-flex switch">Pagar com cartão</button>
-                                </form>
-                            </li>
+{{--                            <li>--}}
+{{--                                <a href="#!" data-bs-toggle="collapse" data-bs-target=".campos-cartao" class="row texto-marrom align-items-center">--}}
+{{--                                    <div class="col grow-0 pe-0">--}}
+{{--                                        <picture></picture>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col">--}}
+{{--                                        <p class="mb-0">Cartão de crédito</p>--}}
+{{--                                    </div>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                            <li class="campos-cartao collapse">--}}
+{{--                                <form method="post" action="{{ route('generate.card') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">--}}
+{{--                                    @csrf--}}
+{{--                                    <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}}">--}}
+{{--                                    <input type="hidden" name="amount" value="{{$accommodation->Price * $noites}}">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <input class="d-flex" type="text" name="name" placeholder="Nome no cartão">--}}
+{{--                                    </div>--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <input class="d-flex" type="text" name="card_number" placeholder="Número do cartão">--}}
+{{--                                    </div>--}}
+{{--                                    <div class="form-group form-inline">--}}
+{{--                                        <input class="d-flex" type="text" name="card_due_date" placeholder="Validade">--}}
+{{--                                        <input class="d-flex" type="text" name="cvv" placeholder="CVV">--}}
+{{--                                    </div>--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <input class="d-flex" type="text" name="document" placeholder="CPF">--}}
+{{--                                    </div>--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <input class="d-flex" type="text" name="email" placeholder="E-mail" value="{{$user->email}}">--}}
+{{--                                    </div>--}}
+{{--                                    <button type="submit" class="btn d-flex switch">Pagar com cartão</button>--}}
+{{--                                </form>--}}
+{{--                            </li>--}}
 
                             <li>
                                 <a href="#!" data-bs-toggle="collapse"  data-bs-target=".campos-boleto" class="row texto-marrom align-items-center">
@@ -315,7 +315,7 @@
                                     <div class="form-group">
                                         <input class="d-flex" type="text" name="email" placeholder="E-mail de cobrança" value="{{$user->email}}">
                                     </div>
-                                    <button type="submit" class="btn d-flex switch">Pagar com boleto</button>
+                                    <button type="submit" class="btn d-flex switch">Pagar com pix</button>
                                 </form>
                             </li>
                         </ul>

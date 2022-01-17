@@ -294,6 +294,7 @@ class CheckoutController extends Controller
             CURLOPT_HTTPHEADER => array(
                 'X-Api-Version: 2',
                 'X-Resource-Token: 6208E5469C507A8BA724994B4E5D5DB1E255775316D87C510AAB5FC0E850DEF2',
+                'X-Idempotency-Key: 69F963C6-7487-4363-9406-A1DE2A9636D4',
                 'Authorization: Bearer '.$authBearer,
                 'Content-Type: application/json',
                 'Cookie: AWSALBTG=jd3KOErEt5wkoKB4dmSD3pwVV+MV33KuQW79pNS2Y59QaVLBU+F69SwTuNrpQZh+OLZbu8MxpOS1mmH58JYQuLjFR8EGPAUZxPtUCY887Y+tH0TypIjIp+0y6/roOvwZKY9mkqR3EuRDY7qF9a2Znrz6t9L+q8TK1p0rc1hAOBvxYnlU0HM=; AWSALBTGCORS=jd3KOErEt5wkoKB4dmSD3pwVV+MV33KuQW79pNS2Y59QaVLBU+F69SwTuNrpQZh+OLZbu8MxpOS1mmH58JYQuLjFR8EGPAUZxPtUCY887Y+tH0TypIjIp+0y6/roOvwZKY9mkqR3EuRDY7qF9a2Znrz6t9L+q8TK1p0rc1hAOBvxYnlU0HM='
@@ -301,10 +302,26 @@ class CheckoutController extends Controller
         ));
 
         $response = curl_exec($curl);
+        $info = curl_getinfo($curl);
+
+        //print_r($info);
+
+        if($info['http_code'] == 200){
+            $user = getUserData();
+            $userreservations = getUserReservations();
+            $userfuturereservations = getUserFutureReservations();
+            $favorites = getUserFavorites();
+            $recently_viewed = getUserRecentlyViewed();
+            $surpriseme = generateSurprisemeUrl();
+            $services = getAllServices();
+            $response = json_decode($response, true);
+
+            return view('site.checkout.pix', compact('response', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services'));
+        }else{
+            echo $response;
+        }
 
         curl_close($curl);
-        echo $response;
-
 
     }
 }
