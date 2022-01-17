@@ -17,6 +17,19 @@ Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');
 Route::get('/states/{country_id}', 'App\Http\Controllers\WorldController@states');
 Route::get('/cities/{state_id}', 'App\Http\Controllers\WorldController@cities');
 
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    // return what you want
+});
+
+
+Route::get('/clear-routes', function() {
+    $exitCode = Artisan::call('route:clear');
+    // return what you want
+});
+
+
+
 Route::namespace('App\Http\Controllers\Site')->group(function(){
     //home
     Route::get('/', 'HomeController')->name('home');

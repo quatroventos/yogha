@@ -96,8 +96,6 @@ class CheckoutController extends Controller
 
     public function generatecard(Request $request)
     {
-
-
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -150,8 +148,6 @@ class CheckoutController extends Controller
     }
     public function generatebillet(Request $request)
     {
-        //https://www.brasilnaweb.com.br/blog/cartoes-de-credito-validos-para-teste-de-sistemas/
-
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -230,16 +226,20 @@ class CheckoutController extends Controller
 
         $response = curl_exec($curl);
         $info = curl_getinfo($curl);
-        print_r($info);
+        //print_r($info);
 
-        $response = json_decode($response);
-
-        echo  "<pre>";
-            print_r($response);
-        echo  "</pre>";
+        $response = json_decode($response, true);
 
         if($info['http_code'] == 200){
-            echo "ok!";
+            $user = getUserData();
+            $userreservations = getUserReservations();
+            $userfuturereservations = getUserFutureReservations();
+            $favorites = getUserFavorites();
+            $recently_viewed = getUserRecentlyViewed();
+            $surpriseme = generateSurprisemeUrl();
+            $services = getAllServices();
+
+            return view('site.checkout.billet', compact('response', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services'));
         }else{
             echo $response->details[0]->message;
         }
