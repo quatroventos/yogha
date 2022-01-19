@@ -249,8 +249,6 @@ class CheckoutController extends Controller
             $surpriseme = generateSurprisemeUrl();
             $services = getAllServices();
 
-            dd($response);
-
             return view('site.checkout.billet', compact('response', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services'));
         }else{
             echo $response->details[0]->message;

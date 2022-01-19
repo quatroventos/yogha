@@ -71,11 +71,12 @@ class SearchController extends Controller
             ->Leftjoin('localizations', 'localizations.AccommodationId', '=', 'accommodations.AccommodationId')
             ->join('rates','rates.AccommodationId', '=', 'accommodations.AccommodationId')
             ->where('localizations.District', 'like', "%{$district}%")
-            //->where('rates.StartDate', '<', "{$startdate}")
-            //->where('rates.EndDate', '>', "{$enddate}")
+            ->where('rates.StartDate', '<', "{$startdate}")
+            ->where('rates.EndDate', '>', "{$enddate}")
+                ->take(1)
             ->get();
 
-        dd($results);
+        //dd($results);
 
 //        //recupera occupattional rules de acordo com a data selecionada
 //        $occuppationalrules = \DB::table('occuppationalrules')

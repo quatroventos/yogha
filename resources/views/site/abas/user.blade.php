@@ -65,6 +65,16 @@
               <ul class="gap-15">
                   @foreach($userfuturereservations as $accommodation)
                       <?php
+
+                      switch ($accommodation->status){
+                          case 'PENDING':
+                              $status = "<span style='color:#b42a20 !important;'>Aguardando pagamento</span>";
+                              break;
+                          case 'CONFIRMED':
+                              $status = "<span style='color:#93c47d !important;'>Confirmado</span>";
+                              break;
+                      }
+
                       if($accommodation->Pictures != ''){
                       $pictures = json_decode($accommodation->Pictures, true);
                           if(isset($pictures['Picture']['AdaptedURI'])){
@@ -83,7 +93,8 @@
                               <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>">
                                   <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
                                   <h4 class="texto-m mb-5"><?php echo $accommodation->District; ?></h4>
-                                  <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> {{date_format(date_create($accommodation->start_date),"d/m/y ")}} → {{date_format(date_create($accommodation->end_date),"d/m/y ")}}</h4>
+                                  <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> {{date_format(date_create($accommodation->checkin_date),"d/m/y ")}} → {{date_format(date_create($accommodation->checkout_date),"d/m/y ")}}</h4>
+                                  <h4 class="texto-m mb-5"><?php echo $status; ?></h4>
                               </a>
                           </div>
                       </li>

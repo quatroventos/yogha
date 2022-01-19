@@ -14,36 +14,52 @@ function getUserData(){
 }
 function getUserReservations()
 {
-    $today = date("Y-m-d");
-    if (Auth::check()) {
-        $useremail = Auth::user()->email;
-        $userreservations =  \DB::table('avantio.booking_lists')
-            ->select('avantio.booking_lists.*','site.accommodations.*', 'site.descriptions.*', 'site.localizations.*')
-            ->join('site.accommodations', 'site.accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
-            ->join('site.descriptions','site.descriptions.AccommodationId','=','accommodations.AccommodationId')
-            ->join('site.localizations','site.localizations.AccommodationId','=','accommodations.AccommodationId')
-            ->where('booking_lists.email', '=', $useremail)
-            ->where('booking_lists.start_date', '<', $today)
-            ->get();
-    }else {
-        $userreservations = "";
-    }
-    return $userreservations;
+        $today = date("Y-m-d");
+        if (Auth::check()) {
+            $useremail = Auth::user()->email;
+            $userreservations =  \DB::table('avantio.booking_lists')
+                ->select('avantio.booking_lists.*','site.accommodations.*', 'site.descriptions.*', 'site.localizations.*')
+                ->join('site.accommodations', 'site.accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
+                ->join('site.descriptions','site.descriptions.AccommodationId','=','accommodations.AccommodationId')
+                ->join('site.localizations','site.localizations.AccommodationId','=','accommodations.AccommodationId')
+                ->where('booking_lists.email', '=', $useremail)
+                ->where('booking_lists.start_date', '<', $today)
+                ->get();
+        }else {
+            $userreservations = "";
+        }
+        return $userreservations;
+
+//    $today = date("Y-m-d");
+//    if (Auth::check()) {
+//        $userid = Auth::user()->id;
+//        $userreservations =  \DB::table('orders')
+//            ->select('orders.*','accommodations.*', 'descriptions.*', 'localizations.*')
+//            ->join('accommodations', 'accommodations.AccommodationId', '=', 'orders.accommodationId')
+//            ->join('descriptions','descriptions.AccommodationId','=','orders.accommodationId')
+//            ->join('localizations','localizations.AccommodationId','=','orders.accommodationId')
+//            ->where('orders.users_id', '=', $userid)
+//            ->where('orders.checkin_date', '<', $today)
+//            ->get();
+//    }else {
+//        $userreservations = "";
+//    }
+//    return $userreservations;
 }
 
 function getUserFutureReservations()
 {
     $today = date("Y-m-d");
     if (Auth::check()) {
-        $useremail = Auth::user()->email;
-        $userfuturereservations =  \DB::table('avantio.booking_lists')
+        $userid = Auth::user()->id;
+        $userfuturereservations =  \DB::table('orders')
             //TODO: puxar dados via api
-            ->select('avantio.booking_lists.*','site.accommodations.*', 'site.descriptions.*', 'site.localizations.*')
-            ->join('site.accommodations', 'site.accommodations.AccommodationId', '=', 'avantio.booking_lists.accommodation_code')
-            ->join('site.descriptions','site.descriptions.AccommodationId','=','accommodations.AccommodationId')
-            ->join('site.localizations','site.localizations.AccommodationId','=','accommodations.AccommodationId')
-            ->where('booking_lists.email', '=', $useremail)
-            ->where('booking_lists.start_date', '>', $today)
+            ->select('orders.*','accommodations.*', 'descriptions.*', 'localizations.*')
+            ->join('accommodations', 'accommodations.AccommodationId', '=', 'orders.accommodationId')
+            ->join('descriptions','descriptions.AccommodationId','=','orders.accommodationId')
+            ->join('localizations','localizations.AccommodationId','=','orders.accommodationId')
+            ->where('orders.users_id', '=', $userid)
+            ->where('orders.checkin_date', '>', $today)
             ->get();
     }else {
         $userfuturereservations = "";
