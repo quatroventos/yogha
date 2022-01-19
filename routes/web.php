@@ -51,6 +51,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/user/create_account/', 'Usercontroller@edit')->name('frontend.user.register');
     Route::get('/user/email_verification/', 'Usercontroller@email_verification')->name('frontend.verification');
     Route::get('/user/resend_confirmation/', 'Usercontroller@edit')->name('frontend.verification.resend');
+    Route::any('/juno_webhook', 'CheckoutController@juno_webhook');
 
     Route::group(['middleware' => 'auth'], function () {
         //checkout
@@ -59,6 +60,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
         Route::post('/checkout/billet', 'CheckoutController@generatebillet')->name('generate.billet');
         Route::post('/checkout/pix', 'CheckoutController@generatepix')->name('generate.pix');
         Route::post('/checkout/card', 'CheckoutController@generatecard')->name('generate.card');
+
         //favorites
         Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@fav');
         Route::get('/unfavorite/{accommodationid}/{userid}', 'FavoritesController@unfav');

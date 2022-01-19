@@ -81,6 +81,13 @@
       0 => 'RicorocksDigitalAgency\\Soap\\Facades\\Soap',
     ),
   ),
+  'spatie/laravel-webhook-client' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\WebhookClient\\WebhookClientServiceProvider',
+    ),
+  ),
   'stevebauman/location' => 
   array (
     'providers' => 

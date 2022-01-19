@@ -146,6 +146,7 @@
                             <li>R$12,55</li>
                             <li class="mb-10">R$10,61</li>
                             <li><strong>R${{$accommodation->Price * $noites + 12.55 + 10.61}}{{-- TODO: calcular taxas com base na api--}}</strong></li>
+                            <?php $ammount = $accommodation->Price * $noites + 12.55 + 10.61; ?>
                         </ul>
                     </div>
                 </div>
@@ -279,9 +280,14 @@
                                 <form method="post" action="{{ route('generate.billet') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}} para {{$hospedes}} pessoas.">
-                                    <input type="hidden" name="amount" value="{{$accommodation->Price * $noites}}">
+                                    <input type="hidden" name="amount" value="{{$ammount}}">
                                     <input type="hidden" name="name" value="{{$user->name}} {{$user->surname}}">
+                                    <input type="hidden" name="user_id" value="{{$user->id}}">
+                                    <input type="hidden" name="accommodation_id" value="{{$accommodation->AccommodationId}}">
+                                    <input type="hidden" name="checkin_date" value="{{Request::segment(3)}}">
+                                    <input type="hidden" name="checkout_date" value="{{Request::segment(4)}}">
                                     <input type="hidden" name="paymenttype" value="BOLETO">
+
                                     <div class="form-group">
                                         <input class="d-flex" type="text" name="document" placeholder="CPF">
                                     </div>
@@ -306,9 +312,14 @@
                                 <form method="post" action="{{ route('generate.pix') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}} para {{$hospedes}} pessoas.">
-                                    <input type="hidden" name="amount" value="{{$accommodation->Price * $noites}}">
+                                    <input type="hidden" name="amount" value="{{$ammount}}">
                                     <input type="hidden" name="name" value="{{$user->name}} {{$user->surname}}">
-                                    <input type="hidden" name="paymenttype" value="BOLETO">
+                                    <input type="hidden" name="user_id" value="{{$user->id}}">
+                                    <input type="hidden" name="accommodation_id" value="{{$accommodation->AccommodationId}}">
+                                    <input type="hidden" name="checkin_date" value="{{Request::segment(3)}}">
+                                    <input type="hidden" name="checkout_date" value="{{Request::segment(4)}}">
+
+                                    <input type="hidden" name="paymenttype" value="PIX">
                                     <div class="form-group">
                                         <input class="d-flex" type="text" name="document" placeholder="CPF">
                                     </div>

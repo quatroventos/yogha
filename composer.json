@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "ricorocks-digital-agency/soap": "^1.5",
+        "spatie/laravel-webhook-client": "^2.7",
         "stevebauman/location": "^6.2"
     },
     "require-dev": {

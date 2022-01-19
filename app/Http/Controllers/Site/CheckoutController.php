@@ -1,15 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Site;
-
+use App\Models\Orders;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Jetimob\Juno\Juno;
-use Jetimob\Juno\Lib\Model\Billing;
-use Jetimob\Juno\Lib\Model\Charge;
-use Jetimob\Juno\Lib\Http\Charge\ChargeCreationRequest;
 
 
 class CheckoutController extends Controller
@@ -55,6 +50,7 @@ class CheckoutController extends Controller
 
         return view('site.checkout.index', compact('description', 'features','accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services'));
     }
+
 
     //filtra por data e quantidade de hospedes
     public function check_availability($accommodationid = '', $startdate = '', $enddate = '')
@@ -148,6 +144,7 @@ class CheckoutController extends Controller
     }
     public function generatebillet(Request $request)
     {
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -230,6 +227,19 @@ class CheckoutController extends Controller
 
         $response = json_decode($response, true);
 
+//        //salva os dados do pedido
+        $order = new Orders;
+        $order->transactionId = $response['_embedded']['charges'][0]['id'];
+        $order->amount = $request->amount;
+        $order->status = "PENDING";
+        $order->users_id = $request->user_id;
+        $order->accommodationId = $request->accommodation_id;
+        $order->checkin_date = $request->checkin_date;
+        $order->checkout_date = $request->checkout_date;
+        $order->due_date = $response['_embedded']['charges'][0]['dueDate'];
+        $order->services = $request->services;
+        $order->save();
+
         if($info['http_code'] == 200){
             $user = getUserData();
             $userreservations = getUserReservations();
@@ -238,6 +248,8 @@ class CheckoutController extends Controller
             $recently_viewed = getUserRecentlyViewed();
             $surpriseme = generateSurprisemeUrl();
             $services = getAllServices();
+
+            dd($response);
 
             return view('site.checkout.billet', compact('response', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services'));
         }else{
@@ -324,4 +336,19 @@ class CheckoutController extends Controller
         curl_close($curl);
 
     }
+
+    //Webhook para o pagamento da Juno
+    public function juno_webhook(Request $request)
+    {
+            $data = request()->json()->all();
+            $transactionId = $data['data'][0]['attributes']['charge']['id'];
+            $status = $data['data'][0]['attributes']['status'];
+            $due_date = $data['data'][0]['attributes']['charge']['dueDate'];
+            Orders::where('transactionId', $transactionId)->update([
+                "status" => $status,
+                "due_date" => $due_date
+            ]);
+
+    }
+
 }
