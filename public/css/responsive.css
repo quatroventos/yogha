@@ -224,13 +224,6 @@ section.mapa-chamada .container > .row {
 ----------------------------------------------------------------- */
 
 #resultado-busca {}
-        
-#resultado-busca .busca-resumo .col-6.pe-0 .btn {
-  border-radius: 21px 0 0 21px;
-}
-#resultado-busca .busca-resumo .col-6.ps-0 .btn {
-  border-radius: 0 21px 21px 0;
-}
 
 /* mapa pagina */
 #resultado-busca #map {

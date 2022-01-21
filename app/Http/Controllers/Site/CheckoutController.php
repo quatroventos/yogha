@@ -5,6 +5,7 @@ use App\Models\Orders;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 
 class CheckoutController extends Controller
@@ -227,7 +228,7 @@ class CheckoutController extends Controller
 
         $response = json_decode($response, true);
 
-//        //salva os dados do pedido
+        //salva os dados do pedido
         $order = new Orders;
         $order->transactionId = $response['_embedded']['charges'][0]['id'];
         $order->amount = $request->amount;
@@ -239,6 +240,63 @@ class CheckoutController extends Controller
         $order->due_date = $response['_embedded']['charges'][0]['dueDate'];
         $order->services = $request->services;
         $order->save();
+
+        //faz uma pré reserva na avantio
+
+//        try{
+//
+//            $client = new
+//            \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
+//
+//            $credentials = array(
+//                "Language" => "EN",
+//                "UserName" => "itsatentoapi_test",
+//                "Password" => "testapixml"
+//            );
+//
+//            $request = array(
+//                "Credentials" => $credentials,
+//                "BookingData" => [
+//                    'Accommodation' => [
+//                        'AccommodationCode' => 128498,//$content['accommodation_code'],
+//                        'UserCode' => 1416325650,//$content['user_code'],
+//                        'LoginGA' => 'itsvillas'//$content['login_ga']
+//                    ],
+//                    'Occupants' => [
+//                        'AdultsNumber' => 1//$content['ocupantes']
+//                    ],
+//                    'ArrivalDate' => '2022-01-02',//$content['dt_inicial'],
+//                    'DepartureDate' => '2022-01-05',//$content['dt_final']
+//                    "ClientData" => [
+//                        "Name" => 'Gabriel',
+//                        "Surname" => 'Roloff',
+//                        "DNI" => '03769214986',
+//                        "Address" => 'Itajubá, 480',
+//                        "Locality" => 'Portão',
+//                        "PostCode" => '81070190',
+//                        "City" => 'Curitiba',
+//                        "Country" => 'Brazil',
+//                        "Telephone" => '41988645007',
+//                        "Telephone2" => '',
+//                        "EMail" => 'garlof@gmail.com',
+//                        "Fax" => '',
+//                    ],
+//                    "Board" => 'ROOM_ONLY',
+//                    "BookingType" => 'UNPAID',
+//                    "SendMailToOrganization" => 'true',
+//                    "SendMailToTourist" => 'false',
+//                    "PaymentMethod" => 1,
+//                    "Comments" => '',
+//                ],
+//
+//            );
+//            return $client->SetBooking($request);
+//        } catch(SoapFault $e){
+//            return $e;
+//        }
+//        die();
+
+
 
         if($info['http_code'] == 200){
             $user = getUserData();

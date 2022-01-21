@@ -47,7 +47,6 @@
 </head>
 
 <body id="single-anuncio">
-
 <!-- ABA LOJA -->
 @include('site.abas.service_list')
 <!-- ABA LOJA SINGLE -->

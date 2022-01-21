@@ -23,7 +23,19 @@
         </div>
         <div class="row mb-15">
             <div class="col">
-                <a href="#!" class="btn d-flex">Agendar serviço</a>
+                <a href="#!" id="addToCart" class="btn d-flex">Adicionar serviço</a>
+{{--                <a href="#!" id="removeFromCart" class="btn d-flex">Remover serviço</a>--}}
             </div>
         </div>
     </div>
+
+    <script>
+        $('#addToCart').click(function(){
+            $.ajax({
+                url: "{{URL::to('/addtocart/'.$service->id)}}",
+                context: document.body
+            }).done(function() {
+                $('#addToCart').html('Serviço adicionado à sua reserva');
+            });
+        })
+    </script>

@@ -29,6 +29,60 @@ class ServicesController extends Controller
         return view('site.services.service_details', compact('service'));
     }
 
+    public function add_to_cart($id)
+    {
+        $product = Services::find($id);
+
+        if(!$product) {
+
+            abort(404);
+
+        }
+
+        $cart = session()->get('cart');
+
+        // if cart is empty then this the first product
+        if(!$cart) {
+
+            $cart = [
+                $id => [
+                    "title" => $product->title,
+                    "quantity" => 1,
+                    "price" => $product->price,
+                ]
+            ];
+
+            session()->put('cart', $cart);
+
+            return true;
+        }
+
+        // if cart not empty then check if this product exist then increment quantity
+        if(isset($cart[$id])) {
+
+            session()->put('cart', $cart);
+
+            return true;
+
+        }
+
+        // if item not exist in cart then add to cart with quantity = 1
+        $cart[$id] = [
+            "title" => $product->title,
+            "quantity" => 1,
+            "price" => $product->price,
+        ];
+
+        session()->put('cart', $cart);
+
+        return true;
+    }
+
+    public function remove_from_cart(){
+        \Session::forget('services');
+        return true;
+    }
+
 
 
 }

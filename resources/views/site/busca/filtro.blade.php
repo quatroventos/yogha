@@ -49,22 +49,22 @@
 
 </head>
 
-<body id="aba-filtro-busca">
+<body id="filtro-busca">
 
     <section class="fixo-t">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col grow-0 px-0">
             <a href="javascript:history.back();" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
-          </div>
+          </div>  
           <div class="col align-self-center *justify-content-center">
             <h3 class="text-center"><strong>Data e Hóspedes</strong></h3>
-          </div>
+          </div> 
           <div class="col grow-0 px-0">
             <span href="#!" class="btn btn-2 btn-ico"></span>
-          </div>
+          </div>         
         </div>
-      </div>
+      </div>      
     </section>
 
     <section id="">
@@ -77,22 +77,34 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col col-sm-6">
-                    <div class="form-group">
-                        <label for="daterange" class="texto-m mb-5">Datas</label>
-                        <input type="text" class="d-flex" name="daterange" value="01/01/2018 - 01/15/2018" />
-                        <input type="hidden" name="startdate" id="startdate" value="{{date('Y-m-d', strtotime($startdate))}}">
-                        <input type="hidden" name="enddate" id="enddate" value="{{date('Y-m-d', strtotime($startdate))}}">
+                    <div class="form-group row align-items-center">
+                        <label for="daterange" class="texto-m col col-form-label"><strong>Datas</strong></label>
+                        <div class="col-9">
+                            <input type="text" class="d-flex" name="daterange" value="01/01/2018 - 01/15/2018" />
+                            <input type="hidden" name="startdate" id="startdate" value="{{date('Y-m-d', strtotime($startdate))}}">
+                            <input type="hidden" name="enddate" id="enddate" value="{{date('Y-m-d', strtotime($startdate))}}">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="texto-m mb-5">Adultos</label>
-                        <input type="number" class="d-flex" name="adults" id="adults" placeholder="0">
+                    <div class="form-group row align-items-center">
+                        <label class="texto-m col col-form-label"><strong>Adultos</strong></label>
+                        <div class="col-9">
+                            <input type="number" class="d-flex" name="adults" id="adults" placeholder="0">
+                        </div>
                     </div>
-                    <div class="form-group mb-0">
-                        <label class="texto-m mb-5">Crianças</label>
+                    <div class="form-group row align-items-center mb-30">
+                        <label class="texto-m col col-form-label"><strong>Crianças</strong></label>
+                        <div class="col-9">
+                            <a href="#!" class="btn btn-3 btn-p children"><i class="uil uil-plus"></i> Adicionar</a>
+                        </div>
                     </div>
-                    <div class="form-group form-inline children-group">
-                        <input type="number" name="children" id="children" placeholder="Idade">
-                        <a href="#!" class="btn btn-4 btn-ico children"><i class="uil uil-plus"></i></a>
+                    <div class="form-group row children-group">
+                        <!--<div class="col-6">
+                            <div class="idade">
+                                <label><i class="uil uil-kid"></i></label>
+                                <input type="number" name="children" placeholder="Idade">
+                                <a href="#!" class="btn btn-3 btn-ico"><i class="uil uil-times"></i></a>
+                            </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -126,41 +138,7 @@
             startDate: '{{date('%d/%m/%Y', strtotime($startdate))}}',
             endDate: '{{date('%d/%m/%Y', strtotime($enddate))}}',
             locale: {
-                format: 'DD/MM/YYYY',
-                "applyLabel": "Salvar",
-                "cancelLabel": "Cancelar",
-                "fromLabel": "De",
-                "toLabel": "A",
-                "weekLabel": "S",
-                "daysOfWeek": [
-                    "Dom",
-                    "Seg",
-                    "Ter",
-                    "Qua",
-                    "Qui",
-                    "Sex",
-                    "Sáb"
-                ],
-                "monthNames": [
-                    "Janeiro",
-                    "Fevereiro",
-                    "Março",
-                    "Abril",
-                    "Maio",
-                    "Junho",
-                    "Julho",
-                    "Agosto",
-                    "Setembro",
-                    "Outubro",
-                    "Novembro",
-                    "Dezembro"
-                ],
-                "firstDay": 1
-            },
-            isInvalidDate: function(date) {
-                if (date.format('YYYY-M-D') == '2021-10-12') {
-                    return true;
-                }
+                format: 'DD/M/Y'
             }
         }, function(start, end, label) {
             $('#startdate').val(start.format('YYYY-MM-DD'));
@@ -179,7 +157,7 @@
             window.location.href = '{{URL::to('/')}}/searchbydistrict/{{Request::segment(2)}}/'+startdate+'/'+enddate+'/'+adults+'/'+children+'/'+ages;
         });
         $(".children").click(function(){
-            $('.children-group').before('<div class="form-group form-inline"><input type="number" name="children" id="children" placeholder="Idade"><a href="#!" class="btn btn-4 btn-ico children"><i class="uil uil-minus"></i></a></div>')
+            $('.children-group').append('<div class="col-6 mb-15"><div class="idade align-items-center"><label><i class="uil uil-kid"></i></label><input type="number" name="children" placeholder="Idade"><a href="#!" class="btn btn-3 btn-ico"><i class="uil uil-times"></i></a></div></div>')
         })
     });
 </script>

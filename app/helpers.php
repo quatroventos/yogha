@@ -61,6 +61,8 @@ function getUserFutureReservations()
             ->where('orders.users_id', '=', $userid)
             ->where('orders.checkin_date', '>', $today)
             ->get();
+
+        //dd($userfuturereservations);
     }else {
         $userfuturereservations = "";
     }
@@ -102,7 +104,7 @@ function getUserRecentlyViewed(){
 }
 
 function generateSurprisemeUrl(){
-    //seleciona aleatoriamente uma acomodação para o botão me surpreenda
+    //seleciona aleatoriamente uma acomodação para o botão Surpreenda-me
     $surpriseme = \DB::table('accommodations')
         ->take(1)
         ->inRandomOrder()

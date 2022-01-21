@@ -95,58 +95,32 @@
                     </div>
                 </div>
 
-<!--                --><?php
-
-                //ultima checagem de disponibilidade
-//                try{
-//                    $client = new
-//                SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
-//                    $credentials = array(
-//                        "Language" => "EN",
-//                        "UserName" => 'GA1e659a7390',
-//                        "Password" => 'ed891d602f7a'
-//                    );
-//                    $criteria = array(
-//                        "Accommodation" => array(
-//                            "AccommodationCode" => $accommodation->AccommodationId,
-//                            "UserCode" => '836efa4efbe7fa63f2ebbae30d7b965f',
-//
-//                        ),
-//                        "Occupants" => array(
-//                            "AdultsNumber" => 2
-//                            "LoginGA" => #Company#
-//                        ),
-//                        "DateFrom" => date_format(date_create(Request::segment(3)),"d/m/y"),
-//                        "DateTo" => date_format(date_create(Request::segment(4)),"d/m/y")
-//                    );
-//                    $request = array(
-//                        "Credentials" => $credentials,
-//                        "Criteria" => $criteria
-//                    );
-//                    $result = $client->IsAvailable($request);
-//                    print_r($result);
-//                }
-//                catch(SoapFault $e){
-//                echo $e; }
-//
-//             ?>
                 <div class="row mb-30">
                     <div class="col">
                         <ul class="gap-5 texto-m">
                             <?php $noites = round((strtotime(Request::segment(4)) - strtotime(Request::segment(3)))/86400, 1); ?>
                             <li>R$ {{$accommodation->Price}} x {{$noites}} noites</li>
-                            <li>Taxa de limpeza</li>
-                            <li class="mb-10">Taxa de serviço</li>
+                                <?php $total = 0 ?>
+                                @if(session('cart'))
+                                    @foreach(session('cart') as $id => $details)
+                                            <li>{{ $details['title'] }}</li>
+                                    @endforeach
+                                @endif
                             <li><strong>Total (BLR)</strong></li>
                         </ul>
                     </div>
                     <div class="col grow-0">
                         <ul class="gap-5 text-end texto-m">
                             <li>R$ {{$accommodation->Price * $noites}}</li>
-                            <li>R$12,55</li>
-                            <li class="mb-10">R$10,61</li>
-                            <li><strong>R${{$accommodation->Price * $noites + 12.55 + 10.61}}{{-- TODO: calcular taxas com base na api--}}</strong></li>
-                            <?php $ammount = $accommodation->Price * $noites + 12.55 + 10.61; ?>
+
+                            @if(session('cart'))
+                                @foreach(session('cart') as $id => $details)
+                                    <?php $total += $details['price'] * $details['quantity'] ?>
+                                    <li>R${{ $details['price'] }}</li>
+                                @endforeach
+                            @endif
+                            <li><strong>R${{$accommodation->Price * $noites + $total}}{{-- TODO: calcular taxas com base na api--}}</strong></li>
+                            <?php $ammount = $accommodation->Price * $noites + $total; ?>
                         </ul>
                     </div>
                 </div>

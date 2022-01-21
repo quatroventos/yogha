@@ -9,19 +9,19 @@
     <!-- alerta -->
     <div class="alerta *ativo"><i class="uil uil-heart"></i> Salvo na sa lista de favoritos!</div>
 
-<!-- MENUS --> 
+<!-- MENUS -->
 
     <!-- MENU SUPERIOR -->
-    <!--#include virtual="menu-sup.html"-->    
+    <!--#include virtual="menu-sup.html"-->
 
     <!-- MENU INFERIOR -->
-    <!--#include virtual="menu-inf.html"-->    
+    <!--#include virtual="menu-inf.html"-->
 
     <!-- MENU LATERAL -->
     <!--#include virtual="menu-lateral.html"-->
 
 <!-- ABAS -->
-    
+
     <!-- ABA DATAS -->
     <!--#include virtual="aba-datas.html"-->
 
@@ -69,9 +69,9 @@
           <div class="col">
               <h1 class="text-center texto-branco mb-15"><strong>Sinta-se em casa onde estiver</strong></h1>
               <a href="#!" class="btn d-flex btn-2 mb-15 switch" data-bs-toggle="collapse" data-bs-target="#aba-busca"><i class="uil uil-search"></i> Onde você quer morar hoje?</a>
-              <a href="pagina-resultado-busca.shtml" class="btn d-flex">Me surpreenda!</a>
+              <a href="pagina-resultado-busca.shtml" class="btn d-flex">Surpreenda-me!</a>
             </ul>
-          </div>          
+          </div>
         </div>
       </div>
     </header>
@@ -82,7 +82,7 @@
         <div class="row mb-10">
           <div class="col">
             <h2><strong>Hospedagens perto de você</strong></h2>
-          </div>         
+          </div>
         </div>
         <div class="slider slide-3col">
           <ul>
@@ -129,23 +129,23 @@
     <!-- MAPA -->
     <section class="mapa-chamada mb-30">
       <div class="container">
-        <div class="row mx-0">   
+        <div class="row mx-0">
           <div class="col">
             <div class="row mb-10">
-              <div class="col grow-0 pe-0"> 
+              <div class="col grow-0 pe-0">
                 <i class="icone-g uil uil-map-marker"></i>
               </div>
-              <div class="col">                
+              <div class="col">
                 <h3><strong>Título da categoria</strong></h3>
                 <h4 class="texto-m"><strong>15 opções</strong> perto de você</h4>
-              </div>       
+              </div>
             </div>
-            <div class="row">  
+            <div class="row">
               <div class="col">
                 <a href="pagina-resultado-busca.shtml" class="btn d-flex btn-2">Mostrar no mapa</a>
-              </div>       
+              </div>
             </div>
-          </div>       
+          </div>
         </div>
       </div>
     </section>
@@ -156,7 +156,7 @@
         <div class="row mb-10">
           <div class="col">
             <h2><strong>Mais bem avaliados</strong></h2>
-          </div>         
+          </div>
         </div>
         <div class="slider slide-3col">
           <ul>
@@ -213,7 +213,7 @@
         <div class="row mb-10">
           <div class="col">
             <h2><strong>Descontos exclusivos</strong></h2>
-          </div>         
+          </div>
         </div>
         <div class="slider slide-3col">
           <ul>
@@ -222,7 +222,14 @@
                 <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <h3 class="mb-5">Título do anúncio</h3>
                 <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$45</strong> /noite</h4>
-              </a>              
+              </a>
+            </li>
+            <li>
+              <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
+                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
+                <h3 class="mb-5">Título do anúncio</h3>
+                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$45</strong> /noite</h4>
+              </a>
             </li>
             <li>
               <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
@@ -243,13 +250,6 @@
                 <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <h3 class="mb-5">Título do anúncio</h3>
                 <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$45</strong> /noite</h4>
-              </a>              
-            </li>
-            <li>
-              <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
-                <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                <h3 class="mb-5">Título do anúncio</h3>
-                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$45</strong> /noite</h4>
               </a>
             </li>
             <li>
@@ -264,7 +264,7 @@
                 <picture class="d-flex mb-10" style="background-image: url(img/fundo-imagem.jpg);"></picture>
                 <h3 class="mb-5">Título do anúncio</h3>
                 <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R$45</strong> /noite</h4>
-              </a>              
+              </a>
             </li>
             <li>
               <a href="pagina-single-anuncio.shtml" class="texto-marrom-escuro">
@@ -304,7 +304,7 @@
         <div class="row mb-10">
           <div class="col">
             <h2><strong>Mais procurados</strong></h2>
-          </div>         
+          </div>
         </div>
         <div class="slider slide-4col text-center texto-m texto-branco">
           <ul>
@@ -436,10 +436,10 @@
                 </div>
               </a>
             </li>
-          </ul>     
+          </ul>
         </div>
       </div>
-    </section> 
+    </section>
 
     <!-- ESTILO -->
     <section class="mb-15">
@@ -447,7 +447,7 @@
         <div class="row mb-10">
           <div class="col">
             <h2><strong>Qual é o seu estilo?</strong></h2>
-          </div>         
+          </div>
         </div>
         <div class="slider slide-4col texto-m texto-branco">
           <ul>
@@ -607,7 +607,7 @@
           <div class="col">
             <h2 class="justify-content-center d-flex mb-10 gap-10"><i class="icone-gg texto-laranja uil uil-house-user"></i> <strong>Uma renda extra para você</strong></h2>
             <a href="#!" class="btn d-flex">Alugue seu imóvel</a>
-          </div>          
+          </div>
         </div>
       </div>
     </section>
@@ -652,7 +652,7 @@
               <li>Yogha gestão patrimonial</li>
               <li>CNPJ: 30.032.993/0001-44</li>
             </ul>
-          </div>          
+          </div>
         </div>
       </div>
     </footer>

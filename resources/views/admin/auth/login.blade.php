@@ -56,15 +56,15 @@
                 <div class="row justify-content-center">
                     <div class="col grow-0 px-0">
                         <a href="#!" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
-                    </div>
+                    </div>  
                     <div class="col align-self-center *justify-content-center">
                         <h3 class="text-center"><strong>Login</strong></h3>
-                    </div>
+                    </div> 
                     <div class="col grow-0 px-0">
                         <span class="btn btn-2 btn-ico"></span>
-                    </div>
+                    </div>         
                 </div>
-            </div>
+            </div>      
         </section>
 
         <!-- usuario login -->
@@ -97,20 +97,31 @@
                             <div class="form-group">
                                 <button type="submit" class="btn d-flex">Entrar</button>
                             </div>
-                            <div class="form-group">
-                                <a href="{{ route('frontend.user.register') }}" class="btn btn-4 d-flex">Cadastrar</a>
+                            <div class="form-group">     
+                                <a href="{{ route('register') }}" class="btn btn-4 d-flex">Cadastrar</a>
                             </div>
                             <div class="form-group form-check">
                                 <a href="{{ route('password.request') }}" class="btn-link btn-p px-0"><strong>Esqueci a senha</strong></a>
                                 <input type="checkbox" class="form-check-input" id="lembrar">
-                                <label class="form-check-label" for="lembrar" type="checkbox" name="remember" id="remember">Lembre de mim</label>
+                                <label class="form-check-label" for="lembrar" type="checkbox" name="remember" id="remember">Lembre de mim</label>                  
                             </div>
                         </form>
-                    </div>
+                    </div>        
                 </div>
             </div>
         </section>
 
     </body>
+
+    <!-- SCRIPTS -->
+
+    <!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+    <!-- SLICK -->
+    <script type="text/javascript" src="{{asset('js/slick.min.js')}}"></script>
+
+    <!-- FUNCOES -->
+    <script type="text/javascript" src="{{asset('js/funcoes.js')}}"></script>
 
 </html>

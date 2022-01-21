@@ -34,6 +34,8 @@ class UserController extends Controller
         $countries = Countries::all();
         $roles = \DB::table('user_roles')->get();
 
+        dd($countries);
+
         if($user_id == "") {
             //novo usuário
             return view('admin.auth.register', compact('roles', 'countries'));

@@ -41,6 +41,8 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/searchbydistrict/{district}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'SearchController@searchbydistrict')->name('search.district');
     //services
     Route::get('/service_details/{serviceid}', 'ServicesController@show_details');
+    Route::get('/addtocart/{id}', 'ServicesController@add_to_cart');
+
     //blog
     Route::get('/blog/{category}/{slug}', 'BlogController@category')->name('blog.category');
     Route::get('/blog/{slug}', 'BlogController@post')->name('blog.post');
@@ -52,6 +54,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/user/email_verification/', 'Usercontroller@email_verification')->name('frontend.verification');
     Route::get('/user/resend_confirmation/', 'Usercontroller@edit')->name('frontend.verification.resend');
     Route::any('/juno_webhook', 'CheckoutController@juno_webhook');
+
 
     Route::group(['middleware' => 'auth'], function () {
         //checkout
@@ -70,7 +73,6 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
         Route::get('/user/delete/{user_id}', 'Usercontroller@delete')->name('frontend.user.delete');
         Route::post('/user/update', 'Usercontroller@update')->name('frontend.user.update');
         Route::post('/user/password', 'Usercontroller@password')->name('frontend.user.password');
-
     });
 });
 

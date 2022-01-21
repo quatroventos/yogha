@@ -8,7 +8,7 @@
                 <input type="text" value="@if(isset($district) != ''){{$district}}@endif" class="typeahead" placeholder="Digite sua busca">
             </div>
             <div class="col-12 mb-15 col-sm-5">
-                <a href="accommodation/{{$surpriseme[0]->AccommodationId}}" class="btn d-flex">Me surpreenda!</a>
+                <a href="accommodation/{{$surpriseme[0]->AccommodationId}}" class="btn d-flex">Surpreenda-me!</a>
             </div>
         </div>
         @if($recently_viewed)
