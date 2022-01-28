@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Site;
+use App\Models\Cities;
+use App\Models\Countries;
 use App\Models\Orders;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -143,6 +145,36 @@ class CheckoutController extends Controller
         echo $response;
 
     }
+
+    public function cancelbooking($bookingcode, $localizator){
+        try {
+
+            $client = new
+            \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
+
+            $credentials = array(
+                "Language" => "EN",
+                "UserName" => "itsatentoapi_test",
+                "Password" => "testapixml"
+            );
+
+            $request = array(
+                "Credentials" => $credentials,
+                "BookingCode" => $bookingcode,
+                "Localizer" => [
+                    "Localizator" => $localizator
+                ],
+                "Comments" => "testing",
+                "SendMailToOrganization" => 0,
+                "SendMailToTourist" => 1
+
+            );
+            return $client->CancelBooking($request);
+        } catch (SoapFault $e) {
+            return $e;
+        }
+    }
+
     public function generatebillet(Request $request)
     {
 
@@ -173,6 +205,10 @@ class CheckoutController extends Controller
         $authBearer = $authBearerArray->access_token;
         $duedate = Carbon::now()->addDays(5)->format('Y-m-d');
         $birthday = implode('-', array_reverse(explode('/', $request->birthday)));
+        $city = Cities::where('id', $request->city_id)->first();
+        $country = Countries::where('id', $request->country_id)->first();
+
+
 
         $curl = curl_init();
 
@@ -215,7 +251,7 @@ class CheckoutController extends Controller
             }',
             CURLOPT_HTTPHEADER => array(
                 'X-Api-Version: 2',
-                'X-Resource-Token: 6208E5469C507A8BA724994B4E5D5DB1E255775316D87C510AAB5FC0E850DEF2',
+                'X-Resource-Token: 6208E5469C507A8B1F5485A08A2985122F6F32BCB78B90599B02ED2C6EA7FDCF',
                 'Authorization: Bearer '.$authBearer,
                 'Content-Type: application/json',
                 'Cookie: AWSALBTG=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY=; AWSALBTGCORS=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY='
@@ -227,6 +263,9 @@ class CheckoutController extends Controller
         //print_r($info);
 
         $response = json_decode($response, true);
+
+
+
 
         //salva os dados do pedido
         $order = new Orders;
@@ -243,58 +282,59 @@ class CheckoutController extends Controller
 
         //faz uma pré reserva na avantio
 
-//        try{
-//
-//            $client = new
-//            \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
-//
-//            $credentials = array(
-//                "Language" => "EN",
-//                "UserName" => "itsatentoapi_test",
-//                "Password" => "testapixml"
-//            );
-//
-//            $request = array(
-//                "Credentials" => $credentials,
-//                "BookingData" => [
-//                    'Accommodation' => [
-//                        'AccommodationCode' => 128498,//$content['accommodation_code'],
-//                        'UserCode' => 1416325650,//$content['user_code'],
-//                        'LoginGA' => 'itsvillas'//$content['login_ga']
-//                    ],
-//                    'Occupants' => [
-//                        'AdultsNumber' => 1//$content['ocupantes']
-//                    ],
-//                    'ArrivalDate' => '2022-01-02',//$content['dt_inicial'],
-//                    'DepartureDate' => '2022-01-05',//$content['dt_final']
-//                    "ClientData" => [
-//                        "Name" => 'Gabriel',
-//                        "Surname" => 'Roloff',
-//                        "DNI" => '03769214986',
-//                        "Address" => 'Itajubá, 480',
-//                        "Locality" => 'Portão',
-//                        "PostCode" => '81070190',
-//                        "City" => 'Curitiba',
-//                        "Country" => 'Brazil',
-//                        "Telephone" => '41988645007',
-//                        "Telephone2" => '',
-//                        "EMail" => 'garlof@gmail.com',
-//                        "Fax" => '',
-//                    ],
-//                    "Board" => 'ROOM_ONLY',
-//                    "BookingType" => 'UNPAID',
-//                    "SendMailToOrganization" => 'true',
-//                    "SendMailToTourist" => 'false',
-//                    "PaymentMethod" => 1,
-//                    "Comments" => '',
-//                ],
-//
-//            );
-//            return $client->SetBooking($request);
-//        } catch(SoapFault $e){
-//            return $e;
-//        }
-//        die();
+        try{
+
+            $client = new
+            \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
+
+            $credentials = array(
+                "Language" => "EN",
+                "UserName" => "itsatentoapi_test",
+                "Password" => "testapixml"
+            );
+
+            $request = array(
+                "Credentials" => $credentials,
+                "BookingData" => [
+                    'Accommodation' => [
+                        'AccommodationCode' => $request->accommodation_code,
+                        'UserCode' => $request->user_code,
+                        'LoginGA' => $request->login_ga
+                    ],
+                    'Occupants' => [
+                        'AdultsNumber' => $request->adultsnumber,
+                        'ChildrenNumber' => $request->childrennumber,
+                    ],
+                    'ArrivalDate' => $request->checkin_date,
+                    'DepartureDate' => $request->checkout_date,
+                    "ClientData" => [
+                        "Name" => $request->name,
+                        "Surname" => $request->surname,
+                        "DNI" => $request->document,
+                        "Address" => $request->street,
+                        "Locality" => $request->district,
+                        "PostCode" => $request->zip_code,
+                        "City" => $city,
+                        "Country" => $country,
+                        "Telephone" => $request->phone,
+                        "Telephone2" => '',
+                        "EMail" => $request->email,
+                        "Fax" => '',
+                    ],
+                    "Board" => $request->board,
+                    "BookingType" => 'UNPAID',
+                    "SendMailToOrganization" => 0,
+                    "SendMailToTourist" => 1,
+                    "PaymentMethod" => 1,
+                    "Comments" => '',
+                ],
+
+            );
+            return $client->SetBooking($request);
+        } catch(SoapFault $e){
+            return $e;
+        }
+        die();
 
 
 

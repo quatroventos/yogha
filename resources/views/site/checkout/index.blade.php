@@ -253,13 +253,33 @@
                             <li class="campos-boleto collapse">
                                 <form method="post" action="{{ route('generate.billet') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">
                                     @csrf
-                                    <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}} para {{$hospedes}} pessoas.">
-                                    <input type="hidden" name="amount" value="{{$ammount}}">
-                                    <input type="hidden" name="name" value="{{$user->name}} {{$user->surname}}">
+                                    <input type="text" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}} para {{$hospedes}} pessoas.">
+                                    <input type="text" name="amount" value="{{$ammount}}">
+                                    {{--Accommodation info--}}
+                                    <input type="text" name="accommodation_code" value="{{$accommodation->AccommodationId}}">
+                                    <input type="text" name="user_code" value="{{$accommodation->UserId}}">
+                                    <input type="text" name="login_ga" value="{{$accommodation->Company}}">
+                                    {{--Reservation info--}}
+                                    <input type="text" name="adultsnumber" value="{{Request::segment(5)}}">
+                                    <input type="text" name="childrennumber" value="{{Request::segment(6)}}">
+                                    <input type="text" name="checkin_date" value="{{Request::segment(3)}}">
+                                    <input type="text" name="checkout_date" value="{{Request::segment(4)}}">
+                                    {{--User info--}}
+                                    <input type="text" name="name" value="{{$user->name}}">
+                                    <input type="text" name="surname" value="{{$user->surname}}">
+                                    <input type="text" name="document" value="{{$user->cpf}}">
+                                    <input type="text" name="street" value="{{$user->street}},{{$user->number}},{{$user->complement}} ">
+                                    <input type="text" name="district" value="{{$user->district}}">
+                                    <input type="text" name="zip_code" value="{{$user->zip_code}}">
+                                    <input type="text" name="city" value="{{$user->city_id}}">
+                                    <input type="text" name="country" value="{{$user->country_id}}">
+                                    <input type="text" name="phone" value="{{$user->phone}}">
+                                    <input type="text" name="email" value="{{$user->email}}">
+
+                                    <input type="hidden" name="board" value="ROOM_ONLY">
+                                    {{--//TODO: VERIFICAR ESTA INFO COM A AVANTIO--}}
+
                                     <input type="hidden" name="user_id" value="{{$user->id}}">
-                                    <input type="hidden" name="accommodation_id" value="{{$accommodation->AccommodationId}}">
-                                    <input type="hidden" name="checkin_date" value="{{Request::segment(3)}}">
-                                    <input type="hidden" name="checkout_date" value="{{Request::segment(4)}}">
                                     <input type="hidden" name="paymenttype" value="BOLETO">
 
                                     <div class="form-group">

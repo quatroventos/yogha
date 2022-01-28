@@ -138,6 +138,7 @@ class ReadXMLController extends Controller
                $dataArray[] = [
                     "AccommodationId" => $data['AccommodationId'],
                     "UserId" => $data['UserId'],
+                    "Company" => $data['Company'],
                     "CompanyId" => $data['CompanyId'],
                     "AccommodationName" => $data['AccommodationName'],
                     "IdGallery" => $data['IdGallery'],

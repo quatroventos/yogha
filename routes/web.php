@@ -29,7 +29,6 @@ Route::get('/clear-routes', function() {
 });
 
 
-
 Route::namespace('App\Http\Controllers\Site')->group(function(){
     //home
     Route::get('/', 'HomeController')->name('home');
@@ -54,6 +53,8 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/user/email_verification/', 'Usercontroller@email_verification')->name('frontend.verification');
     Route::get('/user/resend_confirmation/', 'Usercontroller@edit')->name('frontend.verification.resend');
     Route::any('/juno_webhook', 'CheckoutController@juno_webhook');
+
+    Route::get('/cancel/{bookingcode}/{localizator}', 'CheckoutController@cancelbooking');
 
 
     Route::group(['middleware' => 'auth'], function () {
