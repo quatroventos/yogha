@@ -56,15 +56,15 @@
         <div class="row justify-content-center">
           <div class="col grow-0 px-0">
             <a href="javascript:history.back();" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
-          </div>  
+          </div>
           <div class="col align-self-center *justify-content-center">
             <h3 class="text-center"><strong>Data e Hóspedes</strong></h3>
-          </div> 
+          </div>
           <div class="col grow-0 px-0">
             <span href="#!" class="btn btn-2 btn-ico"></span>
-          </div>         
+          </div>
         </div>
-      </div>      
+      </div>
     </section>
 
     <section id="">
@@ -80,7 +80,7 @@
                     <div class="form-group row align-items-center">
                         <label for="daterange" class="texto-m col col-form-label"><strong>Datas</strong></label>
                         <div class="col-9">
-                            <input type="text" class="d-flex" name="daterange" value="01/01/2018 - 01/15/2018" />
+                            <input type="text" class="d-flex" name="daterange" />
                             <input type="hidden" name="startdate" id="startdate" value="{{date('Y-m-d', strtotime($startdate))}}">
                             <input type="hidden" name="enddate" id="enddate" value="{{date('Y-m-d', strtotime($startdate))}}">
                         </div>
@@ -88,7 +88,7 @@
                     <div class="form-group row align-items-center">
                         <label class="texto-m col col-form-label"><strong>Adultos</strong></label>
                         <div class="col-9">
-                            <input type="number" class="d-flex" name="adults" id="adults" placeholder="0">
+                            <input type="number" class="d-flex" name="adults" id="adults" placeholder="1" value="1" min="1" max="99">
                         </div>
                     </div>
                     <div class="form-group row align-items-center mb-30">
@@ -154,7 +154,7 @@
                 value = $(this).val();
                 ages = ages+value+',';
             });
-            window.location.href = '{{URL::to('/')}}/searchbydistrict/{{Request::segment(2)}}/'+startdate+'/'+enddate+'/'+adults+'/'+children+'/'+ages;
+            window.location.href = '{{URL::to('/')}}/checkabailability/{{Request::segment(2)}}/'+startdate+'/'+enddate+'/'+adults+'/'+children+'/'+ages;
         });
         $(".children").click(function(){
             $('.children-group').append('<div class="col-6 mb-15"><div class="idade align-items-center"><label><i class="uil uil-kid"></i></label><input type="number" name="children" placeholder="Idade"><a href="#!" class="btn btn-3 btn-ico"><i class="uil uil-times"></i></a></div></div>')

@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Site;
+use App\Models\Accommodations;
 use App\Models\Cities;
 use App\Models\Countries;
 use App\Models\Orders;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 
 class CheckoutController extends Controller
@@ -15,7 +15,6 @@ class CheckoutController extends Controller
 
     public function index($accommodationid, $startdate = '', $enddate = '', $adults = '', $children = '', $ages = '')
     {
-
         $user = getUserData();
         $userreservations = getUserReservations();
         $userfuturereservations = getUserFutureReservations();
@@ -50,10 +49,110 @@ class CheckoutController extends Controller
             $totalcamas += $features['Distribution']['KingBeds'];
         }
 
+        //check accommodation
+        $availableaccommodation = Accommodations::select("UserId", "Company")
+            ->where("AccommodationId", "=", $accommodationid)
+            ->first();
+        try{
 
-        return view('site.checkout.index', compact('description', 'features','accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services'));
+            $client = new
+            \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
+
+            $credentials = array(
+                "Language" => "EN",
+                "UserName" => "itsatentoapi_test",
+                "Password" => "testapixml"
+            );
+
+            $post = array(
+                "Credentials" => $credentials,
+                'Criteria' => [
+                    'Accommodation' => [
+                        'AccommodationCode' => $accommodationid,
+                        'UserCode' => $availableaccommodation->UserId,
+                        'LoginGA' => $availableaccommodation->Company,
+                    ],
+                    'Occupants' => [
+                        'AdultsNumber' => $adults,
+                    ],
+                    'DateFrom' => $startdate,
+                    'DateTo' => $enddate,
+                ],
+            );
+
+            //add ages to array
+            $ages = rtrim($ages, ',');
+            $agesarray = explode(',', $ages);
+
+            foreach($agesarray as $key=>$age){
+                $key = $key+1;
+                array_push($post['Criteria']['Occupants'], "Child".$key."_Age => ".$age);
+            }
+
+            $result = $client->IsAvailable($post);
+
+            if ($result->Available->AvailableCode == 0){
+                $available = false;
+            }else{
+                $available = true;
+            }
+
+
+        } catch(SoapFault $e){
+            $errors .= $e;
+        }
+
+
+        //get price
+        try{
+
+            $client = new
+            \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
+
+            $credentials = array(
+                "Language" => "EN",
+                "UserName" => "itsatentoapi_test",
+                "Password" => "testapixml"
+            );
+
+            $post = array(
+                "Credentials" => $credentials,
+                'Criteria' => [
+                    'Accommodation' => [
+                        'AccommodationCode' => $accommodationid,
+                        'UserCode' => $availableaccommodation->UserId,
+                        'LoginGA' => $availableaccommodation->Company,
+                    ],
+                    'Occupants' => [
+                        'AdultsNumber' => $adults,
+                    ],
+                    'ArrivalDate' => $startdate,
+                    'DepartureDate' => $enddate,
+                ],
+            );
+
+            //add ages to array
+            $ages = rtrim($ages, ',');
+            $agesarray = explode(',', $ages);
+
+            foreach($agesarray as $key=>$age){
+                $key = $key+1;
+                array_push($post['Criteria']['Occupants'], "Child".$key."_Age => ".$age);
+            }
+
+            $result = $client->GetBookingPrice($post);
+
+            if ($result->BookingPrice->RoomOnlyFinal){
+                $totalprice = $result->BookingPrice->RoomOnlyFinal;
+                $currency = $result->BookingPrice->Currency;
+                $bookingnotes =  $result->CancellationPolicies->Description;
+                $termsandconditions = $result->TermsAndConditions;
+            }
+        } catch(SoapFault $e){
+            $errors .= $e;
+        }
+        return view('site.checkout.index', compact('description', 'features','accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services', 'available', 'totalprice', 'currency', 'bookingnotes', 'termsandconditions'));
     }
-
 
     //filtra por data e quantidade de hospedes
     public function check_availability($accommodationid = '', $startdate = '', $enddate = '')
@@ -62,10 +161,10 @@ class CheckoutController extends Controller
         //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
         $today = date("Y-m-d");
         if ($startdate == '') {
-            $startdate = $today;
+            $startdate = date('Y-m-d', strtotime($today . ' + 1 days'));
         }
         if ($enddate == '') {
-            $enddate = date('Y-m-d', strtotime($today . ' + 2 days'));
+            $enddate = date('Y-m-d', strtotime($today . ' + 3 days'));
         }
 
         $availability = \DB::table('availabilities')
@@ -86,6 +185,8 @@ class CheckoutController extends Controller
             }
 
             $unavailableDates = json_encode($unavailableDates);
+             //dd($unavailableDates);
+
         } else {
             $unavailableDates = "";
         }
@@ -169,7 +270,14 @@ class CheckoutController extends Controller
                 "SendMailToTourist" => 1
 
             );
-            return $client->CancelBooking($request);
+
+            $return =  $client->CancelBooking($request);
+
+            if($return->Succeed == 1){
+                Orders::where('localizer', $localizator)->update(array('status' => 'CANCELED'));
+                return "Reserva cancelada";
+            }
+
         } catch (SoapFault $e) {
             return $e;
         }
@@ -178,8 +286,13 @@ class CheckoutController extends Controller
     public function generatebillet(Request $request)
     {
 
+        $resource_token = "6208E5469C507A8B1F5485A08A2985122F6F32BCB78B90599B02ED2C6EA7FDCF";
+
+        $errors = "";
+
         $curl = curl_init();
 
+        //get bearer token
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://sandbox.boletobancario.com/authorization-server/oauth/token',
             CURLOPT_RETURNTRANSFER => true,
@@ -198,240 +311,235 @@ class CheckoutController extends Controller
         ));
 
         $response = curl_exec($curl);
-
-        curl_close($curl);
         $authBearerArray = json_decode($response);
 
-        $authBearer = $authBearerArray->access_token;
-        $duedate = Carbon::now()->addDays(5)->format('Y-m-d');
-        $birthday = implode('-', array_reverse(explode('/', $request->birthday)));
-        $city = Cities::where('id', $request->city_id)->first();
-        $country = Countries::where('id', $request->country_id)->first();
+        if($authBearerArray->access_token != "") {
+            //generate billet
+            $authBearer = $authBearerArray->access_token;
+            $duedate = Carbon::now()->addDays(5)->format('Y-m-d');
+            $birthday = implode('-', array_reverse(explode('/', $request->birthday)));
+            $city = Cities::where('id', $request->city_id)->first();
+            $country = Countries::where('id', $request->country_id)->first();
 
+            $curl = curl_init();
 
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://sandbox.boletobancario.com/api-integration/charges',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
+                    "charge": {
+                    "description": "' . $request->description . '",
 
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://sandbox.boletobancario.com/api-integration/charges',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS =>'{
-                "charge": {
-                "description": "'.$request->description.'",
-
-                "references": [
-                    "A vista"
-                ],
-                "amount": '.$request->amount.',
-                "dueDate": "'.$duedate.'",
-                "installments": 1,
-                "maxOverdueDays": 10,
-                "fine": "1.00",
-                "interest": "2.00",
-                "discountAmount": "0",
-                "discountDays": 0,
-                "paymentTypes": [
-                    "BOLETO"
-                ],
-                "paymentAdvance": false
-                },
-                "billing": {
-                    "name": "'.$request->name.'",
-                    "document": "'.$request->document.'",
-                    "email": "'.$request->email.'",
-                    "birthDate": "'.$request->birthdate.'",
-                    "notify": true
-                }
-            }',
-            CURLOPT_HTTPHEADER => array(
-                'X-Api-Version: 2',
-                'X-Resource-Token: 6208E5469C507A8B1F5485A08A2985122F6F32BCB78B90599B02ED2C6EA7FDCF',
-                'Authorization: Bearer '.$authBearer,
-                'Content-Type: application/json',
-                'Cookie: AWSALBTG=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY=; AWSALBTGCORS=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY='
-            ),
-        ));
-
-        $response = curl_exec($curl);
-        $info = curl_getinfo($curl);
-        //print_r($info);
-
-        $response = json_decode($response, true);
-
-
-
-
-        //salva os dados do pedido
-        $order = new Orders;
-        $order->transactionId = $response['_embedded']['charges'][0]['id'];
-        $order->amount = $request->amount;
-        $order->status = "PENDING";
-        $order->users_id = $request->user_id;
-        $order->accommodationId = $request->accommodation_id;
-        $order->checkin_date = $request->checkin_date;
-        $order->checkout_date = $request->checkout_date;
-        $order->due_date = $response['_embedded']['charges'][0]['dueDate'];
-        $order->services = $request->services;
-        $order->save();
-
-        //faz uma pré reserva na avantio
-
-        try{
-
-            $client = new
-            \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
-
-            $credentials = array(
-                "Language" => "EN",
-                "UserName" => "itsatentoapi_test",
-                "Password" => "testapixml"
-            );
-
-            $request = array(
-                "Credentials" => $credentials,
-                "BookingData" => [
-                    'Accommodation' => [
-                        'AccommodationCode' => $request->accommodation_code,
-                        'UserCode' => $request->user_code,
-                        'LoginGA' => $request->login_ga
+                    "references": [
+                        "A vista"
                     ],
-                    'Occupants' => [
-                        'AdultsNumber' => $request->adultsnumber,
-                        'ChildrenNumber' => $request->childrennumber,
+                    "amount": ' . $request->amount . ',
+                    "dueDate": "' . $duedate . '",
+                    "installments": 1,
+                    "maxOverdueDays": 10,
+                    "fine": "1.00",
+                    "interest": "2.00",
+                    "discountAmount": "0",
+                    "discountDays": 0,
+                    "paymentTypes": [
+                        "BOLETO"
                     ],
-                    'ArrivalDate' => $request->checkin_date,
-                    'DepartureDate' => $request->checkout_date,
-                    "ClientData" => [
-                        "Name" => $request->name,
-                        "Surname" => $request->surname,
-                        "DNI" => $request->document,
-                        "Address" => $request->street,
-                        "Locality" => $request->district,
-                        "PostCode" => $request->zip_code,
-                        "City" => $city,
-                        "Country" => $country,
-                        "Telephone" => $request->phone,
-                        "Telephone2" => '',
-                        "EMail" => $request->email,
-                        "Fax" => '',
-                    ],
-                    "Board" => $request->board,
-                    "BookingType" => 'UNPAID',
-                    "SendMailToOrganization" => 0,
-                    "SendMailToTourist" => 1,
-                    "PaymentMethod" => 1,
-                    "Comments" => '',
-                ],
+                    "paymentAdvance": false
+                    },
+                    "billing": {
+                        "name": "' . $request->name . '",
+                        "document": "' . $request->document . '",
+                        "email": "' . $request->email . '",
+                        "birthDate": "' . $birthday . '",
+                        "notify": true
+                    }
+                }',
+                CURLOPT_HTTPHEADER => array(
+                    'X-Api-Version: 2',
+                    'X-Resource-Token: ' . $resource_token,
+                    'Authorization: Bearer ' . $authBearer,
+                    'Content-Type: application/json',
+                    'Cookie: AWSALBTG=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY=; AWSALBTGCORS=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY='
+                ),
+            ));
 
-            );
-            return $client->SetBooking($request);
-        } catch(SoapFault $e){
-            return $e;
-        }
-        die();
-
-
-
-        if($info['http_code'] == 200){
-            $user = getUserData();
-            $userreservations = getUserReservations();
-            $userfuturereservations = getUserFutureReservations();
-            $favorites = getUserFavorites();
-            $recently_viewed = getUserRecentlyViewed();
-            $surpriseme = generateSurprisemeUrl();
-            $services = getAllServices();
-
-            return view('site.checkout.billet', compact('response', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services'));
-        }else{
-            echo $response->details[0]->message;
-        }
-
-        curl_close($curl);
-
-    }
-
-    public function generatepix(Request $request)
-    {
-        //https://www.brasilnaweb.com.br/blog/cartoes-de-credito-validos-para-teste-de-sistemas/
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://sandbox.boletobancario.com/authorization-server/oauth/token',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: Basic WGRzR0J3VFJPbTAyT3RPMjo4JUEyS19DOigob3trLn47e3MjdUh8cDUmOFVbNWt7Iw==',
-                'Content-Type: application/x-www-form-urlencoded',
-                'Cookie: AWSALBTG=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY=; AWSALBTGCORS=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY='
-            ),
-        ));
-
-        $response = curl_exec($curl);
-
-        curl_close($curl);
-        $authBearerArray = json_decode($response);
-
-        $authBearer = $authBearerArray->access_token;
-
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://sandbox.boletobancario.com/api-integration/pix/keys',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
-            "type": "RANDOM_KEY"
-            }',
-            CURLOPT_HTTPHEADER => array(
-                'X-Api-Version: 2',
-                'X-Resource-Token: 6208E5469C507A8BA724994B4E5D5DB1E255775316D87C510AAB5FC0E850DEF2',
-                'X-Idempotency-Key: 69F963C6-7487-4363-9406-A1DE2A9636D4',
-                'Authorization: Bearer '.$authBearer,
-                'Content-Type: application/json',
-                'Cookie: AWSALBTG=jd3KOErEt5wkoKB4dmSD3pwVV+MV33KuQW79pNS2Y59QaVLBU+F69SwTuNrpQZh+OLZbu8MxpOS1mmH58JYQuLjFR8EGPAUZxPtUCY887Y+tH0TypIjIp+0y6/roOvwZKY9mkqR3EuRDY7qF9a2Znrz6t9L+q8TK1p0rc1hAOBvxYnlU0HM=; AWSALBTGCORS=jd3KOErEt5wkoKB4dmSD3pwVV+MV33KuQW79pNS2Y59QaVLBU+F69SwTuNrpQZh+OLZbu8MxpOS1mmH58JYQuLjFR8EGPAUZxPtUCY887Y+tH0TypIjIp+0y6/roOvwZKY9mkqR3EuRDY7qF9a2Znrz6t9L+q8TK1p0rc1hAOBvxYnlU0HM='
-            ),
-        ));
-
-        $response = curl_exec($curl);
-        $info = curl_getinfo($curl);
-
-        //print_r($info);
-
-        if($info['http_code'] == 200){
-            $user = getUserData();
-            $userreservations = getUserReservations();
-            $userfuturereservations = getUserFutureReservations();
-            $favorites = getUserFavorites();
-            $recently_viewed = getUserRecentlyViewed();
-            $surpriseme = generateSurprisemeUrl();
-            $services = getAllServices();
+            $response = curl_exec($curl);
             $response = json_decode($response, true);
+            curl_close($curl);
 
-            return view('site.checkout.pix', compact('response', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services'));
-        }else{
-            echo $response;
+            if(!isset($response['_embedded']['charges'][0]['id'])){
+                return back()->withErrors(['msg' =>  $response['details'][0]['message']]);
+            }else{
+
+
+                    //block avantio reservation
+                    try{
+
+                        $client = new
+                        \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
+
+                        $credentials = array(
+                            "Language" => "EN",
+                            "UserName" => "itsatentoapi_test",
+                            "Password" => "testapixml"
+                        );
+
+                        $post = array(
+                            "Credentials" => $credentials,
+                            "BookingData" => [
+                                'Accommodation' => [
+                                    'AccommodationCode' => $request->accommodation_code,
+                                    'UserCode' => $request->user_code,
+                                    'LoginGA' => $request->login_ga
+                                ],
+                                'Occupants' => [
+                                    'AdultsNumber' => $request->adultsnumber,
+                                    'ChildrenNumber' => $request->childrennumber,
+                                ],
+                                'ArrivalDate' => $request->checkin_date,
+                                'DepartureDate' => $request->checkout_date,
+                                "ClientData" => [
+                                    "Name" => $request->name,
+                                    "Surname" => $request->surname,
+                                    "DNI" => $request->document,
+                                    "Address" => $request->street,
+                                    "Locality" => $request->district,
+                                    "PostCode" => $request->zip_code,
+                                    "City" => $city,
+                                    "Country" => $country,
+                                    "Telephone" => $request->phone,
+                                    "Telephone2" => '',
+                                    "EMail" => $request->email,
+                                    "Fax" => '',
+                                ],
+                                "Board" => $request->board,
+                                "BookingType" => 'UNPAID',
+                                "SendMailToOrganization" => 0,
+                                "SendMailToTourist" => 1,
+                                "PaymentMethod" => 1,
+                                "Comments" => '',
+                            ],
+
+                        );
+
+                        $reservation = $client->SetBooking($post);
+
+                    } catch(SoapFault $e){
+                        $errors .= $e;
+                    }
+
+                    //save order data on database
+                    $order = new Orders;
+                    $order->transactionId = $response['_embedded']['charges'][0]['id'];
+                    $order->amount = $request->amount;
+                    $order->status = "PENDING";
+                    $order->users_id = $request->user_id;
+                    $order->accommodationId = $request->accommodation_code;
+                    $order->checkin_date = $request->checkin_date;
+                    $order->checkout_date = $request->checkout_date;
+                    $order->due_date = $response['_embedded']['charges'][0]['dueDate'];
+                    $order->services = $request->services;
+                    $order->localizer = $reservation->Localizer->Localizator;
+                    $order->booking_code = $reservation->Localizer->BookingCode;
+                    $order->save();
+
+                    $user = getUserData();
+                    $userreservations = getUserReservations();
+                    $userfuturereservations = getUserFutureReservations();
+                    $favorites = getUserFavorites();
+                    $recently_viewed = getUserRecentlyViewed();
+                    $surpriseme = generateSurprisemeUrl();
+                    $services = getAllServices();
+
+                    return view('site.checkout.billet', compact('response', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services'));
+
+
+            }
         }
-
-        curl_close($curl);
-
     }
+
+//    public function generatepix(Request $request)
+//    {
+//        //https://www.brasilnaweb.com.br/blog/cartoes-de-credito-validos-para-teste-de-sistemas/
+//        $curl = curl_init();
+//
+//        curl_setopt_array($curl, array(
+//            CURLOPT_URL => 'https://sandbox.boletobancario.com/authorization-server/oauth/token',
+//            CURLOPT_RETURNTRANSFER => true,
+//            CURLOPT_ENCODING => '',
+//            CURLOPT_MAXREDIRS => 10,
+//            CURLOPT_TIMEOUT => 0,
+//            CURLOPT_FOLLOWLOCATION => true,
+//            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//            CURLOPT_CUSTOMREQUEST => 'POST',
+//            CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
+//            CURLOPT_HTTPHEADER => array(
+//                'Authorization: Basic WGRzR0J3VFJPbTAyT3RPMjo4JUEyS19DOigob3trLn47e3MjdUh8cDUmOFVbNWt7Iw==',
+//                'Content-Type: application/x-www-form-urlencoded',
+//                'Cookie: AWSALBTG=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY=; AWSALBTGCORS=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY='
+//            ),
+//        ));
+//
+//        $response = curl_exec($curl);
+//
+//        curl_close($curl);
+//        $authBearerArray = json_decode($response);
+//
+//        $authBearer = $authBearerArray->access_token;
+//
+//        $curl = curl_init();
+//
+//        curl_setopt_array($curl, array(
+//            CURLOPT_URL => 'https://sandbox.boletobancario.com/api-integration/pix/keys',
+//            CURLOPT_RETURNTRANSFER => true,
+//            CURLOPT_ENCODING => '',
+//            CURLOPT_MAXREDIRS => 10,
+//            CURLOPT_TIMEOUT => 0,
+//            CURLOPT_FOLLOWLOCATION => true,
+//            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//            CURLOPT_CUSTOMREQUEST => 'POST',
+//            CURLOPT_POSTFIELDS => '{
+//            "type": "RANDOM_KEY"
+//            }',
+//            CURLOPT_HTTPHEADER => array(
+//                'X-Api-Version: 2',
+//                'X-Resource-Token: 6208E5469C507A8BA724994B4E5D5DB1E255775316D87C510AAB5FC0E850DEF2',
+//                'X-Idempotency-Key: 69F963C6-7487-4363-9406-A1DE2A9636D4',
+//                'Authorization: Bearer '.$authBearer,
+//                'Content-Type: application/json',
+//                'Cookie: AWSALBTG=jd3KOErEt5wkoKB4dmSD3pwVV+MV33KuQW79pNS2Y59QaVLBU+F69SwTuNrpQZh+OLZbu8MxpOS1mmH58JYQuLjFR8EGPAUZxPtUCY887Y+tH0TypIjIp+0y6/roOvwZKY9mkqR3EuRDY7qF9a2Znrz6t9L+q8TK1p0rc1hAOBvxYnlU0HM=; AWSALBTGCORS=jd3KOErEt5wkoKB4dmSD3pwVV+MV33KuQW79pNS2Y59QaVLBU+F69SwTuNrpQZh+OLZbu8MxpOS1mmH58JYQuLjFR8EGPAUZxPtUCY887Y+tH0TypIjIp+0y6/roOvwZKY9mkqR3EuRDY7qF9a2Znrz6t9L+q8TK1p0rc1hAOBvxYnlU0HM='
+//            ),
+//        ));
+//
+//        $response = curl_exec($curl);
+//        $info = curl_getinfo($curl);
+//
+//        //print_r($info);
+//
+//        if($info['http_code'] == 200){
+//            $user = getUserData();
+//            $userreservations = getUserReservations();
+//            $userfuturereservations = getUserFutureReservations();
+//            $favorites = getUserFavorites();
+//            $recently_viewed = getUserRecentlyViewed();
+//            $surpriseme = generateSurprisemeUrl();
+//            $services = getAllServices();
+//            $response = json_decode($response, true);
+//
+//            return view('site.checkout.pix', compact('response', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services'));
+//        }else{
+//            echo $response;
+//        }
+//
+//        curl_close($curl);
+//
+//    }
 
     //Webhook para o pagamento da Juno
     public function juno_webhook(Request $request)

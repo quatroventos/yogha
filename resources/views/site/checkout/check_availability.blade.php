@@ -80,13 +80,13 @@
                     </div>
                     <div class="form-group">
                         <label class="texto-m mb-5">Adultos</label>
-                        <input type="number" class="d-flex" name="adults" id="adults" placeholder="0">
+                        <input type="number" class="d-flex" name="adults" id="adults" placeholder="1" min="1" max="50" value="1">
                     </div>
                     <div class="form-group mb-0">
                         <label class="texto-m mb-5">Crianças</label>
                     </div>
                     <div class="form-group form-inline children-group">
-                        <input type="number" name="children" id="children" placeholder="Idade">
+                        <input type="number" class="age" name="children" id="children" placeholder="Idade">
                         <a href="#!" class="btn btn-4 btn-ico children"><i class="uil uil-plus"></i></a>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
             window.location.href = '{{URL::to('/')}}/checkout/{{Request::segment(2)}}/'+startdate+'/'+enddate+'/'+adults+'/'+children+'/'+ages;
         });
         $(".children").click(function(){
-            $('.children-group').before('<div class="form-group form-inline"><input type="number" name="children" id="children" placeholder="Idade"><a href="#!" class="btn btn-4 btn-ico children"><i class="uil uil-minus"></i></a></div>')
+            $('.children-group').before('<div class="form-group form-inline"><input type="number" class="age" name="children" id="children" placeholder="Idade"><a href="#!" class="btn btn-4 btn-ico children"><i class="uil uil-minus"></i></a></div>')
         })
     });
 
@@ -142,13 +142,6 @@
     }
     ?>
 
-    var currentDate = new Date()
-    var day = currentDate.getDate()
-    var month = currentDate.getMonth() + 1
-    var year = currentDate.getFullYear()
-    var today = year + "-" + month + "-" + day
-
-    const unavailableDates = <?php echo $unavailableDates; ?>;
     var picker = new Litepicker({
         element: document.getElementById('datepicker'),
         format: 'DD/MM/YYYY',
@@ -156,8 +149,8 @@
         allowRepick: true,
         inlineMode: false,
         singleMode: false,
-        lockDays: unavailableDates,
-        minDate: today,
+        lockDays:  <?php echo $unavailableDates; ?>,
+        minDate: '<?php echo date('Y-m-d', time()); ?>',
         numberOfColumns: 2,
         numberOfMonths: 2,
         tooltipText: {

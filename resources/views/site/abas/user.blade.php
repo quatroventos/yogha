@@ -68,10 +68,13 @@
 
                       switch ($accommodation->status){
                           case 'PENDING':
-                              $status = "<span style='color:#b42a20 !important;'>Aguardando pagamento</span>";
+                              $status = "<span class='status' style='color:#2088b4;'>Aguardando pagamento</span>";
                               break;
                           case 'CONFIRMED':
-                              $status = "<span style='color:#93c47d !important;'>Confirmado</span>";
+                              $status = "<span class='status' style='color:#93c47d;'>Confirmado</span>";
+                              break;
+                          case 'CANCELED':
+                              $status = "<span class='status' style='color:#d34236;'>Cancelada</span>";
                               break;
                       }
 
@@ -85,17 +88,22 @@
                       }
                       ?>
 
-                      <li class="d-flex gap-10">
-                          <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>">
+                      <li class="d-flex gap-10 {{$accommodation->status  ?? ''}} {{$accommodation->booking_code  ?? ''}}">
+                          <a href="/accommodation/<?php echo $accommodation->AccommodationId; ?>">
                               <picture class="pic-p" style="background-image: url({{$thumbnail ?? ''}});"></picture>
                           </a>
-                          <div class="">
-                              <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>">
-                                  <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
-                                  <h4 class="texto-m mb-5"><?php echo $accommodation->District; ?></h4>
-                                  <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> {{date_format(date_create($accommodation->checkin_date),"d/m/y ")}} → {{date_format(date_create($accommodation->checkout_date),"d/m/y ")}}</h4>
-                                  <h4 class="texto-m mb-5"><?php echo $status; ?></h4>
-                              </a>
+                          <div>
+{{--                          <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>">--}}
+                              <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
+                              <h4 class="texto-m mb-5"><?php echo $accommodation->District; ?></h4>
+                              <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> {{date_format(date_create($accommodation->checkin_date),"d/m/y ")}} → {{date_format(date_create($accommodation->checkout_date),"d/m/y ")}}</h4>
+                              <h4 class="texto-m mb-5"><?php echo $status; ?></h4>
+{{--                              <h4 class="texto-m mb-5">Localizador: <?php echo $accommodation->localizer; ?></h4>--}}
+                              @if($accommodation->status != "CANCELED")
+                                <a href="#" class="cancel_link" data-bookingcode="{{$accommodation->booking_code}}" data-localizer="{{$accommodation->localizer}}">Cancelar reserva</a>
+                              @endif
+{{--                          TODO: fazer chamada em ajax--}}
+{{--                          </a>--}}
                           </div>
                       </li>
 
@@ -166,3 +174,25 @@
   </div>
 
 </section>
+
+
+
+<script>
+    $('.cancel_link').click(function(){
+        var thislink = $(this);
+        var bookingcode = $(this).attr('data-bookingcode');
+        var localizer = $(this).attr('data-localizer');
+        $.ajax({
+            url: "{{URL::to('/cancel')}}/"+bookingcode+'/'+localizer,
+            beforeSend: function( xhr ) {
+                thislink.html("Processando...");
+            }
+        })
+        .done(function( data ) {
+            thislink.hide();
+            thislink.parent().find('.status').hide('Cancelada');
+            thislink.parent().find('.status').css('color', '#d34236');
+            thislink.parent().parent().css('opacity', '50%');
+        });
+    })
+</script>
