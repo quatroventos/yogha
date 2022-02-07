@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Localizations;
-use App\Models\OccuppationalRules;
+use App\Models\Occuppationalrules;
 use Illuminate\Http\Request;
 use App\Models\Accommodations;
 use App\Models\Availabilities;
