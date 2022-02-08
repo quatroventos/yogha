@@ -206,9 +206,7 @@
                     <div class="form-group{{ $errors->has('country') ? ' has-danger' : '' }}">
                         <label class="texto-m mb-5 form-control-label" for="country">País</label>
                         <select name="country" id="country" class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}"  required >
-                            <?php foreach($countries as $country) {?>
-                            <option value="<?php echo $country->id; ?>" <?php echo (isset($user) ? ($country->id == $user->country_id ? "selected" : "") : ($country->nome == "Brazil" ? "selected" : ""));?>><?php echo $country->nome; ?></option>
-                            <?php } ?>
+                            <option>Carregando...</option>
                         </select>
                         @include('admin.alerts.feedback', ['field' => 'country'])
                     </div>
@@ -388,7 +386,24 @@
 <script>
     $(document).ready(function(){
 
+        $.ajax({
+            type:'GET',
+            url:'/countries/',
+            success:function(html){
+                $('#country').html(html);
+                $('#country').html(html).delay( 200 ).val(1);
+            }
+        });
+
+
         @if(isset($user))
+        $.ajax({
+            type:'GET',
+            url:'/countries/',
+            success:function(html){
+                $('#country').html(html).delay( 200 ).val({{$user->country_id}});
+            }
+        });
         $.ajax({
             type:'GET',
             url:'/states/{{$user->country_id}}',

@@ -2,11 +2,28 @@
 
 namespace App\Http\Controllers;
 use App\Models\Cities;
+use App\Models\Countries;
 use App\Models\States;
 use Illuminate\Http\Request;
 
 class WorldController extends Controller
 {
+
+
+    public function countries(){
+        $countries = Countries::all();
+
+        if(count($countries) > 1) {
+            echo '<option disabled>País</option>';
+            foreach ($countries as $country) {
+                echo '<option rel="'.$country['nome'].'" value="' . $country['id'] . '">' . $country['nome'] . '</option>';
+            }
+        }else{
+            echo '<option>Erro</option>';
+        }
+
+    }
+
     public function states($country_id){
         $states = States::select('nome', 'id', 'uf')
             ->where('pais', '=', $country_id)

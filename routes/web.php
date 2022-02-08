@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');
+Route::get('/countries', 'App\Http\Controllers\WorldController@countries');
 Route::get('/states/{country_id}', 'App\Http\Controllers\WorldController@states');
 Route::get('/cities/{state_id}', 'App\Http\Controllers\WorldController@cities');
 
@@ -47,11 +48,11 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/blog/{slug}', 'BlogController@post')->name('blog.post');
     Route::get('/blog', 'BlogController@index')->name('blog');
 
-    Route::post('/user/create', 'Usercontroller@create')->name('frontend.user.create');
-    Route::get('/user/edit/{user_id?}', 'Usercontroller@edit')->name('frontend.user.edit');
-    Route::get('/user/create_account/', 'Usercontroller@edit')->name('frontend.user.register');
-    Route::get('/user/email_verification/', 'Usercontroller@email_verification')->name('frontend.verification');
-    Route::get('/user/resend_confirmation/', 'Usercontroller@edit')->name('frontend.verification.resend');
+    Route::post('/user/create', 'UserController@create')->name('frontend.user.create');
+    Route::get('/user/edit/{user_id?}', 'UserController@edit')->name('frontend.user.edit');
+    Route::get('/user/create_account/', 'UserController@edit')->name('frontend.user.register');
+    Route::get('/user/email_verification', 'UserController@email_verification')->name('frontend.verification');
+    Route::get('/user/resend_confirmation', 'UserController@edit')->name('frontend.verification.resend');
     Route::any('/juno_webhook', 'CheckoutController@juno_webhook');
 
     Route::get('/cancel/{bookingcode}/{localizator}', 'CheckoutController@cancelbooking');
@@ -71,9 +72,9 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
         Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\Backend\ProfileController@edit']);
 
-        Route::get('/user/delete/{user_id}', 'Usercontroller@delete')->name('frontend.user.delete');
-        Route::post('/user/update', 'Usercontroller@update')->name('frontend.user.update');
-        Route::post('/user/password', 'Usercontroller@password')->name('frontend.user.password');
+        Route::get('/user/delete/{user_id}', 'UserController@delete')->name('frontend.user.delete');
+        Route::post('/user/update', 'UserController@update')->name('frontend.user.update');
+        Route::post('/user/password', 'UserController@password')->name('frontend.user.password');
     });
 });
 
@@ -105,12 +106,12 @@ Route::namespace('App\Http\Controllers\Backend')->group(function() {
         Route::get('/admin/blog_cat/update', 'BlogController@update_cat')->name('blog_cat.update');
         Route::post('/admin/blog_cat/create', 'BlogController@create_cat')->name('blog_cat.create');
 
-        Route::get('/admin/user', 'Usercontroller@index')->name('user.index');
-        Route::get('/admin/user/edit/{user_id?}', 'Usercontroller@edit')->name('user.edit');
-        Route::get('/admin/user/delete/{user_id}', 'Usercontroller@delete')->name('user.delete');
-        Route::post('/admin/user/update', 'Usercontroller@update')->name('user.update');
-        Route::post('/admin/user/password', 'Usercontroller@password')->name('user.password');
-        Route::post('/admin/user/create', 'Usercontroller@create')->name('user.create');
+        Route::get('/admin/user', 'UserController@index')->name('user.index');
+        Route::get('/admin/user/edit/{user_id?}', 'UserController@edit')->name('user.edit');
+        Route::get('/admin/user/delete/{user_id}', 'UserController@delete')->name('user.delete');
+        Route::post('/admin/user/update', 'UserController@update')->name('user.update');
+        Route::post('/admin/user/password', 'UserController@password')->name('user.password');
+        Route::post('/admin/user/create', 'UserController@create')->name('user.create');
 
         //Route::get('user', 'App\Http\Controllers\Backend\UserController', ['except' => ['show']]);
         Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\Backend\ProfileController@edit']);

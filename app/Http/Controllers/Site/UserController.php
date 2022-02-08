@@ -34,7 +34,7 @@ class UserController extends Controller
         $countries = Countries::all();
         $roles = \DB::table('user_roles')->get();
 
-        dd($countries);
+        //dd($countries);
 
         if($user_id == "") {
             //novo usuário
@@ -184,6 +184,6 @@ class UserController extends Controller
     }
 
     public function email_verification(){
-        echo view('admin.auth.verify');
+        echo view('auth.verify');
     }
 }
