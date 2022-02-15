@@ -74,20 +74,32 @@
                 <div class="col col-sm-6">
                     <div class="form-group">
                         <label for="daterange" class="texto-m mb-5">Datas</label>
-                        <input type="text" autocomplete="off" name="date_range" id="datepicker" value="{{date('Y-m-d', strtotime($startdate))}} - {{date('Y-m-d', strtotime($enddate))}}">
+                        <input type="text" autocomplete="off" name="date_range" id="datepicker" value="{{date('Y-m-d', strtotime('+ 1 day', strtotime($startdate)))}} - {{date('Y-m-d', strtotime('+ 1 day', strtotime($enddate)))}}">
                         <input type="hidden" name="startdate" id="startdate" value="{{date('Y-m-d', strtotime($startdate))}}">
                         <input type="hidden" name="enddate" id="enddate" value="{{date('Y-m-d', strtotime($enddate))}}">
                     </div>
                     <div class="form-group">
                         <label class="texto-m mb-5">Adultos</label>
-                        <input type="number" class="d-flex" name="adults" id="adults" placeholder="1" min="1" max="50" value="1">
+                        <input type="number" class="d-flex" name="adults" id="adults" placeholder="1" min="1" max="50" value="{{ Request::segment(5) }}">
                     </div>
                     <div class="form-group mb-0">
                         <label class="texto-m mb-5">Crianças</label>
                     </div>
                     <div class="form-group form-inline children-group">
-                        <input type="number" class="age" name="children" id="children" placeholder="Idade">
-                        <a href="#!" class="btn btn-4 btn-ico children"><i class="uil uil-plus"></i></a>
+                        @if(!Request::segment(7))
+                            <input type="number" class="age" name="children" id="children" placeholder="Idade">
+                            <a href="#!" class="btn btn-4 btn-ico children addchildren"><i class="uil uil-plus"></i></a>
+                        @else
+                            <?php $children = explode(',',Request::segment(7)); ?>
+                            @foreach($children as $key => $child)
+                                <input type="number" class="age" name="children" id="children" placeholder="Idade" value="{{$child}}">
+                                @if ($key === array_key_first($children))
+                                    <a href="#!" class="btn btn-4 btn-ico children addchildren"><i class="uil uil-plus"></i></a>
+                                @else
+                                    <a href="#!" class="btn btn-4 btn-ico children removechildren"><i class="uil uil-minus"></i></a>
+                                @endif
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -119,20 +131,32 @@
 
 <script>
     $(function() {
+
         $('#submit').click(function (){
             startdate = $('#startdate').val();
             enddate = $('#enddate').val();
             adults = $('#adults').val();
             children = $('.age').length;
             ages = '';
-            $( ".age" ).each(function() {
+            $( ".age" ).each(function(index) {
+                len = $('.age').length;
                 value = $(this).val();
-                ages = ages+value+',';
+                if (index === (len - 1)){
+                    ages = ages+value;
+                }else{
+                    ages = ages+value+',';
+                }
+
             });
             window.location.href = '{{URL::to('/')}}/checkout/{{Request::segment(2)}}/'+startdate+'/'+enddate+'/'+adults+'/'+children+'/'+ages;
         });
-        $(".children").click(function(){
+        $(".addchildren").click(function(){
             $('.children-group').before('<div class="form-group form-inline"><input type="number" class="age" name="children" id="children" placeholder="Idade"><a href="#!" class="btn btn-4 btn-ico children"><i class="uil uil-minus"></i></a></div>')
+        })
+
+        $(".removechildren").click(function(){
+            $(this).prev().remove();
+            $(this).remove();
         })
     });
 
@@ -165,7 +189,6 @@
         $('#startdate').val(date1.format('YYYY-MM-DD'));
         $('#enddate').val(date2.format('YYYY-MM-DD'));
     });
-
 
     </script>
 </body>

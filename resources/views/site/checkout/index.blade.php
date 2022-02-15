@@ -64,14 +64,14 @@
                 <div class="row texto-m mb-15">
                         <div class="col">
                             <h4 class="texto-m mb-5"><strong>Datas</strong></h4>
-                            <p class="mb-0 {{$available === false ? "text-danger" : ""}}">{{date_format(date_create(Request::segment(3)),"d/m/y")}} → {{date_format(date_create(Request::segment(4)),"d/m/y")}}</p>
-                            @if($available == false)
-                                <small class="text-danger">Esta acomodação não está disponível para esta data, por favor, tente uma data diferente.</small>
+                            <p class="mb-0 {{$available === false && $message != "Ocupação máxima excedida." ? "text-danger" : ""}}">{{date_format(date_create(Request::segment(3)),"d/m/y")}} → {{date_format(date_create(Request::segment(4)),"d/m/y")}}</p>
+                            @if($available == false && $message != "Ocupação máxima excedida.")
+                                <small class="text-danger">{{$message}}</small>
                             @endif
                         </div>
                         <div class="col grow-0">
                             @auth
-                                <a href="{{URL::to('/check_availability/'.Request::segment(2).'/'.Request::segment(3).'/'.Request::segment(4).'/'.Request::segment(5).'/'.Request::segment(6))}}" class="btn-link btn-p px-0">Editar</a>
+                                <a href="{{URL::to('/check_availability/'.Request::segment(2).'/'.Request::segment(3).'/'.Request::segment(4).'/'.Request::segment(5).'/'.Request::segment(6).'/'.Request::segment(7))}}" class="btn-link btn-p px-0">Editar</a>
                             @else
                                 <a href="{{URL::to('/login')}}" class="btn-link btn-p px-0" >Editar</a>
                             @endauth
@@ -81,13 +81,22 @@
                 <div class="row texto-m mb-30">
                     <div class="col">
                         <h4 class="texto-m mb-5"><strong>Hóspedes</strong></h4>
-                        <?php $hospedes = Request::segment(5) + Request::segment(6); ?>
-                        <p class="mb-0">{{$hospedes}} hóspede{{($hospedes > 1 ? 's' : '')}}</p>
+                        <?php
+                        if(Request::segment(7) != ""){
+                            $hospedes = Request::segment(5) + Request::segment(6);
+                        }else{
+                            $hospedes = Request::segment(5);
+                        }
+                        ?>
+                        <p class="mb-0 {{$available === false && $message == "Ocupação máxima excedida." ? "text-danger" : ""}}">{{$hospedes}} hóspede{{($hospedes > 1 ? 's' : '')}}</p>
+                        @if($available == false && $message == "Ocupação máxima excedida.")
+                            <small class="text-danger">{{$message}}</small>
+                        @endif
                     </div>
                     <div class="col grow-0">
                         <div class="col grow-0">
                             @auth
-                                <a href="{{URL::to('/check_availability/'.Request::segment(2).'/'.Request::segment(3).'/'.Request::segment(4).'/'.Request::segment(5).'/'.Request::segment(6))}}" class="btn-link btn-p px-0">Editar</a>
+                                <a href="{{URL::to('/check_availability/'.Request::segment(2).'/'.Request::segment(3).'/'.Request::segment(4).'/'.Request::segment(5).'/'.Request::segment(6).'/'.Request::segment(7))}}" class="btn-link btn-p px-0">Editar</a>
                             @else
                                 <a href="{{URL::to('/login')}}" class="btn-link btn-p px-0" >Editar</a>
                             @endauth
@@ -101,9 +110,6 @@
                         <h3 class="mb-15"><strong>Detalhes do preço</strong></h3>
                     </div>
                 </div>
-
-
-
                 <div class="row mb-30">
                     <div class="col">
                         <ul class="gap-5 texto-m">

@@ -91,15 +91,79 @@ class CheckoutController extends Controller
 
             $result = $client->IsAvailable($post);
 
-            if ($result->Available->AvailableCode == 0){
-                $available = false;
-            }else{
-                $available = true;
+//            echo "<pre>";
+//            print_r($post);
+//            echo "</pre>";
+//            echo "<pre>";
+//            print_r( $result) ;
+//            echo "<pre>";
+//            die();
+
+            switch ($result->Available->AvailableCode){
+                case 0:
+                    $available = false;
+                    $message = "Esta acomodação não está disponível para esta data, por favor, selecione uma data diferente.";
+                case 1:
+                    $available = true;
+                    $message = "";
+                    break;
+
+                case -2:
+                    $available = false;
+                    $message = "Esta acomodação está em processo de reserva, por favor, selecione outra data ou outra acomodação.";
+                    break;
+
+                case -5:
+                    $available = false;
+                    $message = "A quantidade mínima de dias não foi atingida para esta acomodação.";
+                    break;
+
+                case -3:
+                    $available = false;
+                    $message = "A data obrigatória de entrada não foi preenchida.";
+                    break;
+
+                case -4:
+                    $available = false;
+                    $message = "A data obrigatória de saída não foi preenchida.";
+                    break;
+
+                case -1:
+                    $available = false;
+                    $message = "The minimum days ONREQUEST are not fulfilled, like under petition.";
+                    break;
+
+                case -7:
+                    $available = false;
+                    $message = "O máximo de dias excede o permitido para esta acomodação.";
+                    break;
+
+                case -8:
+                    $available = false;
+                    $message = "Acomodação sem regras ocupacionais, selecione outra acomodação.";
+                    break;
+
+                case -10:
+                    $available = false;
+                    $message = "The marin of booking start is not fulfilled.";
+                    break;
+
+                case -9:
+                    $available = false;
+                    $message = "Acmodação indisponível para locação, selecione outra acomodação.";
+                    break;
+
+                case -99:
+                    $available = false;
+                    $message = "Ocupação máxima excedida.";
+                    break;
             }
 
 
         } catch(SoapFault $e){
             $errors .= $e;
+            echo $errors;
+            die();
         }
 
 
@@ -150,8 +214,10 @@ class CheckoutController extends Controller
             }
         } catch(SoapFault $e){
             $errors .= $e;
+            echo $errors;
+            die();
         }
-        return view('site.checkout.index', compact('description', 'features','accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services', 'available', 'totalprice', 'currency', 'bookingnotes', 'termsandconditions'));
+        return view('site.checkout.index', compact('description', 'features','accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services', 'available', 'message' ,'totalprice', 'currency', 'bookingnotes', 'termsandconditions'));
     }
 
     //filtra por data e quantidade de hospedes

@@ -48,6 +48,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/blog/{slug}', 'BlogController@post')->name('blog.post');
     Route::get('/blog', 'BlogController@index')->name('blog');
 
+    //user
     Route::post('/user/create', 'UserController@create')->name('frontend.user.create');
     Route::get('/user/edit/{user_id?}', 'UserController@edit')->name('frontend.user.edit');
     Route::get('/user/create_account/', 'UserController@edit')->name('frontend.user.register');

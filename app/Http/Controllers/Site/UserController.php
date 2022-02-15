@@ -38,7 +38,7 @@ class UserController extends Controller
 
         if($user_id == "") {
             //novo usuário
-            return view('admin.auth.register', compact('roles', 'countries'));
+            return view('auth.register', compact('roles', 'countries'));
         }else{
             //edita usuário existente
             $user = \DB::table('users')
@@ -46,7 +46,7 @@ class UserController extends Controller
                 ->where('id', '=', $user_id)
                 ->first();
 
-            return view('admin.auth.register', compact('roles', 'countries', 'user'));
+            return view('auth.register', compact('roles', 'countries', 'user'));
         }
     }
 
@@ -116,7 +116,7 @@ class UserController extends Controller
         $user->profile_pic = $imageName;
         $user->save();
 
-        return redirect('/email_verification');
+        return redirect('/');
     }
 
     /**
@@ -184,6 +184,6 @@ class UserController extends Controller
     }
 
     public function email_verification(){
-        echo view('auth.verify');
+        return view('auth.verify');
     }
 }
