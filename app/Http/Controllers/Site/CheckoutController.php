@@ -103,6 +103,8 @@ class CheckoutController extends Controller
                 case 0:
                     $available = false;
                     $message = "Esta acomodação não está disponível para esta data, por favor, selecione uma data diferente.";
+                    break;
+                    
                 case 1:
                     $available = true;
                     $message = "";
@@ -162,8 +164,6 @@ class CheckoutController extends Controller
 
         } catch(SoapFault $e){
             $errors .= $e;
-            echo $errors;
-            die();
         }
 
 
@@ -214,8 +214,6 @@ class CheckoutController extends Controller
             }
         } catch(SoapFault $e){
             $errors .= $e;
-            echo $errors;
-            die();
         }
         return view('site.checkout.index', compact('description', 'features','accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services', 'available', 'message' ,'totalprice', 'currency', 'bookingnotes', 'termsandconditions'));
     }

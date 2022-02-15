@@ -80,7 +80,7 @@
                     </div>
                     <div class="form-group">
                         <label class="texto-m mb-5">Adultos</label>
-                        <input type="number" class="d-flex" name="adults" id="adults" placeholder="1" min="1" max="50" value="{{ Request::segment(5) }}">
+                        <input type="number" class="d-flex" name="adults" id="adults" placeholder="1" min="1" max="50" value="{{ Request::segment(5) ?? "1"}}">
                     </div>
                     <div class="form-group mb-0">
                         <label class="texto-m mb-5">Crianças</label>
