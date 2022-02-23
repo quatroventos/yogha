@@ -1506,3 +1506,7 @@ body.resultado #aba-resultado {
     opacity:30% !important;
     text-decoration: line-through !important;
 }
+
+.feature-icon{
+    width: 20px;
+}

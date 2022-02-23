@@ -1,3 +1,6 @@
+<pre>
+<?php print_r($rates);?>
+</pre>
 <!doctype html>
 <html lang="pt-BR">
 
@@ -13,7 +16,7 @@
     <link rel="canonical" href="http://www.yogha.com.br/">
 
     <!--TITLE -->
-    <title>{{$accommodation[0]->AccommodationName}} - Yogha - Sinta-se em casa</title>
+    <title>{{$accommodation->AccommodationName}} - Yogha - Sinta-se em casa</title>
 
     <!-- BOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
@@ -92,15 +95,13 @@
         @endif
         <div class="row">
             <div class="col">
-                @if(empty($description[1]['Region']['AccommodationName']) === false)
-                    <h2 class="texto-g mb-5">{{$accommodation[0]->AccommodationName}}</h2>
-                @endif
-                @if(empty($description[1]['Region']['Name']) === false)
-                    <h3 class="texto-m mb-5">{{$description[1]['Region']['Name']}}</h3>
-                @endif
+
+                    <h2 class="texto-g mb-5">{{$accommodation->AccommodationName ?? ''}}</h2>
+                    <h3 class="texto-m mb-5">{{$description[0]['City']['Name'] ?? ''}} - {{$description[0]['Region']['Name'] ?? ''}}</h3>
+
                 <p class="texto-m">
-                    @if(empty($accommodation[0]->Capacity) === false)
-                        {{$accommodation[0]->Capacity}} hóspedes •
+                    @if(empty($accommodation->Capacity) === false)
+                        {{$accommodation->Capacity}} hóspedes •
                     @endif
                     @if(empty($features['Distribution']['Bedrooms']) === false)
                         {{$features['Distribution']['Bedrooms']}} quartos •
@@ -127,8 +128,8 @@
             <div class="col-12 col-sm-8">
                 <div class="row mb-30">
                     <div class="col">
-                        @if(empty($description[1]['Description']) === false)
-                            <p><?php echo $description[1]['Description']; ?></p>
+                        @if(empty($description[8]['Description']) === false)
+                            <p><?php echo $description[8]['Description']; ?></p>
                         @endif
                         {{--TODO: truncate dos textos de descrição --}}
                         <!--<div>
@@ -225,31 +226,31 @@
 
                             @if(empty($features['HouseCharacteristics']['Elevator']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-garden"></i> Elevador
+                                <img class="feature-icon" src="{{asset('img/icones/elevador.png')}}"> Elevador
                             </li>
                             @endif
 
                             @if(empty($features['HouseCharacteristics']['Balcony']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-garden"></i> Sacada
+                                <img class="feature-icon" src="{{asset('img/icones/sacada.png')}}"> Sacada
                             </li>
                             @endif
 
                             @if(empty($features['HouseCharacteristics']['JuiceSqueazer']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex far far-lemon"></i> Espremedor de suco
+                                <img class="feature-icon" src="{{asset('img/icones/espremedor-de-suco.png')}}"> Espremedor de suco
                             </li>
                             @endif
 
                             @if(empty($features['HouseCharacteristics']['ElectricKettle']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex fas fa-blender"></i> Chaleira elétrica
+                                <img class="feature-icon" src="{{asset('img/icones/elevador.png')}}"> Chaleira elétrica
                             </li>
                             @endif
 
                             @if(empty($features['HouseCharacteristics']['HairDryer']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-garden"></i> Secador de cabelo
+                                <img class="feature-icon" src="{{asset('img/icones/secadorcabelo.png')}}">  Secador de cabelo
                             </li>
                             @endif
 
@@ -273,19 +274,19 @@
 
                             @if(empty($features['HouseCharacteristics']['Tennis']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-tennis-ball"></i> Quadra de tênis
+                                <img class="feature-icon" src="{{asset('img/icones/quadratenis.png')}}"> Quadra de tênis
                             </li>
                             @endif
 
                             @if(empty($features['HouseCharacteristics']['Squash']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-tennis-ball"></i> Quadra de squash
+                                <img class="feature-icon" src="{{asset('img/icones/quadrasquash.png')}}"> Quadra de squash
                             </li>
                             @endif
 
                             @if(empty($features['HouseCharacteristics']['Sauna']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-garden"></i> Sauna
+                                <img class="feature-icon" src="{{asset('img/icones/sauna.png')}}"> Sauna
                             </li>
                             @endif
 
@@ -297,13 +298,13 @@
 
                             @if(empty($features['HouseCharacteristics']['NumOfElectronicMosquitoRepeller']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-garden"></i> Repelente de insetos
+                                <img class="feature-icon" src="{{asset('img/icones/repelentedeinsetos.png')}}"> Repelente de insetos
                             </li>
                             @endif
 
                             @if(empty($features['HouseCharacteristics']['WindowScreens']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-garden"></i> Tela nas janelas
+                                <img class="feature-icon" src="{{asset('img/icones/telajanelas.png')}}"> Tela nas janelas
                             </li>
                             @endif
 
@@ -314,14 +315,14 @@
                             @endif
 
                             @if(empty($features['HouseCharacteristics']['Jacuzzi']) === false)
-                            <li class="d-inline-flex d-flex align-items-center gap-10">
+                            <li class="d-inline-flex  align-items-center gap-10">
                                 <i class="d-inline-flex fas fa-hot-tub"></i> Jacuzzi
                             </li>
                             @endif
 
                             @if(empty($features['HouseCharacteristics']['Kitchen']['Fridge']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-garden"></i> Geladeira
+                                <img class="feature-icon" src="{{asset('img/icones/geladeira.png')}}"> Geladeira
                             </li>
                             @endif
 
@@ -333,19 +334,19 @@
 
                             @if(empty($features['HouseCharacteristics']['Kitchen']['WashingMachine']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-garden"></i> Máquina de lavar roupas
+                                <img class="feature-icon" src="{{asset('img/icones/lavaroupas.png')}}"> Máquina de lavar roupas
                             </li>
                             @endif
 
                             @if(empty($features['HouseCharacteristics']['Kitchen']['Dryer']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-garden"></i> Secadora
+                                <img class="feature-icon" src="{{asset('img/icones/secadora.png')}}"> Secadora
                             </li>
                             @endif
 
                             @if(empty($features['HouseCharacteristics']['Kitchen']['Dishwasher']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-garden"></i> Lava louças
+                                <img class="feature-icon" src="{{asset('img/icones/lavaloucas.png')}}"> Lava louças
                             </li>
                             @endif
 
@@ -357,7 +358,7 @@
 
                             @if(empty($features['HouseCharacteristics']['Kitchen']['Fryer']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-garden"></i> Fritadeira
+                                <img class="feature-icon" src="{{asset('img/icones/fritadeira.png')}}"> Fritadeira
                             </li>
                             @endif
 
@@ -375,13 +376,13 @@
 
                             @if(empty($features['HouseCharacteristics']['Kitchen']['Microwave']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-garden"></i> Microondas
+                                <img class="feature-icon" src="{{asset('img/icones/microondas.png')}}"> Microondas
                             </li>
                             @endif
 
                             @if(empty($features['HouseCharacteristics']['Kitchen']['Oven']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <i class="d-inline-flex uil uil-garden"></i> Forno
+                                <img class="feature-icon" src="{{asset('img/icones/forno.png')}}"> Forno
                             </li>
                             @endif
                         {{--TODO: Deixar essa lista colapsável--}}
@@ -399,7 +400,7 @@
                             </ul>
                         -->
                         </ul>
-                        <!--<a href="#!" data-bs-toggle="collapse" data-bs-target=".lista-extra" aria-expanded="false" class="btn-link texto-m px-0 d-flex">
+                        <!--<a href="#!" data-bs-toggle="collapse" data-bs-target=".lista-extra" aria-expanded="false" class="btn-link texto-m px-0 ">
                             <p class="align-items-center mb-0 mostrar-mais"><strong> Mostrar todas as 27 comodidades</strong> <i class="d-inline-flex icone-m uil uil-angle-down"></i></p>
                             <p class="align-items-center mb-0 mostrar-menos"><strong> Esconder</strong> <i class="d-inline-flex icone-m uil uil-angle-up"></i></p>
                         </a>-->
@@ -451,7 +452,7 @@
                                 new google.maps.Marker({
                                     position: myLatLng,
                                     map,
-                                    title: "{{$accommodation[0]->AccommodationName}}",
+                                    title: "{{$accommodation->AccommodationName}}",
                                 });
                             }
                         </script>
@@ -545,14 +546,14 @@
     <div class="container pt-15 mb-15">
         <div class="row justify-content-between">
             <div class="col grow-0">
-                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$accommodation[0]->Price}}</strong> /noite</h4>
+                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$accommodation->Price}}</strong> /noite</h4>
                 <!--<h4 class="texto-m d-flex gap-5"><i class="d-inline-flex icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>-->
             </div>
             <div class="col col-sm-5">
                 @if(Request::segment(3) == '')
-                <a href="{{URL::to('/check_availability/'.$accommodation[0]->AccommodationId)}}" class="btn">Verificar disponibilidade</a>
+                <a href="{{URL::to('/check_availability/'.$accommodation->AccommodationId)}}" class="btn">Verificar disponibilidade</a>
                 @else
-                    <a href="{{URL::to('/checkout/'.$accommodation[0]->AccommodationId.'/'.Request::segment(3).'/'.Request::segment(4).'/'.Request::segment(5).'/'.Request::segment(6))}}" class="btn">Reservar</a>
+                    <a href="{{URL::to('/checkout/'.$accommodation->AccommodationId.'/'.Request::segment(3).'/'.Request::segment(4).'/'.Request::segment(5).'/'.Request::segment(6))}}" class="btn">Reservar</a>
                 @endif
             </div>
         </div>
@@ -567,7 +568,7 @@
     $('#fav').click(function(){
 
         $.ajax({
-            url: "{{URL::to('/favorite/'.$accommodation[0]->AccommodationId.'/'.auth()->id())}}",
+            url: "{{URL::to('/favorite/'.$accommodation->AccommodationId.'/'.auth()->id())}}",
             context: document.body
         }).done(function() {
             $('#fav').hide();
@@ -576,7 +577,7 @@
     })
     $('#unfav').click(function(){
         $.ajax({
-            url: "{{URL::to('/unfavorite/'.$accommodation[0]->AccommodationId.'/'.auth()->id())}}",
+            url: "{{URL::to('/unfavorite/'.$accommodation->AccommodationId.'/'.auth()->id())}}",
             context: document.body
         }).done(function() {
             $('#fav').show();

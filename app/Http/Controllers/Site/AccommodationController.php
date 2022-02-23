@@ -42,29 +42,27 @@ class AccommodationController extends Controller
         }
 
         $accommodation = \DB::table('accommodations')
-            ->select('accommodations.*','descriptions.*','rates.*')
             ->Leftjoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
             ->Leftjoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
             ->where('accommodations.AccommodationId','=', $accommodationid)
-            ->where('StartDate', '<', "{$startdate}")
-            ->where('EndDate', '>', "{$enddate}")
-            ->get();
-
+//            ->where('StartDate', '<', "{$startdate}")
+//            ->where('EndDate', '>', "{$enddate}")
+            ->get()->first();
 
         $occuppationalrules = \DB::table('occuppationalrules')
             ->select('occuppationalrules')
-            ->where('occuppationalrules.AccommodationId','=', $accommodation[0]->AccommodationId)
+            ->where('occuppationalrules.AccommodationId','=', $accommodationid)
             ->get();
 
         $services = Services::all();
 
         //grava visita na sessão para mostrar em ultimos visitados
-        session()->push('accommodations.recent', $accommodation[0]->AccommodationId);
+        session()->push('accommodations.recent', $accommodationid);
 
-        $description = json_decode($accommodation[0]->InternationalizedItem, true);
-        $pictures = json_decode($accommodation[0]->Pictures, true);
-        $features = json_decode($accommodation[0]->Features, true);
-        $localization = json_decode($accommodation[0]->LocalizationData, true);
+        $description = json_decode($accommodation->InternationalizedItem, true);
+        $pictures = json_decode($accommodation->Pictures, true);
+        $features = json_decode($accommodation->Features, true);
+        $localization = json_decode($accommodation->LocalizationData, true);
 
         $latitude = $localization['GoogleMaps']['Latitude'];
         $longitude = $localization['GoogleMaps']['Longitude'];
