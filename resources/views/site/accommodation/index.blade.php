@@ -1,6 +1,4 @@
-<pre>
-<?php print_r($rates);?>
-</pre>
+
 <!doctype html>
 <html lang="pt-BR">
 
@@ -489,9 +487,7 @@
                     <div class="col">
                         <p class="mb-5"><strong>Observações</strong></p>
                         <p class="mb-15">Não é permitido fumar</p>
-                    </div>
-                    <div class="col d-inline-flex align-self-center grow-0 mb-15">
-                        <i class="d-inline-flex icone-m uil uil-angle-right"></i>
+                        <p class="mb-15">Não são permitidos animais de estimação</p>
                     </div>
                 </a>
             </div>
@@ -512,9 +508,6 @@
                     </div>
                 </a>
             </div>
-            <div class="col-12 collapse" id="cont-extra-2">
-                <p class="mb-15">Não obstante, a constante divulgação das informações estende o alcance e a importância das condições financeiras e administrativas exigidas.</p>
-            </div>
         </div>
         <hr class="mb-15">
         <div class="row">
@@ -523,6 +516,13 @@
                     <div class="col">
                         <p class="mb-5"><strong>Notas adicionais</strong></p>
                         <p class="mb-15">Horário de entrada: todos os dias de 15:00 a 20:00</p>
+                        <p class="mb-15">Horário de saída: 11:00</p>
+                        <p class="mb-15">Uns dias antes da chegada deve contactar o escritório de recepção para informar o horário de chegada (nº vôo / barco em caso) e organizar a recolha de chaves.</p>
+                        <p class="mb-15">Uma vez que chegue ao destino, por favor contacte-nos por telefone e dirija-se directamente ao alojamento ou ponto de encontro combinado.</p>
+                        <p class="mb-15">Lugar de estacionamento não incluído no preço.</p>
+                        <p class="mb-15">Chegada fora de horário: Chaves na caixa de correio, com código. Paga-se a totalidade da reserva antes.</p>
+                        <p class="mb-15">Chegada fora do horário: Organizar chegada com a agência no destino. Cobra-se a totalidade da reserva antecipadamente.</p>
+                            <p class="mb-15">Não são permitidos animais de estimação.</p>
                     </div>
                     <div class="col d-inline-flex align-self-center grow-0 mb-15">
                         <i class="d-inline-flex icone-m uil uil-angle-right"></i>
@@ -533,12 +533,6 @@
                 <p class="mb-15">Não obstante, a constante divulgação das informações estende o alcance e a importância das condições financeiras e administrativas exigidas.</p>
             </div>
         </div>
-        <hr class="mb-15">
-        <div class="row">
-            <div class="col">
-                <a href="#!" class="btn-link texto-m"><i class="d-inline-flex icone-m uil uil-shield-exclamation"></i> <strong>Denunciar este anúncio</strong></a>
-            </div>
-        </div>
     </div>
 </section>
 
@@ -546,7 +540,7 @@
     <div class="container pt-15 mb-15">
         <div class="row justify-content-between">
             <div class="col grow-0">
-                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$accommodation->Price}}</strong> /noite</h4>
+                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$rates->Price}}</strong> /noite</h4>
                 <!--<h4 class="texto-m d-flex gap-5"><i class="d-inline-flex icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>-->
             </div>
             <div class="col col-sm-5">

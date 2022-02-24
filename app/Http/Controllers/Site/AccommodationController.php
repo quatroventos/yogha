@@ -33,6 +33,7 @@ class AccommodationController extends Controller
             $enddate = date('Y-m-d', strtotime($today. ' + 2 days'));
         }
 
+
         $isfav = 0;
         if(auth()->id() != null) {
             $favorites = Favorites::where('user_id', auth()->id())->where('accommodation_id', $accommodationid)->get();
@@ -43,11 +44,15 @@ class AccommodationController extends Controller
 
         $accommodation = \DB::table('accommodations')
             ->Leftjoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
-            ->Leftjoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
             ->where('accommodations.AccommodationId','=', $accommodationid)
-//            ->where('StartDate', '<', "{$startdate}")
-//            ->where('EndDate', '>', "{$enddate}")
             ->get()->first();
+
+        $rates = \DB::table('rates')
+            ->where('AccommodationId','=', $accommodationid)
+            ->where('StartDate', '>', "{$startdate}")
+            ->where('EndDate', '<', "{$enddate}")
+            ->get()->first();
+
 
         $occuppationalrules = \DB::table('occuppationalrules')
             ->select('occuppationalrules')
@@ -83,7 +88,7 @@ class AccommodationController extends Controller
             $totalcamas += $features['Distribution']['KingBeds'];
         }
 
-        return view('site.accommodation.index', compact('accommodation', 'description', 'pictures', 'features', 'localization', 'latitude', 'longitude', 'zoom', 'totalcamas', 'services', 'occuppationalrules', 'isfav' ));
+        return view('site.accommodation.index', compact('rates','accommodation', 'description', 'pictures', 'features', 'localization', 'latitude', 'longitude', 'zoom', 'totalcamas', 'services', 'occuppationalrules', 'isfav' ));
     }
 
 }

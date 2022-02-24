@@ -97,11 +97,12 @@
         <div class="row gap-10 texto-marrom-escuro">
             <div class="col grow-0 pe-0">
                 <?php $pictures = json_decode($result->Pictures, true); ?>
+
                 @if(isset($pictures))
 
-                    @if(isset($pictures['Picture'][0]['OriginalURI']) && $pictures['Picture'][0]['OriginalURI'] != '')
+                    @if(isset($pictures['Picture'][0]['AdaptedURI']) && $pictures['Picture'][0]['AdaptedURI'] != '')
                         <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
-                            <picture class="pic-m" style="background-image: url({{$pictures['Picture'][0]['OriginalURI']}});"></picture>
+                            <picture class="pic-m" style="background-image: url({{$pictures['Picture'][0]['AdaptedURI']}});"></picture>
                         </a>
                     @endif
 
@@ -111,9 +112,9 @@
             <div class="col ps-0">
                 <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
                     <h2 class="mb-5 texto-ret"><strong>{{$result->AccommodationName}}</strong></h2>
-{{--                    @if(isset($occuppationalrules) && !empty($occuppationalrules))--}}
-{{--                        <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}</span></p>--}}
-{{--                    @endif--}}
+                    @if(isset($occuppationalrules) && !empty($occuppationalrules))
+                        <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}</span></p>
+                    @endif
                     <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$result->Price}}</strong> /noite <span class="texto-marrom texto-p">preço estimado</span></h4>
                 </a>
             </div>
@@ -140,12 +141,13 @@
 
 
                         <?php $pictures = json_decode($result->Pictures, true); ?>
+
                         @if(isset($pictures))
                             <div class="slick slide-full">
                                 @foreach ($pictures['Picture'] as $picture)
-                                    @if(isset($picture['OriginalURI']) && $picture['OriginalURI'] != '')
+                                    @if(isset($picture['AdaptedURI']) && $picture['AdaptedURI'] != '')
                                     <a href="{{URL::to('/')}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
-                                        <picture style="background-image: url({{$picture['OriginalURI']}});"></picture>
+                                        <picture style="background-image: url({{$picture['AdaptedURI']}});"></picture>
                                     </a>
                                     @endif
                                 @endforeach
@@ -245,7 +247,7 @@
 
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 10,
-            center: new google.maps.LatLng({{$latitude}},{{$longitude}}),
+            {{--center: new google.maps.LatLng({{$latitude}},{{$longitude}}),--}}
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 

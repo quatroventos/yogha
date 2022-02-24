@@ -62,7 +62,7 @@
 
                 $('#searchResults').empty();
                 $.each(data, function( index, value ) {
-                    $('#searchResults').append('<li><a href="{{URL::to('/');}}/searchfilter/'+data[index]["District"]+'" class="d-flex gap-10 align-items-center"><picture class="row-0 me-15" style="background-image: url({{asset('img/fundo-ponto.jpg')}});"></picture>'+data[index]["District"]+' - '+data[index]["District"]+'</a></li>')
+                    $('#searchResults').append('<li><a href="{{URL::to('/');}}/searchbydistrict/'+data[index]["District"]+'" class="d-flex gap-10 align-items-center"><picture class="row-0 me-15" style="background-image: url({{asset('img/fundo-ponto.jpg')}});"></picture>'+data[index]["District"]+' - '+data[index]["District"]+'</a></li>')
                 });
 
             });

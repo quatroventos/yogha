@@ -50,6 +50,8 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
+        $mostvisited->groupBy('AccommodationId');
+
         //districts mais acessadas
         $populardistricts = \DB::table('localizations')
             ->select('localizations.District',\DB::raw('count(stats.*) as views'))

@@ -103,7 +103,6 @@ class ReadXMLController extends Controller
 
                     if (isset($d['State']) && empty($d['State']) === false) {
                         $state = $d['State'];
-                        echo $state;
                     }else{
                         $state = '';
                     }
@@ -154,50 +153,50 @@ class ReadXMLController extends Controller
                     "CheckInCheckOutInfo" => $CheckInCheckOutInfo,
                ];
 
-               //importa Availability em outra tabela
-               //dd($availabilityArray);
-               foreach($availabilityArray['AccommodationList']['Accommodation'] as $availabilityData)
+//               //importa Availability em outra tabela
+//               //dd($availabilityArray);
+//               foreach($availabilityArray['AccommodationList']['Accommodation'] as $availabilityData)
 
                 //importa Rates em outra tabela
                 foreach($ratesArray['AccommodationList']['Accommodation'] as $rateData) {
                     if ($rateData['AccommodationId'] == $data['AccommodationId']) {
 
-                        foreach ($rateData['Rates'] as $index => $rate) {
+                        foreach ($rateData['Rates']['RatePeriod'] as $index => $rate) {
 
                             $rateArray = [];
 
-                           // echo "importando Rates de " . $rateData['AccommodationId'] . " para accommodation: " . $data['AccommodationId'] . "<br>";
+                            //echo "importando Rates de " . $rateData['AccommodationId'] . " para accommodation: " . $data['AccommodationId'] . "<br>";
 
                             $rateArray = array_merge($rateArray, ["AccommodationId" => $rateData['AccommodationId']]);
                             $rateArray = array_merge($rateArray, ["Capacity" => $rateData['Capacity']]);
 
                             if (isset($rate['StartDate']) && empty($rate['StartDate']) === false) {
                                 $rateArray = array_merge($rateArray, ["StartDate" => $rate['StartDate']]);
-                                //echo "StartDate = " . $rate['StartDate'];
+//                                echo "StartDate = " . $rate['StartDate'];
                             }
 
                             if (isset($rate['EndDate']) && empty($rate['EndDate']) === false) {
                                 $rateArray = array_merge($rateArray, ["EndDate" => $rate['EndDate']]);
-                                //echo "EndDate = " . $rate['EndDate'];
+//                                echo "EndDate = " . $rate['EndDate'];
                             }
 
                             if (isset($rateData['VAT']) && empty($rateData['VAT']) === false) {
                                 $rateArray = array_merge($rateArray, ["VAT" => $rateData['VAT']['Included']]);
-                                //echo "VAT = " . $rateData['VAT']['Included'];
+//                                echo "VAT = " . $rateData['VAT']['Included'];
                             }
 
                             if (isset($rate['RoomOnly']) && empty($rate['RoomOnly']) === false) {
                                 $rateArray = array_merge($rateArray, ["Price" => $rate['RoomOnly']['Price']]);
-                                //echo "Price = " . $rate['RoomOnly']['Price'];
+//                                echo "Price = " . $rate['RoomOnly']['Price'];
                             }
 
-                            // echo "<pre>";
-                            // print_r($rateArray);
-                            // echo "</pre>";
+//                             echo "<pre>";
+//                                print_r($rateArray);
+//                             echo "</pre>";
                             Rates::insert($rateArray);
-                            //echo "Rate importada para a accommodation: " . $data['AccommodationId'] . "<br>";
+                           // echo "Rate importada para a accommodation: " . $data['AccommodationId'] . "<br>";
                         }
-
+                        echo " Rates importada";
                     } else {
                         //echo "Rate " . $rateData['AccommodationId'] . " não encontrada para a Accommodation " . $data['AccommodationId'] . "<br>";
                     }

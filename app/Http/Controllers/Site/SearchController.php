@@ -67,13 +67,13 @@ class SearchController extends Controller
         }
 
         $results = \DB::table('accommodations')
+            ->select('accommodations.*','descriptions.*','localizations.*','rates.Price')
             ->Leftjoin('descriptions', 'descriptions.AccommodationId', '=', 'accommodations.AccommodationId')
             ->Leftjoin('localizations', 'localizations.AccommodationId', '=', 'accommodations.AccommodationId')
-            ->join('rates','rates.AccommodationId', '=', 'accommodations.AccommodationId')
+            ->Rightjoin('rates','rates.AccommodationId', '=', 'accommodations.AccommodationId')
             ->where('localizations.District', 'like', "%{$district}%")
-            ->where('rates.StartDate', '<', "{$startdate}")
-            ->where('rates.EndDate', '>', "{$enddate}")
-                ->take(1)
+            ->where('rates.StartDate', '>', "{$startdate}")
+            ->where('rates.EndDate', '<', "{$enddate}")
             ->get();
 
         //dd($results);
