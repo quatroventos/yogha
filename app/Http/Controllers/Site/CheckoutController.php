@@ -174,9 +174,9 @@ class CheckoutController extends Controller
             \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
 
             $credentials = array(
-                "Language" => "EN",
-                "UserName" => "itsatentoapi_test",
-                "Password" => "testapixml"
+                "Language" => "PT",
+                "UserName" => "yogha",
+                "Password" => "L7FzhH2022X+"
             );
 
             $post = array(
