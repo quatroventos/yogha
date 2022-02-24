@@ -59,9 +59,9 @@ class CheckoutController extends Controller
             \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
 
             $credentials = array(
-                "Language" => "EN",
-                "UserName" => "itsatentoapi_test",
-                "Password" => "testapixml"
+                "Language" => "PT",
+                "UserName" => "yogha+",
+                "Password" => "L7FzhH2022X+"
             );
 
             $post = array(
@@ -104,7 +104,7 @@ class CheckoutController extends Controller
                     $available = false;
                     $message = "Esta acomodação não está disponível para esta data, por favor, selecione uma data diferente.";
                     break;
-                    
+
                 case 1:
                     $available = true;
                     $message = "";
