@@ -86,8 +86,13 @@ class CheckoutController extends Controller
 
             foreach($agesarray as $key=>$age){
                 $key = $key+1;
-                array_push($post['Criteria']['Occupants'], "Child".$key."_Age => ".$age);
+                $post['Criteria']['Occupants']["Child".$key."_Age"] = $age;
             }
+
+//            echo '<pre>';
+//            print_r($post['Criteria']);
+//            echo '</pre>';
+//            die();
 
             $result = $client->IsAvailable($post);
 
@@ -201,7 +206,7 @@ class CheckoutController extends Controller
 
             foreach($agesarray as $key=>$age){
                 $key = $key+1;
-                array_push($post['Criteria']['Occupants'], "Child".$key."_Age => ".$age);
+                $post['Criteria']['Occupants']["Child".$key."_Age"] = $age;
             }
 
             $result = $client->GetBookingPrice($post);

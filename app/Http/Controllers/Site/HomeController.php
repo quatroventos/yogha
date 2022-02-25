@@ -47,10 +47,8 @@ class HomeController extends Controller
             ->groupBy('accommodations.AccommodationId', 'stats.content_id', 'accommodations.id', 'descriptions.id', 'rates.id')
             ->where('stats.type', '=', 'accommodation')
             ->OrderBy('views', 'DESC')
-            ->take(10)
+            ->take(3)
             ->get();
-
-        $mostvisited->groupBy('AccommodationId');
 
         //districts mais acessadas
         $populardistricts = \DB::table('localizations')
