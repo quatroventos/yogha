@@ -60,7 +60,7 @@ class CheckoutController extends Controller
 
             $credentials = array(
                 "Language" => "PT",
-                "UserName" => "yogha+",
+                "UserName" => "yogha",
                 "Password" => "L7FzhH2022X+"
             );
 

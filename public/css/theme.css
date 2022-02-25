@@ -1503,7 +1503,8 @@ body.resultado #aba-resultado {
 
 
 .is-locked{
-    opacity:30% !important;
+    opacity:50% !important;
+    color:red !important;
     text-decoration: line-through !important;
 }
 
