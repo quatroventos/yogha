@@ -62,7 +62,7 @@
             </div>
             <div class="col">
                 <div class="form-group form-inline justify-content-end gap-10">
-                    <a href="#!" class="btn btn-2 btn-ico"><i class="d-inline-flex uil uil-upload"></i></a>
+                    <a href="#!" class="btn btn-2 btn-ico share"><i class="d-inline-flex uil uil-upload"></i></a>
                     @auth
                         @if($isfav == 1)
                             <a href="#!" id="fav"  style="display: none;"  class="btn btn-2 btn-ico"><i class="far fa-heart"></i></a>
@@ -595,6 +595,17 @@
             $('#aba-loja-single').load($(this).attr('href'));
             return false;
         });
+    });
+</script>
+
+<script>
+    $('.share').addEventListener("click", async () => {
+        try {
+            await navigator.share({ title: "Example Page", url: "" });
+            console.log("Data was shared successfully");
+        } catch (err) {
+            console.error("Share failed:", err.message);
+        }
     });
 </script>
 

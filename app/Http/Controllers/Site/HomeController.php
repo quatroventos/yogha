@@ -40,11 +40,10 @@ class HomeController extends Controller
 
         //accommodations mais acessadas
         $mostvisited = \DB::table('accommodations')
-            ->select('accommodations.*','descriptions.*','rates.*',\DB::raw('count(stats.*) as views'))
+            ->select('accommodations.*','descriptions.*',\DB::raw('count(stats.*) as views'))
             ->leftJoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
             ->leftJoin('stats','stats.content_id', '=', 'accommodations.AccommodationId')
-            ->leftjoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
-            ->groupBy('accommodations.AccommodationId', 'stats.content_id', 'accommodations.id', 'descriptions.id', 'rates.id')
+            ->groupBy('accommodations.AccommodationId', 'stats.content_id', 'accommodations.id', 'descriptions.id')
             ->where('stats.type', '=', 'accommodation')
             ->OrderBy('views', 'DESC')
             ->take(3)

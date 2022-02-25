@@ -64,7 +64,7 @@
                                     <picture class="mb-10" style="background-image: url(<?php echo $pictures['Picture'][0]['OriginalURI']; ?>);"></picture>
                                     <?php } ?>
                                     <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
-                                        <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$accommodation->Price}}</strong>/noite</h4>
+{{--                                        <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$accommodation->Price}}</strong>/noite</h4>--}}
                                 </a>
                             </li>
                         <?php } ?>
