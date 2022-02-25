@@ -104,11 +104,11 @@
                         {{$features['Distribution']['Bedrooms']}} quartos •
                     @endif
                     @if($totalcamas > 0)
-                        {{$totalcamas}} camas •
+                        {{$totalcamas}} camas
                     @endif
-                    @if(empty($features['Distribution']['Toilets']) === false)
-                        {{$features['Distribution']['Toilets']}} Banheiros
-                    @endif
+{{--                    @if(empty($features['Distribution']['Toilets']) === false)--}}
+{{--                        {{$features['Distribution']['Toilets']}} Banheiros--}}
+{{--                    @endif--}}
                 </p>
                 <!--<h4 class="texto-m d-flex gap-5"><i class="d-inline-flex icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>-->
             </div>
@@ -241,7 +241,7 @@
 
                             @if(empty($features['HouseCharacteristics']['ElectricKettle']) === false)
                             <li class="d-inline-flex align-items-center gap-10">
-                                <img class="feature-icon" src="{{asset('img/icones/elevador.png')}}"> Chaleira elétrica
+                                <img class="feature-icon" src="{{asset('img/icones/chaleira.png')}}"> Chaleira elétrica
                             </li>
                             @endif
 

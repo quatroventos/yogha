@@ -255,7 +255,7 @@ class CheckoutController extends Controller
             $unavailableDates = "";
         }
 
-        return view('site.checkout.check_availability', compact('accommodationid', 'unavailableDates', 'startdate', 'enddate'));
+        return view('site.busca.filtro', compact('accommodationid', 'unavailableDates', 'startdate', 'enddate'));
     }
 
     public function generatecard(Request $request)

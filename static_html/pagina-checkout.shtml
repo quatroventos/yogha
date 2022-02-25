@@ -6,11 +6,11 @@
 
   <body id="checkout">
 
-<!-- MENUS --> 
+<!-- MENUS -->
 
-    <!-- MENU SUPERIOR -->   
+    <!-- MENU SUPERIOR -->
 
-    <!-- MENU INFERIOR -->    
+    <!-- MENU INFERIOR -->
 
     <!-- MENU LATERAL -->
 
@@ -53,15 +53,15 @@
         <div class="row justify-content-center">
           <div class="col grow-0 px-0">
             <a href="pagina-single-anuncio.shtml" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
-          </div>  
+          </div>
           <div class="col align-self-center *justify-content-center">
             <h3 class="text-center"><strong>Confirmar e pagar</strong></h3>
-          </div> 
+          </div>
           <div class="col grow-0 px-0">
             <span href="#!" class="btn btn-2 btn-ico"></span>
-          </div>         
+          </div>
         </div>
-      </div>      
+      </div>
     </section>
 
     <section>
@@ -71,45 +71,45 @@
             <div class="row mb-30">
               <div class="col grow-0 pe-0">
                 <picture class="pic-p" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-              </div>  
+              </div>
               <div class="col">
                 <p class="texto-m"><strong>O estúdio em Curitiba tem 1 quarto(s)</strong></p>
                 <h2 class="mb-5"><strong>Título do anúncio</strong></h2>
                 <p class="texto-m">6 hóspedes • 2 quartos • 3 camas • 2 banheiros • 29m²</p>
                 <h4 class="texto-m d-flex gap-5 mb-5"><i class="icone-m uil uil-star"></i> <strong>9,5</strong> (200)</h4>
                 <a href="#!" class="btn-link texto-m px-0"><i class="icone-p uil uil-phone"></i> <strong>Reservar por telefone</strong></a>
-              </div>        
+              </div>
             </div>
           </div>
           <div class="col-12 col-sm-8">
             <div class="row">
               <div class="col">
                 <h3 class="mb-15"><strong>Sua estadia</strong></h3>
-              </div>      
+              </div>
             </div>
             <div class="row texto-m mb-15">
               <div class="col">
                 <h4 class="texto-m mb-5"><strong>Datas</strong></h4>
                 <p class="mb-0">13/10 → 22/10</p>
-              </div>  
+              </div>
               <div class="col grow-0">
                 <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-datas" aria-expanded="false" class="btn-link btn-p px-0 switch"><strong>Editar</strong></a>
-              </div>        
+              </div>
             </div>
             <div class="row texto-m mb-30">
               <div class="col">
                 <h4 class="texto-m mb-5"><strong>Hóspedes</strong></h4>
                 <p class="mb-0">1 hóspede</p>
-              </div>  
+              </div>
               <div class="col grow-0">
                 <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-hospedes" aria-expanded="false" class="btn-link btn-p px-0 switch"><strong>Editar</strong></a>
-              </div>        
+              </div>
             </div>
             <hr class="mb-30">
             <div class="row">
               <div class="col">
                 <h3 class="mb-15"><strong>Detalhes do preço</strong></h3>
-              </div>      
+              </div>
             </div>
             <div class="row mb-30">
               <div class="col">
@@ -120,7 +120,7 @@
                   <li class="mb-10">Taxa de serviço</li>
                   <li><strong>Total (BLR)</strong></li>
                 </ul>
-              </div>  
+              </div>
               <div class="col grow-0">
                 <ul class="gap-5 text-end texto-m">
                   <li>R$65,87</li>
@@ -129,18 +129,18 @@
                   <li class="mb-10">R$10,61</li>
                   <li><strong>R$85,74</strong></li>
                 </ul>
-              </div>        
+              </div>
             </div>
             <div class="row mb-30">
               <div class="col d-flex justify-content-end">
                 <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-loja" aria-expanded="false" class="btn btn-4 btn-p ms-auto switch">Adicionar serviço</a>
-              </div>        
+              </div>
             </div>
             <hr class="mb-30">
             <div class="row">
               <div class="col">
                 <h3 class="mb-15"><strong>Pagar com</strong></h3>
-              </div>      
+              </div>
             </div>
             <div class="row">
               <div class="col">
@@ -205,7 +205,7 @@
                     </a>
                   </li>
                 </ul>
-              </div>        
+              </div>
             </div>
             <div class="row cupom-desconto collapse">
               <div class="col">
@@ -215,54 +215,54 @@
                   </div>
                   <button class="btn d-flex">Salvar</button>
                 </form>
-              </div>      
+              </div>
             </div>
             <div class="row mb-30 pt-15">
               <div class="col">
                 <a href="#!" data-bs-toggle="collapse" data-bs-target=".cupom-desconto" class="btn-link texto-m px-0"><strong>Insira um cupom</strong></a>
-              </div>      
+              </div>
             </div>
             <hr class="mb-30">
             <div class="row">
               <div class="col">
-                <h3 class="mb-15"><strong>Dado pessoais</strong></h3>
-              </div>      
+                <h3 class="mb-15"><strong>Dados pessoais</strong></h3>
+              </div>
             </div>
             <div class="row texto-m mb-15">
               <div class="col">
                 <h4 class="texto-m"><strong>Nome</strong></h4>
                 <p class="mb-0">Bruno Blanke Pereira</p>
-              </div>        
+              </div>
             </div>
             <div class="row texto-m mb-15">
               <div class="col">
                 <h4 class="texto-m"><strong>Endereço</strong></h4>
                 <p class="mb-0">Heleodoro João florindo, 155 - Barra da Lagoa, Florianópolis - SC, 88061415</p>
-              </div>        
+              </div>
             </div>
             <div class="row texto-m mb-15">
               <div class="col">
                 <h4 class="texto-m"><strong>Contato</strong></h4>
                 <p class="mb-0">48 9995-65651</p>
                 <p class="mb-0">brunoblanke@gmail.com</p>
-              </div>        
+              </div>
             </div>
             <div class="row texto-m mb-15">
               <div class="col">
                 <h4 class="texto-m"><strong>Observações</strong></h4>
                 <p class="mb-0">Pensando mais a longo prazo, a expansão dos mercados mundiais aponta para a melhoria das condições financeiras e administrativas exigidas.</p>
-              </div>        
+              </div>
             </div>
             <div class="row texto-m mb-30">
               <div class="col">
                 <a href="pagina-editar-perfil.shtml" class="btn-link btn-p px-0"><strong>Editar dados</strong></a>
-              </div>        
+              </div>
             </div>
             <hr class="mb-30">
             <div class="row">
               <div class="col">
                 <h3 class="mb-15"><strong>Notas adicionais</strong></h3>
-              </div>      
+              </div>
             </div>
             <div class="row texto-m mb-30">
               <div class="col">
@@ -283,7 +283,7 @@
             <div class="row">
               <div class="col">
                 <h3 class="mb-15"><strong>Notas adicionais</strong></h3>
-              </div>      
+              </div>
             </div>
             <div class="row texto-m mb-30">
               <div class="col pe-0 grow-0">
@@ -306,7 +306,7 @@
             </div>
           </div>
         </div>
-      </div>     
+      </div>
     </section>
 
     <!-- OVERLAY -->

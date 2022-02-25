@@ -2,7 +2,7 @@
 @section('content')
 
 <!-- CONTEUDO -->
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <section class="fixo-t">
     <div class="container">
         <div class="row justify-content-center">
@@ -35,7 +35,7 @@
                     </div>
                     <div class="col">
                         <p></p>
-                        <p class="texto-m"><strong>{{$accommodation->UserKind}} em {{$description[1]['Region']['Name']}} com {{$features['Distribution']['Bedrooms']}} quarto(s)</strong></p>
+                        <p class="texto-m"><strong>{{$accommodation->UserKind}} no <a href="/searchbydistrict/{{strtolower($description[1]['District']['Name'])}}">{{$description[1]['District']['Name'] ?? ''}}</a> em {{$description[1]['City']['Name'] ?? ''}} - {{$description[1]['Region']['Name'] ?? ''}} com {{$features['Distribution']['Bedrooms']}} quarto(s)</strong></p>
                         <h2 class="mb-5"><strong>{{$accommodation->AccommodationName}}</strong></h2>
                         <p class="texto-m">
                             @if(empty($accommodation->Capacity) === false)
@@ -45,11 +45,11 @@
                                 {{$features['Distribution']['Bedrooms']}} quartos •
                             @endif
                             @if($totalcamas > 0)
-                                {{$totalcamas}} camas •
+                                {{$totalcamas}} camas
                             @endif
-                            @if(empty($features['Distribution']['Toilets']) === false)
-                                {{$features['Distribution']['Toilets']}} Banheiros
-                            @endif
+{{--                            @if(empty($features['Distribution']['Toilets']) === false)--}}
+{{--                                {{$features['Distribution']['Toilets']}} Banheiros--}}
+{{--                            @endif--}}
                         </p>
                         <small class="btn-link texto-m px-0"><i class="icone-p uil uil-phone"></i> <strong>Reservar por telefone: 41 9 9999-9999</strong></small>
                     </div>
@@ -147,7 +147,7 @@
                 <hr class="mb-30">
                 <div class="row">
                     <div class="col">
-                        <h3 class="mb-15"><strong>Dado pessoais</strong></h3>
+                        <h3 class="mb-15"><strong>Dados pessoais</strong></h3>
                     </div>
                 </div>
                 <div class="row texto-m mb-15">
@@ -204,44 +204,44 @@
                 <div class="row">
                     <div class="col">
                             <ul class="gap-10">
-    {{--                            <li>--}}
-    {{--                                <a href="#!" data-bs-toggle="collapse" data-bs-target=".campos-cartao" class="row texto-marrom align-items-center">--}}
-    {{--                                    <div class="col grow-0 pe-0">--}}
-    {{--                                        <picture></picture>--}}
-    {{--                                    </div>--}}
-    {{--                                    <div class="col">--}}
-    {{--                                        <p class="mb-0">Cartão de crédito</p>--}}
-    {{--                                    </div>--}}
-    {{--                                </a>--}}
-    {{--                            </li>--}}
-    {{--                            <li class="campos-cartao collapse">--}}
-    {{--                                <form method="post" action="{{ route('generate.card') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">--}}
-    {{--                                    @csrf--}}
-    {{--                                    <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}}">--}}
-    {{--                                    <input type="hidden" name="amount" value="{{$accommodation->Price * $noites}}">--}}
-    {{--                                    <div class="form-group">--}}
-    {{--                                        <input class="d-flex" type="text" name="name" placeholder="Nome no cartão">--}}
-    {{--                                    </div>--}}
-    {{--                                    <div class="form-group">--}}
-    {{--                                        <input class="d-flex" type="text" name="card_number" placeholder="Número do cartão">--}}
-    {{--                                    </div>--}}
-    {{--                                    <div class="form-group form-inline">--}}
-    {{--                                        <input class="d-flex" type="text" name="card_due_date" placeholder="Validade">--}}
-    {{--                                        <input class="d-flex" type="text" name="cvv" placeholder="CVV">--}}
-    {{--                                    </div>--}}
-    {{--                                    <div class="form-group">--}}
-    {{--                                        <input class="d-flex" type="text" name="document" placeholder="CPF">--}}
-    {{--                                    </div>--}}
-    {{--                                    <div class="form-group">--}}
-    {{--                                        <input class="d-flex" type="text" name="email" placeholder="E-mail" value="{{$user->email}}">--}}
-    {{--                                    </div>--}}
-    {{--                                    <button type="submit" class="btn d-flex switch">Pagar com cartão</button>--}}
-    {{--                                </form>--}}
-    {{--                            </li>--}}
                                 <li>
-                                    <a href="#!" data-bs-toggle="collapse"  data-bs-target=".campos-boleto" class="row texto-marrom align-items-center">
+                                    <a href="#!" data-bs-toggle="collapse" data-bs-target=".campos-cartao" class="row texto-marrom align-items-center">
                                         <div class="col grow-0 pe-0">
-                                            <picture></picture>
+                                            <picture><i class="fa fa-credit-card" aria-hidden="true" style="padding:11px;"></i></picture>
+                                        </div>
+                                        <div class="col">
+                                            <p class="mb-0">Cartão de crédito</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="campos-cartao collapse">
+                                    <form method="post" action="{{ route('generate.card') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}}">
+                                        <input type="hidden" name="amount" value="{{$accommodation->Price * $noites}}">
+                                        <div class="form-group">
+                                            <input class="d-flex" type="text" name="name" placeholder="Nome no cartão">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="d-flex" type="text" name="card_number" placeholder="Número do cartão">
+                                        </div>
+                                        <div class="form-group form-inline">
+                                            <input class="d-flex" type="text" name="card_due_date" placeholder="Validade">
+                                            <input class="d-flex" type="text" name="cvv" placeholder="CVV">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="d-flex" type="text" name="document" placeholder="CPF">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="d-flex" type="text" name="email" placeholder="E-mail" value="{{$user->email}}">
+                                        </div>
+                                        <button type="submit" class="btn d-flex switch">Pagar com cartão</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <a href="#!" data-bs-toggle="collapse" data-bs-target=".campos-boleto" class="row texto-marrom align-items-center">
+                                        <div class="col grow-0 pe-0">
+                                            <picture><i class="fas fa-barcode" aria-hidden="true" style="padding:11px;"></i></picture>
                                         </div>
                                         <div class="col">
                                             <p class="mb-0">Boleto</p>
@@ -293,7 +293,7 @@
                                 <li>
                                     <a href="#!" data-bs-toggle="collapse"  data-bs-target=".campos-pix" class="row texto-marrom align-items-center">
                                         <div class="col grow-0 pe-0">
-                                            <picture></picture>
+                                            <picture><i class="fa fa-qrcode" aria-hidden="true" style="padding:12px;"></i></picture>
                                         </div>
                                         <div class="col">
                                             <p class="mb-0">Pix</p>
