@@ -79,11 +79,7 @@
                         <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-busca" class="btn btn-3 btn-p texto-ret switch"><span>{{$district}}</span></a>
                     </div>
                     <div class="col-6 ps-0">
-                        <a href="#!" class="btn btn-3 btn-p texto-ret">
-                            <span class="text-right texto-p">
-{{--                                {{date_format(date_create($startdate),"d/m/y")}} → {{date_format(date_create($enddate),"d/m/y")}} - {{Request::segment(5)+Request::segment(6)}} hospedes--}}
-                            </span>
-                        </a>
+                        <a href="#!" class="btn btn-3 btn-p texto-ret"><span class="text-right texto-p">{{date_format(date_create($startdate),"d/m/y")}} → {{date_format(date_create($enddate),"d/m/y")}} - {{Request::segment(5)+Request::segment(6)}} hospedes</span></a>
                     </div>
                 </div>
             </div>
@@ -91,41 +87,41 @@
     </div>
 </section>
 
-<div id="map" style="width: 50%; height: 700px;"></div>
+<div id="map"></div>
 
 <!-- ANUNCIO FLUTUANTE -->
 @foreach($results as $result)
-    <section id="{{$result->AccommodationId}}" class="anuncio-flutuante" style="display: none;">
-        <div class="container fundo-branco h-100">
+<section id="{{$result->AccommodationId}}" class="anuncio-flutuante" style="display: none;">
+    <div class="container fundo-branco h-100">
 
-            <div class="row gap-10 texto-marrom-escuro">
-                <div class="col grow-0 pe-0">
-                    <?php $pictures = json_decode($result->Pictures, true); ?>
+        <div class="row gap-10 texto-marrom-escuro">
+            <div class="col grow-0 pe-0">
+                <?php $pictures = json_decode($result->Pictures, true); ?>
 
-                    @if(isset($pictures))
+                @if(isset($pictures))
 
-                        @if(isset($pictures['Picture'][0]['AdaptedURI']) && $pictures['Picture'][0]['AdaptedURI'] != '')
-                            <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
-                                <picture class="pic-m" style="background-image: url({{$pictures['Picture'][0]['AdaptedURI']}});"></picture>
-                            </a>
-                        @endif
-
+                    @if(isset($pictures['Picture'][0]['AdaptedURI']) && $pictures['Picture'][0]['AdaptedURI'] != '')
+                        <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
+                            <picture class="pic-m" style="background-image: url({{$pictures['Picture'][0]['AdaptedURI']}});"></picture>
+                        </a>
                     @endif
 
-                </div>
-                <div class="col ps-0">
-                    <a href="{{URL::to('/')}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
-                        <h2 class="mb-5 texto-ret"><strong>{{$result->AccommodationName}}</strong></h2>
-                        @if(isset($occuppationalrules) && !empty($occuppationalrules))
-                            <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}</span></p>
-                        @endif
-                        <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$result->Price}}</strong> /noite <span class="texto-marrom texto-p">preço estimado</span></h4>
-                    </a>
-                </div>
-            </div>
+                @endif
 
+            </div>
+            <div class="col ps-0">
+                <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
+                    <h2 class="mb-5 texto-ret"><strong>{{$result->AccommodationName}}</strong></h2>
+                    @if(isset($occuppationalrules) && !empty($occuppationalrules))
+                        <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}</span></p>
+                    @endif
+                    <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$result->Price}}</strong> /noite <span class="texto-marrom texto-p">preço estimado</span></h4>
+                </a>
+            </div>
         </div>
-    </section>
+
+    </div>
+</section>
 @endforeach
 
 <!-- ABA RESULTADO -->
@@ -143,17 +139,20 @@
             <div class="row mb-30">
                 <div class="col">
 
-                    @if(isset($pictures))
-                        <div class="slick slide-full">
-                            @foreach (array_slice($pictures['Picture'], 0, 8) as $picture)
-                                @if(isset($picture['AdaptedURI']) && $picture['AdaptedURI'] != '')
+
+                        <?php $pictures = json_decode($result->Pictures, true); ?>
+
+                        @if(isset($pictures))
+                            <div class="slick slide-full">
+                                @foreach ($pictures['Picture'] as $picture)
+                                    @if(isset($picture['AdaptedURI']) && $picture['AdaptedURI'] != '')
                                     <a href="{{URL::to('/')}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
                                         <picture style="background-image: url({{$picture['AdaptedURI']}});"></picture>
                                     </a>
-                                @endif
-                            @endforeach
-                        </div>
-                    @endif
+                                    @endif
+                                @endforeach
+                            </div>
+                        @endif
 
                     <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}" class="texto-marrom-escuro">
                         <h2 class="mb-5"><strong>{{$result->AccommodationName}}</strong>
@@ -239,8 +238,7 @@
                 $localization = json_decode($result->LocalizationData, true);
                 $latitude = $localization['GoogleMaps']['Latitude'];
                 $longitude = $localization['GoogleMaps']['Longitude'];
-                //$zoom = $localization['GoogleMaps']['Zoom'];
-                //$zoom = 30;
+                $zoom = $localization['GoogleMaps']['Zoom'];
                 $link = '/accommodation/'.$result->AccommodationId;
                 ?>
             ['{{$result->AccommodationName}}',{{$latitude}}, {{$longitude}}, '{{$link}}', {{$result->AccommodationId}}],
@@ -248,7 +246,7 @@
         ];
 
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,
+            zoom: 10,
             center: new google.maps.LatLng({{$latitude}},{{$longitude}}),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
