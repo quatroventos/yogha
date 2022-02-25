@@ -22,17 +22,23 @@ class SearchController extends Controller
     public function query(Request $request)
     {
         $input = $request->all();
-        $today = date("Y-m-d");
 
-        $data = \DB::table('localizations')
-            ->Leftjoin('rates', 'rates.AccommodationId', '=', 'localizations.AccommodationId')
+        $data['Districts'] = \DB::table('localizations')
+            ->select('localizations.District','localizations.City')
             ->where('localizations.District', 'like', "%".strtolower($input['query'])."%")
+            ->where('localizations.District', '<>', "sin especificar")
             ->get()
             ->unique('District');
 
-        return response()->json($data);
+        $data['Accommodations'] = \DB::table('accommodations')
+            ->select('accommodations.AccommodationName','accommodations.AccommodationId')
+            ->whereRaw('LOWER("AccommodationName") LIKE ? ' , "%".strtolower($input['query'])."%")
+            ->take(20)
+            ->get();
 
+        return response()->json($data);
     }
+
 
     //filtra por data e quantidade de hospedes
     public function filter($district = '', $startdate='', $enddate='')

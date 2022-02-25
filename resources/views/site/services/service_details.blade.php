@@ -2,7 +2,7 @@
     <div class="container fundo-branco h-100">
         <div class="row pt-15 mb-30" style="background-image: url({{URL::to('/')}}/files/services/{{$service->image}});">
             <div class="col align-items-start justify-content-start">
-                <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" class="btn btn-2 btn-ico mb-0"><i class="uil uil-times"></i></a>
+                <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" class="btn btn-2 btn-ico mb-0 switch"><i class="uil uil-times"></i></a>
             </div>
         </div>
         <div class="row mb-30">

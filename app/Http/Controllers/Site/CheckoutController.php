@@ -157,7 +157,7 @@ class CheckoutController extends Controller
 
                 case -9:
                     $available = false;
-                    $message = "Acmodação indisponível para locação, selecione outra acomodação.";
+                    $message = "Acomodação indisponível para locação, selecione outra acomodação.";
                     break;
 
                 case -99:

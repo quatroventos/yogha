@@ -33,14 +33,26 @@
             </div>
         </div>
         @endif
-        <div class="row mb-10">
+        <div class="row mb-10 bairros">
             <div class="col">
-                <h2><strong>Resultados</strong></h2>
+                <h2><strong>Bairros</strong></h2>
+            </div>
+        </div>
+        <div class="row mb-15 h-50 scroll-y">
+            <div class="col">
+                <ul id="searchResults" class="gap-10 texto-m texto-marrom-escuro lista-colunas">
+                </ul>
+            </div>
+        </div>
+
+        <div class="row mb-10 acomodacoes">
+            <div class="col">
+                <h2><strong>Acomodações</strong></h2>
             </div>
         </div>
         <div class="row mb-15 h-100 scroll-y">
             <div class="col">
-                <ul id="searchResults" class="gap-10 texto-m texto-marrom-escuro lista-colunas">
+                <ul id="searchResults2" class="gap-10 texto-m texto-marrom-escuro lista-colunas">
                 </ul>
             </div>
         </div>
@@ -51,18 +63,37 @@
 <!-- TYPEAHEAD -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" ></script>
 <script type="text/javascript">
+    $('.bairros').hide();
+    $('.acomodacoes').hide();
+    function capitalize(string){
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     $('input.typeahead').keyup(function(){
         $('.surpriseme').hide();
     });
+
     var path = "{{ url('autocomplete-search-query') }}";
     $('input.typeahead').typeahead({
         source:  function (query, process) {
             return $.get(path, { query: query }, function (data) {
 
+                if (data.Districts.length != 0) {
+                    $('.bairros').show();
+                }
+
+                if (data.Accommodations.length != 0) {
+                    $('.acomodacoes').show();
+                }
+
                 $('#searchResults').empty();
-                $.each(data, function( index, value ) {
-                    $('#searchResults').append('<li><a href="{{URL::to('/');}}/searchbydistrict/'+data[index]["District"]+'" class="d-flex gap-10 align-items-center"><picture class="row-0 me-15" style="background-image: url({{asset('img/fundo-ponto.jpg')}});"></picture>'+data[index]["District"]+' - '+data[index]["District"]+'</a></li>')
+                $.each(data.Districts, function( index, value ) {
+                    $('#searchResults').append('<li><a href="{{URL::to('/')}}/searchbydistrict/'+data["Districts"][index]["District"]+'" class="d-flex gap-10 align-items-center"><picture class="row-0 me-15" style="background-image: url({{asset('img/fundo-ponto.jpg')}});"></picture>'+capitalize(data["Districts"][index]["District"])+' - '+data["Districts"][index]["City"]+'</a></li>')
+                });
+
+                $('#searchResults2').empty();
+                $.each(data.Accommodations, function( index, value ) {
+                    $('#searchResults2').append('<li><a href="{{URL::to('/')}}/accommodation/'+data["Accommodations"][index]["AccommodationId"]+'" class="d-flex gap-10 align-items-center"><picture class="row-0 me-15" style="background-image: url({{asset('img/fundo-ponto.jpg')}});"></picture>'+data["Accommodations"][index]["AccommodationName"]+' - '+data["Accommodations"][index]["District"]+'</a></li>')
                 });
 
             });
@@ -70,4 +101,5 @@
         hint: false,
         minLength: 1
     });
+
 </script>
