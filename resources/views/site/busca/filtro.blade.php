@@ -103,7 +103,7 @@
                                     <div class="idade align-items-center">
                                         <label><i class="uil uil-kid"></i></label>
                                         <input type="number" class="age" name="children" id="children" placeholder="Idade" value="{{$child}}">
-                                        <a href="#!" class="btn btn-3 btn-ico"><i class="uil uil-times"></i></a>
+                                        <a href="#!" class="btn btn-3 btn-ico removechildren"><i class="uil uil-times"></i></a>
                                     </div>
                                 </div>
                         @endforeach
@@ -167,9 +167,13 @@
         });
 
         $(".children").click(function(){
-            $('.children-group').append('<div class="col-6 mb-15"><div class="idade align-items-center"><label><i class="uil uil-kid"></i></label><input type="number" class="age" name="children" id="children" placeholder="Idade"><a href="#!" class="btn btn-3 btn-ico"><i class="uil uil-times"></i></a></div></div>')
+            $('.children-group').append('<div class="col-6 mb-15"><div class="idade align-items-center"><label><i class="uil uil-kid"></i></label><input type="number" class="age" name="children" id="children" placeholder="Idade"><a href="#!" class="btn btn-3 btn-ico removechildren"><i class="uil uil-times"></i></a></div></div>')
         })
-
+        $(".removechildren").click(function(){
+            $(this).prev().remove();
+            $(this).parent().remove();
+            $(this).remove();
+        })
         <?php
         if ($unavailableDates == ''){
             $unavailableDates = "[]";
