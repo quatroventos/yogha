@@ -84,10 +84,11 @@
                             </div>
                             <div class="col mb-10">
                                 <h3><strong>Curitiba</strong></h3>
-                                <h4 class="texto-m"><strong>15 opções</strong> perto de você</h4>
+                                <h4 class="texto-m"><strong>{{$total_accommodations}} opções</strong> perto de você</h4>
                             </div>
                             <div class="col-12 col-sm-5">
-                                <a href="{{URL::to('/searchbydistrict/sin%20especificar/')}}" class="btn d-flex btn-2">Mostrar no mapa</a>
+                                <a href="#!" class="btn d-flex btn-2 mb-15 switch" data-bs-toggle="collapse" data-bs-target="#aba-busca"><i class="uil uil-search"></i> Pesquisar</a>
+{{--                                <a href="{{URL::to('/searchbydistrict/batel/')}}" class="btn d-flex btn-2">Pesquisar</a>--}}
                             </div>
                         </div>
                     </div>

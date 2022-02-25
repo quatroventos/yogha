@@ -28,6 +28,9 @@ class HomeController extends Controller
         $surpriseme = generateSurprisemeUrl();
         $services = getAllServices();
 
+        $total_accommodations = \DB::table('accommodations')->count();
+
+
         //descontos exclusivos (ordena pelo preço mais baixo)
         $discount = \DB::table('accommodations')
             ->select('accommodations.*','descriptions.*','rates.*')
@@ -46,7 +49,7 @@ class HomeController extends Controller
             ->groupBy('accommodations.AccommodationId', 'stats.content_id', 'accommodations.id', 'descriptions.id')
             ->where('stats.type', '=', 'accommodation')
             ->OrderBy('views', 'DESC')
-            ->take(3)
+            ->take(10)
             ->get();
 
         //districts mais acessadas
@@ -86,7 +89,8 @@ class HomeController extends Controller
             'favorites',
             'userreservations',
             'userfuturereservations',
-            'services'
+            'services',
+            'total_accommodations'
         ));
     }
 }
