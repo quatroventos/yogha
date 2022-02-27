@@ -106,4 +106,15 @@
       'Location' => 'Stevebauman\\Location\\Facades\\Location',
     ),
   ),
+  'zanysoft/laravel-zip' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'ZanySoft\\Zip\\ZipServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Zip' => 'ZanySoft\\Zip\\ZipFacade',
+    ),
+  ),
 );

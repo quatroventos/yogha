@@ -18,7 +18,8 @@
         "orangehill/iseed": "^3.0",
         "ricorocks-digital-agency/soap": "^1.5",
         "spatie/laravel-webhook-client": "^2.7",
-        "stevebauman/location": "^6.2"
+        "stevebauman/location": "^6.2",
+        "zanysoft/laravel-zip": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

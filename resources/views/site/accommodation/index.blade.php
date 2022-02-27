@@ -539,7 +539,7 @@
     <div class="container pt-15 mb-15">
         <div class="row justify-content-between">
             <div class="col grow-0">
-                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$rates->Price}}</strong> /noite</h4>
+                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$rates->Price ?? ''}}</strong> /noite</h4>
                 <!--<h4 class="texto-m d-flex gap-5"><i class="d-inline-flex icone-m texto-laranja uil uil-star"></i> <strong>9,5</strong> (200)</h4>-->
             </div>
             <div class="col col-sm-5">

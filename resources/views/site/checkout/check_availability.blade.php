@@ -99,26 +99,6 @@
                         </div>
                     @endforeach
                     @endif
-{{--                    <div class="form-group mb-0">--}}
-{{--                        <label class="texto-m mb-5">Crianças</label>--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group form-inline children-group">--}}
-{{--                        @if(!Request::segment(7))--}}
-{{--                            <input type="number" class="age" name="children" id="children" placeholder="Idade">--}}
-{{--                            <a href="#!" class="btn btn-4 btn-ico children addchildren"><i class="uil uil-plus"></i></a>--}}
-{{--                        @else--}}
-{{--                            <?php $children = explode(',',Request::segment(7)); ?>--}}
-{{--                            @foreach($children as $key => $child)--}}
-{{--                                <input type="number" class="age" name="children" id="children" placeholder="Idade" value="{{$child}}">--}}
-{{--                                @if ($key === array_key_first($children))--}}
-{{--                                    <a href="#!" class="btn btn-4 btn-ico children addchildren"><i class="uil uil-plus"></i></a>--}}
-{{--                                @else--}}
-{{--                                    <a href="#!" class="btn btn-4 btn-ico children removechildren"><i class="uil uil-minus"></i></a>--}}
-{{--                                @endif--}}
-{{--                            @endforeach--}}
-{{--                        @endif--}}
-
-{{--                    </div>--}}
                 </div>
             </div>
         </div>

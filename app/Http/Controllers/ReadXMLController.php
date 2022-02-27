@@ -12,6 +12,10 @@ use App\Models\Rates;
 
 class ReadXMLController extends Controller
 {
+    /**
+     * Download, descompacta e insere os XMLs da avantio no banco de dados
+     * @param Request $req
+     */
     public function index(Request $req)
     {
 
@@ -31,6 +35,38 @@ class ReadXMLController extends Controller
         echo "availabilities rules apagada<br>";
         \DB::table('rates')->truncate();
         echo "rates apagada<br>";
+
+        /**
+         * Download
+        XMLS PRODUÇÃO
+        http://feeds.avantio.com/accommodations/d807af156c55ae077e0735dd607863e5
+        http://feeds.avantio.com/descriptions/d807af156c55ae077e0735dd607863e5
+        http://feeds.avantio.com/availabilities/d807af156c55ae077e0735dd607863e5
+        http://feeds.avantio.com/rates/d807af156c55ae077e0735dd607863e5
+        http://feeds.avantio.com/occupationalrules/d807af156c55ae077e0735dd607863e5
+
+        XMLS TESTE
+        http://feeds.avantio.com/accommodations/836efa4efbe7fa63f2ebbae30d7b965f
+        http://feeds.avantio.com/descriptions/836efa4efbe7fa63f2ebbae30d7b965f
+        http://feeds.avantio.com/availabilities/836efa4efbe7fa63f2ebbae30d7b965f
+        http://feeds.avantio.com/rates/836efa4efbe7fa63f2ebbae30d7b965f
+        http://feeds.avantio.com/occupationalrules/836efa4efbe7fa63f2ebbae30d7b965f
+         */
+
+        $hash = "836efa4efbe7fa63f2ebbae30d7b965f";// testes
+        //$hash = "d807af156c55ae077e0735dd607863e5";// produção
+
+        $files = array('accommodations', 'descriptions', 'availabilities', 'rates', 'occupationalrules' );
+
+        foreach($files as $file){
+            $url='http://feeds.avantio.com/'.$file.'/'.$hash;
+            copy($url,public_path().'/xml/'.$file.'.zip');
+            echo $file." baixado<br>";
+            $zip = \Zip::open(public_path().'/xml/'.$file.'.zip');
+            $zip->extract(public_path() . '/xml');
+            echo $file." descompactado<br>";
+        }
+
 
             $accommodationsXML = file_get_contents(public_path('xml/Accommodations.xml'));
             $accommodationsObj = simplexml_load_string($accommodationsXML);
@@ -196,12 +232,11 @@ class ReadXMLController extends Controller
                             Rates::insert($rateArray);
                            // echo "Rate importada para a accommodation: " . $data['AccommodationId'] . "<br>";
                         }
-                        echo " Rates importada";
+
                     } else {
                         //echo "Rate " . $rateData['AccommodationId'] . " não encontrada para a Accommodation " . $data['AccommodationId'] . "<br>";
                     }
                 }//foreach
-
 
                     //importa Occuppational Rules em outra tabela
                 foreach($ocuppationalRulesArray['OccupationalRule'] as $occupationalRule){
@@ -282,7 +317,7 @@ class ReadXMLController extends Controller
 
             }//foreach accommodations
             Accommodations::insert($dataArray);
-
+            echo " Rates importadas!<br>";
             echo "Acomodações importadas!<br>";
             echo "Localizações importadas!";
         }

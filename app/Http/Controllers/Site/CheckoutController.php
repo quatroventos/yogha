@@ -6,12 +6,24 @@ use App\Models\Cities;
 use App\Models\Countries;
 use App\Models\Orders;
 use App\Http\Controllers\Controller;
+use App\Models\States;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 
 class CheckoutController extends Controller
 {
+
+    /**
+     * Mostra página de checkout
+     * @param $accommodationid
+     * @param string $startdate
+     * @param string $enddate
+     * @param string $adults
+     * @param string $children
+     * @param string $ages
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
 
     public function index($accommodationid, $startdate = '', $enddate = '', $adults = '', $children = '', $ages = '')
     {
@@ -58,10 +70,17 @@ class CheckoutController extends Controller
             $client = new
             \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
 
+//            $credentials = array(
+//                "Language" => "PT",
+//                "UserName" => "yogha",
+//                "Password" => "L7FzhH2022X+"
+//            );
+
+
             $credentials = array(
-                "Language" => "PT",
-                "UserName" => "yogha",
-                "Password" => "L7FzhH2022X+"
+                "Language" => "EN",
+                "UserName" => "itsatentoapi_test",
+                "Password" => "testapixml"
             );
 
             $post = array(
@@ -89,20 +108,11 @@ class CheckoutController extends Controller
                 $post['Criteria']['Occupants']["Child".$key."_Age"] = $age;
             }
 
-//            echo '<pre>';
-//            print_r($post['Criteria']);
-//            echo '</pre>';
-//            die();
-
             $result = $client->IsAvailable($post);
 
-//            echo "<pre>";
-//            print_r($post);
-//            echo "</pre>";
-//            echo "<pre>";
-//            print_r( $result) ;
-//            echo "<pre>";
-//            die();
+            /**
+             * Parse do retorno do método IsAvailable da avantio
+             */
 
             switch ($result->Available->AvailableCode){
                 case 0:
@@ -172,16 +182,25 @@ class CheckoutController extends Controller
         }
 
 
-        //get price
+        /**
+         * Recupera preço de acordo com os dados do checkout
+         */
+
         try{
 
             $client = new
             \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
+//
+//            $credentials = array(
+//                "Language" => "PT",
+//                "UserName" => "yogha",
+//                "Password" => "L7FzhH2022X+"
+//            );
 
             $credentials = array(
-                "Language" => "PT",
-                "UserName" => "yogha",
-                "Password" => "L7FzhH2022X+"
+                "Language" => "EN",
+                "UserName" => "itsatentoapi_test",
+                "Password" => "testapixml"
             );
 
             $post = array(
@@ -223,7 +242,13 @@ class CheckoutController extends Controller
         return view('site.checkout.index', compact('description', 'features','accommodation', 'pictures', 'totalcamas', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services', 'available', 'message' ,'totalprice', 'currency', 'bookingnotes', 'termsandconditions'));
     }
 
-    //filtra por data e quantidade de hospedes
+    /**
+     * Checa se está disponível usando datas e número de hóspedes
+     * @param string $accommodationid
+     * @param string $startdate
+     * @param string $enddate
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function check_availability($accommodationid = '', $startdate = '', $enddate = '')
     {
 
@@ -263,8 +288,25 @@ class CheckoutController extends Controller
         return view('site.busca.filtro', compact('accommodationid', 'unavailableDates', 'startdate', 'enddate'));
     }
 
+
+    /**
+     * Gera pagamento via cartão de crédito Ebanx
+     * @param Request $request
+     */
     public function generatecard(Request $request)
     {
+
+        $duedate = Carbon::now()->addDays(5)->format('Y-m-d');
+        $birthday = implode('-', array_reverse(explode('/', $request->birthday)));
+        $city = Cities::where('id', $request->city)->first();
+        $state = States::where('id', $request->state)->first();
+        $country = Countries::where('id', $request->country)->first();
+        $code = sha1(time());
+
+        $city = $city->nome;
+        $state = $state->uf;
+        $country = $country->sigla;
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -283,22 +325,22 @@ class CheckoutController extends Controller
                     "name": "'.$request->name.'",
                     "email": "'.$request->email.'",
                     "document": "'.$request->document.'",
-                    "address": "'.$request->address.'",
+                    "address": "'.$request->street.'",
                     "street_number": "'.$request->number.'",
-                    "city": "'.$request->city.'",
-                    "state": "'.$request->state.'",
+                    "city": "'.$city.'",
+                    "state": "'.$state.'",
                     "zipcode": "'.$request->zip_code.'",
-                    "country": "'.$request->country.'",
+                    "country": "'.$country.'",
                     "phone_number": "'.$request->phone.'",
                     "payment_type_code": "creditcard",
-                    "merchant_payment_code": "3ad1f4096a2",
+                    "merchant_payment_code": "'.$code.'",
                     "currency_code": "BRL",
-                    "instalments": '.$request->instalments.',
+                    "instalments": 1,
                     "amount_total": '.$request->amount.',
                     "creditcard": {
                         "card_number": "'.$request->card_number.'",
                         "card_name": "'.$request->card_name.'",
-                        "card_due_date": "'.$request->card_duetade.'",
+                        "card_due_date": "'.$request->card_due_date.'",
                         "card_cvv": "'.$request->card_cvv.'"
                     }
                 }
@@ -312,46 +354,110 @@ class CheckoutController extends Controller
         $response = curl_exec($curl);
 
         curl_close($curl);
-        echo $response;
 
-    }
+        $response = json_decode($response, true);
 
-    public function cancelbooking($bookingcode, $localizator){
-        try {
+            if($response['status'] == "ERROR"){
+                return back()->withErrors(['msg' =>  $response['status_message']]);
+            }else{
 
-            $client = new
-            \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
+                /**
+                 * Bloqueia temporariamente a reserva até o pagamento
+                 **/
+                try{
 
-            $credentials = array(
-                "Language" => "EN",
-                "UserName" => "itsatentoapi_test",
-                "Password" => "testapixml"
-            );
+                    $client = new
+                    \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
 
-            $request = array(
-                "Credentials" => $credentials,
-                "BookingCode" => $bookingcode,
-                "Localizer" => [
-                    "Localizator" => $localizator
-                ],
-                "Comments" => "testing",
-                "SendMailToOrganization" => 0,
-                "SendMailToTourist" => 1
+                    $credentials = array(
+                        "Language" => "EN",
+                        "UserName" => "itsatentoapi_test",
+                        "Password" => "testapixml"
+                    );
 
-            );
+                    $post = array(
+                        "Credentials" => $credentials,
+                        "BookingData" => [
+                            'Accommodation' => [
+                                'AccommodationCode' => $request->accommodation_code,
+                                'UserCode' => $request->user_code,
+                                'LoginGA' => $request->login_ga
+                            ],
+                            'Occupants' => [
+                                'AdultsNumber' => $request->adultsnumber,
+                                'ChildrenNumber' => $request->childrennumber,
+                            ],
+                            'ArrivalDate' => $request->checkin_date,
+                            'DepartureDate' => $request->checkout_date,
+                            "ClientData" => [
+                                "Name" => $request->name,
+                                "Surname" => $request->surname,
+                                "DNI" => $request->document,
+                                "Address" => $request->street,
+                                "Locality" => $request->district,
+                                "PostCode" => $request->zip_code,
+                                "City" => $city,
+                                "Country" => $country,
+                                "Telephone" => $request->phone,
+                                "Telephone2" => '',
+                                "EMail" => $request->email,
+                                "Fax" => '',
+                            ],
+                            "Board" => $request->board,
+                            "BookingType" => 'PAID',
+                            "SendMailToOrganization" => 0,
+                            "SendMailToTourist" => 1,
+                            "PaymentMethod" => 1,
+                            "Comments" => '',
+                        ],
 
-            $return =  $client->CancelBooking($request);
+                    );
 
-            if($return->Succeed == 1){
-                Orders::where('localizer', $localizator)->update(array('status' => 'CANCELED'));
-                return "Reserva cancelada";
+                    $reservation = $client->SetBooking($post);
+
+                } catch(SoapFault $e){
+                    $errors .= $e;
+                }
+
+                /**
+                 * Insere o pedido (reserva) no banco de dados
+                 */
+                $order = new Orders;
+                $order->transactionId = $response['payment']['hash'];
+                $order->amount = $request->amount;
+                $order->status = "CONFIRMED";
+                $order->users_id = $request->user_id;
+                $order->accommodationId = $request->accommodation_code;
+                $order->checkin_date = $request->checkin_date;
+                $order->checkout_date = $request->checkout_date;
+                $order->due_date = $response['payment']['due_date'];
+                $order->services = $request->services;
+                $order->localizer = $reservation->Localizer->Localizator;
+                $order->booking_code = $reservation->Localizer->BookingCode;
+                $order->save();
+
+                $user = getUserData();
+                $userreservations = getUserReservations();
+                $userfuturereservations = getUserFutureReservations();
+                $favorites = getUserFavorites();
+                $recently_viewed = getUserRecentlyViewed();
+                $surpriseme = generateSurprisemeUrl();
+                $services = getAllServices();
+
+                return view('site.checkout.card', compact('response', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services'));
+
+
             }
+    }//GERA O PAGAMENTO POR CARTAO
 
-        } catch (SoapFault $e) {
-            return $e;
-        }
-    }
 
+
+
+    /**
+     * Gera boleto pela Juno
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|void
+     */
     public function generatebillet(Request $request)
     {
 
@@ -387,8 +493,11 @@ class CheckoutController extends Controller
             $authBearer = $authBearerArray->access_token;
             $duedate = Carbon::now()->addDays(5)->format('Y-m-d');
             $birthday = implode('-', array_reverse(explode('/', $request->birthday)));
-            $city = Cities::where('id', $request->city_id)->first();
-            $country = Countries::where('id', $request->country_id)->first();
+            $city = Cities::where('id', $request->city)->first();
+            $country = Countries::where('id', $request->country)->first();
+
+            $city = $city->nome;
+            $country = $country->nome;
 
             $curl = curl_init();
 
@@ -446,8 +555,9 @@ class CheckoutController extends Controller
                 return back()->withErrors(['msg' =>  $response['details'][0]['message']]);
             }else{
 
-
-                    //block avantio reservation
+                    /**
+                     * Bloqueia temporariamente a reserva até o pagamento
+                     **/
                     try{
 
                         $client = new
@@ -503,7 +613,9 @@ class CheckoutController extends Controller
                         $errors .= $e;
                     }
 
-                    //save order data on database
+                    /**
+                     * Insere o pedido (reserva) no banco de dados
+                     */
                     $order = new Orders;
                     $order->transactionId = $response['_embedded']['charges'][0]['id'];
                     $order->amount = $request->amount;
@@ -531,7 +643,7 @@ class CheckoutController extends Controller
 
             }
         }
-    }
+    }//GERA O BOLETO
 
 //    public function generatepix(Request $request)
 //    {
@@ -610,7 +722,11 @@ class CheckoutController extends Controller
 //
 //    }
 
-    //Webhook para o pagamento da Juno
+    /**
+     * Webhook para o retorno da api da Juno
+     * CONFIGURAR NA JUNO O RETORNO CORRETO
+     * @param Request $request
+     */
     public function juno_webhook(Request $request)
     {
             $data = request()->json()->all();
@@ -622,6 +738,49 @@ class CheckoutController extends Controller
                 "due_date" => $due_date
             ]);
 
+    }
+
+
+    /**
+     * Cancela uma reserva
+     * @param $bookingcode
+     * @param $localizator
+     * @return SoapFault|\Exception|string|void
+     */
+    public function cancelbooking($bookingcode, $localizator){
+        try {
+
+            $client = new
+            \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
+
+            $credentials = array(
+                "Language" => "EN",
+                "UserName" => "itsatentoapi_test",
+                "Password" => "testapixml"
+            );
+
+            $request = array(
+                "Credentials" => $credentials,
+                "BookingCode" => $bookingcode,
+                "Localizer" => [
+                    "Localizator" => $localizator
+                ],
+                "Comments" => "testing",
+                "SendMailToOrganization" => 0,
+                "SendMailToTourist" => 1
+
+            );
+
+            $return =  $client->CancelBooking($request);
+
+            if($return->Succeed == 1){
+                Orders::where('localizer', $localizator)->update(array('status' => 'CANCELED'));
+                return "Reserva cancelada";
+            }
+
+        } catch (SoapFault $e) {
+            return $e;
+        }
     }
 
 }
