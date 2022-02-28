@@ -29,6 +29,7 @@
 
     <!-- ICONES -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- STYLE -->
     <link rel="stylesheet" href="{{asset('css/theme.css')}}">
@@ -43,6 +44,7 @@
 </head>
 
 <body id="home">
+
 
 <!-- alerta -->
 <div class="alerta *ativo"><i class="uil uil-heart"></i> Salvo na sa lista de favoritos!</div>
@@ -155,7 +157,13 @@
 
 <!-- CONTEUDO -->
 
+@env('local')
+    <div class="alerta ativo" style="color: white; background: red; top:0; height: 10px; width: 30%; margin:10px auto; opacity:.5;"> <i class="fa-solid fa-vial"></i> Ambiente de testes </div>
+@endenv
+
 @yield('content')
+
+
 
 <!-- FOOTER -->
 <footer class="pt-30 fundo-marrom-claro text-center texto-marrom">

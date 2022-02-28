@@ -52,6 +52,9 @@
 <!-- ABA BUSCA -->
 @include('site.abas.search', compact('recently_viewed','surpriseme'))
 
+@env('local')
+    <div class="alerta ativo" style="color: white; background: red; top:0; height: 10px; width: 30%; margin:10px auto; opacity:.5;"> <i class="fa-solid fa-vial"></i> Ambiente de testes </div>
+@endenv
 
 <body id="resultado-busca">
 

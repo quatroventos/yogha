@@ -53,8 +53,12 @@ class ReadXMLController extends Controller
         http://feeds.avantio.com/occupationalrules/836efa4efbe7fa63f2ebbae30d7b965f
          */
 
-        $hash = "836efa4efbe7fa63f2ebbae30d7b965f";// testes
-        //$hash = "d807af156c55ae077e0735dd607863e5";// produção
+        if(config('app.env') == 'production'){
+            $hash = "d807af156c55ae077e0735dd607863e5";// produção
+        }else{
+            $hash = "836efa4efbe7fa63f2ebbae30d7b965f";// testes
+        }
+
 
         $files = array('accommodations', 'descriptions', 'availabilities', 'rates', 'occupationalrules' );
 

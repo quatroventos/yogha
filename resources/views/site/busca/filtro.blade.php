@@ -51,6 +51,10 @@
 
 <body id="filtro-busca">
 
+@env('local')
+    <div class="alerta ativo" style="color: white; background: red; top:0; height: 10px; width: 30%; margin:10px auto; opacity:.5;"> <i class="fa-solid fa-vial"></i> Ambiente de testes </div>
+@endenv
+
     <section class="fixo-t">
       <div class="container">
         <div class="row justify-content-center">

@@ -70,18 +70,20 @@ class CheckoutController extends Controller
             $client = new
             \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
 
-//            $credentials = array(
-//                "Language" => "PT",
-//                "UserName" => "yogha",
-//                "Password" => "L7FzhH2022X+"
-//            );
+            if(config('app.env') == 'production') {
+                $credentials = array(
+                    "Language" => "PT",
+                    "UserName" => "yogha",
+                    "Password" => "L7FzhH2022X+"
+                );
+            }else{
+                $credentials = array(
+                    "Language" => "EN",
+                    "UserName" => "itsatentoapi_test",
+                    "Password" => "testapixml"
+                );
+            }
 
-
-            $credentials = array(
-                "Language" => "EN",
-                "UserName" => "itsatentoapi_test",
-                "Password" => "testapixml"
-            );
 
             $post = array(
                 "Credentials" => $credentials,
@@ -190,18 +192,20 @@ class CheckoutController extends Controller
 
             $client = new
             \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
-//
-//            $credentials = array(
-//                "Language" => "PT",
-//                "UserName" => "yogha",
-//                "Password" => "L7FzhH2022X+"
-//            );
 
-            $credentials = array(
-                "Language" => "EN",
-                "UserName" => "itsatentoapi_test",
-                "Password" => "testapixml"
-            );
+            if(config('app.env') == 'production') {
+                $credentials = array(
+                    "Language" => "PT",
+                    "UserName" => "yogha",
+                    "Password" => "L7FzhH2022X+"
+                );
+            }else{
+                $credentials = array(
+                    "Language" => "EN",
+                    "UserName" => "itsatentoapi_test",
+                    "Password" => "testapixml"
+                );
+            }
 
             $post = array(
                 "Credentials" => $credentials,
@@ -369,11 +373,19 @@ class CheckoutController extends Controller
                     $client = new
                     \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
 
-                    $credentials = array(
-                        "Language" => "EN",
-                        "UserName" => "itsatentoapi_test",
-                        "Password" => "testapixml"
-                    );
+                    if(config('app.env') == 'production') {
+                        $credentials = array(
+                            "Language" => "PT",
+                            "UserName" => "yogha",
+                            "Password" => "L7FzhH2022X+"
+                        );
+                    }else{
+                        $credentials = array(
+                            "Language" => "EN",
+                            "UserName" => "itsatentoapi_test",
+                            "Password" => "testapixml"
+                        );
+                    }
 
                     $post = array(
                         "Credentials" => $credentials,
@@ -563,11 +575,19 @@ class CheckoutController extends Controller
                         $client = new
                         \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
 
-                        $credentials = array(
-                            "Language" => "EN",
-                            "UserName" => "itsatentoapi_test",
-                            "Password" => "testapixml"
-                        );
+                        if(config('app.env') == 'production') {
+                            $credentials = array(
+                                "Language" => "PT",
+                                "UserName" => "yogha",
+                                "Password" => "L7FzhH2022X+"
+                            );
+                        }else{
+                            $credentials = array(
+                                "Language" => "EN",
+                                "UserName" => "itsatentoapi_test",
+                                "Password" => "testapixml"
+                            );
+                        }
 
                         $post = array(
                             "Credentials" => $credentials,
@@ -753,11 +773,19 @@ class CheckoutController extends Controller
             $client = new
             \SoapClient('http://ws.avantio.com/soap/vrmsConnectionServices.php?wsdl');
 
-            $credentials = array(
-                "Language" => "EN",
-                "UserName" => "itsatentoapi_test",
-                "Password" => "testapixml"
-            );
+            if(config('app.env') == 'production') {
+                $credentials = array(
+                    "Language" => "PT",
+                    "UserName" => "yogha",
+                    "Password" => "L7FzhH2022X+"
+                );
+            }else{
+                $credentials = array(
+                    "Language" => "EN",
+                    "UserName" => "itsatentoapi_test",
+                    "Password" => "testapixml"
+                );
+            }
 
             $request = array(
                 "Credentials" => $credentials,

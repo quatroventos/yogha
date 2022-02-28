@@ -54,6 +54,12 @@
 
 <!-- CONTEUDO -->
 
+
+
+@env('local')
+    <div class="alerta ativo" style="color: white; background: red; top:0; height: 10px; width: 30%; margin:10px auto; opacity:.5;"> <i class="fa-solid fa-vial"></i> Ambiente de testes </div>
+@endenv
+
 <header class="mb-30">
     <div class="container">
         <div class="row pt-15">

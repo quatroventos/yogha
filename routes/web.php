@@ -21,6 +21,7 @@ Route::get('/cities/{state_id}', 'App\Http\Controllers\WorldController@cities');
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
     // return what you want
+    $exitCode;
 });
 
 
