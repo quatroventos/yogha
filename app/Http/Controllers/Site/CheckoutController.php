@@ -460,9 +460,7 @@ class CheckoutController extends Controller
 
 
             }
-    }//GERA O PAGAMENTO POR CARTAO
-
-
+    }
 
 
     /**
@@ -472,7 +470,6 @@ class CheckoutController extends Controller
      */
     public function generatebillet(Request $request)
     {
-
         $resource_token = "6208E5469C507A8B1F5485A08A2985122F6F32BCB78B90599B02ED2C6EA7FDCF";
 
         $errors = "";
@@ -663,84 +660,18 @@ class CheckoutController extends Controller
 
             }
         }
-    }//GERA O BOLETO
+    }
 
-//    public function generatepix(Request $request)
-//    {
-//        //https://www.brasilnaweb.com.br/blog/cartoes-de-credito-validos-para-teste-de-sistemas/
-//        $curl = curl_init();
-//
-//        curl_setopt_array($curl, array(
-//            CURLOPT_URL => 'https://sandbox.boletobancario.com/authorization-server/oauth/token',
-//            CURLOPT_RETURNTRANSFER => true,
-//            CURLOPT_ENCODING => '',
-//            CURLOPT_MAXREDIRS => 10,
-//            CURLOPT_TIMEOUT => 0,
-//            CURLOPT_FOLLOWLOCATION => true,
-//            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//            CURLOPT_CUSTOMREQUEST => 'POST',
-//            CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
-//            CURLOPT_HTTPHEADER => array(
-//                'Authorization: Basic WGRzR0J3VFJPbTAyT3RPMjo4JUEyS19DOigob3trLn47e3MjdUh8cDUmOFVbNWt7Iw==',
-//                'Content-Type: application/x-www-form-urlencoded',
-//                'Cookie: AWSALBTG=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY=; AWSALBTGCORS=iewR9EOimhsRr5/ukIjBPvL3gg2ESPucPYu24PfNY1VJY4n0SqFaB1RkheS8p/mO60abZ1CVykwexvZ8ObSvxRnB1aQJP4Z6HVyNr6Ton1J3CliDmafakgOSOiW+H5s4XTbY/PqjJkcuO4ioxf+bHObV/0/txMYo+L11qvSczAztT3kWhSY='
-//            ),
-//        ));
-//
-//        $response = curl_exec($curl);
-//
-//        curl_close($curl);
-//        $authBearerArray = json_decode($response);
-//
-//        $authBearer = $authBearerArray->access_token;
-//
-//        $curl = curl_init();
-//
-//        curl_setopt_array($curl, array(
-//            CURLOPT_URL => 'https://sandbox.boletobancario.com/api-integration/pix/keys',
-//            CURLOPT_RETURNTRANSFER => true,
-//            CURLOPT_ENCODING => '',
-//            CURLOPT_MAXREDIRS => 10,
-//            CURLOPT_TIMEOUT => 0,
-//            CURLOPT_FOLLOWLOCATION => true,
-//            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//            CURLOPT_CUSTOMREQUEST => 'POST',
-//            CURLOPT_POSTFIELDS => '{
-//            "type": "RANDOM_KEY"
-//            }',
-//            CURLOPT_HTTPHEADER => array(
-//                'X-Api-Version: 2',
-//                'X-Resource-Token: 6208E5469C507A8BA724994B4E5D5DB1E255775316D87C510AAB5FC0E850DEF2',
-//                'X-Idempotency-Key: 69F963C6-7487-4363-9406-A1DE2A9636D4',
-//                'Authorization: Bearer '.$authBearer,
-//                'Content-Type: application/json',
-//                'Cookie: AWSALBTG=jd3KOErEt5wkoKB4dmSD3pwVV+MV33KuQW79pNS2Y59QaVLBU+F69SwTuNrpQZh+OLZbu8MxpOS1mmH58JYQuLjFR8EGPAUZxPtUCY887Y+tH0TypIjIp+0y6/roOvwZKY9mkqR3EuRDY7qF9a2Znrz6t9L+q8TK1p0rc1hAOBvxYnlU0HM=; AWSALBTGCORS=jd3KOErEt5wkoKB4dmSD3pwVV+MV33KuQW79pNS2Y59QaVLBU+F69SwTuNrpQZh+OLZbu8MxpOS1mmH58JYQuLjFR8EGPAUZxPtUCY887Y+tH0TypIjIp+0y6/roOvwZKY9mkqR3EuRDY7qF9a2Znrz6t9L+q8TK1p0rc1hAOBvxYnlU0HM='
-//            ),
-//        ));
-//
-//        $response = curl_exec($curl);
-//        $info = curl_getinfo($curl);
-//
-//        //print_r($info);
-//
-//        if($info['http_code'] == 200){
-//            $user = getUserData();
-//            $userreservations = getUserReservations();
-//            $userfuturereservations = getUserFutureReservations();
-//            $favorites = getUserFavorites();
-//            $recently_viewed = getUserRecentlyViewed();
-//            $surpriseme = generateSurprisemeUrl();
-//            $services = getAllServices();
-//            $response = json_decode($response, true);
-//
-//            return view('site.checkout.pix', compact('response', 'recently_viewed', 'surpriseme', 'user', 'favorites', 'userreservations','userfuturereservations','services'));
-//        }else{
-//            echo $response;
-//        }
-//
-//        curl_close($curl);
-//
-//    }
+    /**
+     * Gera pagamento via pix pela Juno
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
+     */
+
+    public function generatepix(Request $request)
+    {
+
+    }
 
     /**
      * Webhook para o retorno da api da Juno

@@ -17,6 +17,7 @@ Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');
 Route::get('/countries', 'App\Http\Controllers\WorldController@countries');
 Route::get('/states/{country_id}', 'App\Http\Controllers\WorldController@states');
 Route::get('/cities/{state_id}', 'App\Http\Controllers\WorldController@cities');
+Route::get('/test-mail', 'App\Http\Controllers\MailController@contact');
 
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');

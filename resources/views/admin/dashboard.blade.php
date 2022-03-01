@@ -4,7 +4,34 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-4">
+
+                @env('local')
+                    <div class="col-md-3 ">
+                        <div class="card alert-warning" style="background: orange; color: white; ">
+                            <div class="card-header " style="background: orange; color: white;>
+                                <h4 class="card-title">Ambiente</h4>
+                            </div>
+                            <div class="card-body ">
+                                <h1>Testes</h1>
+                            </div>
+                        </div>
+                    </div>
+                @endenv
+
+                @env('production')
+                    <div class="col-md-3">
+                        <div class="card alert-success" style="background: #549820; color: white;">
+                            <div class="card-header" style="background: #549820; color: white;">
+                                <h4 class="card-title" style="color:white;">Ambiente</h4>
+                            </div>
+                            <div class="card-body ">
+                                <h1>Produção</h1>
+                            </div>
+                        </div>
+                    </div>
+                @endenv
+
+                <div class="col-md-3">
                     <div class="card ">
                         <div class="card-header ">
                             <h4 class="card-title">Acomodações</h4>
@@ -14,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card ">
                         <div class="card-header ">
                             <h4 class="card-title">Serviços</h4>
@@ -24,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card ">
                         <div class="card-header ">
                             <h4 class="card-title">Usuários</h4>
