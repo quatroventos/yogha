@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use RicorocksDigitalAgency\Soap\Facades\Soap;
 use Stevebauman\Location\Facades\Location;
 
+
 class HomeController extends Controller
 {
     /**

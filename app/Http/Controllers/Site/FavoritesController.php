@@ -6,6 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Favorites;
 use Illuminate\Http\Request;
 
+/**
+ * Create a new controller instance.
+ *
+ * @return void
+ */
+public function __construct()
+{
+    $this->middleware(['auth']);
+}
+
 class FavoritesController extends Controller
 {
     /**

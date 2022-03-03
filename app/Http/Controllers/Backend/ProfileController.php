@@ -13,9 +13,9 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit()
+    public function __construct()
     {
-        return view('admin.profile.edit');
+        $this->middleware(['auth']);
     }
 
     /**

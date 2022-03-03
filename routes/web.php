@@ -19,6 +19,11 @@ Route::get('/states/{country_id}', 'App\Http\Controllers\WorldController@states'
 Route::get('/cities/{state_id}', 'App\Http\Controllers\WorldController@cities');
 Route::get('/test-mail', 'App\Http\Controllers\MailController@contact');
 
+//E-mails
+Route::get('/email', function(){
+    Mail::to('gabriel@quatroventos.com.br')->send(new \App\Mail\EmailConfirmation());
+    return new \App\Mail\EmailConfirmation();
+});
 
 
 Route::namespace('App\Http\Controllers\Site')->group(function(){
@@ -71,7 +76,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 });
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');

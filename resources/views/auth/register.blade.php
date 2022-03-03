@@ -158,7 +158,7 @@
                     </div>
                     <div class="form-group{{ $errors->has('birthday') ? ' has-danger' : '' }}">
                         <label class="texto-m mb-5 form-control-label" for="birthday">Aniversário</label>
-                        <input type="text" name="birthday" class="date form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}" placeholder="DD/MM/AAAA" value="{{implode('/', array_reverse(explode('-', $user->birthday ?? ''))) ?? old('birthday') }}" required >
+                        <input type="text" name="birthday" class="date form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}" placeholder="DD/MM/AAAA" value="{{implode('/', array_reverse(explode('-', $user->birthday ?? ''))) ?? implode('/', array_reverse(explode('-', old('birthday') ?? ''))) }}" required >
                         @include('admin.alerts.feedback', ['field' => 'birthday'])
                     </div>
                     <div class="form-group{{ $errors->has('cpf') ? ' has-danger' : '' }}">

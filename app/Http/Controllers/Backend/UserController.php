@@ -20,7 +20,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth']);
     }
 
     /**
@@ -65,22 +65,6 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Valida campos enviados
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'title' => ['required', 'string', 'max:255'],
-            'position' => ['required', 'integer', 'min:1'],
-            'limit' => ['required', 'integer', 'min:1'],
-            'shelfLayoutId' => ['required', 'integer', 'min:1'],
-            'shelfFiltertId' => ['required', 'integer', 'min:1']
-        ]);
-    }
 
     /**
      * Create a new user instance after a valid registration.

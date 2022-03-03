@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\Countries;
 use App\Models\User;
-use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-
 
 class UserController extends Controller
 {
@@ -51,20 +48,29 @@ class UserController extends Controller
     }
 
     /**
-     * Valida campos enviados
+     * Traduz mensagens do validador
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return string[]
      */
-    protected function validator(array $data)
+    public function messages()
     {
-        return Validator::make($data, [
-            'title' => ['required', 'string', 'max:255'],
-            'position' => ['required', 'integer', 'min:1'],
-            'limit' => ['required', 'integer', 'min:1'],
-            'shelfLayoutId' => ['required', 'integer', 'min:1'],
-            'shelfFiltertId' => ['required', 'integer', 'min:1']
-        ]);
+        return [
+            'name.required' => 'O campo nome precisa ser preenchido',
+            'email.required' => 'O compo e-mail precisa ser preenchido',
+            'password.required' => 'O campo senha precisa ser preenchido',
+            'surname.required' => 'O campo sobrenome precisa ser preenchido',
+            'phone.required' => 'O campo telefone precisa ser preenchido',
+            'birthday.required' => 'O campo nascimento precisa ser preenchido',
+            'cpf.required' => 'O campo CPF precisa ser preenchido',
+            'country.required' => 'O país precisa ser selecionado',
+            'state.required' => 'O estado precisa ser selecionado',
+            'city.required' => 'A cidade precisa ser selecionada',
+            'district.required' => 'O campo bairro precisa ser preenchido',
+            'zip_code.required' => 'O campop CEP precisa ser preenchido',
+            'street.required' => 'O campo endereço precisa ser preenchido',
+            'number.required' => 'O campo número precisa ser preenchido',
+            'complement.required' => 'O campo complemento precisa ser preenchido'
+        ];
     }
 
     /**
@@ -84,9 +90,9 @@ class UserController extends Controller
             'phone' => 'required|max:15',
             'birthday' => 'required|max:15',
             'cpf' => 'required|max:20',
-            'country_id' => 'required',
-            'state_id' => 'required',
-            'city_id' => 'required',
+            'country' => 'required',
+            'state' => 'required',
+            'city' => 'required',
             'district' => 'required',
             'zip_code' => 'required',
             'street' => 'required|max:255',

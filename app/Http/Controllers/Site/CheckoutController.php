@@ -10,6 +10,15 @@ use App\Models\States;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
+/**
+ * Create a new controller instance.
+ *
+ * @return void
+ */
+public function __construct()
+{
+    $this->middleware(['auth']);
+}
 
 class CheckoutController extends Controller
 {
