@@ -13,23 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');
+
 Route::get('/countries', 'App\Http\Controllers\WorldController@countries');
 Route::get('/states/{country_id}', 'App\Http\Controllers\WorldController@states');
 Route::get('/cities/{state_id}', 'App\Http\Controllers\WorldController@cities');
 Route::get('/test-mail', 'App\Http\Controllers\MailController@contact');
 
-Route::get('/clear-cache', function() {
-    $exitCode = Artisan::call('cache:clear');
-    // return what you want
-    $exitCode;
-});
-
-
-Route::get('/clear-routes', function() {
-    $exitCode = Artisan::call('route:clear');
-    // return what you want
-});
 
 
 Route::namespace('App\Http\Controllers\Site')->group(function(){
@@ -84,10 +73,17 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
 Auth::routes();
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');
+    Route::get('/clear-cache', function () {
+        Cache::flush();
+        echo "cache limpo";
+    });
+});
+
 Route::namespace('App\Http\Controllers\Backend')->group(function() {
 
     Route::group(['middleware' => 'auth'], function () {
-
         Route::get('/admin', 'AdminController@index')->name('dashboard');
         Route::get('/admin/shelves', 'ShelvesController@index')->name('shelves');
         Route::get('/admin/shelves/edit', 'ShelvesController@edit')->name('shelf.edit');

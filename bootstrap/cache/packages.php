@@ -1,4 +1,11 @@
 <?php return array (
+  'dymantic/laravel-instagram-feed' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Dymantic\\InstagramFeed\\InstagramFeedServiceProvider',
+    ),
+  ),
   'facade/ignition' => 
   array (
     'providers' => 

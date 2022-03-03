@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "brocard/geolocation": "^0.4.0",
         "doctrine/dbal": "^3.1",
+        "dymantic/laravel-instagram-feed": "^2.6",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "jetimob/juno-sdk-php-laravel": "^1.1",

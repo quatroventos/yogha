@@ -76,6 +76,25 @@ class UserController extends Controller
     protected function create(Request $data)
     {
 
+        $data->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|unique:users|max:255',
+            'password' => 'required',
+            'surname' => 'required|max:255',
+            'phone' => 'required|max:15',
+            'birthday' => 'required|max:15',
+            'cpf' => 'required|max:20',
+            'country_id' => 'required',
+            'state_id' => 'required',
+            'city_id' => 'required',
+            'district' => 'required',
+            'zip_code' => 'required',
+            'street' => 'required|max:255',
+            'number' => 'required|max:5',
+            'complement' => 'required|max:255'
+        ]);
+
+
         //cria arquivo de imagem a partir do blob
         if($data->imageBlob != '') {
             $folderPath = public_path('files/users/');

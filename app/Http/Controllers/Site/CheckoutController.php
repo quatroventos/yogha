@@ -47,6 +47,12 @@ class CheckoutController extends Controller
         $features = json_decode($accommodation->Features, true);
 
         //calcula o numero total de camas disponíveis
+
+        /**
+         *
+
+         */
+
         $totalcamas = 0;
         if (empty($features['Distribution']['DoubleBeds']) === false) {
             $totalcamas += $features['Distribution']['DoubleBeds'];
@@ -115,6 +121,7 @@ class CheckoutController extends Controller
             /**
              * Parse do retorno do método IsAvailable da avantio
              */
+
 
             switch ($result->Available->AvailableCode){
                 case 0:
