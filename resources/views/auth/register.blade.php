@@ -383,15 +383,6 @@
         $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
         $('.money').mask('000.000.000.000.000,00', {reverse: true});
         $('.money2').mask("#.##0,00", {reverse: true});
-        $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
-            translation: {
-                'Z': {
-                    pattern: /[0-9]/, optional: true
-                }
-            }
-        });
-        $('.ip_address').mask('099.099.099.099');
-        $('.percent').mask('##0,00%', {reverse: true});
         $('.clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
         $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
         $('.fallback').mask("00r00r0000", {
@@ -416,10 +407,10 @@
                 $("#logradouro").val(resposta.logradouro);
                 $("#complemento").val(resposta.complemento);
                 $("#bairro").val(resposta.bairro);
-                $("#state option[rel='"+resposta.uf+"']").attr("selected", "selected");
+                $("#state option[rel='"+resposta.uf+"']").prop('selected', true)
                 var stateID = $('#state').val();
                 $('#city').load('/cities/' + stateID, function(){
-                    $("#city option[rel='"+resposta.localidade+"']").attr("selected", "selected");
+                    $("#city option[rel='"+resposta.localidade+"']").prop('selected', true)
                 });
                 $("#numero").focus();
             }
