@@ -114,7 +114,7 @@
                     <li><a href="{{URL::to('/')}}/alugue">Alugue seu imóvel</a>
                     <li><a href="{{URL::to('/')}}/como-funciona">Como funciona</a>
                     <li><a href="{{URL::to('/')}}/quem-somos">Quem somos</a>
-                    <li><a href="{{URL::to('/')}}/blog">Blog</a>
+                    <li><a href="http://blog.yogha.loc">Blog</a>
                     <li><a href="{{URL::to('/')}}/ajuda">Ajuda</a>
                 </ul>
                 <ul class="social">

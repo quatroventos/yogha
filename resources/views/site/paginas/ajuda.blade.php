@@ -55,9 +55,6 @@
                 <p>Opções de pagamento disponíveis na maioria dos países</p>
                 <ul>
                   <li>A maioria dos principais cartões de crédito e cartões de crédito pré-pagos (Visa, MasterCard, Amex e JCB), além de vários cartões de débito, que podem ser processados como cartões de crédito</li>
-                  <li>Apple Pay</li>
-                  <li>Google Pay</li>
-                  <li>PayPal</li>
                 </ul>
               </div>
             </div>

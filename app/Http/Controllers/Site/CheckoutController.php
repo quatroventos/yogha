@@ -462,6 +462,7 @@ class CheckoutController extends Controller
                 $order->services = $request->services;
                 $order->localizer = $reservation->Localizer->Localizator;
                 $order->booking_code = $reservation->Localizer->BookingCode;
+                $order->payment_type = 'creditcard';
                 $order->save();
 
                 $user = getUserData();
@@ -661,6 +662,7 @@ class CheckoutController extends Controller
                     $order->services = $request->services;
                     $order->localizer = $reservation->Localizer->Localizator;
                     $order->booking_code = $reservation->Localizer->BookingCode;
+                    $order->payment_type = 'billet';
                     $order->save();
 
                     $user = getUserData();
@@ -714,7 +716,7 @@ class CheckoutController extends Controller
      * @param $localizator
      * @return SoapFault|\Exception|string|void
      */
-    public function cancelbooking($bookingcode, $localizator){
+    public function cancelbooking($bookingcode, $localizator, $hash){
         try {
 
             $client = new

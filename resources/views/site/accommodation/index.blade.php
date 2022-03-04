@@ -70,7 +70,7 @@
                 <div class="form-group form-inline justify-content-end gap-10">
                     {{--Compartilhar--}}
                     <div class="dropdown menu-compartilhar">
-                        <button class="btn btn-2 btn-ico share" type="button">
+                        <button class="btn bntn-2 btn-ico share" type="button">
                             <i class="uil uil-upload"></i>
                         </button>
                         <div class="dropdown-menu">
@@ -493,9 +493,8 @@
                 <div class="row">
                     <div class="col d-flex gap-10">
                         <div class="form-group form-inline">
-                            <a href="#!" class="btn btn-4 btn-p">E-mail</a>
-                            <a href="#!" class="btn btn-4 btn-p">Whatsapp</a>
-                            <a href="#!" class="btn btn-4 btn-p">Telefone</a>
+{{--                            <a href="" class="btn btn-4 btn-p">E-mail</a>--}}
+                            <a href="https://wa.me/554197474876" class="btn btn-4 btn-p">Whatsapp</a>
                         </div>
                     </div>
                 </div>
@@ -518,21 +517,21 @@
                     </div>
                 </a>
             </div>
-            <div class="col-12 collapse" id="cont-extra-1">
-                <p class="mb-15">Não obstante, a constante divulgação das informações estende o alcance e a importância das condições financeiras e administrativas exigidas.</p>
-            </div>
+{{--            <div class="col-12 collapse" id="cont-extra-1">--}}
+{{--                <p class="mb-15">Não obstante, a constante divulgação das informações estende o alcance e a importância das condições financeiras e administrativas exigidas.</p>--}}
+{{--            </div>--}}
         </div>
         <hr class="mb-15">
         <div class="row">
             <div class="col-12">
                 <a href="#!" data-bs-toggle="collapse" data-bs-target="#cont-extra-2" class="row">
                     <div class="col">
-                        <p class="mb-5"><strong>Consições de reserva</strong></p>
+                        <p class="mb-5"><strong>Condições de reserva</strong></p>
                         <p class="mb-15">Desde a reserva até 6 dias antes da entrada, o cancelamento terá um custo de 10% do valor do aluguel</p>
                     </div>
-                    <div class="col d-inline-flex align-self-center grow-0 mb-15">
-                        <i class="d-inline-flex icone-m uil uil-angle-right"></i>
-                    </div>
+{{--                    <div class="col d-inline-flex align-self-center grow-0 mb-15">--}}
+{{--                        <i class="d-inline-flex icone-m uil uil-angle-right"></i>--}}
+{{--                    </div>--}}
                 </a>
             </div>
         </div>
@@ -545,11 +544,7 @@
                         <p class="mb-15">Horário de entrada: todos os dias de 15:00 a 20:00</p>
                         <p class="mb-15">Horário de saída: 11:00</p>
                         <p class="mb-15">Uns dias antes da chegada deve contactar o escritório de recepção para informar o horário de chegada (nº vôo / barco em caso) e organizar a recolha de chaves.</p>
-                        <p class="mb-15">Uma vez que chegue ao destino, por favor contacte-nos por telefone e dirija-se directamente ao alojamento ou ponto de encontro combinado.</p>
-                        <p class="mb-15">Lugar de estacionamento não incluído no preço.</p>
-                        <p class="mb-15">Chegada fora de horário: Chaves na caixa de correio, com código. Paga-se a totalidade da reserva antes.</p>
-                        <p class="mb-15">Chegada fora do horário: Organizar chegada com a agência no destino. Cobra-se a totalidade da reserva antecipadamente.</p>
-                            <p class="mb-15">Não são permitidos animais de estimação.</p>
+
                     </div>
                     <div class="col d-inline-flex align-self-center grow-0 mb-15">
                         <i class="d-inline-flex icone-m uil uil-angle-right"></i>
@@ -557,7 +552,11 @@
                 </a>
             </div>
             <div class="col-12 collapse" id="cont-extra-3">
-                <p class="mb-15">Não obstante, a constante divulgação das informações estende o alcance e a importância das condições financeiras e administrativas exigidas.</p>
+                <p class="mb-15">Uma vez que chegue ao destino, por favor contacte-nos por telefone e dirija-se directamente ao alojamento ou ponto de encontro combinado.</p>
+                <p class="mb-15">Lugar de estacionamento não incluído no preço.</p>
+                <p class="mb-15">Chegada fora de horário: Chaves na caixa de correio, com código. Paga-se a totalidade da reserva antes.</p>
+                <p class="mb-15">Chegada fora do horário: Organizar chegada com a agência no destino. Cobra-se a totalidade da reserva antecipadamente.</p>
+                <p class="mb-15">Não são permitidos animais de estimação.</p>
             </div>
         </div>
     </div>

@@ -100,7 +100,7 @@
                               <h4 class="texto-m mb-5"><?php echo $status; ?></h4>
 {{--                              <h4 class="texto-m mb-5">Localizador: <?php echo $accommodation->localizer; ?></h4>--}}
                               @if($accommodation->status != "CANCELED")
-                                <a href="#" class="cancel_link" data-bookingcode="{{$accommodation->booking_code}}" data-localizer="{{$accommodation->localizer}}">Cancelar reserva</a>
+                                <a href="#" class="cancel_link" data-bookingcode="{{$accommodation->booking_code}}" data-localizer="{{$accommodation->localizer}} data-hash="{{$accommodation->transactionId}}">Cancelar reserva</a>
                               @endif
 {{--                          TODO: fazer chamada em ajax--}}
 {{--                          </a>--}}
@@ -182,8 +182,9 @@
         var thislink = $(this);
         var bookingcode = $(this).attr('data-bookingcode');
         var localizer = $(this).attr('data-localizer');
+        var hash = $(this).attr('data-hash');
         $.ajax({
-            url: "{{URL::to('/cancel')}}/"+bookingcode+'/'+localizer,
+            url: "{{URL::to('/cancel')}}/"+bookingcode+'/'+localizer+'/'+hash,
             beforeSend: function( xhr ) {
                 thislink.html("Processando...");
             }

@@ -57,7 +57,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
         Route::post('/checkout/billet', 'CheckoutController@generatebillet')->name('generate.billet');
         Route::post('/checkout/pix', 'CheckoutController@generatepix')->name('generate.pix');
         Route::post('/checkout/card', 'CheckoutController@generatecard')->name('generate.card');
-        Route::get('/cancel/{bookingcode}/{localizator}', 'CheckoutController@cancelbooking');
+        Route::get('/cancel/{bookingcode}/{localizator}/{hash}', 'CheckoutController@cancelbooking');
 
         //favorites
         Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@fav');

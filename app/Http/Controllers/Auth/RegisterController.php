@@ -52,7 +52,19 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
+            'surname' => ['required'],
+            'phone' => ['required'],
+            'birthday' => ['required'],
+            'cpf' => ['required'],
+            'country' => ['required'],
+            'state' => ['required'],
+            'city' => ['required'],
+            'district' => ['required'],
+            'zip_code' => ['required'],
+            'street' => ['required'],
+            'number' => ['required'],
+            'complement' => ['required']
         ]);
     }
 
@@ -64,10 +76,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $birthday = implode('-', array_reverse(explode('/', $data['birthday'])));
+
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role_id' => 2,
+            'surname' => $data['surname'],
+            'phone' => $data['phone'],
+            'birthday' => $birthday,
+            'cpf' => $data['cpf'],
+            'country_id' => $data['country'],
+            'state_id' => $data['state'],
+            'city_id' => $data['city'],
+            'district' => $data['district'],
+            'zip_code' => $data['zip_code'],
+            'street' => $data['street'],
+            'number' => $data['number'],
+            'complement' => $data['complement'],
         ]);
     }
 }
