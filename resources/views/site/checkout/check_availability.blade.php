@@ -73,9 +73,11 @@
                 <div class="col col-sm-6">
                     <div class="form-group">
                         <label for="daterange" class="texto-m mb-5">Datas</label>
-                        <input type="text" autocomplete="off" name="date_range" id="datepicker" value="{{date('Y-m-d', strtotime('+ 1 day', strtotime($startdate)))}} - {{date('Y-m-d', strtotime('+ 1 day', strtotime($enddate)))}}">
-                        <input type="hidden" name="startdate" id="startdate" value="{{date('Y-m-d', strtotime($startdate))}}">
-                        <input type="hidden" name="enddate" id="enddate" value="{{date('Y-m-d', strtotime($enddate))}}">
+                        <div class="col-9">
+                            <input type="text" autocomplete="off" name="date_range" id="datepicker" value="{{date('Y-m-d', strtotime('+ 1 day', strtotime($startdate)))}} - {{date('Y-m-d', strtotime('+ 1 day', strtotime($enddate)))}}">
+                            <input type="hidden" name="startdate" id="startdate" value="{{date('Y-m-d', strtotime($startdate))}}">
+                            <input type="hidden" name="enddate" id="enddate" value="{{date('Y-m-d', strtotime($enddate))}}">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="texto-m mb-5">Adultos</label>

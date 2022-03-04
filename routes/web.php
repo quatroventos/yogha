@@ -12,14 +12,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
 Route::get('/countries', 'App\Http\Controllers\WorldController@countries');
 Route::get('/states/{country_id}', 'App\Http\Controllers\WorldController@states');
 Route::get('/cities/{state_id}', 'App\Http\Controllers\WorldController@cities');
-Route::get('/test-mail', 'App\Http\Controllers\MailController@contact');
 
-//E-mails
+//E-mails teste
 Route::get('/email', function(){
     Mail::to('gabriel@quatroventos.com.br')->send(new \App\Mail\EmailConfirmation());
     return new \App\Mail\EmailConfirmation();
@@ -45,14 +42,12 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/blog', 'BlogController@index')->name('blog');
 
     //user
-    Route::post('/user/create', 'UserController@create')->name('frontend.user.create');
-    Route::get('/user/edit/{user_id?}', 'UserController@edit')->name('frontend.user.edit');
-    Route::get('/user/create_account/', 'UserController@edit')->name('frontend.user.register');
-    Route::get('/user/email_verification', 'UserController@email_verification')->name('frontend.verification');
-    Route::get('/user/resend_confirmation', 'UserController@edit')->name('frontend.verification.resend');
+//    Route::post('/user/create', 'UserController@create')->name('frontend.user.create');
+//    Route::get('/user/edit/{user_id?}', 'UserController@edit')->name('frontend.user.edit');
+//    Route::get('/user/create_account/', 'UserController@edit')->name('frontend.user.register');
+//    Route::get('/user/email_verification', 'UserController@email_verification')->name('frontend.verification');
+//    Route::get('/user/resend_confirmation', 'UserController@edit')->name('frontend.verification.resend');
     Route::any('/juno_webhook', 'CheckoutController@juno_webhook');
-
-    Route::get('/cancel/{bookingcode}/{localizator}', 'CheckoutController@cancelbooking');
 
 
     Route::group(['middleware' => 'auth'], function () {
@@ -62,6 +57,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
         Route::post('/checkout/billet', 'CheckoutController@generatebillet')->name('generate.billet');
         Route::post('/checkout/pix', 'CheckoutController@generatepix')->name('generate.pix');
         Route::post('/checkout/card', 'CheckoutController@generatecard')->name('generate.card');
+        Route::get('/cancel/{bookingcode}/{localizator}', 'CheckoutController@cancelbooking');
 
         //favorites
         Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@fav');
@@ -76,7 +72,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 });
 
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');
@@ -88,8 +84,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::namespace('App\Http\Controllers\Backend')->group(function() {
 
-    Route::group(['middleware' => 'auth'], function () {
-        Route::get('/admin', 'AdminController@index')->name('dashboard');
+    Route::group(['auth:sanctum', 'verified'], function () {
+        //Route::get('/admin', 'AdminController@index')->name('dashboard');
         Route::get('/admin/shelves', 'ShelvesController@index')->name('shelves');
         Route::get('/admin/shelves/edit', 'ShelvesController@edit')->name('shelf.edit');
         Route::get('/admin/shelves/update', 'ShelvesController@update')->name('shelf.update');
@@ -126,3 +122,7 @@ Route::namespace('App\Http\Controllers\Backend')->group(function() {
 });
 
 Route::get('/{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

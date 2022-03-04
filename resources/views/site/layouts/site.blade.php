@@ -44,6 +44,10 @@
 </head>
 
 <body id="home">
+<!-- ABA LOJA -->
+@include('site.abas.service_list')
+<!-- ABA LOJA SINGLE -->
+@include('site.abas.service_details')
 
 
 <!-- alerta -->

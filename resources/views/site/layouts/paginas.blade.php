@@ -44,6 +44,10 @@
 </head>
 
 <body class="interna">
+<!-- ABA LOJA -->
+@include('site.abas.service_list')
+<!-- ABA LOJA SINGLE -->
+@include('site.abas.service_details')
 
 <!-- alerta -->
 <div class="alerta *ativo"><i class="uil uil-heart"></i> Salvo na sa lista de favoritos!</div>

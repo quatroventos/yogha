@@ -17,7 +17,7 @@ class LightBootstrapPresetServiceProvider extends ServiceProvider
     {
         UiCommand::macro('light-bootstrap', function ($command) {
             LightBootstrapPreset::install();
-            
+
             $command->info('Light Bootstrap scaffolding installed successfully.');
         });
     }

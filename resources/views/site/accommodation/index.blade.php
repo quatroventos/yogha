@@ -68,7 +68,29 @@
             </div>
             <div class="col">
                 <div class="form-group form-inline justify-content-end gap-10">
-                    <a href="#!" class="btn btn-2 btn-ico share"><i class="d-inline-flex uil uil-upload"></i></a>
+                    {{--Compartilhar--}}
+                    <div class="dropdown menu-compartilhar">
+                        <button class="btn btn-2 btn-ico share" type="button">
+                            <i class="uil uil-upload"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="whatsapp://send?text=Veja essa acomodação que encontrei no Yogha! {{Request::url()}}" data-action="share/whatsapp/share" class="btn btn-2 btn-ico" target="_blank">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{Request::url()}}" class="btn btn-2 btn-ico" target="_blank">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                            <a href="http://twitter.com/share?text=Veja essa acomodação que encontrei no Yogha!&url={{Request::url()}}" class="btn btn-2 btn-ico" target="_blank">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <script>
+                        $('.share').on('click', function(){
+                            $('.dropdown-menu').slideToggle('fast');
+                        });
+                    </script>
+
                     @auth
                         @if($isfav == 1)
                             <a href="#!" id="fav"  style="display: none;"  class="btn btn-2 btn-ico"><i class="far fa-heart"></i></a>

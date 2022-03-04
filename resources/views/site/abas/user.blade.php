@@ -37,7 +37,7 @@
         <div class="row">
           <div class="col col-sm-12">
             <div class="form-group form-inline">
-              <a href="user/edit/{{$user->id}}" class="btn btn-p">Editar perfil</a>
+              <a href="user/profile" class="btn btn-p">Editar perfil</a>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf

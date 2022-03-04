@@ -93,13 +93,19 @@
 	/* input */
 	input:not([type=checkbox]),
 	select,
-	textarea {
+	textarea,
+	.form-control {
 	  border-radius: 26px;
 	  min-height: 52px;
 	}
 	  input[type=checkbox] + label {
 	    font-size: 20px;
 	  }
+	input[type=file] {
+	  height: auto;
+	  padding-bottom: 12px;
+	  padding-top: 11px;
+	}
 
 	/* botoes */
 	.btn,

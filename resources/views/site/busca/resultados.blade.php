@@ -70,25 +70,16 @@
         </div>
     </div>
 </section>
+
 <section class="fixo-t">
     <div class="container pt-15 mb-15">
         <div class="row busca-resumo collapse show">
             <div class="col grow-0 px-0">
-                <a href="javascript:history.back();" class="btn btn-2 btn-p btn-ico"><i class="icone-m uil uil-angle-left"></i></a>
+                <a href="javascript:history.back();" class="btn btn-2 btn-ico"><i class="icone-m uil uil-angle-left"></i></a>
             </div>
-            <div class="col ps-0">
-                <div class="row">
-                    <div class="col-6 pe-0">
-                        <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-busca" class="btn btn-3 btn-p texto-ret switch"><span>{{$district}}</span></a>
-                    </div>
-                    <div class="col-6 ps-0">
-                        <a href="#!" class="btn btn-3 btn-p texto-ret">
-                            <span class="text-right texto-p">
-{{--                                {{date_format(date_create($startdate),"d/m/y")}} → {{date_format(date_create($enddate),"d/m/y")}} - {{Request::segment(5)+Request::segment(6)}} hospedes--}}
-                            </span>
-                        </a>
-                    </div>
-                </div>
+            <div class="col ps-0 pe-0">
+                <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-busca" class="btn btn-4 switch"><i class="uil uil-search"></i> {{$district}}
+                </a>
             </div>
         </div>
     </div>
@@ -246,13 +237,13 @@
                 //$zoom = 30;
                 $link = '/accommodation/'.$result->AccommodationId;
                 ?>
-            ['{{$result->AccommodationName}}',{{$latitude}}, {{$longitude}}, '{{$link}}', {{$result->AccommodationId}}],
+            ['{{$result->AccommodationName}}',{{$latitude ?? ''}}, {{$longitude ?? ''}}, '{{$link}}', {{$result->AccommodationId}}],
             @endforeach
         ];
 
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
-            center: new google.maps.LatLng({{$latitude}},{{$longitude}}),
+            center: new google.maps.LatLng({{$latitude ?? ''}},{{$longitude ?? ''}}),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
