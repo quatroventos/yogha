@@ -64,7 +64,6 @@ class RegisterController extends Controller
             'zip_code' => ['required'],
             'street' => ['required'],
             'number' => ['required'],
-            'complement' => ['required']
         ]);
     }
 
@@ -77,8 +76,6 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $birthday = implode('-', array_reverse(explode('/', $data['birthday'])));
-
-
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -97,5 +94,6 @@ class RegisterController extends Controller
             'number' => $data['number'],
             'complement' => $data['complement'],
         ]);
+
     }
 }

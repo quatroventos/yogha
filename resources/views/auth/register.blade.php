@@ -404,11 +404,13 @@
             url: 'https://viacep.com.br/ws/'+$(this).val()+'/json/unicode/',
             dataType: 'json',
             success: function(resposta){
+                console.log('resposta correios'+resposta.uf);
                 $("#logradouro").val(resposta.logradouro);
                 $("#complemento").val(resposta.complemento);
                 $("#bairro").val(resposta.bairro);
                 $("#state option[rel='"+resposta.uf+"']").prop('selected', true)
                 var stateID = $('#state').val();
+                console.log('-----'+stateID);
                 $('#city').load('/cities/' + stateID, function(){
                     $("#city option[rel='"+resposta.localidade+"']").prop('selected', true)
                 });

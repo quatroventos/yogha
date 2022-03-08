@@ -453,6 +453,7 @@ ul.lista-extra:after {
 
 /* input */
 input:not([type=checkbox]),
+input:not([type=file]),
 select,
 textarea,
 .form-control {
@@ -465,6 +466,9 @@ textarea,
     justify-content: center;
     min-height: 42px;
     padding: 0 15px;
+}
+.hidden{
+    display:none !important;
 }
 textarea {
     border-radius: 21px;

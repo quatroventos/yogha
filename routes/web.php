@@ -1,6 +1,6 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +16,11 @@ Route::get('/countries', 'App\Http\Controllers\WorldController@countries');
 Route::get('/states/{country_id}', 'App\Http\Controllers\WorldController@states');
 Route::get('/cities/{state_id}', 'App\Http\Controllers\WorldController@cities');
 
-//E-mails teste
-Route::get('/email', function(){
-    Mail::to('gabriel@quatroventos.com.br')->send(new \App\Mail\EmailConfirmation());
-    return new \App\Mail\EmailConfirmation();
-});
+////E-mails teste
+//Route::get('/email', function(){
+//    Mail::to('gabriel@quatroventos.com.br')->send(new \App\Mail\EmailConfirmation());
+//    return new \App\Mail\EmailConfirmation();
+//});
 
 
 Route::namespace('App\Http\Controllers\Site')->group(function(){
@@ -50,7 +50,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::any('/juno_webhook', 'CheckoutController@juno_webhook');
 
 
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         //checkout
         Route::get('/checkout/{accommodationid}/{startdate}/{enddate}/{adults?}/{children?}/{ages?}', 'CheckoutController@index')->name('checkout');
         Route::get('/check_availability/{accommodationid}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'CheckoutController@check_availability');
@@ -74,7 +74,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');
     Route::get('/clear-cache', function () {
         Cache::flush();
@@ -84,7 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::namespace('App\Http\Controllers\Backend')->group(function() {
 
-    Route::group(['auth:sanctum', 'verified'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         //Route::get('/admin', 'AdminController@index')->name('dashboard');
         Route::get('/admin/shelves', 'ShelvesController@index')->name('shelves');
         Route::get('/admin/shelves/edit', 'ShelvesController@edit')->name('shelf.edit');

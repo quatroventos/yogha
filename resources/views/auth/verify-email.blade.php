@@ -73,12 +73,14 @@
             <div class="col col-sm-6">
 
                 <div class="mb-4 text-sm text-gray-600">
-                    {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+                    Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.
+                    Obrigado por se cadastrar! Antes de começar, é necessáriov verificar seu e-mail, clicando no link que mandamos para você.
+                    Não recebeu nenhum e-mail? Podemos mandar novamente para você!
                 </div>
 
                 @if (session('status') == 'verification-link-sent')
                     <div class="mb-4 font-medium text-sm text-green-600">
-                        {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+                        Um novo link foi enviado para o e-mail cadastrado.
                     </div>
                 @endif
 
@@ -86,7 +88,7 @@
                     @csrf
                     <div>
                         <button type="submit" class="btn  p-0 m-0 align-baseline" style="padding: 0 20px !important;">
-                            {{ __('Resend Verification Email') }}
+                            Reenviar link para meu e-mail.
                         </button>
                     </div>
                 </form>
@@ -95,7 +97,7 @@
                     @csrf
 
                     <button type="submit" class="btn btn-link p-0 m-0 align-baseline" style="padding: 0 20px !important;">
-                        {{ __('Log Out') }}
+                        Desconectar
                     </button>
                 </form>
 
