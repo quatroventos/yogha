@@ -286,20 +286,20 @@ class CheckoutController extends Controller
             ->where('State', '=', 'UNAVAILABLE')
             ->get();
 
+
         if (count($availability) != 0) {
             //cria array com o range de datas
-            $unavailableDates = array();
-            $current = strtotime($availability[0]->StartDate);
-            $last = strtotime($availability[0]->EndDate);
+            //$unavailableDates = array();
+            $unavailableDates = "[";
 
-            while ($current <= $last) {
-
-                $unavailableDates[] = date("Y-m-d", $current);
-                $current = strtotime("+1 day", $current);
+            foreach ($availability as $avail) {
+                $start = strtotime($avail->StartDate);
+                $last = strtotime($avail->EndDate);
+                $unavailableDates .= "['".date("Y-m-d", $start)."','".date("Y-m-d", $last)."'],";
             }
-
-            $unavailableDates = json_encode($unavailableDates);
-             //dd($unavailableDates);
+            $unavailableDates .= "]";
+            //$unavailableDates = json_encode($unavailableDates);
+            //echo $unavailableDates;
 
         } else {
             $unavailableDates = "";
