@@ -270,7 +270,7 @@
                                             <input class="d-flex" type="text" name="card_cvv" placeholder="CVV">
                                         </div>
                                         <div class="form-group">
-                                            <input class="d-flex cpf" type="text" name="document" placeholder="Documento">
+                                            <input class="d-flex" type="text" name="document" placeholder="Documento">
                                         </div>
                                         <div class="form-group">
                                             <input class="d-flex" type="text" name="email" placeholder="E-mail" value="{{$user->email}}">

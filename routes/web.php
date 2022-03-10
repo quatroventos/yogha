@@ -76,6 +76,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');
+    Route::get('/importpics', 'App\Http\Controllers\ImportImagesController@index');
     Route::get('/clear-cache', function () {
         Cache::flush();
         echo "cache limpo";

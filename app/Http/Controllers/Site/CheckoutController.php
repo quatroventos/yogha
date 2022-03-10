@@ -558,7 +558,7 @@ class CheckoutController extends Controller
                     },
                     "billing": {
                         "name": "' . $request->name . '",
-                        "document": "' . $request->document . '",
+                        "document": "' . preg_replace('/[^0-9]/', '', $request->document) . '",
                         "email": "' . $request->email . '",
                         "birthDate": "' . $birthday . '",
                         "notify": true
