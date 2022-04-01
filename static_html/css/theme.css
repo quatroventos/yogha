@@ -487,6 +487,11 @@ textarea.input-2 {
   border-color: var(--branco);
 }
 
+select {
+  -webkit-appearance:none;
+  background: url(../img/arrow-down.png) no-repeat center right;
+}
+
 
 /* botoes */
 .btn {

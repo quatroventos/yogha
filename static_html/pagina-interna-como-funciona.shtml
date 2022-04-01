@@ -24,7 +24,7 @@
 <!-- CONTEUDO -->
 
     <!-- HEADER -->
-    <header class="mb-30" style="background-image: url(img/fundo-como-funciona.jpg)">
+    <header class="mb-50" style="background-image: url(img/fundo-como-funciona.jpg)">
       <div class="container h-100 pt-15">
         <div class="row mb-30">
           <div class="col">
@@ -44,7 +44,7 @@
     </header>
 
     <!-- BLOCO --->
-    <section class="text-center etapas">
+    <section class="text-center etapas mb-30">
       <div class="container">
         <div class="row justify-content-center align-items-center">
           <div class="col-12 col-sm-4">
@@ -52,7 +52,9 @@
             <p class="texto-g texto-fino mb-15">Escolha o local onde você vai estar ou está agora mesmo</p>
           </div>
           <div class="col-12 col-sm-4">
-            <img src="img/etapas/etapa-localizacao.jpg">
+            <div>
+              <img src="img/etapas/etapa-localizacao.jpg" class="img-fluid">
+            </div>
           </div> 
         </div>
         <div class="row justify-content-center align-items-center">
@@ -61,7 +63,9 @@
             <p class="texto-g texto-fino mb-15">Selecione o período que deseja se hospedar</p>
           </div>
           <div class="col-12 col-sm-4">
-            <img src="img/etapas/etapa-datas.jpg">
+            <div>
+              <img src="img/etapas/etapa-datas.jpg" class="img-fluid">
+            </div>
           </div> 
         </div>
         <div class="row justify-content-center align-items-center">
@@ -70,7 +74,9 @@
             <p class="texto-g texto-fino mb-15">E quantas pessoas estarão com você, adultos e crianças</p>
           </div>
           <div class="col-12 col-sm-4">
-            <img src="img/etapas/etapa-hospedes.jpg">
+            <div>
+              <img src="img/etapas/etapa-hospedes.jpg" class="img-fluid">
+            </div>
           </div> 
         </div>
         <div class="row justify-content-center align-items-center">
@@ -79,7 +85,9 @@
             <p class="texto-g texto-fino mb-15">Escolha a hospedagem que oferece tudo o que você precisa</p>
           </div>
           <div class="col-12 col-sm-4">
-            <img src="img/etapas/etapa-hospedagem.jpg">
+            <div>
+              <img src="img/etapas/etapa-hospedagem.jpg" class="img-fluid">
+            </div>
           </div> 
         </div>
         <div class="row justify-content-center align-items-center">
@@ -88,7 +96,9 @@
             <p class="texto-g texto-fino mb-15">Adicione serviços extras para sua comodidade</p>
           </div>
           <div class="col-12 col-sm-4">
-            <img src="img/etapas/etapa-servicos.jpg">
+            <div>
+              <img src="img/etapas/etapa-servicos.jpg" class="img-fluid">
+            </div>
           </div> 
         </div>
         <div class="row justify-content-center align-items-center">
@@ -97,7 +107,9 @@
             <p class="texto-g texto-fino mb-15">Confira os detalhes da sua estadia, confirme a reserva e pronto!</p>
           </div>
           <div class="col-12 col-sm-4">
-            <img src="img/etapas/etapa-reserva.jpg">
+            <div>
+              <img src="img/etapas/etapa-reserva.jpg" class="img-fluid">
+            </div>
           </div> 
         </div>
         <div class="row justify-content-center align-items-center">
@@ -106,7 +118,9 @@
             <p class="texto-g texto-fino mb-15">Os detalhes da sua reserva chegarão em seu e-mail de contato</p>
           </div>
           <div class="col-12 col-sm-4">
-            <img src="img/etapas/etapa-aproveite.jpg">
+            <div>
+              <img src="img/etapas/etapa-aproveite.jpg" class="img-fluid">
+            </div>
           </div> 
         </div>
       </div>

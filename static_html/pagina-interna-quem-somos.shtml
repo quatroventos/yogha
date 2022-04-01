@@ -24,7 +24,7 @@
 <!-- CONTEUDO -->
 
     <!-- HEADER -->
-    <header class="mb-30" style="background-image: url(img/fundo-quem-somos.jpg)">
+    <header class="mb-50" style="background-image: url(img/fundo-quem-somos.jpg)">
       <div class="container h-100 pt-15">
         <div class="row mb-30">
           <div class="col">
@@ -44,30 +44,26 @@
     </header>
 
     <!-- BLOCO --->
-    <section class="text-center mb-30">
+    <section class="text-center mb-50">
       <div class="container mb-10">
         <div class="row justify-content-center">
           <div class="col-12 col-sm-8">
-            <h3 class="texto-g texto-fino mb-15">Foi para realizar esse objetivo que nos tornamos especialistas em gestão de canais de hospedagens</h3>
-            <p>Nossa missão é oferecer a melhor experiência em hospedagens, tanto para hóspedes como para proprietários.</p>
-            <p>A excelência com que realizamos cada locação já conquistou mais de 20.000 hóspedes em Curitiba, desde 2016.</p>
-            <p>Isso é fruto da nossa expertise em atendimento ao cliente, mercado imobiliário e hotelaria.</p>
-            <p>seu jeito de se hospedar mudou e mudou para melhor!</p>
-            <p><strong>Yogha, sinta-se em casa.</strong></p>
+            <h3 class="texto-g mb-15"><strong>Foi para realizar esse objetivo que nos tornamos especialistas em gestão de canais de hospedagens</strong></h3>
+            <p>Nossa missão é oferecer a melhor experiência em hospedagens, tanto para hóspedes como para proprietários. A excelência com que realizamos cada locação já conquistou mais de 20.000 hóspedes em Curitiba, desde 2016. Isso é fruto da nossa expertise em atendimento ao cliente, mercado imobiliário e hotelaria. <br/><br/><strong>Seu jeito de se hospedar mudou e mudou para melhor!</strong>  <br/><br/>Yogha, sinta-se em casa.</p>
           </div>    
         </div>
       </div>
     </section>
 
-    <hr class="mb-30">
+    <hr class="mb-50">
 
     <!-- BLOCO --->
-    <section class="text-center mb-30">
+    <section class="text-center mb-50">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <h3 class="mb-15"><strong>NOVIDADE NAS REDES</strong></h3>
-            <h3 class="texto-g texto-fino mb-15">Siga nosso @ e fique por dentro de tudo o que rola por aqui!</h3>
+            <h3 class="texto-g mb-15"><strong>NOVIDADE NAS REDES</strong></h3>
+            <p class="mb-30">Siga nosso @ e fique por dentro de tudo o que rola por aqui!</p>
           </div>
           <div class="col-12">
             <div class="slider slide-3col mb-15">
