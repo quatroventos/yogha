@@ -54,7 +54,8 @@
 
 <!-- MENUS -->
 
-<nav id="stickymenu" class="menu-sup sticky-top">
+<!-- MENU SUPERIOR -->
+<nav id="stickymenu" class="menu-sup sticky-top" style="display:none; position: fixed; width: 100%;">
     <div class="container">
         <div class="row">
             <div class="col justify-content-center">
@@ -69,10 +70,10 @@
 <script>
     $(document).scroll(function() {
         var y = $(this).scrollTop();
-        if (y > 1) {
-            $('#stickymenu').fadeIn();
+        if (y > 40) {
+            $('#stickymenu').fadeIn('fast');
         } else {
-            $('#stickymenu').fadeOut();
+            $('#stickymenu').hide();
         }
     });
 </script>
