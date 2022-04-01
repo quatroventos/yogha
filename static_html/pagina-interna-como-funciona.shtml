@@ -9,13 +9,13 @@
     <!-- alerta -->
     <div class="alerta *ativo"><i class="uil uil-heart"></i> Salvo na sa lista de favoritos!</div>
 
-<!-- MENUS --> 
+<!-- MENUS -->
 
     <!-- MENU SUPERIOR -->
-    <!--#include virtual="menu-sup.html"-->    
+    <!--#include virtual="menu-sup.html"-->
 
     <!-- MENU INFERIOR -->
-    <!--#include virtual="menu-inf.html"-->    
+    <!--#include virtual="menu-inf.html"-->
 
     <!-- MENU LATERAL -->
     <!--#include virtual="menu-lateral.html"-->
@@ -28,7 +28,7 @@
       <div class="container h-100 pt-15">
         <div class="row mb-30">
           <div class="col">
-            <a href="index.shtml"><img class="img-m" src="img/logo-yogha-branco.svg"></a>
+            <a href="{{URL::to('/')}}"><img class="img-m" src="img/logo-yogha-branco.svg"></a>
           </div>
           <div class="col align-items-end justify-content-center">
             <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>
@@ -38,7 +38,7 @@
           <div class="col">
             <h1 class="mb-15"><strong>COMO FUNCIONA</strong></h1>
             <h2 class="texto-fino texto-g">Siga o caminho sugerido e encontre as melhores experiências</h2>
-          </div>          
+          </div>
         </div>
       </div>
     </header>
@@ -55,7 +55,7 @@
             <div>
               <img src="img/etapas/etapa-localizacao.jpg" class="img-fluid">
             </div>
-          </div> 
+          </div>
         </div>
         <div class="row justify-content-center align-items-center">
           <div class="col-12 col-sm-4">
@@ -66,7 +66,7 @@
             <div>
               <img src="img/etapas/etapa-datas.jpg" class="img-fluid">
             </div>
-          </div> 
+          </div>
         </div>
         <div class="row justify-content-center align-items-center">
           <div class="col-12 col-sm-4">
@@ -77,7 +77,7 @@
             <div>
               <img src="img/etapas/etapa-hospedes.jpg" class="img-fluid">
             </div>
-          </div> 
+          </div>
         </div>
         <div class="row justify-content-center align-items-center">
           <div class="col-12 col-sm-4">
@@ -88,7 +88,7 @@
             <div>
               <img src="img/etapas/etapa-hospedagem.jpg" class="img-fluid">
             </div>
-          </div> 
+          </div>
         </div>
         <div class="row justify-content-center align-items-center">
           <div class="col-12 col-sm-4">
@@ -99,7 +99,7 @@
             <div>
               <img src="img/etapas/etapa-servicos.jpg" class="img-fluid">
             </div>
-          </div> 
+          </div>
         </div>
         <div class="row justify-content-center align-items-center">
           <div class="co4-12 col-sm-4">
@@ -110,7 +110,7 @@
             <div>
               <img src="img/etapas/etapa-reserva.jpg" class="img-fluid">
             </div>
-          </div> 
+          </div>
         </div>
         <div class="row justify-content-center align-items-center">
           <div class="col-12 col-sm-4">
@@ -121,7 +121,7 @@
             <div>
               <img src="img/etapas/etapa-aproveite.jpg" class="img-fluid">
             </div>
-          </div> 
+          </div>
         </div>
       </div>
     </section>

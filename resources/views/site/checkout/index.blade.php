@@ -33,7 +33,7 @@
 </section>
 
 @if($errors->any())
-    <div class="alert-danger" style="position:fixed; top:0; width: 100%; z-index: 9999; padding:14px;">
+    <div class="alert-danger" style="position:fixed; top:80; width: 100%; z-index: 9999; padding:14px;">
         <h4>{{$errors->first()}}</h4>
     </div>
 @endif

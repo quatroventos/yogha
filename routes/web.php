@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/countries', 'App\Http\Controllers\WorldController@countries');
 Route::get('/states/{country_id}', 'App\Http\Controllers\WorldController@states');
 Route::get('/cities/{state_id}', 'App\Http\Controllers\WorldController@cities');
-
-
+Route::post('/sendcontactmail', 'App\Http\Controllers\ContactMailController@sendContactMail')->name('send.contactmail');
 
 Route::namespace('App\Http\Controllers\Site')->group(function(){
     //home

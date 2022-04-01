@@ -1,12 +1,18 @@
 @extends('site.layouts.site')
 @section('content')
 
+    @if ($message = Session::get('success'))
+        <div class="alert-success" style="position:relative; top:0; width: 100%; z-index: 9999; padding:14px;">
+            <h4>{{ $message }}</h4>
+        </div>
+    @endif
+
     <!-- HEADER -->
     <header class="mb-50" style="background-image: url(img/fundo-alugue-seu-imovel.jpg)">
         <div class="container h-100 pt-15">
             <div class="row mb-30">
                 <div class="col">
-                    <a href="index.shtml"><img class="img-m" src="img/logo-yogha-branco.svg"></a>
+                    <a href=""><img class="img-m" src="img/logo-yogha-branco.svg"></a>
                 </div>
                 <div class="col align-items-end justify-content-center">
                     <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>
@@ -157,53 +163,46 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-sm-6">
-                    <form>
+                    <form method="post" action="{{route('send.contactmail')}}">
+                        {!! csrf_field() !!}
+
+                        <input type="hidden" name="pagina" value="Alugue seu imóvel">
+                        <input type="hidden" name="assunto" value="Nova solicitação para locação">
+
                         <div class="form-group">
-                            <input class="d-flex" type="text" name="Nome" placeholder="Nome">
+                            <input class="d-flex" type="text" name="nome" placeholder="Nome" required>
                         </div>
                         <div class="form-group">
-                            <input class="d-flex" type="text" name="Sobrenome" placeholder="Sobrenome">
+                            <input class="d-flex" type="text" name="sobrenome" placeholder="Sobrenome" required>
                         </div>
                         <div class="form-group">
-                            <input class="d-flex" type="email" name="E-mail" placeholder="E-mail">
+                            <input class="d-flex" type="email" name="email" placeholder="E-mail" required>
                         </div>
                         <div class="form-group">
-                            <input class="d-flex" type="text" name="Empresa" placeholder="Empresa">
+                            <input class="d-flex" type="text" name="empresa" placeholder="Empresa">
                         </div>
                         <p class="text-center"><strong>Características dos alojamentos</strong></p>
                         <div class="form-group">
-                            <select class="d-flex">
-                                <option>Número de alojamentos</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                            </select>
+                            <input class="d-flex" type="text" name="alojamentos" placeholder="Número de alojamentos" required>
                         </div>
                         <div class="form-group">
-                            <input class="d-flex" type="text" name="Localização" placeholder="Localização">
+                            <input class="d-flex" type="text" name="localizacao" placeholder="Localização" required>
+                        </div>
+{{--                        <div class="form-group">--}}
+{{--                            <select name="tipo" class="d-flex" required>--}}
+{{--                                <option>Tipo</option>--}}
+{{--                                <option>Tipo A</option>--}}
+{{--                                <option>Tipo B</option>--}}
+{{--                                <option>Tipo C</option>--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
+                        <div class="form-group">
+                            <input class="d-flex" type="text" name="empresa" placeholder="Empresa" required>
                         </div>
                         <div class="form-group">
-                            <select class="d-flex">
-                                <option>Tipo</option>
-                                <option>Tipo A</option>
-                                <option>Tipo B</option>
-                                <option>Tipo C</option>
-                            </select>
+                            <textarea placeholder="Observações" name="obs" class="d-flex"></textarea>
                         </div>
-                        <div class="form-group">
-                            <input class="d-flex" type="text" name="Empresa" placeholder="Empresa">
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="Observações" class="d-flex"></textarea>
-                        </div>
-                        <div class="form-group form-check mb-10">
-                            <input type="checkbox" class="form-check-input" id="aceito">
-                            <label class="form-check-label" for="aceito">Lí e aceito a <a href="#!">política de confidencialidade</a> e as <a href="#!">condições gerais</a></label>
-                        </div>
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="aceito">
-                            <label class="form-check-label" for="aceito">Concordo em receber informações comerciais</label>
-                        </div>
+
                         <button class="btn d-flex">Enviar</button>
                     </form>
                 </div>

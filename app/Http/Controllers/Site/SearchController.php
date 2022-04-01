@@ -62,56 +62,36 @@ class SearchController extends Controller
 
         $recently_viewed = getUserRecentlyViewed();
         $surpriseme = generateSurprisemeUrl();
+        $nights = round((strtotime($enddate) - strtotime($startdate)) / 86400, 1);
 
         //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
         $today = date("Y-m-d");
 
-        if($startdate == '') {
-            $startdate = $today;
-        }
-        if($enddate == '') {
-            $enddate = date('Y-m-d', strtotime($today. ' + 2 days'));
-        }
-
-        $nights = round((strtotime($enddate) - strtotime($startdate)) / 86400, 1);
-
-        $results = Accommodations::
+        if($startdate == '' && $enddate == '') {
+            $results = Accommodations::
             with('descriptions')
-            ->with('pictures')
-            ->with(['rates' => function ($query) use ($startdate, $enddate){
-                $query->where('StartDate', '<', "{$startdate}")
-                    ->where('EndDate', '>', "{$enddate}");
-            }])
-            ->whereHas('availabilities', function($query) use ($startdate, $enddate){
-                $query->where('State', 'like', 'AVAILABLE')
-                    ->where('StartDate', '<', "{$startdate}")
-                    ->where('EndDate', '>', "{$enddate}");
-            })
-            ->whereRelation('localizations', 'District', 'like', "%{$district}%")
-            ->get();
+                ->with('pictures')
+                ->whereRelation('localizations', 'District', 'like', "%{$district}%")
+                ->get();
 
+        }else{
 
-//        echo "<pre>";
-//        print_r($results->toArray());
-//        echo "</pre>";
-//        die();
+            $results = Accommodations::
+            with('descriptions')
+                ->with('pictures')
+                ->with(['rates' => function ($query) use ($startdate, $enddate){
+                    $query->where('StartDate', '<', "{$startdate}")
+                        ->where('EndDate', '>', "{$enddate}");
+                }])
+                ->whereHas('availabilities', function($query) use ($startdate, $enddate){
+                    $query->where('State', 'like', 'AVAILABLE')
+                        ->where('StartDate', '<', "{$startdate}")
+                        ->where('EndDate', '>', "{$enddate}");
+                })
+                ->whereRelation('localizations', 'District', 'like', "%{$district}%")
+                ->get();
 
-//        dd($results->toArray());
-
-        //se occupationalrules está entre os usuarios permitidos
-        //mostrando rates com preço para a data selecionada
-
-//        dd($results);
-//
-//        $results = \DB::table('accommodations')
-//            ->select('accommodations.*','descriptions.*','localizations.*','rates.Price')
-//            ->Leftjoin('descriptions', 'descriptions.AccommodationId', '=', 'accommodations.AccommodationId')
-//            ->Leftjoin('localizations', 'localizations.AccommodationId', '=', 'accommodations.AccommodationId')
-//            ->Rightjoin('rates','rates.AccommodationId', '=', 'accommodations.AccommodationId')
-//            ->where('localizations.District', 'like', "%{$district}%")
-//            ->where('rates.StartDate', '>', "{$startdate}")
-//            ->where('rates.EndDate', '<', "{$enddate}")
-//            ->get();
+        }
 
         return view('site.busca.resultados', compact('results', 'district', 'surpriseme', 'recently_viewed', 'startdate', 'enddate'));
     }

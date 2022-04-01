@@ -69,23 +69,28 @@ class ImportImagesController extends Controller
 
                         $original = $pic['OriginalURI'];
 
-                        //job
-                        importPics::dispatch($original)->delay(now());
-                        echo "Download do arquivo " . $original . " adicionado ao job!<br>";
-                        $j++;
-
                         $urlchunks = explode("/",$original);
                         $dirname = $urlchunks[count($urlchunks)-2];
                         $filename = $urlchunks[count($urlchunks)-1];
                         $filepath = 'accommodation-pics/' . $dirname . '/';
                         $local = public_path() . $filepath . $filename;
+                        $remote = Storage::disk('s3')->url($filepath.$filename);
+
+                        //só cria job para imagens novas.
+                        if ($remote != '') {
+                            echo "Arquivo " . $original . " já existe no disco!<br>";
+                        }else{
+                            //job
+                            importPics::dispatch($original)->delay(now());
+                            echo "Download do arquivo " . $original . " adicionado ao job!<br>";
+                            $j++;
+                        }
 
                         $dataArray[] = [
                             "accommodationId" => $data['AccommodationId'],
-                            "original" => $filepath.$filename,
-                            "thumbnail" => $filepath.'th_'.$filename,
+                            "original" => $filepath . $filename,
+                            "thumbnail" => $filepath . 'th_' . $filename,
                         ];
-
                     }
                 }
                 echo "<hr>";
