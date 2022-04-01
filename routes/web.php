@@ -16,11 +16,6 @@ Route::get('/countries', 'App\Http\Controllers\WorldController@countries');
 Route::get('/states/{country_id}', 'App\Http\Controllers\WorldController@states');
 Route::get('/cities/{state_id}', 'App\Http\Controllers\WorldController@cities');
 
-////E-mails teste
-//Route::get('/email', function(){
-//    Mail::to('gabriel@quatroventos.com.br')->send(new \App\Mail\EmailConfirmation());
-//    return new \App\Mail\EmailConfirmation();
-//});
 
 
 Route::namespace('App\Http\Controllers\Site')->group(function(){
@@ -34,7 +29,10 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/searchbydistrict/{district}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'SearchController@searchbydistrict')->name('search.district');
     //services
     Route::get('/service_details/{serviceid}', 'ServicesController@show_details');
+    Route::get('/checkoutaddtocart/{id}', 'ServicesController@add_to_cart_via_checkout');
     Route::get('/addtocart/{id}', 'ServicesController@add_to_cart');
+    Route::get('/removefromcart/{id}', 'ServicesController@remove_from_cart');
+
 
     //blog
     Route::get('/blog/{category}/{slug}', 'BlogController@category')->name('blog.category');
@@ -86,7 +84,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 Route::namespace('App\Http\Controllers\Backend')->group(function() {
 
     Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
-        //Route::get('/admin', 'AdminController@index')->name('dashboard');
+        Route::get('/admin', 'AdminController@index')->name('dashboard');
         Route::get('/admin/shelves', 'ShelvesController@index')->name('shelves');
         Route::get('/admin/shelves/edit', 'ShelvesController@edit')->name('shelf.edit');
         Route::get('/admin/shelves/update', 'ShelvesController@update')->name('shelf.update');
@@ -123,7 +121,3 @@ Route::namespace('App\Http\Controllers\Backend')->group(function() {
 });
 
 Route::get('/{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');

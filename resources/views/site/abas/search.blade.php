@@ -88,7 +88,7 @@
 
                 $('#searchResults').empty();
                 $.each(data.Districts, function( index, value ) {
-                    $('#searchResults').append('<li><a href="{{URL::to('/')}}/searchbydistrict/'+data["Districts"][index]["District"]+'" class="d-flex gap-10 align-items-center"><picture class="row-0 me-15" style="background-image: url({{asset('img/fundo-ponto.jpg')}});"></picture>'+capitalize(data["Districts"][index]["District"])+' - '+data["Districts"][index]["City"]+'</a></li>')
+                    $('#searchResults').append('<li><a href="{{URL::to('/')}}/searchfilter/'+data["Districts"][index]["District"]+'" class="d-flex gap-10 align-items-center"><picture class="row-0 me-15" style="background-image: url({{asset('img/fundo-ponto.jpg')}});"></picture>'+capitalize(data["Districts"][index]["District"])+' - '+data["Districts"][index]["City"]+'</a></li>')
                 });
 
                 $('#searchResults2').empty();

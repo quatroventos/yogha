@@ -169,7 +169,7 @@
                 }
 
             });
-            window.location.href = '{{URL::to('/')}}/checkout/{{Request::segment(2)}}/'+startdate+'/'+enddate+'/'+adults+'/'+children+'/'+ages;
+            window.location.href = '{{URL::to('/')}}/searchbydistrict/{{Request::segment(2)}}/'+startdate+'/'+enddate+'/'+adults+'/'+children+'/'+ages;
         });
 
         $(".children").click(function(){
@@ -180,11 +180,6 @@
             $(this).parent().remove();
             $(this).remove();
         })
-        <?php
-        if ($unavailableDates == ''){
-            $unavailableDates = "[]";
-        }
-        ?>
 
         var picker = new Litepicker({
             element: document.getElementById('datepicker'),
@@ -193,7 +188,6 @@
             allowRepick: true,
             inlineMode: false,
             singleMode: false,
-            lockDays:  <?php echo $unavailableDates; ?>,
             minDate: '<?php echo date('Y-m-d', time()); ?>',
             numberOfColumns: 2,
             numberOfMonths: 2,

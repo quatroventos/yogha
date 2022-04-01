@@ -71,7 +71,6 @@ class ReadXMLController extends Controller
             echo $file." descompactado<br>";
         }
 
-
             $accommodationsXML = file_get_contents(public_path('xml/Accommodations.xml'));
             $accommodationsObj = simplexml_load_string($accommodationsXML);
             $accommodationsJson = json_encode($accommodationsObj);
@@ -105,13 +104,15 @@ class ReadXMLController extends Controller
             foreach($descriptionsArray['Accommodation'] as $index => $data){
 
                 $internationalizedItem = json_encode($data['InternationalizedItem']);
-                $pictures = json_encode($data['Pictures']);
+
+//                $pictures = json_encode($data['Pictures']);
 
                 $dataArray[] = [
                     "AccommodationId" => $data['AccommodationId'],
-                    "Pictures" => $pictures,
+                    //"Pictures" => $pictures,
                     "InternationalizedItem" => $internationalizedItem
                 ];
+
             }
 
             Descriptions::insert($dataArray);
@@ -119,8 +120,8 @@ class ReadXMLController extends Controller
             echo "Descrições importadas!<br>";
         }
 
-        //dd($availabilityArray);
-        //Availabilities
+//        dd($availabilityArray);
+//        Availabilities
         if(count($availabilityArray['AccommodationList']['Accommodation']) > 0){
 
             $dataArray = array();
@@ -326,7 +327,7 @@ class ReadXMLController extends Controller
             echo "Localizações importadas!";
         }
 
-
+echo "fim!";
         //return view("xml-data");
     }
 }

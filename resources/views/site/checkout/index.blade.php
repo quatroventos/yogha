@@ -14,6 +14,7 @@
     ?>
 
 <!-- CONTEUDO -->
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <section class="fixo-t">
     <div class="container">
@@ -37,6 +38,7 @@
     </div>
 @endif
 
+
 <section>
     <div class="container">
         <div class="row descricao">
@@ -47,11 +49,11 @@
                     </div>
                     <div class="col">
                         <p></p>
-                        <p class="texto-m"><strong>{{$accommodation->UserKind}} no <a href="/searchbydistrict/{{strtolower($description[1]['District']['Name'])}}">{{$description[1]['District']['Name'] ?? ''}}</a> em {{$description[1]['City']['Name'] ?? ''}} - {{$description[1]['Region']['Name'] ?? ''}} com {{$features['Distribution']['Bedrooms']}} quarto(s)</strong></p>
-                        <h2 class="mb-5"><strong>{{$accommodation->AccommodationName}}</strong></h2>
+                        <p class="texto-m"><strong>{{$accommodation['UserKind']}} no <a href="/searchbydistrict/{{strtolower($description['District']['Name'])}}">{{$description['District']['Name'] ?? ''}}</a> em {{$description['City']['Name'] ?? ''}} - {{$description['Region']['Name'] ?? ''}} com {{$features['Distribution']['Bedrooms']}} quarto(s)</strong></p>
+                        <h2 class="mb-5"><strong>{{$accommodation['AccommodationName']}}</strong></h2>
                         <p class="texto-m">
-                            @if(empty($accommodation->Capacity) === false)
-                                {{$accommodation->Capacity}} hóspedes •
+                            @if(empty($accommodation['Capacity']) === false)
+                                {{$accommodation['Capacity']}} hóspedes •
                             @endif
                             @if(empty($features['Distribution']['Bedrooms']) === false)
                                 {{$features['Distribution']['Bedrooms']}} quartos •
@@ -130,7 +132,7 @@
                                 <?php $total = 0 ?>
                                 @if(session('cart'))
                                     @foreach(session('cart') as $id => $details)
-                                            <li>{{ $details['title'] }}</li>
+                                        <li>{{ $details['title'] }} <a class="removeFromCart" href="{{URL::to('/removefromcart/'.$id)}}">(remover)</a></li>
                                     @endforeach
                                 @endif
                             <li><strong>Total ({{$currency}})</strong></li>
@@ -227,7 +229,10 @@
                                     </a>
                                 </li>
                                 <li class="campos-cartao collapse">
-                                    <form method="post" action="{{ route('generate.card') }}" class="pt-10 mb-30" autocomplete="off" enctype="multipart/form-data">
+
+                                    <div class="alert alert-danger errors" style="display: none"></div>
+
+                                    <form method="post" action="{{ route('generate.card') }}" class="pt-10 mb-30 credit-card-form" autocomplete="off" enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}} para {{$hospedes}} pessoas.">
                                         <input type="hidden" name="amount" value="{{$amount}}">
@@ -252,6 +257,7 @@
                                         <input type="hidden" name="country" value="{{$user->country_id}}">
                                         <input type="hidden" name="phone" value="{{$user->phone}}">
                                         <input type="hidden" name="email" value="{{$user->email}}">
+                                        <input type="text" name="hash" id="hash" value="">
 
                                         <input type="hidden" name="board" value="ROOM_ONLY">
                                         {{--//TODO: VERIFICAR ESTA INFO COM A AVANTIO--}}
@@ -260,14 +266,15 @@
                                         <input type="hidden" name="paymenttype" value="BOLETO">
 
                                         <div class="form-group">
-                                            <input class="d-flex" type="text" name="card_name" placeholder="Nome no cartão">
+                                            <input class="d-flex card_name" type="text" name="card_name" placeholder="Nome no cartão">
                                         </div>
                                         <div class="form-group">
-                                            <input class="d-flex" type="text" name="card_number" placeholder="Número do cartão">
+                                            <input class="d-flex card_number" type="text" name="card_number" placeholder="Número do cartão">
                                         </div>
                                         <div class="form-group form-inline">
-                                            <input class="d-flex date" type="text" name="card_due_date" placeholder="Validade">
-                                            <input class="d-flex" type="text" name="card_cvv" placeholder="CVV">
+                                            <input class="col expmonth" type="text" name="month" placeholder="Validade MM">
+                                            <input class="col expyear" type="text" name="year" placeholder="Validade AAAA">
+                                            <input class="col-1 cvv" type="text" name="card_cvv" placeholder="CVV">
                                         </div>
                                         <div class="form-group">
                                             <input class="d-flex" type="text" name="document" placeholder="Documento">
@@ -275,7 +282,68 @@
                                         <div class="form-group">
                                             <input class="d-flex" type="text" name="email" placeholder="E-mail" value="{{$user->email}}">
                                         </div>
-                                        <button type="submit" class="btn d-flex switch">Pagar com cartão</button>
+
+                                        <div class="form-group">
+                                            <select class="d-flex form-control" name="installments">
+                                                <?php
+                                                    $parcela = str_replace('.',',',$amount);
+                                                    echo "<option> 1 parcelas de R$ {$parcela}</option>";
+                                                    $tax = 2.5;		// TAXA (2 = 2%)
+                                                    for($i=2;$i<=12;$i++){
+                                                        $mont = $amount * pow( (1 + ($tax / 100)) , $i );
+                                                        $parcela = round($mont / $i, 2);
+                                                        $parcela = str_replace('.',',',$parcela);
+                                                        echo "<option '{$i}'> {$i} parcelas de R$ {$parcela}</option>";
+                                                    }
+                                                ?>
+                                            </select>
+                                            <script type="text/javascript" src="https://sandbox.boletobancario.com/boletofacil/wro/direct-checkout.min.js"></script>
+                                            <script type="text/javascript">
+                                                var checkout = new DirectCheckout('66399A7A5F97072EA433624C0854D8690797908EBBF487A65A2CB49DC49AECEE', false);
+
+                                                $('.card_number').on('blur', function() {
+                                                    var cardnumber = $('.card_number').val();
+                                                    /* Em sandbox utilizar o construtor new DirectCheckout('PUBLIC_TOKEN', false); */
+                                                    cardData = {
+                                                        cardNumber: cardnumber,
+                                                    };
+                                                    console.log(checkout.getCardType(cardData.cardNumber));
+                                                });
+
+                                                $('.credit-card-form').submit(function(event) {
+
+                                                        event.preventDefault();
+
+                                                        var cardnumber = $('.card_number').val();
+                                                        var holdername = $('.card_name').val();
+                                                        var cvv =  $('.cvv').val();
+                                                        var expmonth =  $('.expmonth').val();
+                                                        var expyear =  $('.expyear').val();
+
+                                                        /* Em sandbox utilizar o construtor new DirectCheckout('PUBLIC_TOKEN', false); */
+                                                        cardData = {
+                                                            cardNumber: cardnumber,
+                                                            holderName: holdername,
+                                                            securityCode: cvv,
+                                                            expirationMonth: expmonth,
+                                                            expirationYear: expyear
+                                                        };
+
+                                                        checkout.getCardHash(cardData, function (cardHash) {
+                                                            $('#hash').val(cardHash);
+                                                            $('.errors').hide('fast');
+                                                            $(this).submit();
+                                                        }, function (error) {
+
+                                                            $('.errors').show('fast');
+                                                            $('.errors').html(error);
+
+                                                            return false;
+                                                        });
+                                                });
+                                            </script>
+                                        </div>
+                                        <button type="submit" class="btn d-flex">Pagar com cartão</button>
                                     </form>
                                 </li>
                                 @if($enablebillet == 1)
@@ -315,7 +383,6 @@
                                         <input type="hidden" name="email" value="{{$user->email}}">
 
                                         <input type="hidden" name="board" value="ROOM_ONLY">
-                                        {{--//TODO: VERIFICAR ESTA INFO COM A AVANTIO--}}
 
                                         <input type="hidden" name="user_id" value="{{$user->id}}">
                                         <input type="hidden" name="paymenttype" value="BOLETO">
@@ -345,11 +412,31 @@
                                         @csrf
                                         <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}} para {{$hospedes}} pessoas.">
                                         <input type="hidden" name="amount" value="{{$amount}}">
-                                        <input type="hidden" name="name" value="{{$user->name}} {{$user->surname}}">
-                                        <input type="hidden" name="user_id" value="{{$user->id}}">
-                                        <input type="hidden" name="accommodation_id" value="{{$accommodation->AccommodationId}}">
+                                        {{--Accommoda info--}}
+                                        <input type="hidden" name="accommodation_code" value="{{$accommodation->AccommodationId}}">
+                                        <input type="hidden" name="user_code" value="{{$accommodation->UserId}}">
+                                        <input type="hidden" name="login_ga" value="{{$accommodation->Company}}">
+                                        {{--Reservati nfo--}}
+                                        <input type="hidden" name="adultsnumber" value="{{Request::segment(5)}}">
+                                        <input type="hidden" name="childrennumber" value="{{Request::segment(6)}}">
                                         <input type="hidden" name="checkin_date" value="{{Request::segment(3)}}">
                                         <input type="hidden" name="checkout_date" value="{{Request::segment(4)}}">
+                                        {{--User info--}}
+                                        <input type="hidden" name="name" value="{{$user->name}}">
+                                        <input type="hidden" name="surname" value="{{$user->surname}}">
+                                        <input type="hidden" name="street" value="{{$user->street}},{{$user->number}},{{$user->complement}} ">
+                                        <input type="hidden" name="district" value="{{$user->district}}">
+                                        <input type="hidden" name="zip_code" value="{{$user->zip_code}}">
+                                        <input type="hidden" name="city" value="{{$user->city_id}}">
+                                        <input type="hidden" name="country" value="{{$user->country_id}}">
+                                        <input type="hidden" name="phone" value="{{$user->phone}}">
+                                        <input type="hidden" name="email" value="{{$user->email}}">
+
+                                        <input type="hidden" name="board" value="ROOM_ONLY">
+
+                                        <input type="hidden" name="user_id" value="{{$user->id}}">
+                                        <input type="hidden" name="paymenttype" value="PIX">
+
 
                                         <input type="hidden" name="paymenttype" value="PIX">
                                         <div class="form-group">
@@ -389,11 +476,13 @@
     <script src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script>
         $(document).ready(function(){
-            $('.date').mask('00/00');
+            $('.card_number').mask('0000000000000000')
+            $('.expmonth').mask('00');
+            $('.expyear').mask('0000');
+            $('.cvv').mask('000');
             $('.cpf').mask('000.000.000-00', {reverse: true});
             $('.selectonfocus').mask("00/00", {selectOnFocus: true});
         });
     </script>
 
 @endsection
-

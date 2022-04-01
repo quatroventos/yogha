@@ -19,8 +19,8 @@
                     <?php if($favorites != ""){ ?>
                         <?php foreach($favorites as $accommodation){
                         $pictures = json_decode($accommodation->Pictures, true);
-                        if(isset($pictures['Picture'][0]['PreparedURI'])){
-                            $thumbnail = $pictures['Picture'][0]['ThumbnailURI'];
+                        if(isset($pictures['Picture'][0]['OriginalURI'])){
+                            $thumbnail = $pictures['Picture'][0]['OriginalURI'];
                         }
                         ?>
                         <li>

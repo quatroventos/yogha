@@ -103,7 +103,7 @@ img {
 }
 
 .header a {
-    color: #3d4852;
+    color: #F37440;
     font-size: 19px;
     font-weight: bold;
     text-decoration: none;
@@ -232,11 +232,11 @@ img {
 
 .button-blue,
 .button-primary {
-    background-color: #2d3748;
-    border-bottom: 8px solid #2d3748;
-    border-left: 18px solid #2d3748;
-    border-right: 18px solid #2d3748;
-    border-top: 8px solid #2d3748;
+    background-color: #F37440;
+    border-bottom: 8px solid #F37440;
+    border-left: 18px solid #F37440;
+    border-right: 18px solid #F37440;
+    border-top: 8px solid #F37440;
 }
 
 .button-green,

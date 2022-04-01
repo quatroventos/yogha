@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Accommodations;
 use App\Models\Favorites;
 use App\Models\Services;
 use App\Models\Stats;
@@ -42,10 +43,11 @@ class AccommodationController extends Controller
             }
         }
 
-        $accommodation = \DB::table('accommodations')
-            ->Leftjoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
+        $accommodation = Accommodations::with('descriptions')
+            ->with('pictures')
+            ->with('rates')
             ->where('accommodations.AccommodationId','=', $accommodationid)
-            ->get()->first();
+            ->first();
 
         $rates = \DB::table('rates')
             ->where('AccommodationId','=', $accommodationid)
@@ -65,7 +67,6 @@ class AccommodationController extends Controller
         session()->push('accommodations.recent', $accommodationid);
 
         $description = json_decode($accommodation->InternationalizedItem, true);
-        $pictures = json_decode($accommodation->Pictures, true);
         $features = json_decode($accommodation->Features, true);
         $localization = json_decode($accommodation->LocalizationData, true);
 
@@ -88,7 +89,7 @@ class AccommodationController extends Controller
             $totalcamas += $features['Distribution']['KingBeds'];
         }
 
-        return view('site.accommodation.index', compact('rates','accommodation', 'description', 'pictures', 'features', 'localization', 'latitude', 'longitude', 'zoom', 'totalcamas', 'services', 'occuppationalrules', 'isfav' ));
+        return view('site.accommodation.index', compact('rates','accommodation', 'description', 'features', 'localization', 'latitude', 'longitude', 'zoom', 'totalcamas', 'services', 'occuppationalrules', 'isfav' ));
     }
 
 }

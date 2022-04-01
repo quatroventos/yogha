@@ -1,6 +1,5 @@
 @extends('site.layouts.site')
 @section('content')
-
     <!-- HEADER -->
     <header class="mb-30 pt-15">
         <div class="container h-100">
@@ -25,23 +24,6 @@
 
 
     <!-- PROXIMIDADE -->
-
-{{--    <?php foreach($shelves as $shelf){ ?>--}}
-{{--        <section class="mb-15">--}}
-{{--            <div class="container">--}}
-{{--                <div class="row mb-10">--}}
-{{--                    <div class="col">--}}
-{{--                        <h2><strong><?php echo $shelf->title; ?></strong></h2>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                @php--}}
-{{--                    $layout = $shelf->layoutfile;--}}
-{{--                @endphp--}}
-{{--                @include($layout, ['accommodations' => $accommodations])--}}
-{{--            </div>--}}
-{{--        </section>--}}
-{{--    <?php } ?>--}}
-
         <!-- Mais visitados -->
         <section class="mb-15">
             <div class="container">
@@ -51,24 +33,22 @@
                     </div>
                 </div>
                 <div class="slider slide-3col">
+
                     <ul>
-                        <?php foreach($mostvisited as $accommodation){
-                        $pictures = json_decode($accommodation->Pictures, true);
-                        if(isset($pictures['Picture'][0]['PreparedURI'])){
-                            $thumbnail = $pictures['Picture'][0]['ThumbnailURI'];
-                        }
-                        ?>
+                        @foreach($mostvisited as $accommodation)
                             <li>
-                                <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>" class="texto-marrom-escuro">
-                                    <?php if(isset($pictures['Picture'][0]['OriginalURI'])){ ?>
-                                    <picture class="mb-10" style="background-image: url(<?php echo $pictures['Picture'][0]['OriginalURI']; ?>);"></picture>
-                                    <?php } ?>
-                                    <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
-{{--                                        <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$accommodation->Price}}</strong>/noite</h4>--}}
+                                <a href="accommodation/{{$accommodation->AccommodationId}}" class="texto-marrom-escuro">
+                                    @foreach($accommodation->pictures as $key => $pic)
+                                        @if($key == 0)
+                                            <picture class="mb-10" style="background-image: url({{Storage::disk('s3')->url($pic['thumbnail'])}});"></picture>
+                                        @endif
+                                    @endforeach
+                                    <h3 class="mb-5">{{$accommodation->AccommodationName}}</h3>
                                 </a>
                             </li>
-                        <?php } ?>
+                        @endforeach
                     </ul>
+
                 </div>
             </div>
         </section>
@@ -106,19 +86,16 @@
                 </div>
                 <div class="slider slide-3col">
                     <ul>
-                        <?php foreach($discount as $accommodation){
-                        $pictures = json_decode($accommodation->Pictures, true);
-                        if(isset($pictures['Picture'][0]['PreparedURI'])){
-                            $thumbnail = $pictures['Picture'][0]['ThumbnailURI'];
-                        }
-                        ?>
+                        <?php foreach($discount->toArray() as $accommodation){?>
                         <li>
-                            <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>" class="texto-marrom-escuro">
-                                <?php if(isset($pictures['Picture'][0]['OriginalURI'])){ ?>
-                                <picture class="mb-10" style="background-image: url(<?php echo $pictures['Picture'][0]['OriginalURI']; ?>);"></picture>
-                                <?php } ?>
-                                <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
-                                <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$accommodation->Price}}</strong>/noite</h4>
+                            <a href="accommodation/<?php echo $accommodation['AccommodationId']; ?>" class="texto-marrom-escuro">
+                                @foreach($accommodation['pictures'] as $key => $pic)
+                                    @if($key == 0)
+                                        <picture class="mb-10" style="background-image: url({{Storage::disk('s3')->url($pic['thumbnail'])}});"></picture>
+                                    @endif
+                                @endforeach
+                                <h3 class="mb-5"><?php echo $accommodation['AccommodationName']; ?></h3>
+                                <h4 class="texto-m d-flex gap-5">a partir de <strong class="texto-laranja">R${{$accommodation['Price']}}</strong>/noite</h4>
                             </a>
                         </li>
                         <?php } ?>
@@ -154,12 +131,7 @@
                             <ul>
                                 <?php foreach($populardistricts as $populardistrict){ ?>
                                 <li>
-                                    <a href="{{URL::to('/searchbydistrict/'.$populardistrict->District)}}">
-                                        <picture style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                                        <div>
-                                            <h3><strong>{{$populardistrict->District}}</strong></h3>
-                                        </div>
-                                    </a>
+                                    <a href="{{URL::to('/searchbydistrict/'.$populardistrict->District)}}" class="btn d-flex" style="height:130px;">{{$populardistrict->District}}</a>
                                 </li>
                                 <?php } ?>
                             </ul>

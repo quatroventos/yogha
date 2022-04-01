@@ -94,17 +94,14 @@
 
             <div class="row gap-10 texto-marrom-escuro">
                 <div class="col grow-0 pe-0">
-                    <?php $pictures = json_decode($result->Pictures, true); ?>
 
-                    @if(isset($pictures))
-
-                        @if(isset($pictures['Picture'][0]['AdaptedURI']) && $pictures['Picture'][0]['AdaptedURI'] != '')
-                            <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
-                                <picture class="pic-m" style="background-image: url({{$pictures['Picture'][0]['AdaptedURI']}});"></picture>
-                            </a>
-                        @endif
-
-                    @endif
+                        @foreach($result->pictures as $key => $pic)
+                            @if($key == 0)
+                                <a href="{{URL::to('/')}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
+                                    <picture class="mb-10" style="background-image: url({{Storage::disk('s3')->url($pic['thumbnail'])}});"></picture>
+                                </a>
+                            @endif
+                        @endforeach
 
                 </div>
                 <div class="col ps-0">
@@ -133,29 +130,26 @@
             </div>
         </div>
 
-        @foreach($results as $result)
+        @foreach($results->toArray() as $result)
             <div class="row mb-30">
                 <div class="col">
 
-                    @if(isset($pictures))
-                        <div class="slick slide-full">
-                            @foreach (array_slice($pictures['Picture'], 0, 8) as $picture)
-                                @if(isset($picture['AdaptedURI']) && $picture['AdaptedURI'] != '')
-                                    <a href="{{URL::to('/')}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
-                                        <picture style="background-image: url({{$picture['AdaptedURI']}});"></picture>
-                                    </a>
-                                @endif
-                            @endforeach
-                        </div>
-                    @endif
+                    <div class="slick slide-full">
+                    @foreach($result['pictures'] as $key => $pic)
+                        <a href="{{URL::to('/')}}/accommodation/{{$result['AccommodationId']}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}">
+                            <picture style="background-image: url({{Storage::disk('s3')->url($pic['thumbnail'])}});"></picture>
+                        </a>
+                    @endforeach
+                    </div>
 
-                    <a href="{{URL::to('/');}}/accommodation/{{$result->AccommodationId}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}" class="texto-marrom-escuro">
-                        <h2 class="mb-5"><strong>{{$result->AccommodationName}}</strong>
 
-                            @if(isset($occuppationalrules) && !empty($occuppationalrules))
-                                <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}.</span></p>
-                            @endif
-                            <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$result->Price}}</strong> /noite • <span class="texto-marrom">preço estimado</span></h4>
+                    <a href="{{URL::to('/');}}/accommodation/{{$result['AccommodationId']}}{{(Request::segment(3) != '' ? '/'.Request::segment(3)  : '')}}{{(Request::segment(4) != '' ? '/'.Request::segment(4) : '')}}{{(Request::segment(5) != '' ? '/'.Request::segment(5) : '')}}{{(Request::segment(6) != '' ? '/'.Request::segment(6) : '')}}{{(Request::segment(7) != '' ? '/'.Request::segment(7) : '')}}" class="texto-marrom-escuro">
+                        <h2 class="mb-5"><strong>{{$result['AccommodationName']}}</strong>
+
+{{--                            <p class="texto-m texto-ret mb-5"><span>Estadia mínima de {{$occuppationalrules[0]->MinimumNights}} noite{{($occuppationalrules[0]->MinimumNights > 1 ? 's' : '')}}.</span></p>--}}
+                        @if(isset($result['rates']['Price']))
+                            <h4 class="texto-m d-flex gap-5"><strong class="texto-laranja">R${{$result['rates']['Price']}}</strong> /noite • <span class="texto-marrom">preço estimado</span></h4>
+                        @endif
                     </a>
                 </div>
             </div>

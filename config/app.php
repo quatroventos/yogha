@@ -171,6 +171,7 @@ return [
          * Package Service Providers...
          */
         LaravelFrontendPresets\LightBootstrapPreset\LightBootstrapPresetServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -182,6 +183,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
+
+
+
 
     ],
 
@@ -237,6 +241,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Location' => Stevebauman\Location\Facades\Location::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+
     ],
 
 ];

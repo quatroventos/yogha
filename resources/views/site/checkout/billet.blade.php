@@ -1,7 +1,6 @@
 @extends('site.layouts.site')
 @section('content')
 
-
 <!-- CONTEUDO -->
 
 <section class="fixo-t">

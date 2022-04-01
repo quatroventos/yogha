@@ -39,10 +39,19 @@
                 </div>
                 <hr class="mb-30">
                 <div class="row mb-15 justify-content-center">
-                    <div class="col col-sm-5">
-                        <p>Chave PIX: {{$response['key']}}</p>
+                    <div class="col col-sm-5 text-center">
+                        <img src="{{$qrcode}}" width='300' height='300' style="margin:auto;">
+                    </div>
+                    <hr>
+                </div>
+
+                <div class="row mb-15 justify-content-center">
+                    <div class="col text-center">
+                        <h1>PIX Copia e cola:</h1>
+                        <pre style="font-size: 12px;">{{$copiacola}}</pre>
                     </div>
                 </div>
+
 
             </div>
         </div>

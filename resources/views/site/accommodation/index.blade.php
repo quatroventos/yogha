@@ -105,24 +105,22 @@
                 </div>
             </div>
         </div>
-        @if(isset($pictures))
-            <div class="row mb-15">
-                <div class="col px-0">
+
+        <div class="row mb-15">
+            <div class="col px-0">
                 <div class="slick slide-full">
-                    @foreach ($pictures['Picture'] as $picture)
-                        @if(isset($picture['OriginalURI']) && $picture['OriginalURI'] != '')
-                            <picture class="pic-full" style="background-image: url({{$picture['OriginalURI']}});"></picture>
-                        @endif
+                    @foreach($accommodation->pictures as $pic)
+                        <picture class="pic-full" style="background-image: url({{Storage::disk('s3')->url($pic['original'])}});"></picture>
                     @endforeach
                 </div>
             </div>
         </div>
-        @endif
+
         <div class="row">
             <div class="col">
 
                     <h2 class="texto-g mb-5">{{$accommodation->AccommodationName ?? ''}}</h2>
-                <h3 class="texto-m mb-5"><a href="/searchbydistrict/{{strtolower($description[0]['District']['Name'])}}">{{$description[0]['District']['Name'] ?? ''}}</a> - {{$description[0]['City']['Name'] ?? ''}} - {{$description[0]['Region']['Name'] ?? ''}}</h3>
+{{--                <h3 class="texto-m mb-5"><a href="/searchbydistrict/{{strtolower($description[0]['District']['Name'])}}">{{$description[0]['District']['Name'] ?? ''}}</a> - {{$description[0]['City']['Name'] ?? ''}} - {{$description[0]['Region']['Name'] ?? ''}}</h3>--}}
 
                 <p class="texto-m">
                     @if(empty($accommodation->Capacity) === false)

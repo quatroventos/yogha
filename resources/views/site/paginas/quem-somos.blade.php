@@ -50,54 +50,16 @@
           <div class="col-12">
             <div class="slider slide-3col mb-15">
               <ul>
-                <li>
-                  <a href="#!">
-                    <picture class="d-flex mb-10 pic-g" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                </li>
-                <li>
-                  <a href="#!">
-                    <picture class="d-flex mb-10 pic-g" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                </li>
-                <li>
-                  <a href="#!">
-                    <picture class="d-flex mb-10 pic-g" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                </li>
-                <li>
-                  <a href="#!">
-                    <picture class="d-flex mb-10 pic-g" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                </li>
-                <li>
-                  <a href="#!">
-                    <picture class="d-flex mb-10 pic-g" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                </li>
-                <li>
-                  <a href="#!">
-                    <picture class="d-flex mb-10 pic-g" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                </li>
-                <li>
-                  <a href="#!">
-                    <picture class="d-flex mb-10 pic-g" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                </li>
-                <li>
-                  <a href="#!">
-                    <picture class="d-flex mb-10 pic-g" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                </li>
-                <li>
-                  <a href="#!">
-                    <picture class="d-flex mb-10 pic-g" style="background-image: url(img/fundo-imagem.jpg);"></picture>
-                  </a>
-                </li>
+                  @for ($i = 0; $i <= 10; $i++)
+                      <li>
+                          <a href="https://instagram.com/yogha.host" target="_blank">
+                            <picture class="d-flex mb-10 pic-g" style="background-image: url({{'insta/images/'.$i.'.png'}});"></picture>
+                          </a>
+                      </li>
+                  @endfor
               </ul>
             </div>
-            <a href="#!" class="btn mx-auto">@yogha.host</a>
+            <a href="https://instagram.com/yogha.host" target="_blank" class="btn mx-auto">@yogha.host</a>
           </div>
         </div>
       </div>

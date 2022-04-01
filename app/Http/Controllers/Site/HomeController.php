@@ -12,6 +12,7 @@ use Stevebauman\Location\Facades\Location;
 
 class HomeController extends Controller
 {
+
     /**
      * Handle the incoming request.
      *
@@ -31,27 +32,36 @@ class HomeController extends Controller
 
         $total_accommodations = \DB::table('accommodations')->count();
 
-
         //descontos exclusivos (ordena pelo preço mais baixo)
         $discount = \DB::table('accommodations')
-            ->select('accommodations.*','descriptions.*','rates.*')
-            ->Leftjoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
-            ->Leftjoin('rates','rates.AccommodationId','=','accommodations.AccommodationId')
+            ->select('accommodations.*','rates.*')
+            ->join('rates','rates.AccommodationId','=','accommodations.AccommodationId')
             ->where('Price', '>', '30')
             ->OrderBy('Price','ASC')
             ->take(10)
             ->get();
 
+
+        $startdate = date("Y-m-d");
+        $enddate = date('Y-m-d', strtotime($startdate. ' + 2 days'));
+
+        $discount = Accommodations::
+        join('rates','rates.AccommodationId','=','accommodations.AccommodationId')
+        ->where('rates.StartDate', '<', "{$startdate}")
+        ->where('rates.EndDate', '>', "{$enddate}")
+        ->with('pictures')
+        ->orderby('Price', 'ASC')
+        ->take(10)
+        ->get();
+
         //accommodations mais acessadas
-        $mostvisited = \DB::table('accommodations')
-            ->select('accommodations.*','descriptions.*',\DB::raw('count(stats.*) as views'))
-            ->leftJoin('descriptions','descriptions.AccommodationId','=','accommodations.AccommodationId')
-            ->leftJoin('stats','stats.content_id', '=', 'accommodations.AccommodationId')
-            ->groupBy('accommodations.AccommodationId', 'stats.content_id', 'accommodations.id', 'descriptions.id')
-            ->where('stats.type', '=', 'accommodation')
-            ->OrderBy('views', 'DESC')
+
+        $mostvisited = Accommodations::withCount('views')
+            ->with('pictures')
+            ->orderBy('views_count', 'desc')
             ->take(10)
             ->get();
+
 
         //districts mais acessadas
         $populardistricts = \DB::table('localizations')

@@ -56,18 +56,30 @@
 <!-- MENUS -->
 
 <!-- MENU SUPERIOR -->
-<nav class="menu-sup show-t hidden">
-    <div class="container">
-        <div class="row">
-            <div class="col justify-content-center">
-                <a href="{{URL::to('/')}}"><img src="{{asset('img/icone-yogha-branco.svg')}}"></a>
-            </div>
-            <div class="col align-items-end justify-content-center">
-                <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="switch"><i class="icone-g texto-branco uil uil-bars"></i></a>
+    <nav id="stickymenu" class="menu-sup sticky-top" style="display:none; position: fixed; width: 100%;">
+        <div class="container">
+            <div class="row">
+                <div class="col justify-content-center">
+                    <a href="{{URL::to('/')}}"><img src="{{asset('img/icone-yogha-branco.svg')}}"></a>
+                </div>
+                <div class="col align-items-end justify-content-center">
+                    <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="switch"><i class="icone-g texto-branco uil uil-bars"></i></a>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
+    <script>
+        $(document).scroll(function() {
+            var y = $(this).scrollTop();
+            if (y > 40) {
+                $('#stickymenu').fadeIn('fast');
+            } else {
+                $('#stickymenu').hide();
+            }
+        });
+    </script>
+
+
 
 <!-- MENU INFERIOR -->
 <nav class="menu-inf fixo-b">
