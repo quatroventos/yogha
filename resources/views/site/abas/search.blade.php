@@ -1,14 +1,14 @@
 <section class="aba collapse" id="aba-busca">
     <div class="container fundo-branco pt-15 h-100">
         <div class="row align-items-center">
-            <div class="col align-self-start px-0 grow-0">
+            <div class="col align-self-start px-10 grow-0">
                 <a href="#!" data-bs-toggle="collapse" data-bs-target="#aba-busca" class="btn btn-2 btn-ico mb-0 switch"><i class="uil uil-angle-left"></i></a>
             </div>
             <div class="col mb-15 ps-0 ps-sm-2">
-                <input type="text" value="@if(isset($district) != ''){{$district}}@endif" class="typeahead" placeholder="Digite sua busca">
+                <input type="text" value="" class="typeahead" placeholder="Digite sua busca">
             </div>
             <div class="col-12 mb-15 col-sm-5">
-                <a href="accommodation/{{$surpriseme[0]->AccommodationId}}" class="btn d-flex">Surpreenda-me!</a>
+                <a href="/accommodation/{{$surpriseme[0]->AccommodationId}}" class="btn d-flex">Surpreenda-me!</a>
             </div>
         </div>
         @if($recently_viewed)
@@ -59,6 +59,13 @@
     </div>
 </section>
 
+<?php
+if(isset($district)){
+    $district = $district;
+}else{
+    $district = '';
+}
+?>
 
 <!-- TYPEAHEAD -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" ></script>
@@ -69,11 +76,14 @@
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
-    $('input.typeahead').keyup(function(){
-        $('.surpriseme').hide();
-    });
-
     var path = "{{ url('autocomplete-search-query') }}";
+
+    $( document ).ready(function(){
+        $(".typeahead").eq(0).val("{{$district}}").trigger("input");
+        $(".typeahead").eq(0).val("{{$district}}");
+    })
+
+
     $('input.typeahead').typeahead({
         source:  function (query, process) {
             return $.get(path, { query: query }, function (data) {

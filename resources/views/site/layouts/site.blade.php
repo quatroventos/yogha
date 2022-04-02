@@ -99,7 +99,7 @@
                 @endauth
             </div>
             <div class="col px-0">
-                <a href="#!" class="btn btn-ico mb-0 switch" data-bs-toggle="collapse" data-bs-target="#aba-mensagens"><i class="icone-g uil uil-comment-alt"></i></a>
+                <a href="https://wa.me/+5541996941949"  target="_blank" class="btn btn-ico mb-0" ><i class="icone-g uil uil-comment-alt"></i></a>
             </div>
             <div class="col px-0">
                 @auth

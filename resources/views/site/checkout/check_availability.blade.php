@@ -109,18 +109,18 @@
                                 <div class="idade align-items-center">
                                     <label><i class="uil uil-kid"></i></label>
                                     <input type="number" class="age" name="children" id="children" placeholder="Idade" value="{{$child}}">
-                                    <a href="#!" class="btn btn-3 btn-ico removechildren"><i class="uil uil-times"></i></a>
+                                    <a href="#!" class="btn btn-3 btn-ico delchild"><i class="uil uil-times"></i></a>
                                 </div>
                             </div>
                     @endforeach
                 @endif
-                <!--<div class="col-6">
+                <div class="col-6">
                             <div class="idade">
                                 <label><i class="uil uil-kid"></i></label>
                                 <input type="number" name="children" placeholder="Idade">
-                                <a href="#!" class="btn btn-3 btn-ico"><i class="uil uil-times"></i></a>
+                                <a href="#!" class="delchild btn btn-3 btn-ico"><i class="uil uil-times"></i></a>
                             </div>
-                        </div>-->
+                        </div>
                 </div>
             </div>
         </div>
@@ -151,8 +151,17 @@
 <script type="text/javascript" src="{{asset('js/funcoes.js')}}"></script>
 
 <script>
-    $(function() {
 
+    $(".children").click(function(){
+        $('.children-group').append('<div class="col-6 mb-15"><div class="idade align-items-center"><label><i class="uil uil-kid"></i></label><input type="number" class="age" name="children" id="children" placeholder="Idade"><a href="#!" class="btn btn-3 btn-ico delchild"><i class="uil uil-times"></i></a></div></div>')
+    });
+    $(".delchild").click(function(){
+        $(this).prev().remove();
+        $(this).parent().remove();
+        $(this).remove();
+    });
+
+    $(function() {
         $('#submit').click(function (){
             startdate = $('#startdate').val();
             enddate = $('#enddate').val();
@@ -172,14 +181,7 @@
             window.location.href = '{{URL::to('/')}}/checkout/{{Request::segment(2)}}/'+startdate+'/'+enddate+'/'+adults+'/'+children+'/'+ages;
         });
 
-        $(".children").click(function(){
-            $('.children-group').append('<div class="col-6 mb-15"><div class="idade align-items-center"><label><i class="uil uil-kid"></i></label><input type="number" class="age" name="children" id="children" placeholder="Idade"><a href="#!" class="btn btn-3 btn-ico removechildren"><i class="uil uil-times"></i></a></div></div>')
-        })
-        $(".removechildren").click(function(){
-            $(this).prev().remove();
-            $(this).parent().remove();
-            $(this).remove();
-        })
+
         <?php
         if ($unavailableDates == ''){
             $unavailableDates = "[]";

@@ -1,7 +1,7 @@
 @extends('site.layouts.site')
 @section('content')
     <!-- HEADER -->
-    <header class="mb-30 pt-15">
+    <header class="mb-30 pt-15" style="background-image: url('img/headers/quem-somos.png')">
         <div class="container h-100">
             <div class="row">
                 <div class="col">
@@ -11,7 +11,7 @@
                     <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>
                 </div>
             </div>
-            <div class="row h-100 mb-30 align-items-center justify-content-center">
+            <div class="row h-100 mb-30 p-0 mt-md-5 p-md-5 align-items-center justify-content-center">
                 <div class="col col-sm-6">
                     <h1 class="text-center texto-branco mb-15"><strong>Sinta-se em casa onde estiver</strong></h1>
                     <a href="#!" class="btn d-flex btn-2 mb-15 switch" data-bs-toggle="collapse" data-bs-target="#aba-busca"><i class="uil uil-search"></i> Onde você quer morar hoje?</a>
@@ -127,11 +127,11 @@
                 </div>
                 <div class="row mb-10">
                     <div class="col">
-                        <div class="slider slide-4col text-center texto-m texto-branco">
+                        <div class="slider slide-3col text-center texto-m texto-branco">
                             <ul>
                                 <?php foreach($populardistricts as $populardistrict){ ?>
                                 <li>
-                                    <a href="{{URL::to('/searchbydistrict/'.$populardistrict->District)}}" class="btn d-flex" style="height:130px;">{{$populardistrict->District}}</a>
+                                    <a href="{{URL::to('/searchbydistrict/'.$populardistrict->District)}}" class="btn d-flex" style="height:130px; border-radius: 10px;">{{$populardistrict->District}}</a>
                                 </li>
                                 <?php } ?>
                             </ul>

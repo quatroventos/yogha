@@ -24,7 +24,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/accommodation/{accommodationid}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'AccommodationController@index');
     //search
     Route::get('/autocomplete-search-query', 'SearchController@query');
-    Route::get('/searchfilter/{district?}/{startdate?}/{enddate?}', 'SearchController@filter');
+    Route::get('/searchfilter/{district?}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'SearchController@filter');
     Route::get('/searchbydistrict/{district}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'SearchController@searchbydistrict')->name('search.district');
     //services
     Route::get('/service_details/{serviceid}', 'ServicesController@show_details');

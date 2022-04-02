@@ -79,6 +79,7 @@
                 <h2 class="text-center mb-10"><strong>Estamos felizes em ter você aqui!</strong></h2>
                 <h3 class="text-center mb-15">Entre e aproveite todos os recursos que preparamos para você.</h3>
                 <form class="form" method="POST" action="{{ route('login') }}">
+                    {!! csrf_field() !!}
                     @csrf
                     <div class="form-group">
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="E-mail" autofocus>

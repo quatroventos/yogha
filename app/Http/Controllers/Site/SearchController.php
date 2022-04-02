@@ -7,6 +7,7 @@ use App\Models\Accommodations;
 use App\Models\Localizations;
 use App\Models\Descriptions;
 use App\Models\Stats;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
@@ -93,7 +94,12 @@ class SearchController extends Controller
 
         }
 
-        return view('site.busca.resultados', compact('results', 'district', 'surpriseme', 'recently_viewed', 'startdate', 'enddate'));
+        //formata datas para usar na view
+
+        $fstartdate =  Carbon::parse($startdate)->format('d/m/Y');
+        $fenddate =  Carbon::parse($enddate)->format('d/m/Y');
+
+        return view('site.busca.resultados', compact('results', 'district', 'surpriseme', 'recently_viewed', 'startdate', 'enddate','fstartdate', 'fenddate'));
     }
 
 }

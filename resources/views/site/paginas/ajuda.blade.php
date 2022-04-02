@@ -2,7 +2,27 @@
 @section('content')
 
     <!-- HEADER -->
-    <header class="mb-50" style="background-image: url(img/fundo-ajuda.jpg)">
+    <header class="mb-50 d-none d-md-block" style="background-image: url(img/headers/faq.png)">
+        <div class="container h-100 pt-15">
+            <div class="row mb-30">
+                <div class="col">
+                    <a href="{{URL::to('/')}}"><img class="img-m" src="img/logo-yogha-branco.svg"></a>
+                </div>
+                <div class="col align-items-end justify-content-center">
+                    <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>
+                </div>
+            </div>
+            <div class="row mb-30 h-100 text-center texto-branco">
+                <div class="col">
+                    <h1 class="mb-15"><strong>PERGUNTAS FREQUENTES</strong></h1>
+                    <h2 class="texto-fino texto-g">Queremos esclarecer todas as dúvidas que você possa ter</h2>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HEADER -->
+    <header class="mb-50 d-block d-md-none" style="background-image: url(img/headers/faq-m.png)">
         <div class="container h-100 pt-15">
             <div class="row mb-30">
                 <div class="col">

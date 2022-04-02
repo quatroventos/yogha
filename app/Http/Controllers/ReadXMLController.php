@@ -21,20 +21,20 @@ class ReadXMLController extends Controller
 
         //truncate das tabelas
 
-        \DB::table('accommodations')->truncate();
-        echo "accommodations apagada<br>";
+////        \DB::table('accommodations')->truncate();
+////        echo "accommodations apagada<br>";
         \DB::table('descriptions')->truncate();
         echo "descriptions apagada<br>";
-        \DB::table('rates')->truncate();
-        echo "rates apagada<br>";
-        \DB::table('localizations')->truncate();
-        echo "localizations apagada<br>";
-        \DB::table('occuppationalrules')->truncate();
-        echo "occuppational rules apagada<br>";
+//        \DB::table('rates')->truncate();
+////        echo "rates apagada<br>";
+////        \DB::table('localizations')->truncate();
+//        echo "localizations apagada<br>";
+//        \DB::table('occuppationalrules')->truncate();
+//        echo "occuppational rules apagada<br>";
         \DB::table('availabilities')->truncate();
         echo "availabilities rules apagada<br>";
-        \DB::table('rates')->truncate();
-        echo "rates apagada<br>";
+//        \DB::table('rates')->truncate();
+//        echo "rates apagada<br>";
 
         /**
          * Download

@@ -358,23 +358,17 @@ class CheckoutController extends Controller
             $state = $state->uf;
             $country = $country->nome;
 
+            echo 'hash: '.$request->hash.'<br>';
             echo '
             {
                     "charge": {
                         "description": "' . $request->description . '",
-                        "references": [
-                            "Parcela1", "Parcela2", "Parcela3", "Parcela4", "Parcela5", "Parcela6"
-                        ],
-
                         "totalAmount": ' . $request->amount . ',
-                        "amount": ' . $request->amount . ',
-                        "dueDate": "' . $duedate . ',",
-                        "installments": ' . $request->installments . ',,
+                        "dueDate": "' . $duedate . '",
+                        "installments": ' . $request->installments . ',
                         "maxOverdueDays": 1,
                         "fine": "1.00",
                         "interest": "2.00",
-                        "discountAmount": "1.00",
-                        "discountDays": 0,
                         "paymentTypes": [
                             "CREDIT_CARD"
                         ],
@@ -390,6 +384,8 @@ class CheckoutController extends Controller
                 }
             ';
 
+            die();
+
             curl_setopt_array($curl, array(
                 CURLOPT_URL => 'https://sandbox.boletobancario.com/api-integration/charges',
                 CURLOPT_RETURNTRANSFER => true,
@@ -402,19 +398,12 @@ class CheckoutController extends Controller
                 CURLOPT_POSTFIELDS => '{
                     "charge": {
                         "description": "' . $request->description . '",
-                        "references": [
-                            "Parcela1", "Parcela2", "Parcela3", "Parcela4", "Parcela5", "Parcela6"
-                        ],
-
                         "totalAmount": ' . $request->amount . ',
-                        "amount": ' . $request->amount . ',
-                        "dueDate": "' . $duedate . ',",
-                        "installments": ' . $request->installments . ',,
+                        "dueDate": "' . $duedate . '",
+                        "installments": ' . $request->installments . ',
                         "maxOverdueDays": 1,
                         "fine": "1.00",
                         "interest": "2.00",
-                        "discountAmount": "1.00",
-                        "discountDays": 0,
                         "paymentTypes": [
                             "CREDIT_CARD"
                         ],

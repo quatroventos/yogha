@@ -65,7 +65,11 @@
 {{--                                {{$features['Distribution']['Toilets']}} Banheiros--}}
 {{--                            @endif--}}
                         </p>
-                        <small class="btn-link texto-m px-0"><i class="icone-p uil uil-phone"></i> <strong>Reservar por telefone: 41 9 9999-9999</strong></small>
+                        <small class="btn-link texto-m px-0">
+                            <a href="https://wa.me/+5541996941949" target="_blank">
+                                <i class="icone-p uil uil-phone"></i> <strong>Reservar por telefone: 41 9 9694-1949</strong>
+                            </a>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -232,10 +236,10 @@
 
                                     <div class="alert alert-danger errors" style="display: none"></div>
 
-                                    <form method="post" action="{{ route('generate.card') }}" class="pt-10 mb-30 credit-card-form" autocomplete="off" enctype="multipart/form-data">
+                                    <form method="post" action="{{ route('generate.card') }}" class="pt-10 mb-30 credit-card-form" autocomplete="off" id="creditCardForm" enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="description" value="{{$noites}} noites em {{$accommodation->AccommodationName}} para {{$hospedes}} pessoas.">
-                                        <input type="hidden" name="amount" value="{{$amount}}">
+                                        <input type="hidden" name="amount" class='amount' value="{{$amount}}">
                                         {{--Accommoda info--}}
                                         <input type="hidden" name="accommodation_code" value="{{$accommodation->AccommodationId}}">
                                         <input type="hidden" name="user_code" value="{{$accommodation->UserId}}">
@@ -260,50 +264,55 @@
                                         <input type="text" name="hash" id="hash" value="">
 
                                         <input type="hidden" name="board" value="ROOM_ONLY">
-                                        {{--//TODO: VERIFICAR ESTA INFO COM A AVANTIO--}}
 
                                         <input type="hidden" name="user_id" value="{{$user->id}}">
-                                        <input type="hidden" name="paymenttype" value="BOLETO">
+                                        <input type="hidden" name="paymenttype" value="CREDIT_CARD">
 
                                         <div class="form-group">
-                                            <input class="d-flex card_name" type="text" name="card_name" placeholder="Nome no cartão">
+                                            <input class="d-flex card_name" type="text" name="card_name" placeholder="Nome no cartão" required>
                                         </div>
                                         <div class="form-group">
-                                            <input class="d-flex card_number" type="text" name="card_number" placeholder="Número do cartão">
+                                            <input class="d-flex card_number" type="text" name="card_number" placeholder="Número do cartão" required>
                                         </div>
                                         <div class="form-group form-inline">
-                                            <input class="col expmonth" type="text" name="month" placeholder="Validade MM">
-                                            <input class="col expyear" type="text" name="year" placeholder="Validade AAAA">
-                                            <input class="col-1 cvv" type="text" name="card_cvv" placeholder="CVV">
+                                            <input class="col expmonth" type="text" name="month" placeholder="Validade MM" required>
+                                            <input class="col expyear" type="text" name="year" placeholder="Validade AAAA" required>
+                                            <input class="col-1 cvv" type="text" name="card_cvv" placeholder="CVV" required>
                                         </div>
                                         <div class="form-group">
-                                            <input class="d-flex" type="text" name="document" placeholder="Documento">
+                                            <input class="d-flex" type="text" name="document" placeholder="Documento" required>
                                         </div>
                                         <div class="form-group">
                                             <input class="d-flex" type="text" name="email" placeholder="E-mail" value="{{$user->email}}">
                                         </div>
 
                                         <div class="form-group">
-                                            <select class="d-flex form-control" name="installments">
+                                            <select class="d-flex form-control installments" name="installments">
                                                 <?php
                                                     $parcela = str_replace('.',',',$amount);
-                                                    echo "<option> 1 parcelas de R$ {$parcela}</option>";
+                                                    echo "<option value='1'> 1 parcelas de R$ {$parcela}</option>";
                                                     $tax = 2.5;		// TAXA (2 = 2%)
                                                     for($i=2;$i<=12;$i++){
-                                                        $mont = $amount * pow( (1 + ($tax / 100)) , $i );
-                                                        $parcela = round($mont / $i, 2);
+                                                        $total = $amount * pow( (1 + ($tax / 100)) , $i );
+                                                        $parcela = round($total / $i, 2);
                                                         $parcela = str_replace('.',',',$parcela);
-                                                        echo "<option '{$i}'> {$i} parcelas de R$ {$parcela}</option>";
+                                                        echo "<option value='{$i}' data-total='{$total}'> {$i} parcelas de R$ {$parcela}</option>";
                                                     }
                                                 ?>
                                             </select>
                                             <script type="text/javascript" src="https://sandbox.boletobancario.com/boletofacil/wro/direct-checkout.min.js"></script>
                                             <script type="text/javascript">
+                                                //TODO: remover false para a versão de produção.
                                                 var checkout = new DirectCheckout('66399A7A5F97072EA433624C0854D8690797908EBBF487A65A2CB49DC49AECEE', false);
+
+                                                $('.installments').on('change', function (){
+                                                    var total = $("option:selected", this).attr("data-total");
+                                                   $('.amount').val(total);
+                                                });
 
                                                 $('.card_number').on('blur', function() {
                                                     var cardnumber = $('.card_number').val();
-                                                    /* Em sandbox utilizar o construtor new DirectCheckout('PUBLIC_TOKEN', false); */
+
                                                     cardData = {
                                                         cardNumber: cardnumber,
                                                     };
@@ -312,38 +321,48 @@
 
                                                 $('.credit-card-form').submit(function(event) {
 
+                                                    var hash = $('#hash').val();
+
+                                                    if(hash == ''){
                                                         event.preventDefault();
+                                                    }
 
-                                                        var cardnumber = $('.card_number').val();
-                                                        var holdername = $('.card_name').val();
-                                                        var cvv =  $('.cvv').val();
-                                                        var expmonth =  $('.expmonth').val();
-                                                        var expyear =  $('.expyear').val();
+                                                    var cardnumber = $('.card_number').val();
+                                                    var holdername = $('.card_name').val();
+                                                    var cvv =  $('.cvv').val();
+                                                    var expmonth =  $('.expmonth').val();
+                                                    var expyear =  $('.expyear').val();
 
-                                                        /* Em sandbox utilizar o construtor new DirectCheckout('PUBLIC_TOKEN', false); */
-                                                        cardData = {
-                                                            cardNumber: cardnumber,
-                                                            holderName: holdername,
-                                                            securityCode: cvv,
-                                                            expirationMonth: expmonth,
-                                                            expirationYear: expyear
-                                                        };
+                                                    var valid = true;
 
-                                                        checkout.getCardHash(cardData, function (cardHash) {
-                                                            $('#hash').val(cardHash);
-                                                            $('.errors').hide('fast');
-                                                            $(this).submit();
-                                                        }, function (error) {
+                                                    cardData = {
+                                                        cardNumber: cardnumber,
+                                                        holderName: holdername,
+                                                        securityCode: cvv,
+                                                        expirationMonth: expmonth,
+                                                        expirationYear: expyear
+                                                    };
 
-                                                            $('.errors').show('fast');
-                                                            $('.errors').html(error);
+                                                    checkout.getCardHash(cardData, function (cardHash) {
 
-                                                            return false;
-                                                        });
+                                                        $('#hash').val(cardHash);
+                                                        $('.errors').hide('fast');
+
+                                                        $('.card-btn').html('Processando...');
+                                                        $('.card-btn').prop("disabled",true);
+
+                                                        $('.credit-card-form').submit();
+
+                                                    }, function (error) {
+                                                        $('.errors').show('fast');
+                                                        $('.errors').html(error);
+                                                        valid = false;
+                                                    });
+
                                                 });
                                             </script>
                                         </div>
-                                        <button type="submit" class="btn d-flex">Pagar com cartão</button>
+                                        <button type="submit" class="btn d-flex card-btn">Pagar com cartão</button>
                                     </form>
                                 </li>
                                 @if($enablebillet == 1)

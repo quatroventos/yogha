@@ -8,7 +8,26 @@
     @endif
 
     <!-- HEADER -->
-    <header class="mb-50" style="background-image: url(img/fundo-alugue-seu-imovel.jpg)">
+    <header class="mb-50 d-none d-md-block" style="background-image: url(img/headers/alugue.png)">
+        <div class="container h-100 pt-15">
+            <div class="row mb-30">
+                <div class="col">
+                    <a href=""><img class="img-m" src="img/logo-yogha-branco.svg"></a>
+                </div>
+                <div class="col align-items-end justify-content-center">
+                    <a href="#!" data-bs-toggle="collapse" data-bs-target="#menu-lateral" class="texto-branco switch"><i class="icone-g uil uil-bars"></i></a>
+                </div>
+            </div>
+            <div class="row mb-30 h-100 text-center texto-branco">
+                <div class="col">
+                    <h1 class="mb-15"><strong>APROVEITE A OPORTUNIDADE</strong></h1>
+                    <h2 class="texto-fino texto-g">Alugue seu imóvel, aproveite e deixe o resto com a gente!</h2>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <header class="mb-50 d-block d-md-none" style="background-image: url(img/headers/alugue.png)">
         <div class="container h-100 pt-15">
             <div class="row mb-30">
                 <div class="col">
