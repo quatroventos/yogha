@@ -59,7 +59,11 @@
 @env('local')
     <div class="alerta ativo" style="color: white; background: red; top:0; height: 10px; width: 30%; margin:10px auto; opacity:.5;"> <i class="fa-solid fa-vial"></i> Ambiente de testes </div>
 @endenv
-
+@if($errors->any())
+    <div class="alert-danger" style="position:relative; width: 100%; padding:14px;">
+        <h4>{{$errors->first()}}</h4>
+    </div>
+@endif
 <header class="mb-30">
     <div class="container">
         <div class="row pt-15">
@@ -115,6 +119,8 @@
                 </div>
             </div>
         </div>
+
+
 
         <div class="row">
             <div class="col">
@@ -437,16 +443,15 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="slider slide-4col texto-m texto-branco">
+                        <div class="slider slide-4col texto-m texto-branco text-center">
                             <ul>
                                 @foreach($services as $service)
                                 <li>
-                                    <a href="{{URL::to('/service_details')}}/{{$service->id}}" class="switch service-link" data-bs-toggle="collapse" data-bs-target="#aba-loja-single" >
-                                        <picture style="background-image: url({{URL::to('/')}}/files/services/{{$service->image}});"></picture>
-                                        <div>
-                                            <h3>{{$service->title}} - R$ {{$service->price}}</h3>
-                                        </div>
-                                    </a>
+                                    <picture style="background-image: url({{URL::to('/')}}/files/services/{{$service->image}});"></picture>
+                                    <div>
+                                        <h3>{{$service->title}} - R$ {{$service->price}}</h3>
+                                        <a href="{{URL::to('/removefromcart/'.$service->id)}}"  class="btn d-flex addToCart" style="margin:20px; width: 80%; font-size:15px;">Contratar</a>
+                                    </div>
                                 </li>
                                 @endforeach
                             </ul>

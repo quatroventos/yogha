@@ -1,2 +1,2 @@
-<section class="aba collapse" id="aba-loja-single">
+<section class="aba collapse switch" id="aba-loja-single">
 </section>

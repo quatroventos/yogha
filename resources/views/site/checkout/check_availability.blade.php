@@ -112,17 +112,9 @@
                                     <a href="#!" class="btn btn-3 btn-ico delchild"><i class="uil uil-times"></i></a>
                                 </div>
                             </div>
-                    @endforeach
-                @endif
-                <div class="col-6">
-                            <div class="idade">
-                                <label><i class="uil uil-kid"></i></label>
-                                <input type="number" name="children" placeholder="Idade">
-                                <a href="#!" class="delchild btn btn-3 btn-ico"><i class="uil uil-times"></i></a>
-                            </div>
-                        </div>
+                        @endforeach
+                    @endif
                 </div>
-            </div>
         </div>
     </div>
 </section>
@@ -155,9 +147,10 @@
     $(".children").click(function(){
         $('.children-group').append('<div class="col-6 mb-15"><div class="idade align-items-center"><label><i class="uil uil-kid"></i></label><input type="number" class="age" name="children" id="children" placeholder="Idade"><a href="#!" class="btn btn-3 btn-ico delchild"><i class="uil uil-times"></i></a></div></div>')
     });
-    $(".delchild").click(function(){
+    $(".children-group").on('click','.delchild', function(){
         $(this).prev().remove();
         $(this).parent().remove();
+        $(this).parent().parent().remove();
         $(this).remove();
     });
 

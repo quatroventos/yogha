@@ -61,9 +61,6 @@
                             @if($totalcamas > 0)
                                 {{$totalcamas}} camas
                             @endif
-{{--                            @if(empty($features['Distribution']['Toilets']) === false)--}}
-{{--                                {{$features['Distribution']['Toilets']}} Banheiros--}}
-{{--                            @endif--}}
                         </p>
                         <small class="btn-link texto-m px-0">
                             <a href="https://wa.me/+5541996941949" target="_blank">
