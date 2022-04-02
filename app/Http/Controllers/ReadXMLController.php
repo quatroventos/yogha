@@ -193,7 +193,7 @@ class ReadXMLController extends Controller
                     "Vat" => $vat,
                     "Features" => $features,
                     "CheckInCheckOutInfo" => $CheckInCheckOutInfo,
-                    "slug" => Str::slug($data['UserKind'].' em '.$data['LocalizationData']['City']['Name'].' '.$data['AccommodationName'].' '.$data['AccommodationId'], '_'),
+                    "slug" => Str::slug($data['UserKind'].' em '.$data['LocalizationData']['City']['Name'].' '.$data['AccommodationName'].' '.$data['AccommodationId'], '-'),
                 ];
 
 //               //importa Availability em outra tabela

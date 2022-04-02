@@ -58,7 +58,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col grow-0 px-0">
-                <a href="#!" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
+                <a href="javascript:history.back();" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
             </div>
             <div class="col align-self-center *justify-content-center">
                 <h3 class="text-center"><strong>Recuperar senha</strong></h3>

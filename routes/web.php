@@ -27,34 +27,25 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/searchfilter/{district?}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'SearchController@filter');
     Route::get('/searchbydistrict/{district}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'SearchController@searchbydistrict')->name('search.district');
     //services
-    Route::get('/service_details/{serviceid}', 'ServicesController@show_details');
-    Route::get('/checkoutaddtocart/{id}', 'ServicesController@add_to_cart_via_checkout');
-    Route::get('/addtocart/{id}', 'ServicesController@add_to_cart');
-    Route::get('/removefromcart/{id}', 'ServicesController@remove_from_cart');
-
+    //Route::get('/service_details/{serviceid}', 'ServicesController@show_details');
 
     //blog
     Route::get('/blog/{category}/{slug}', 'BlogController@category')->name('blog.category');
     Route::get('/blog/{slug}', 'BlogController@post')->name('blog.post');
     Route::get('/blog', 'BlogController@index')->name('blog');
 
-    //user
-//    Route::post('/user/create', 'UserController@create')->name('frontend.user.create');
-//    Route::get('/user/edit/{user_id?}', 'UserController@edit')->name('frontend.user.edit');
-//    Route::get('/user/create_account/', 'UserController@edit')->name('frontend.user.register');
-//    Route::get('/user/email_verification', 'UserController@email_verification')->name('frontend.verification');
-//    Route::get('/user/resend_confirmation', 'UserController@edit')->name('frontend.verification.resend');
-    Route::any('/juno_webhook', 'CheckoutController@juno_webhook');
-
-
     Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         //checkout
-        Route::get('/checkout/{accommodationid}/{startdate}/{enddate}/{adults?}/{children?}/{ages?}', 'CheckoutController@index')->name('checkout');
         Route::get('/check_availability/{accommodationid}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'CheckoutController@check_availability');
+        Route::get('/checkout/{accommodationid}/{startdate}/{enddate}/{adults?}/{children?}/{ages?}', 'CheckoutController@index')->name('checkout');
         Route::post('/checkout/billet', 'CheckoutController@generatebillet')->name('generate.billet');
         Route::post('/checkout/pix', 'CheckoutController@generatepix')->name('generate.pix');
         Route::post('/checkout/card', 'CheckoutController@generatecard')->name('generate.card');
         Route::get('/cancel/{bookingcode}/{localizator}/{hash}', 'CheckoutController@cancelbooking');
+        Route::get('/checkoutaddtocart/{id}', 'ServicesController@add_to_cart_via_checkout');
+        Route::get('/addtocart/{id}', 'ServicesController@add_to_cart');
+        Route::get('/removefromcart/{id}', 'ServicesController@remove_from_cart');
+        Route::get('/check_availability/{accommodationid}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'CheckoutController@check_availability');
 
         //favorites
         Route::get('/favorite/{accommodationid}/{userid}', 'FavoritesController@fav');

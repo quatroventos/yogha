@@ -45,7 +45,12 @@
             <div class="col-12 col-sm-4">
                 <div class="row mb-30">
                     <div class="col grow-0 pe-0">
-                        <picture class="pic-m" style="background-image: url({{$pictures['Picture'][0]['OriginalURI'] ?? ''}});"></picture>
+                        @foreach($accommodation['pictures'] as $key => $pic)
+                            @if($key == 0)
+                                <picture class="pic-m" style="background-image: url({{Storage::disk('s3')->url($pic['thumbnail'])}});"></picture>
+                            @endif
+                        @endforeach
+
                     </div>
                     <div class="col">
                         <p></p>
@@ -258,7 +263,7 @@
                                         <input type="hidden" name="country" value="{{$user->country_id}}">
                                         <input type="hidden" name="phone" value="{{$user->phone}}">
                                         <input type="hidden" name="email" value="{{$user->email}}">
-                                        <input type="text" name="hash" id="hash" value="">
+                                        <input type="hidden" name="hash" id="hash" value="">
 
                                         <input type="hidden" name="board" value="ROOM_ONLY">
 
@@ -266,7 +271,7 @@
                                         <input type="hidden" name="paymenttype" value="CREDIT_CARD">
 
                                         <div class="form-group">
-                                            <input class="d-flex card_name" type="text" name="card_name" placeholder="Nome no cartão" required>
+                                            <input class="d-flex card_name" type="text" name="card_name" placeholder="Nome no cartão" value="{{$user->name}} {{$user->surname}}" required>
                                         </div>
                                         <div class="form-group">
                                             <input class="d-flex card_number" type="text" name="card_number" placeholder="Número do cartão" required>
@@ -277,7 +282,7 @@
                                             <input class="col-1 cvv" type="text" name="card_cvv" placeholder="CVV" required>
                                         </div>
                                         <div class="form-group">
-                                            <input class="d-flex" type="text" name="document" placeholder="Documento" required>
+                                            <input class="d-flex" type="text" name="document" placeholder="Documento" value="{{$user->cpf}}" required>
                                         </div>
                                         <div class="form-group">
                                             <input class="d-flex" type="text" name="email" placeholder="E-mail" value="{{$user->email}}">
@@ -300,7 +305,7 @@
                                             <script type="text/javascript" src="https://sandbox.boletobancario.com/boletofacil/wro/direct-checkout.min.js"></script>
                                             <script type="text/javascript">
                                                 //TODO: remover false para a versão de produção.
-                                                var checkout = new DirectCheckout('66399A7A5F97072EA433624C0854D8690797908EBBF487A65A2CB49DC49AECEE', false);
+                                                var checkout = new DirectCheckout('66399A7A5F97072EA433624C0854D8696E4159EE153D21E87862FA7E9C875AB8',false);
 
                                                 $('.installments').on('change', function (){
                                                     var total = $("option:selected", this).attr("data-total");

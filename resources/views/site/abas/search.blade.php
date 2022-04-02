@@ -23,7 +23,7 @@
                     <ul>
                         @foreach($recently_viewed as $recent)
                             <li>
-                                <a href="aluguel/{{$recent->slug}}" class="btn btn-3 btn-p">
+                                <a href="/aluguel/{{$recent->slug}}" class="btn btn-3 btn-p">
                                     <strong>{{$recent->AccommodationName}}</strong>
                                 </a>
                             </li>

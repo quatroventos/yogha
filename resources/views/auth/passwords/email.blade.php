@@ -58,16 +58,16 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col grow-0 px-0">
-                        <a href="#!" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
-                    </div>  
+                        <a href="javascript:history.back();" class="btn btn-2 btn-ico"><i class="uil uil-angle-left"></i></a>
+                    </div>
                     <div class="col align-self-center *justify-content-center">
                         <h3 class="text-center"><strong>Recuperar senha</strong></h3>
-                    </div> 
+                    </div>
                     <div class="col grow-0 px-0">
                         <span class="btn btn-2 btn-ico"></span>
-                    </div>         
+                    </div>
                 </div>
-            </div>      
+            </div>
         </section>
 
         <section class="h-100">
@@ -77,7 +77,7 @@
                         <h2 class="text-center mb-10"><strong>Problemas para entrar?</strong></h2>
                         <h3 class="text-center mb-15">Insira o seu email e enviaremos um link para você voltar a acessar a sua conta.</h3>
                         <form method="POST" action="{{ route('password.email') }}">
-                            @csrf                    
+                            @csrf
                             <div class="form-group">
                                 <input id="email" type="email" placeholder="E-mail" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                 @error('email')
@@ -89,11 +89,11 @@
                             <div class="form-group">
                                 <button type="submit" class="btn d-flex">Enviar</button>
                             </div>
-                            <div class="form-group">     
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-link d-flex">Criar conta</button>
                             </div>
                         </form>
-                    </div>        
+                    </div>
                 </div>
             </div>
         </section>

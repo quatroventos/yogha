@@ -160,6 +160,13 @@
       0 => 'RicorocksDigitalAgency\\Soap\\Facades\\Soap',
     ),
   ),
+  'spatie/laravel-sitemap' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\Sitemap\\SitemapServiceProvider',
+    ),
+  ),
   'spatie/laravel-webhook-client' => 
   array (
     'providers' => 

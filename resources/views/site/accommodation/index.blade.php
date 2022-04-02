@@ -47,13 +47,9 @@
 </head>
 
 <body id="single-anuncio">
-<!-- ABA LOJA -->
-@include('site.abas.service_list')
-<!-- ABA LOJA SINGLE -->
-@include('site.abas.service_details')
+
 
 <!-- CONTEUDO -->
-
 
 
 @env('local')
@@ -450,7 +446,7 @@
                                     <picture style="background-image: url({{URL::to('/')}}/files/services/{{$service->image}});"></picture>
                                     <div>
                                         <h3>{{$service->title}} - R$ {{$service->price}}</h3>
-                                        <a href="{{URL::to('/removefromcart/'.$service->id)}}"  class="btn d-flex addToCart" style="margin:20px; width: 80%; font-size:15px;">Contratar</a>
+                                        <a href="{{URL::to('/checkoutaddtocart/'.$service->id)}}"  class="btn d-flex addToCart" style="margin:20px; width: 80%; font-size:15px;">Contratar</a>
                                     </div>
                                 </li>
                                 @endforeach

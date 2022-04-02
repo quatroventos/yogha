@@ -351,43 +351,16 @@ class CheckoutController extends Controller
             $duedate = Carbon::now()->addDays(5)->format('Y-m-d');
             $birthday = implode('-', array_reverse(explode('/', $request->birthday)));
             $city = Cities::where('id', $request->city)->first();
-            $state = States::where('id', $request->state)->first();
+            $estate = States::where('id', $request->state)->first();
             $country = Countries::where('id', $request->country)->first();
 
             $city = $city->nome;
-            $state = $state->uf;
+            $estate = $estate->uf;
             $country = $country->nome;
 
-            echo 'hash: '.$request->hash.'<br>';
-            echo '
-            {
-                    "charge": {
-                        "description": "' . $request->description . '",
-                        "totalAmount": ' . $request->amount . ',
-                        "dueDate": "' . $duedate . '",
-                        "installments": ' . $request->installments . ',
-                        "maxOverdueDays": 1,
-                        "fine": "1.00",
-                        "interest": "2.00",
-                        "paymentTypes": [
-                            "CREDIT_CARD"
-                        ],
-                        "paymentAdvance": false
-                    },
-                    "billing": {
-                        "name": "' . $request->name . '",
-                        "document": "' . preg_replace('/[^0-9]/', '', $request->document) . '",
-                        "email": "' . $request->email . '",
-                        "birthDate": "' . $birthday . '",
-                        "notify": true
-                    }
-                }
-            ';
-
-            die();
-
+            //gera a cobrança
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://sandbox.boletobancario.com/api-integration/charges',
+                CURLOPT_URL => 'https://boletobancario.com/api-integration/charges',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -396,7 +369,7 @@ class CheckoutController extends Controller
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'GET',
                 CURLOPT_POSTFIELDS => '{
-                    "charge": {
+                     "charge": {
                         "description": "' . $request->description . '",
                         "totalAmount": ' . $request->amount . ',
                         "dueDate": "' . $duedate . '",
@@ -429,7 +402,56 @@ class CheckoutController extends Controller
             $response = curl_exec($curl);
 
             curl_close($curl);
+
+            $response = json_decode($response, true);
+            $paymentid = $response['_embedded']['charges'][0]['id'];
+
+            //efetua o pagamento
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://boletobancario.com/api-integration/payments',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
+                "chargeId":"'.$paymentid.'",
+                "creditCardDetails": {
+                    "creditCardHash": "'.$request->hash.'"
+                },"billing": {
+                    "email": "'.$request->email.'",
+                    "address": {
+                        "street": "'.$request->street.'",
+                        "number": "'.$request->number.'",
+                        "complement": "'.$request->complement.'",
+                        "neighborhood": "'.$request->district.'",
+                        "city": "'.$city.'",
+                        "state": "'.$estate.'",
+                        "postCode": "'.str_replace('-','', $request->zip_code).'"
+                    }
+                }
+            }',
+                CURLOPT_HTTPHEADER => array(
+                    'X-Api-Version: 2',
+                    'X-Resource-Token: ' . $resource_token,
+                    'Authorization: Bearer ' . $authBearer,
+                    'Content-Type: application/json',
+                    'Cookie: AWSALBTG=Q+s42W00POYi+Ee771bJ2GYCWSbcBb0txgvPygWTTjqLCMZvfegZs6ZpMXeXsKYNehmUUuIpj7Nr79H8WyCETQzGt1Yf/Xf3Unn2EYuGIZ5pEe4rD+6F8SE1VDG+4fP23UZokY93pI8llTkqSRY2EyjD/XIlsLQw9MkIY2Ybyr6hAvqk8FQ=; AWSALBTGCORS=Q+s42W00POYi+Ee771bJ2GYCWSbcBb0txgvPygWTTjqLCMZvfegZs6ZpMXeXsKYNehmUUuIpj7Nr79H8WyCETQzGt1Yf/Xf3Unn2EYuGIZ5pEe4rD+6F8SE1VDG+4fP23UZokY93pI8llTkqSRY2EyjD/XIlsLQw9MkIY2Ybyr6hAvqk8FQ='
+                ),
+            ));
+
+
+            echo $request->hash ."<br>" ;
+            $response = curl_exec($curl);
+
+            curl_close($curl);
             echo $response;
+
+
             die();
         }
     }
