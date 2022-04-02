@@ -7,7 +7,7 @@
         }
         ?>
         <li>
-            <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>" class="texto-marrom-escuro">
+            <a href="aluguel/<?php echo $accommodation->slug; ?>" class="texto-marrom-escuro">
                 <?php if(isset($pictures['Picture'][0]['OriginalURI'])){ ?>
                 <picture class="mb-10" style="background-image: url(<?php echo $pictures['Picture'][0]['OriginalURI']; ?>);"></picture>
                 <?php } ?>

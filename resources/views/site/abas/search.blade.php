@@ -8,7 +8,7 @@
                 <input type="text" value="" class="typeahead" placeholder="Digite sua busca">
             </div>
             <div class="col-12 mb-15 col-sm-5">
-                <a href="/accommodation/{{$surpriseme[0]->AccommodationId}}" class="btn d-flex">Surpreenda-me!</a>
+                <a href="/aluguel/{{$surpriseme[0]->slug}}" class="btn d-flex">Surpreenda-me!</a>
             </div>
         </div>
         @if($recently_viewed)
@@ -23,7 +23,7 @@
                     <ul>
                         @foreach($recently_viewed as $recent)
                             <li>
-                                <a href="accommodation/{{$recent->AccommodationId}}" class="btn btn-3 btn-p">
+                                <a href="aluguel/{{$recent->slug}}" class="btn btn-3 btn-p">
                                     <strong>{{$recent->AccommodationName}}</strong>
                                 </a>
                             </li>
@@ -101,9 +101,14 @@ if(isset($district)){
                     $('#searchResults').append('<li><a href="{{URL::to('/')}}/searchfilter/'+data["Districts"][index]["District"]+'" class="d-flex gap-10 align-items-center"><picture class="row-0 me-15" style="background-image: url({{asset('img/fundo-ponto.jpg')}});"></picture>'+capitalize(data["Districts"][index]["District"])+' - '+data["Districts"][index]["City"]+'</a></li>')
                 });
 
+                // str = JSON.stringify(data.Accommodations);
+                // str = JSON.stringify(data.Accommodations, null, 4); // (Optional) beautiful indented output.
+                // console.log(str); // Logs output to dev tools console.
+                // alert(str); // Displays output using window.alert()
+
                 $('#searchResults2').empty();
                 $.each(data.Accommodations, function( index, value ) {
-                    $('#searchResults2').append('<li><a href="{{URL::to('/')}}/accommodation/'+data["Accommodations"][index]["AccommodationId"]+'" class="d-flex gap-10 align-items-center"><picture class="row-0 me-15" style="background-image: url({{asset('img/fundo-ponto.jpg')}});"></picture>'+data["Accommodations"][index]["AccommodationName"]+' - '+data["Accommodations"][index]["District"]+'</a></li>')
+                    $('#searchResults2').append('<li><a href="{{URL::to('/')}}/aluguel/'+data["Accommodations"][index]["slug"]+'" class="d-flex gap-10 align-items-center"><picture class="row-0 me-15" style="background-image: url({{asset('img/fundo-ponto.jpg')}});"></picture>'+data["Accommodations"][index]["AccommodationName"]+' - '+data["Accommodations"][index]["District"]+'</a></li>')
                 });
 
             });

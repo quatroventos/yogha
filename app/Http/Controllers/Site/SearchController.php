@@ -32,7 +32,7 @@ class SearchController extends Controller
             ->unique('District');
 
         $data['Accommodations'] = \DB::table('accommodations')
-            ->select('accommodations.AccommodationName','accommodations.AccommodationId')
+            ->select('accommodations.AccommodationName','accommodations.slug')
             ->whereRaw('LOWER("AccommodationName") LIKE ? ' , "%".strtolower($input['query'])."%")
             ->take(20)
             ->get();

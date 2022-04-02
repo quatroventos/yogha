@@ -17,13 +17,9 @@ class AccommodationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index($accommodationid, $startdate='', $enddate='')
+    public function index($accommodationslug, $startdate='', $enddate='')
     {
-        //insere nas estatísticas
-        $stat = new Stats;
-        $stat->type = 'accommodation';
-        $stat->content_id = $accommodationid;
-        $stat->save();
+
 
         //se não houver datas definidas, inicia com a data de hoje e seta a data de saida para dois dias a partir de hoje
         $today = date("Y-m-d");
@@ -34,39 +30,46 @@ class AccommodationController extends Controller
             $enddate = date('Y-m-d', strtotime($today. ' + 2 days'));
         }
 
+        $accommodation = Accommodations::with('descriptions')
+            ->with('pictures')
+            ->with('rates')
+            ->where('accommodations.slug','=', $accommodationslug)
+            ->first();
+
 
         $isfav = 0;
         if(auth()->id() != null) {
-            $favorites = Favorites::where('user_id', auth()->id())->where('accommodation_id', $accommodationid)->get();
+            $favorites = Favorites::where('user_id', auth()->id())->where('accommodation_id', $accommodation['AccommodationId'])->get();
             if(count($favorites)){
                 $isfav = 1;
             }
         }
 
-        $accommodation = Accommodations::with('descriptions')
-            ->with('pictures')
-            ->with('rates')
-            ->where('accommodations.AccommodationId','=', $accommodationid)
-            ->first();
+        //insere nas estatísticas
+        $stat = new Stats;
+        $stat->type = 'accommodation';
+        $stat->content_id = $accommodation['AccommodationId'];
+        $stat->save();
 
         $rates = \DB::table('rates')
-            ->where('AccommodationId','=', $accommodationid)
+            ->where('AccommodationId','=', $accommodation['AccommodationId'])
             ->where('StartDate', '>', "{$startdate}")
             ->where('EndDate', '<', "{$enddate}")
-            ->get()->first();
+            ->first();
 
 
         $occuppationalrules = \DB::table('occuppationalrules')
             ->select('occuppationalrules')
-            ->where('occuppationalrules.AccommodationId','=', $accommodationid)
+            ->where('occuppationalrules.AccommodationId','=', $accommodation['AccommodationId'])
             ->get();
 
         $services = Services::all();
 
-        //grava visita na sessão para mostrar em ultimos visitados
-        session()->push('accommodations.recent', $accommodationid);
 
-        $description = json_decode($accommodation->InternationalizedItem, true);
+        //grava visita na sessão para mostrar em ultimos visitados
+        session()->push('accommodations.recent', $accommodation['AccommodationId']);
+
+        $description = json_decode($accommodation->descriptions[0]['InternationalizedItem'], true);
         $features = json_decode($accommodation->Features, true);
         $localization = json_decode($accommodation->LocalizationData, true);
 

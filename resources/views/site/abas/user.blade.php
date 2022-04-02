@@ -89,11 +89,11 @@
                       ?>
 
                       <li class="d-flex gap-10 {{$accommodation->status  ?? ''}} {{$accommodation->booking_code  ?? ''}}">
-                          <a href="/accommodation/<?php echo $accommodation->AccommodationId; ?>">
+                          <a href="/aluguel/<?php echo $accommodation->slug; ?>">
                               <picture class="pic-p" style="background-image: url({{$thumbnail ?? ''}});"></picture>
                           </a>
                           <div>
-{{--                          <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>">--}}
+{{--                          <a href="aluguel/<?php echo $accommodation->slug; ?>">--}}
                               <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
                               <h4 class="texto-m mb-5"><?php echo $accommodation->District; ?></h4>
                               <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> {{date_format(date_create($accommodation->checkin_date),"d/m/y ")}} → {{date_format(date_create($accommodation->checkout_date),"d/m/y ")}}</h4>
@@ -135,11 +135,11 @@
                       ?>
 
                       <li class="d-flex gap-10">
-                          <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>">
+                          <a href="aluguel/<?php echo $accommodation->slug; ?>">
                               <picture class="pic-p" style="background-image: url({{$thumbnail ?? ''}});"></picture>
                           </a>
                           <div class="">
-                              <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>">
+                              <a href="aluguel/<?php echo $accommodation->slug; ?>">
                                   <h3 class="mb-5"><?php echo $accommodation->AccommodationName; ?></h3>
                                   <h4 class="texto-m mb-5">{{$accommodation->District ?? ''}}</h4>
                                   <h4 class="texto-p d-flex gap-5"><i class="icone-p texto-laranja uil uil-calender"></i> {{date_format(date_create($accommodation->start_date),"d/m/y ")}} → {{date_format(date_create($accommodation->end_date),"d/m/y ")}}</h4>

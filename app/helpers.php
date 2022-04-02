@@ -91,7 +91,7 @@ function getUserRecentlyViewed(){
     if(!empty($accommodations_session)) {
         $accommodations_session = array_reverse($accommodations_session);
         $recently_viewed = \DB::table('accommodations')
-            ->select('AccommodationName', 'AccommodationId')
+            ->select('AccommodationName', 'slug')
             //->where('AccommodationId','=',$accommodations_session)
             ->whereIn('accommodations.AccommodationId', $accommodations_session)
             ->take(10)

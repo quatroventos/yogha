@@ -21,7 +21,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     //home
     Route::get('/', 'HomeController')->name('home');
     //accommodation
-    Route::get('/accommodation/{accommodationid}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'AccommodationController@index');
+    Route::get('/aluguel/{accommodationslug}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'AccommodationController@index');
     //search
     Route::get('/autocomplete-search-query', 'SearchController@query');
     Route::get('/searchfilter/{district?}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'SearchController@filter');
@@ -71,14 +71,14 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
+//Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/importxml', 'App\Http\Controllers\ReadXMLController@index');
     Route::get('/importpics', 'App\Http\Controllers\ImportImagesController@index');
     Route::get('/clear-cache', function () {
         Cache::flush();
         echo "cache limpo";
     });
-});
+//});
 
 Route::namespace('App\Http\Controllers\Backend')->group(function() {
 

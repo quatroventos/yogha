@@ -27,7 +27,7 @@
                             <div class="row justify-content-between">
                                 <div class="col col-sm-12 grow-0 pe-0">
                                     <?php if(isset($pictures['Picture'][0]['OriginalURI'])){ ?>
-                                    <a href="accommodation/<?php echo $accommodation->AccommodationId; ?>">
+                                    <a href="aluguel/<?php echo $accommodation->slug; ?>">
                                         <picture class="pic-p" style="background-image: url(<?php echo $pictures['Picture'][0]['OriginalURI']; ?>);"></picture>
                                     </a>
                                     <?php } ?>

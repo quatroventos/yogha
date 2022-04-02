@@ -13,7 +13,7 @@
     <link rel="canonical" href="http://www.yogha.com.br/">
 
     <!--TITLE -->
-    <title>{{$accommodation->AccommodationName}} - Yogha - Sinta-se em casa</title>
+    <title>Aluguel em {{strtolower($description[0]['District']['Name'])}} - {{$description[0]['City']['Name'] ?? ''}} - {{$accommodation->AccommodationName}} - Yogha - Sinta-se em casa</title>
 
     <!-- BOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
@@ -126,7 +126,7 @@
             <div class="col">
 
                     <h2 class="texto-g mb-5">{{$accommodation->AccommodationName ?? ''}}</h2>
-{{--                <h3 class="texto-m mb-5"><a href="/searchbydistrict/{{strtolower($description[0]['District']['Name'])}}">{{$description[0]['District']['Name'] ?? ''}}</a> - {{$description[0]['City']['Name'] ?? ''}} - {{$description[0]['Region']['Name'] ?? ''}}</h3>--}}
+                <h3 class="texto-m mb-5"><a href="/searchbydistrict/{{strtolower($description[0]['District']['Name'])}}">{{$description[0]['District']['Name'] ?? ''}}</a> - {{$description[0]['City']['Name'] ?? ''}} - {{$description[0]['Region']['Name'] ?? ''}}</h3>
 
                 <p class="texto-m">
                     @if(empty($accommodation->Capacity) === false)

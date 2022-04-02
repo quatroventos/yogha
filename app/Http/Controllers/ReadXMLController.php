@@ -9,6 +9,7 @@ use App\Models\Accommodations;
 use App\Models\Availabilities;
 use App\Models\Descriptions;
 use App\Models\Rates;
+use Illuminate\Support\Str;
 
 class ReadXMLController extends Controller
 {
@@ -21,20 +22,20 @@ class ReadXMLController extends Controller
 
         //truncate das tabelas
 
-////        \DB::table('accommodations')->truncate();
-////        echo "accommodations apagada<br>";
+        \DB::table('accommodations')->truncate();
+        echo "accommodations apagada<br>";
         \DB::table('descriptions')->truncate();
         echo "descriptions apagada<br>";
-//        \DB::table('rates')->truncate();
-////        echo "rates apagada<br>";
-////        \DB::table('localizations')->truncate();
-//        echo "localizations apagada<br>";
-//        \DB::table('occuppationalrules')->truncate();
-//        echo "occuppational rules apagada<br>";
+        \DB::table('rates')->truncate();
+        echo "rates apagada<br>";
+        \DB::table('localizations')->truncate();
+        echo "localizations apagada<br>";
+        \DB::table('occuppationalrules')->truncate();
+        echo "occuppational rules apagada<br>";
         \DB::table('availabilities')->truncate();
         echo "availabilities rules apagada<br>";
-//        \DB::table('rates')->truncate();
-//        echo "rates apagada<br>";
+        \DB::table('rates')->truncate();
+        echo "rates apagada<br>";
 
         /**
          * Download
@@ -71,30 +72,30 @@ class ReadXMLController extends Controller
             echo $file." descompactado<br>";
         }
 
-            $accommodationsXML = file_get_contents(public_path('xml/Accommodations.xml'));
-            $accommodationsObj = simplexml_load_string($accommodationsXML);
-            $accommodationsJson = json_encode($accommodationsObj);
-            $accommodationsArray = json_decode($accommodationsJson, true);
+        $accommodationsXML = file_get_contents(public_path('xml/Accommodations.xml'));
+        $accommodationsObj = simplexml_load_string($accommodationsXML);
+        $accommodationsJson = json_encode($accommodationsObj);
+        $accommodationsArray = json_decode($accommodationsJson, true);
 
-            $descriptionsXML = file_get_contents(public_path('xml/Descriptions.xml'));
-            $descriptionsObj = simplexml_load_string($descriptionsXML);
-            $descriptionsJson = json_encode($descriptionsObj);
-            $descriptionsArray = json_decode($descriptionsJson, true);
+        $descriptionsXML = file_get_contents(public_path('xml/Descriptions.xml'));
+        $descriptionsObj = simplexml_load_string($descriptionsXML);
+        $descriptionsJson = json_encode($descriptionsObj);
+        $descriptionsArray = json_decode($descriptionsJson, true);
 
-            $ratesXML = file_get_contents(public_path('xml/Rates.xml'));
-            $ratesObj = simplexml_load_string($ratesXML);
-            $ratesJson = json_encode($ratesObj);
-            $ratesArray = json_decode($ratesJson, true);
+        $ratesXML = file_get_contents(public_path('xml/Rates.xml'));
+        $ratesObj = simplexml_load_string($ratesXML);
+        $ratesJson = json_encode($ratesObj);
+        $ratesArray = json_decode($ratesJson, true);
 
-            $availabilityXML = file_get_contents(public_path('xml/Availabilities.xml'));
-            $availabilityObj = simplexml_load_string($availabilityXML);
-            $availabilityJson = json_encode($availabilityObj);
-            $availabilityArray = json_decode($availabilityJson, true);
+        $availabilityXML = file_get_contents(public_path('xml/Availabilities.xml'));
+        $availabilityObj = simplexml_load_string($availabilityXML);
+        $availabilityJson = json_encode($availabilityObj);
+        $availabilityArray = json_decode($availabilityJson, true);
 
-            $ocuppationalRulesXML = file_get_contents(public_path('xml/OccupationalRules.xml'));
-            $ocuppationalRulesObj = simplexml_load_string($ocuppationalRulesXML);
-            $ocuppationalRulesJson = json_encode($ocuppationalRulesObj);
-            $ocuppationalRulesArray = json_decode($ocuppationalRulesJson, true);
+        $ocuppationalRulesXML = file_get_contents(public_path('xml/OccupationalRules.xml'));
+        $ocuppationalRulesObj = simplexml_load_string($ocuppationalRulesXML);
+        $ocuppationalRulesJson = json_encode($ocuppationalRulesObj);
+        $ocuppationalRulesArray = json_decode($ocuppationalRulesJson, true);
 
 
         if(count($descriptionsArray['Accommodation']) > 0){
@@ -105,11 +106,11 @@ class ReadXMLController extends Controller
 
                 $internationalizedItem = json_encode($data['InternationalizedItem']);
 
-//                $pictures = json_encode($data['Pictures']);
+                $pictures = json_encode($data['Pictures']);
 
                 $dataArray[] = [
                     "AccommodationId" => $data['AccommodationId'],
-                    //"Pictures" => $pictures,
+                    "Pictures" => $pictures,
                     "InternationalizedItem" => $internationalizedItem
                 ];
 
@@ -120,8 +121,8 @@ class ReadXMLController extends Controller
             echo "Descrições importadas!<br>";
         }
 
-//        dd($availabilityArray);
-//        Availabilities
+        //dd($availabilityArray);
+        //Availabilities
         if(count($availabilityArray['AccommodationList']['Accommodation']) > 0){
 
             $dataArray = array();
@@ -170,12 +171,12 @@ class ReadXMLController extends Controller
 
             foreach($accommodationsArray['Accommodation'] as $index => $data){
 
-               $localizationData = json_encode($data['LocalizationData']);
-               $vat = json_encode($data['VAT']);
-               $features = json_encode($data['Features']);
-               $CheckInCheckOutInfo = json_encode($data['CheckInCheckOutInfo']);
+                $localizationData = json_encode($data['LocalizationData']);
+                $vat = json_encode($data['VAT']);
+                $features = json_encode($data['Features']);
+                $CheckInCheckOutInfo = json_encode($data['CheckInCheckOutInfo']);
 
-               $dataArray[] = [
+                $dataArray[] = [
                     "AccommodationId" => $data['AccommodationId'],
                     "UserId" => $data['UserId'],
                     "Company" => $data['Company'],
@@ -192,7 +193,8 @@ class ReadXMLController extends Controller
                     "Vat" => $vat,
                     "Features" => $features,
                     "CheckInCheckOutInfo" => $CheckInCheckOutInfo,
-               ];
+                    "slug" => Str::slug($data['UserKind'].' em '.$data['LocalizationData']['City']['Name'].' '.$data['AccommodationName'].' '.$data['AccommodationId'], '_'),
+                ];
 
 //               //importa Availability em outra tabela
 //               //dd($availabilityArray);
@@ -235,7 +237,7 @@ class ReadXMLController extends Controller
 //                                print_r($rateArray);
 //                             echo "</pre>";
                             Rates::insert($rateArray);
-                           // echo "Rate importada para a accommodation: " . $data['AccommodationId'] . "<br>";
+                            // echo "Rate importada para a accommodation: " . $data['AccommodationId'] . "<br>";
                         }
 
                     } else {
@@ -243,7 +245,7 @@ class ReadXMLController extends Controller
                     }
                 }//foreach
 
-                    //importa Occuppational Rules em outra tabela
+                //importa Occuppational Rules em outra tabela
                 foreach($ocuppationalRulesArray['OccupationalRule'] as $occupationalRule){
                     if ($occupationalRule['Id'] == $data['OccupationalRuleId']) {
                         foreach($occupationalRule['Season'] as $index => $season) {
@@ -278,7 +280,7 @@ class ReadXMLController extends Controller
                     }
                 }
 
-               //importa LocalizationData em outra tabela
+                //importa LocalizationData em outra tabela
                 $localizationArray = ["AccommodationId" => $data['AccommodationId']];
 
                 if(isset($data['LocalizationData']['City']['Name']) && empty($data['LocalizationData']['City']['Name']) === false) {
@@ -327,7 +329,7 @@ class ReadXMLController extends Controller
             echo "Localizações importadas!";
         }
 
-echo "fim!";
+        echo "fim!";
         //return view("xml-data");
     }
 }

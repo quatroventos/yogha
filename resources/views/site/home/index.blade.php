@@ -15,7 +15,7 @@
                 <div class="col col-sm-6">
                     <h1 class="text-center texto-branco mb-15"><strong>Sinta-se em casa onde estiver</strong></h1>
                     <a href="#!" class="btn d-flex btn-2 mb-15 switch" data-bs-toggle="collapse" data-bs-target="#aba-busca"><i class="uil uil-search"></i> Onde você quer morar hoje?</a>
-                    <a href="accommodation/{{$surpriseme[0]->AccommodationId}}" class="btn d-flex">Surpreenda-me!</a>
+                    <a href="aluguel/{{$surpriseme[0]->slug}}" class="btn d-flex">Surpreenda-me!</a>
                     </ul>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                     <ul>
                         @foreach($mostvisited as $accommodation)
                             <li>
-                                <a href="accommodation/{{$accommodation->AccommodationId}}" class="texto-marrom-escuro">
+                                <a href="aluguel/{{$accommodation->slug}}" class="texto-marrom-escuro">
                                     @foreach($accommodation->pictures as $key => $pic)
                                         @if($key == 0)
                                             <picture class="mb-10" style="background-image: url({{Storage::disk('s3')->url($pic['thumbnail'])}});"></picture>
@@ -88,7 +88,7 @@
                     <ul>
                         <?php foreach($discount->toArray() as $accommodation){?>
                         <li>
-                            <a href="accommodation/<?php echo $accommodation['AccommodationId']; ?>" class="texto-marrom-escuro">
+                            <a href="aluguel/<?php echo $accommodation['slug']; ?>" class="texto-marrom-escuro">
                                 @foreach($accommodation['pictures'] as $key => $pic)
                                     @if($key == 0)
                                         <picture class="mb-10" style="background-image: url({{Storage::disk('s3')->url($pic['thumbnail'])}});"></picture>
