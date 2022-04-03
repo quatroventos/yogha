@@ -1,7 +1,7 @@
 @extends('site.layouts.site')
 @section('content')
     <!-- HEADER -->
-    <header class="mb-30 pt-15" style="background-image: url('img/headers/quem-somos.png')">
+    <header class="mb-30 pt-15" style="background-image: url('{{'uploads/'.$home['headerimage']}}')">
         <div class="container h-100">
             <div class="row">
                 <div class="col">
@@ -22,127 +22,22 @@
         </div>
     </header>
 
+        <?php $title = $home['shelf1_title']; ?>
+        @include('site.home.shelf'.$home['shelf1_content'])
 
-    <!-- PROXIMIDADE -->
-        <!-- Mais visitados -->
-        <section class="mb-15">
-            <div class="container">
-                <div class="row mb-10">
-                    <div class="col">
-                        <h2><strong>Mais acessados</strong></h2>
-                    </div>
-                </div>
-                <div class="slider slide-3col">
+        <?php $title = $home['shelf2_title']; ?>
+        @include('site.home.shelf'.$home['shelf2_content'])
 
-                    <ul>
-                        @foreach($mostvisited as $accommodation)
-                            <li>
-                                <a href="aluguel/{{$accommodation->slug}}" class="texto-marrom-escuro">
-                                    @foreach($accommodation->pictures as $key => $pic)
-                                        @if($key == 0)
-                                            <picture class="mb-10" style="background-image: url({{Storage::disk('s3')->url($pic['thumbnail'])}});"></picture>
-                                        @endif
-                                    @endforeach
-                                    <h3 class="mb-5">{{$accommodation->AccommodationName}}</h3>
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
+        <?php $title = $home['shelf3_title']; ?>
+        @include('site.home.shelf'.$home['shelf3_content'])
 
-                </div>
-            </div>
-        </section>
+        <?php $title = $home['shelf4_title']; ?>
+        @include('site.home.shelf'.$home['shelf4_content'])
 
-        <!-- MAPA -->
-        <section class="mapa-chamada mb-30">
-            <div class="container">
-                <div class="row mx-0">
-                    <div class="col">
-                        <div class="row align-items-center justify-content-between">
-                            <div class="col mb-10 grow-0 pe-0">
-                                <i class="icone-g uil uil-map-marker"></i>
-                            </div>
-                            <div class="col mb-10">
-                                <h3><strong>Curitiba</strong></h3>
-                                <h4 class="texto-m"><strong>{{$total_accommodations}} opções</strong> perto de você</h4>
-                            </div>
-                            <div class="col-12 col-sm-5">
-                                <a href="#!" class="btn d-flex btn-2 mb-15 switch" data-bs-toggle="collapse" data-bs-target="#aba-busca"><i class="uil uil-search"></i> Pesquisar</a>
-{{--                                <a href="{{URL::to('/searchbydistrict/batel/')}}" class="btn d-flex btn-2">Pesquisar</a>--}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <?php $title = $home['shelf5_title']; ?>
+        @include('site.home.shelf'.$home['shelf5_content'])
 
-        <!-- DESCONTOS -->
-        <section class="mb-15">
-            <div class="container">
-                <div class="row mb-10">
-                    <div class="col">
-                        <h2><strong>Descontos exclusivos</strong></h2>
-                    </div>
-                </div>
-                <div class="slider slide-3col">
-                    <ul>
-                        <?php foreach($discount->toArray() as $accommodation){?>
-                        <li>
-                            <a href="aluguel/<?php echo $accommodation['slug']; ?>" class="texto-marrom-escuro">
-                                @foreach($accommodation['pictures'] as $key => $pic)
-                                    @if($key == 0)
-                                        <picture class="mb-10" style="background-image: url({{Storage::disk('s3')->url($pic['thumbnail'])}});"></picture>
-                                    @endif
-                                @endforeach
-                                <h3 class="mb-5"><?php echo $accommodation['AccommodationName']; ?></h3>
-                                <h4 class="texto-m d-flex gap-5">a partir de <strong class="texto-laranja">R${{$accommodation['Price']}}</strong>/noite</h4>
-                            </a>
-                        </li>
-                        <?php } ?>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- CORPORATIVO -->
-        <section id="corporativo" class="mb-30">
-            <div class="container d-flex justify-content-center">
-                <div class="row">
-                    <div class="col-8 col-sm-4 align-items-start">
-                        <h4 class="texto-laranja texto-m mb-10"><strong>Corporativo</strong></h4>
-                        <h3 class="texto-branco mb-15">Vantagens especiais para parceiros Yogha</h3>
-                        <a href="{{URL::to('/corporativo')}}" class="btn btn-2">Saiba mais</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PROCURADOS -->
-        <section class="mb-15">
-            <div class="container">
-                <div class="row mb-10">
-                    <div class="col">
-                        <h2><strong>Bairros populares</strong></h2>
-                    </div>
-                </div>
-                <div class="row mb-10">
-                    <div class="col">
-                        <div class="slider slide-3col text-center texto-m texto-branco">
-                            <ul>
-                                <?php foreach($populardistricts as $populardistrict){ ?>
-                                <li>
-                                    <a href="{{URL::to('/searchbydistrict/'.$populardistrict->District)}}" class="btn d-flex" style="height:130px; border-radius: 10px;">{{$populardistrict->District}}</a>
-                                </li>
-                                <?php } ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ALUGUE -->
+        <!-- CTA -->
         <section class="mb-30">
             <div class="container">
                 <div class="row justify-content-center">

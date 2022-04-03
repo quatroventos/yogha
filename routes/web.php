@@ -29,11 +29,6 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     //services
     //Route::get('/service_details/{serviceid}', 'ServicesController@show_details');
 
-    //blog
-    Route::get('/blog/{category}/{slug}', 'BlogController@category')->name('blog.category');
-    Route::get('/blog/{slug}', 'BlogController@post')->name('blog.post');
-    Route::get('/blog', 'BlogController@index')->name('blog');
-
     Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         //checkout
         Route::get('/check_availability/{accommodationid}/{startdate?}/{enddate?}/{adults?}/{children?}/{ages?}', 'CheckoutController@check_availability');
@@ -75,25 +70,15 @@ Route::namespace('App\Http\Controllers\Backend')->group(function() {
 
     Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::get('/admin', 'AdminController@index')->name('dashboard');
-        Route::get('/admin/shelves', 'ShelvesController@index')->name('shelves');
-        Route::get('/admin/shelves/edit', 'ShelvesController@edit')->name('shelf.edit');
-        Route::get('/admin/shelves/update', 'ShelvesController@update')->name('shelf.update');
-        Route::post('/admin/shelves/create', 'ShelvesController@create')->name('shelf.create');
+
+        //home
+        Route::get('/admin/home', 'HomeController@index')->name('admin.home.edit');
+        Route::post('/admin/home/', 'HomeController@update')->name('admin.home.update');
 
         Route::get('/admin/services', 'ServicesController@index')->name('services');
         Route::get('/admin/services/edit', 'ServicesController@edit')->name('service.edit');
         Route::get('/admin/services/update', 'ServicesController@update')->name('service.update');
         Route::post('/admin/services/create', 'ServicesController@create')->name('service.create');
-
-        Route::get('/admin/blog', 'BlogController@index')->name('blog.index');
-        Route::get('/admin/blog/edit', 'BlogController@edit')->name('blog.edit');
-        Route::get('/admin/blog/update', 'BlogController@update')->name('blog.update');
-        Route::post('/admin/blog/create', 'BlogController@create')->name('blog.create');
-
-        Route::get('/admin/blog_cat', 'BlogController@cat_index')->name('blog_cat');
-        Route::get('/admin/blog_cat/edit', 'BlogController@edit_cat')->name('blog_cat.edit');
-        Route::get('/admin/blog_cat/update', 'BlogController@update_cat')->name('blog_cat.update');
-        Route::post('/admin/blog_cat/create', 'BlogController@create_cat')->name('blog_cat.create');
 
         Route::get('/admin/user', 'UserController@index')->name('user.index');
         Route::get('/admin/user/edit/{user_id?}', 'UserController@edit')->name('user.edit');

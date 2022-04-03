@@ -62,29 +62,29 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card ">
-                        <div class="card-header ">
-                            <h4 class="card-title">Reservas</h4>
-                        </div>
-                        <div class="card-body ">
-                            <div id="chartBooking" class="ct-chart"></div>
-                        </div>
-                        <div class="card-footer ">
-                            <div class="legend">
-                                <i class="fa fa-circle text-info"></i> dados
-                                <i class="fa fa-circle text-danger"></i> dados
-                                <i class="fa fa-circle text-warning"></i> dados
-                            </div>
-                            <hr>
-                            <div class="stats">
-                                <i class="fa fa-history"></i> <span class="alert-danger">Dados falsos, apenas para apresentação do gráfico, verificar api para dados reais</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{{--            <div class="row">--}}
+{{--                <div class="col-md-12">--}}
+{{--                    <div class="card ">--}}
+{{--                        <div class="card-header ">--}}
+{{--                            <h4 class="card-title">Reservas</h4>--}}
+{{--                        </div>--}}
+{{--                        <div class="card-body ">--}}
+{{--                            <div id="chartBooking" class="ct-chart"></div>--}}
+{{--                        </div>--}}
+{{--                        <div class="card-footer ">--}}
+{{--                            <div class="legend">--}}
+{{--                                <i class="fa fa-circle text-info"></i> dados--}}
+{{--                                <i class="fa fa-circle text-danger"></i> dados--}}
+{{--                                <i class="fa fa-circle text-warning"></i> dados--}}
+{{--                            </div>--}}
+{{--                            <hr>--}}
+{{--                            <div class="stats">--}}
+{{--                                <i class="fa fa-history"></i> <span class="alert-danger">Dados falsos, apenas para apresentação do gráfico, verificar api para dados reais</span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
     </div>
 @endsection

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Localizations;
@@ -19,6 +18,12 @@ class ReadXMLController extends Controller
      */
     public function index(Request $req)
     {
+
+        ini_set("memory_limit","-1");
+        set_time_limit(0);
+        ini_set("max_execution_time","0");
+        ignore_user_abort(true);
+
 
         //truncate das tabelas
 

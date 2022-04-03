@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Home;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Accommodations;
 use Illuminate\Http\Request;
@@ -32,19 +33,10 @@ class HomeController extends Controller
 
         $total_accommodations = \DB::table('accommodations')->count();
 
-        //descontos exclusivos (ordena pelo preço mais baixo)
-        $discount = \DB::table('accommodations')
-            ->select('accommodations.*','rates.*')
-            ->join('rates','rates.AccommodationId','=','accommodations.AccommodationId')
-            ->where('Price', '>', '30')
-            ->OrderBy('Price','ASC')
-            ->take(10)
-            ->get();
-
-
         $startdate = date("Y-m-d");
         $enddate = date('Y-m-d', strtotime($startdate. ' + 2 days'));
 
+        //descontos exclusivos (ordena pelo preço mais baixo)
         $discount = Accommodations::
         join('rates','rates.AccommodationId','=','accommodations.AccommodationId')
         ->where('rates.StartDate', '<', "{$startdate}")
@@ -61,7 +53,6 @@ class HomeController extends Controller
             ->orderBy('views_count', 'desc')
             ->take(10)
             ->get();
-
 
         //districts mais acessadas
         $populardistricts = \DB::table('localizations')
@@ -80,17 +71,11 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
-        //select prateleiras na home
-        $shelves = \DB::table('shelves')
-            ->select('shelves.*','shelf_layouts.layoutfile', 'shelf_filters.query')
-            ->leftJoin('shelf_layouts','shelf_layouts.id','=','shelves.shelfLayoutId')
-            ->leftJoin('shelf_filters','shelf_filters.id','=','shelves.shelfFilterId')
-            ->get();
-
+        $home = Home::first();
 
         return view('site.home.index', compact(
+            'home',
             'accommodations',
-            'shelves',
             'recently_viewed',
             'surpriseme',
             'user',

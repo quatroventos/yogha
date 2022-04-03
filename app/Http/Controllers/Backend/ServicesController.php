@@ -49,7 +49,6 @@ class ServicesController extends Controller
             'avantioServiceId' => ['required', 'integer', 'min:1'],
             'description' => ['required', 'srting', 'min:3'],
             'file' => 'required|jpg, png, gif|max:2048',
-
         ]);
     }
 

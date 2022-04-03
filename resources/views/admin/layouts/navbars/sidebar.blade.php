@@ -17,9 +17,9 @@ Tip 2: you can also add an image using data-image tag
             </li>
 
             <li class="nav-item @if($activePage == 'shelves') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'admin/shelves')}}">
+                <a class="nav-link" href="{{route('page.index', 'admin/home')}}">
                     <i class="nc-icon nc-layers-3"></i>
-                    <p>Prateleiras</p>
+                    <p>Home</p>
                 </a>
             </li>
 
@@ -31,16 +31,9 @@ Tip 2: you can also add an image using data-image tag
             </li>
 
             <li class="nav-item @if($activePage == 'blog') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'admin/blog')}}">
+                <a class="nav-link" href="/blog/wp-admin">
                     <i class="nc-icon nc-notes"></i>
-                    <p>Posts do blog</p>
-                </a>
-            </li>
-
-            <li class="nav-item @if($activePage == 'blog_cat') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'admin/blog_cat')}}">
-                    <i class="nc-icon nc-notes"></i>
-                    <p>Categorias do blog</p>
+                    <p>Blog</p>
                 </a>
             </li>
 

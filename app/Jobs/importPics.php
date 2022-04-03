@@ -35,13 +35,6 @@ class importPics implements ShouldQueue
      */
     public function handle()
     {
-
-        if(config('app.env') == 'production'){
-            $storage = "s3";
-        }else{
-            $storage = "s3";
-        }
-
         $contents = file_get_contents($this->original);
         $urlchunks = explode("/",$this->original);
         $dirname = $urlchunks[count($urlchunks)-2];
@@ -51,9 +44,9 @@ class importPics implements ShouldQueue
         $localFull =  $filepath . $filename;
         $localThumb =  $filepath . 'th_'.$filename;
 
-        Storage::disk($storage)->put($localFull, $contents, 'public');
+        Storage::disk('s3')->put($localFull, $contents, 'public');
 
         $thumbnail = Image::make($contents)->resize(500,250);
-        Storage::disk($storage)->put($localThumb, $thumbnail->encode(), 'public');
+        Storage::disk('s3')->put($localThumb, $thumbnail->encode(), 'public');
     }
 }
